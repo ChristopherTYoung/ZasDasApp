@@ -1,0 +1,6 @@
+@ZasAndDasAPI_HostAddress = http://localhost:5075
+
+GET {{ZasAndDasAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
