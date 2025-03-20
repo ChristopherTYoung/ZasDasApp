@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/ZasAndDasAPI/obj
+/ZasAndDasAPI.Tests/bin/Debug/net9.0
+/ZasAndDasAPI.Tests/obj
+/ZasAndDasMobile/obj
+/ZasAndDasMobile.Tests/obj
+/ZasAndDasWeb.Tests/bin
+/ZasAndDasWeb.Tests/obj
+/ZasAndDasWeb/obj
