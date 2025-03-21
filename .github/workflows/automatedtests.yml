@@ -8,10 +8,11 @@ jobs:
       runs-on: self-hosted
       steps:
       - uses: actions/checkout@v4
-      - name: run tests
-        run: |
-          sudo dotnet workload restore
-          dotnet test
-          echo test ran
+  
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
+
 
     
