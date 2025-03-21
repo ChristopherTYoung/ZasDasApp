@@ -11,3 +11,7 @@
 /ZasAndDasWeb.Tests/bin
 /ZasAndDasWeb.Tests/obj
 /ZasAndDasWeb/obj
+/ZasAndDasAPI/bin/Debug/net9.0
+/ZasAndDasMobile/bin/Debug
+/ZasAndDasMobile.Tests/bin/Debug/net9.0
+/ZasAndDasWeb/bin/Debug/net9.0
