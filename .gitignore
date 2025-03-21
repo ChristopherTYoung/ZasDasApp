@@ -480,5 +480,12 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# Vim temporary swap files
-*.swp
+/.vs
+/ZasAndDasAPI/obj
+/ZasAndDasAPI.Tests/bin/Debug/net9.0
+/ZasAndDasAPI.Tests/obj
+/ZasAndDasMobile/obj
+/ZasAndDasMobile.Tests/obj
+/ZasAndDasWeb.Tests/bin
+/ZasAndDasWeb.Tests/obj
+/ZasAndDasWeb/obj

@@ -1,0 +1,17 @@
+name: automated testing
+on:
+- push
+- workflow_dispatch
+
+jobs:
+    test:
+      runs-on: self-hosted
+      steps:
+      - uses: actions/checkout@v4
+      - name: run tests
+        run: |
+          dotnet workload restore
+          dotnet test
+          echo test ran
+
+    
