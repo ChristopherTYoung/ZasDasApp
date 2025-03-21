@@ -7,7 +7,7 @@ public record Pizza
 {
     public string Name { set; get; } = "";
     public PizzaSize Size { set; get; } //size indeed matters
-
+    public double Price { set; get; }
     public string Description;
     public List<Ingredient> Ingredients { set; get; }
 }
