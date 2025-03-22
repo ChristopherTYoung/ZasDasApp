@@ -1,6 +1,6 @@
 ﻿using ZasAndDasMobile.ViewModels;
 
-namespace ZasAndDasMobile.Views
+namespace ZasAndDasMobile
 {
     public partial class MainPage : ContentPage
     {
