@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using ZasAndDasMobile.Services;
+using ZasAndDasMobile.ViewModels;
+using ZasAndDasMobile.Views;
 
 namespace ZasAndDasMobile
 {
@@ -18,7 +21,9 @@ namespace ZasAndDasMobile
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-
+            builder.Services.AddSingleton(_ => PizzaService.TestPizzas());
+            builder.Services.AddSingleton<MainPageViewModel>();
+            builder.Services.AddSingleton<MainPage>();
             return builder.Build();
         }
     }
