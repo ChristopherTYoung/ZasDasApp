@@ -22,11 +22,13 @@ namespace ZasAndDasMobile.ViewModels
         public MainPageViewModel(PizzaService service)
         {
             _service = service;
+            Sync();
+        }
+        private void Sync()
+        {
             PizzaList = new ObservableCollection<PizzaViewModel>();
             foreach (var pizza in _service.GetAllPizzas())
-            {
                 PizzaList.Add(new PizzaViewModel(pizza));
-            }
         }
     }
 }
