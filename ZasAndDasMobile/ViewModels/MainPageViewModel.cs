@@ -18,7 +18,6 @@ namespace ZasAndDasMobile.ViewModels
         public string Rows => $"{DeviceDisplay.Current.MainDisplayInfo.Height - 200}";
 
         [ObservableProperty]
-        
         private ObservableCollection<PizzaViewModel> pizzaList;
 
         public MainPageViewModel(PizzaService service)
