@@ -29,6 +29,8 @@ namespace ZasAndDasMobile.Services
                                        .AddPizza(new Pizza() { Name = "Pizza2", Description = "This is also a pizza", Price = 5.99 })
                                        .AddPizza(new Pizza() { Name = "Pizza2", Description = "This is also a pizza", Price = 5.99 })
                                        .AddPizza(new Pizza() { Name = "Pizza2", Description = "This is also a pizza", Price = 5.99 })
+                                       .AddPizza(new Pizza() { Name = "Pizza2", Description = "This is also a pizza", Price = 5.99 })
+                                       .AddPizza(new Pizza() { Name = "Pizza2", Description = "This is also a pizza", Price = 5.99 })
                                        .AddPizza(new Pizza() { Name = "Pizza3", Description = "This is not a pizza", Price = 6.99 });
         }
     }

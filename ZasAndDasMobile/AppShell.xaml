@@ -3,24 +3,13 @@
     x:Class="ZasAndDasMobile.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:ZasAndDasMobile.Views"
+    xmlns:local="clr-namespace:ZasAndDasMobile"
     Shell.FlyoutBehavior="Flyout"
     Title="ZasAndDasMobile">
-    <TabBar>
-        <Tab Title="Main"
-             Icon="pizza.png">
-            <ShellContent
-                Title="Home"
-                ContentTemplate="{DataTemplate local:MainPage}"
-                Route="MainPage" />
-        </Tab>
-        <Tab Title="Checkout"
-             Icon="pizza.png">
-            <ShellContent
-                Title="Home"
-                ContentTemplate="{DataTemplate local:Checkout}"
-                Route="MainPage"/>
-        </Tab>
-    </TabBar>
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
 
 </Shell>
