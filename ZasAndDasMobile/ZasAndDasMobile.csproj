@@ -70,4 +70,16 @@
 	  <ProjectReference Include="..\ZasUndDas.Shared\ZasUndDas.Shared.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Views\Checkout.xaml.cs">
+	    <DependentUpon>Checkout.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\Checkout.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>
