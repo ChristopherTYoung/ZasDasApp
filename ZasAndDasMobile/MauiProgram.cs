@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using ZasAndDasMobile.Services;
 using ZasAndDasMobile.ViewModels;
+using ZasAndDasMobile.Views;
 
 namespace ZasAndDasMobile
 {
