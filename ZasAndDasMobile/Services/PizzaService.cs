@@ -11,6 +11,7 @@ namespace ZasAndDasMobile.Services
     public class PizzaService
     {
         List<Pizza> pizzas = new List<Pizza>();
+        List<Pizza> cart = new List<Pizza>();
         public List<Pizza> GetAllPizzas()
         {
             return pizzas.ToList();
