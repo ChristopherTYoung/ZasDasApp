@@ -18,7 +18,7 @@
             <Button Text="Order"
                     WidthRequest="100"
                     HeightRequest="20"
-                    CornerRadius="60"
+                    CornerRadius="30"
                     Grid.Column="2"
                     Background="#00FFFFFF"
                     BorderWidth="1.5" 
