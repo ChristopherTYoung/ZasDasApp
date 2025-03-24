@@ -3,17 +3,13 @@ using System.Drawing;
 
 namespace ZasUndDas.Shared;
 
-public record Pizza
+public record Pizza : IStoreItem
 {
-    public string Name { set; get; } = "";
+    public int Id { set; get; }
     public PizzaSize Size { set; get; } //size indeed matters
-    public double Price { set; get; }
-    public string Description;
-    public List<Ingredient> Ingredients { set; get; }
-}
-public record Ingredient
-{
-    public string Name { set; get; }
-    public string Description { set; get; }
+    public string Name { set; get; } = "CYO";
+    public double Price { set; get; } = 0d;
+    public string Description { set; get; } = string.Empty;
+    public List<Ingredient> Ingredients { set; get; } = new List<Ingredient>();
 }
 public enum PizzaSize { small, medium, large}

@@ -15,7 +15,7 @@ namespace ZasAndDasMobile.ViewModels
 
     public partial class MainPageViewModel : ObservableObject
     {
-        PizzaService _service;
+        MenuItemService _service;
         public string Rows => $"{DeviceDisplay.Current.MainDisplayInfo.Height - 200}";
 
         [ObservableProperty]
@@ -31,7 +31,7 @@ namespace ZasAndDasMobile.ViewModels
         [ObservableProperty]
         private ObservableCollection<PizzaViewModel> pizzaList;
 
-        public MainPageViewModel(PizzaService service)
+        public MainPageViewModel(MenuItemService service)
         {
             PizzasAreVisible = true;
             DrinksAreVisible = false;
@@ -41,7 +41,7 @@ namespace ZasAndDasMobile.ViewModels
         private void Sync()
         {
             PizzaList = new ObservableCollection<PizzaViewModel>();
-            foreach (var pizza in _service.GetAllPizzas())
+            foreach (Pizza pizza in _service.GetAllPizzas())
                 PizzaList.Add(new PizzaViewModel(pizza));
         }
 

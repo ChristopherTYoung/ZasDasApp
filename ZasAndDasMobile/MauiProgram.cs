@@ -20,7 +20,7 @@ namespace ZasAndDasMobile
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-            builder.Services.AddSingleton(_ => PizzaService.TestPizzas());
+            builder.Services.AddSingleton(_ => MenuItemService.TestPizzas());
             builder.Services.AddSingleton<MainPageViewModel>();
             builder.Services.AddSingleton<MainPage>();
             return builder.Build();
