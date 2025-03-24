@@ -3,27 +3,49 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pageModels="clr-namespace:ZasAndDasMobile.ViewModels"
              x:Class="ZasAndDasMobile.MainPage"
+             Shell.NavBarIsVisible="False"
              x:DataType="pageModels:MainPageViewModel">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="200" />
-            <RowDefinition Height="{Binding Rows}" />
-        </Grid.RowDefinitions>
-        <Image Source="babeslogo2.png"
-                  HeightRequest="200"
-                   Grid.Row="0"/>
+    <Grid RowDefinitions="auto,*"
+          RowSpacing="50">
+        <Grid Grid.Row="0"
+              ColumnDefinitions="auto,*,auto,auto,auto"
+              ColumnSpacing="10"
+              BackgroundColor="Black"
+              Padding="10,0,10,0">
+            <Image Source="babeslogo2.png"
+                   HeightRequest="75"
+                   Grid.Column="0"/>
+            <Button Text="Order"
+                    WidthRequest="100"
+                    HeightRequest="20"
+                    CornerRadius="60"
+                    Grid.Column="2"
+                    Background="#00FFFFFF"
+                    BorderWidth="1.5" 
+                    BorderColor="White"/>
+            
+            <ImageButton Source="cart_icon.png"
+                   Grid.Column="3"
+                   MaximumWidthRequest="32"
+                   MaximumHeightRequest="32"
+                   CornerRadius="32"/>
+            
+            <Label Text="1" 
+                   TextColor="White"
+                   VerticalOptions="Center"
+                   FontSize="16"
+                   Grid.Column="4"/>
+        </Grid>
 
-            <ScrollView Grid.Row="1">
-                
-            <Border
-                Padding="0"
-                StrokeShape="RoundRectangle 40,40,40,40">
-                <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
-                    <CollectionView ItemsSource="{Binding PizzaList}" >
+
+        <ScrollView Grid.Row="1">
+
+            <VerticalStackLayout>
+                <CollectionView ItemsSource="{Binding PizzaList}" 
+                                    HorizontalOptions="Center">
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="pageModels:PizzaViewModel">
+                            <DataTemplate x:DataType="pageModels:PizzaViewModel"
+                                          >
                                 <Border
                             Padding="30,30"
                             StrokeShape="RoundRectangle 40,40,40,40">
@@ -42,9 +64,19 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                </VerticalStackLayout>
-            </Border>
+                <Grid Grid.Row="2"
+                  ColumnDefinitions="auto,*,*"
+                  RowDefinitions="auto,*"
+                  RowSpacing="10"
+                  BackgroundColor="Black">
+                    <Label Text="Location &amp; Hours (Need better solution lol)"
+                       TextColor="White"
+                       FontSize="17"
+                       Grid.Column="0"/>
+                </Grid>
+            </VerticalStackLayout>
             </ScrollView>
+
     </Grid>
 
 </ContentPage>
