@@ -10,7 +10,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: example
         run: |
-            dotnet workload restore
+            sudo apt-get install -y aspnetcore-runtime-9.0
+            sudo dotnet workload restore
             dotnet build
 
     
