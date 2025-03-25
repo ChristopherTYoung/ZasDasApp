@@ -3,6 +3,5 @@ WORKDIR /app
 
 COPY . .
 
-RUN dotnet workload install maui
-RUN dotnet workload restore
-CMD dotnet test
+
+CMD dotnet test ZasAndDasMobile.Tests
