@@ -3,5 +3,5 @@ WORKDIR /app
 
 COPY . .
 
-RUN dotnet workload restore --version net9.0
+RUN dotnet workload restore --ignore-failed-sources
 CMD dotnet test
