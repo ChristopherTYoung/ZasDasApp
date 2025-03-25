@@ -18,7 +18,7 @@
             <Button Text="Order"
                     WidthRequest="100"
                     HeightRequest="20"
-                    CornerRadius="60"
+                    CornerRadius="30"
                     Grid.Column="2"
                     Background="#00FFFFFF"
                     BorderWidth="1.5" 
@@ -41,9 +41,21 @@
         <ScrollView Grid.Row="1">
 
             <VerticalStackLayout>
-                <CollectionView ItemsSource="{Binding PizzaList}" 
+                <Border HeightRequest="100"
+                        BackgroundColor="LightGray">
+                    <HorizontalStackLayout>
+
+                        <ImageButton Source="pizza.png"
+                                     Command="{Binding ShowPizzasCommand}" />
+                        <ImageButton Source="doodle_drink.png"
+                                     Command="{Binding ShowDrinksCommand}" />
+                        
+                    </HorizontalStackLayout>
+                </Border>
+                <VerticalStackLayout IsVisible="{Binding PizzasAreVisible}">
+                    <CollectionView ItemsSource="{Binding PizzaList}" 
                                     HorizontalOptions="Center">
-                        <CollectionView.ItemTemplate>
+                    <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="pageModels:PizzaViewModel"
                                           >
                                 <Border
@@ -64,6 +76,7 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
+                </VerticalStackLayout>
                 <Grid Grid.Row="2"
                   ColumnDefinitions="auto,*,*"
                   RowDefinitions="auto,*"

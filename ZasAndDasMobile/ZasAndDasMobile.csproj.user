@@ -4,11 +4,11 @@
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup>
-    <ActiveDebugProfile>Android Emulator</ActiveDebugProfile>
-    <ActiveDebugFramework>net9.0-android</ActiveDebugFramework>
+    <ActiveDebugProfile>Windows Machine</ActiveDebugProfile>
+    <ActiveDebugFramework>net9.0-windows10.0.19041.0</ActiveDebugFramework>
     <IsFirstTimeProjectOpen>False</IsFirstTimeProjectOpen>
     <SelectedPlatformGroup>Emulator</SelectedPlatformGroup>
-    <DefaultDevice>pixel_7_-_api_34</DefaultDevice>
+    <DefaultDevice>pixel_7_-_api_35</DefaultDevice>
   </PropertyGroup>
   <ItemGroup>
     <None Update="App.xaml">
