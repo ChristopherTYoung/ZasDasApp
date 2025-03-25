@@ -15,6 +15,9 @@ namespace ZasAndDasMobile.Services
 
         public void AddToCart(IStoreItem item)
         {
+            if (item.Price < 0)
+                throw new InvalidOperationException();
+
             cart.Add(item);
         }
 

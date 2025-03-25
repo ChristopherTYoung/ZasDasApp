@@ -103,21 +103,24 @@ namespace ZasAndDasMobile.Tests
             cart.CalculateTotal().ShouldBe(4.99);
         }
 
+        [Theory]
+        [InlineData(5, 6, 11)]
+        [InlineData(5.001, 6, 11)]
+        [InlineData(5.006, 6, 11.01)]
+        public void CalculatePrice_WithTwoItems(double price1, double price2, double result)
+        {
+            var cart = new CartService();
+            cart.AddToCart(new Pizza { Id = 1, Price = price1 });
+            cart.AddToCart(new Pizza { Id = 2, Price = price2 });
+            cart.CalculateTotal().ShouldBe(result);
+        }
+
         [Fact]
-        public void CalculatePrice_WithTwoItems()
+        public void PriceCannotBeNegative()
         {
             var cart = new CartService();
             cart.AddToCart(new Pizza { Id = 1, Price = 5 });
-            cart.AddToCart(new Pizza { Id = 1, Price = 6 });
-            cart.CalculateTotal().ShouldBe(11);
-        }
-        [Fact]
-        public void PriceIsRounded()
-        {
-            var cart = new CartService();
-            cart.AddToCart(new Pizza { Id = 1, Price = 5.001 });
-            cart.AddToCart(new Pizza { Id = 1, Price = 6 });
-            cart.CalculateTotal().ShouldBe(11);
+            Should.Throw<InvalidOperationException>(() => cart.AddToCart(new Pizza { Id = 1, Price = -6 }));
         }
     }
 }
