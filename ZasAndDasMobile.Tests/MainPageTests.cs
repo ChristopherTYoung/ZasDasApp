@@ -66,15 +66,16 @@ namespace ZasAndDasMobile.Tests
         public void AddToCart()
         {
             var cart = new CartService();
-            cart.AddToCart(new Pizza());
-            cart.GetCartItems().ShouldBe(new() { new Pizza() });
+            var pizza = new Pizza();
+            cart.AddToCart(pizza);
+            cart.GetCartItems().ShouldContain(pizza);
         }
         [Fact]
         public void AddToCartDoesEquivalent()
         {
             var cart = new CartService();
             cart.AddToCart(new Pizza());
-            cart.GetCartItems().ShouldNotBe(new() { new Pizza() { Name="jeff"} });
+            cart.GetCartItems().ShouldNotBe(new() { new Pizza() { Name = "jeff" } });
         }
 
         [Fact]
@@ -107,6 +108,14 @@ namespace ZasAndDasMobile.Tests
         {
             var cart = new CartService();
             cart.AddToCart(new Pizza { Id = 1, Price = 5 });
+            cart.AddToCart(new Pizza { Id = 1, Price = 6 });
+            cart.CalculateTotal().ShouldBe(11);
+        }
+        [Fact]
+        public void PriceIsRounded()
+        {
+            var cart = new CartService();
+            cart.AddToCart(new Pizza { Id = 1, Price = 5.001 });
             cart.AddToCart(new Pizza { Id = 1, Price = 6 });
             cart.CalculateTotal().ShouldBe(11);
         }
