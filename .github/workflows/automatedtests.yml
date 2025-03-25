@@ -10,7 +10,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: example
         run: |
-            sudo apt-get update && \
-            sudo apt-get install -y dotnet-sdk-9.0
-            sudo dotnet workload restore
-            dotnet build
+          docker build \
+          -f ./test.Dockerfile \
+          -t chris_test_container \
+          .
+          docker run --rm chris_test_container
