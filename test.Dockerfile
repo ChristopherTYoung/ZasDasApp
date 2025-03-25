@@ -3,4 +3,5 @@ WORKDIR /app
 
 COPY . .
 
+RUN dotnet workload restore
 CMD dotnet test
