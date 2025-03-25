@@ -4,4 +4,4 @@ WORKDIR /app
 COPY . .
 
 RUN dotnet workload restore
-CMD dotnet test
+CMD dotnet test -f net9.0
