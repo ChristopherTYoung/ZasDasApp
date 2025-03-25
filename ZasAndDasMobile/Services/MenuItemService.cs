@@ -29,13 +29,13 @@ namespace ZasAndDasMobile.Services
         public List<Drink> GetAllDrinks()
         {
             return menuItems.Where(i => i.GetType() == typeof(Drink))
-                            .Select(p=>(Drink)p)
+                            .Select(p => (Drink)p)
                             .ToList();
         }
 
         internal static MenuItemService TestPizzas()
         {
-            return (new MenuItemService()).AddItemToMenu(new Pizza() { Name="Pizza1", Description="This is a pizza", Price=4.99 })
+            return (new MenuItemService()).AddItemToMenu(new Pizza() { Name = "Pizza1", Description = "This is a pizza", Price = 4.99 })
                                        .AddItemToMenu(new Pizza() { Name = "Pizza2", Description = "This is also a pizza", Price = 5.99 })
                                        .AddItemToMenu(new Pizza() { Name = "Pizza2", Description = "This is also a pizza", Price = 5.99 })
                                        .AddItemToMenu(new Pizza() { Name = "Pizza2", Description = "This is also a pizza", Price = 5.99 })

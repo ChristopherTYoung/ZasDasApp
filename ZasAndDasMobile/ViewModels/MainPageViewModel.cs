@@ -21,21 +21,22 @@ namespace ZasAndDasMobile.ViewModels
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(ShowPizzasCommand))]
         [NotifyCanExecuteChangedFor(nameof(ShowDrinksCommand))]
-        private bool pizzasAreVisible;
+        public partial bool PizzasAreVisible { set; get; }
 
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof (ShowDrinksCommand))]
+        [NotifyCanExecuteChangedFor(nameof(ShowDrinksCommand))]
         [NotifyCanExecuteChangedFor(nameof(ShowPizzasCommand))]
-        private bool drinksAreVisible;
+        public partial bool DrinksAreVisible { set; get; }
 
         [ObservableProperty]
-        private ObservableCollection<PizzaViewModel> pizzaList;
+        public partial ObservableCollection<PizzaViewModel> PizzaList { set; get; }
 
         public MainPageViewModel(MenuItemService service)
         {
             PizzasAreVisible = true;
             DrinksAreVisible = false;
             _service = service;
+            PizzaList = new ObservableCollection<PizzaViewModel>();
             Sync();
         }
         private void Sync()
@@ -54,7 +55,7 @@ namespace ZasAndDasMobile.ViewModels
         }
         bool DrinksVis() => !DrinksAreVisible;
 
-        [RelayCommand(CanExecute =  nameof(DrinksVis))]
+        [RelayCommand(CanExecute = nameof(DrinksVis))]
         private void ShowDrinks()
         {
             DrinksAreVisible = true;
@@ -63,7 +64,6 @@ namespace ZasAndDasMobile.ViewModels
 
         private void UpdateTabs()
         {
-            
         }
     }
 }
