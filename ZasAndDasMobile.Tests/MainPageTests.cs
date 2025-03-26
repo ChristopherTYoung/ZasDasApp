@@ -110,6 +110,7 @@ namespace ZasAndDasMobile.Tests
             cart.AddToCart(new Pizza { Id = 1, Price = 6 });
             cart.CalculateTotal().ShouldBe(11);
         }
+
     }
 }
 
