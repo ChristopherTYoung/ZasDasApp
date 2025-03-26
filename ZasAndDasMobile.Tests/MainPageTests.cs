@@ -66,15 +66,16 @@ namespace ZasAndDasMobile.Tests
         public void AddToCart()
         {
             var cart = new CartService();
-            cart.AddToCart(new Pizza());
-            cart.GetCartItems().ShouldBe(new() { new Pizza() });
+            var pizza = new Pizza();
+            cart.AddToCart(pizza);
+            cart.GetCartItems().ShouldContain(pizza);
         }
         [Fact]
         public void AddToCartDoesEquivalent()
         {
             var cart = new CartService();
             cart.AddToCart(new Pizza());
-            cart.GetCartItems().ShouldNotBe(new() { new Pizza() { Name="jeff"} });
+            cart.GetCartItems().ShouldNotBe(new() { new Pizza() { Name = "jeff" } });
         }
 
         [Fact]
@@ -102,13 +103,24 @@ namespace ZasAndDasMobile.Tests
             cart.CalculateTotal().ShouldBe(4.99);
         }
 
+        [Theory]
+        [InlineData(5, 6, 11)]
+        [InlineData(5.001, 6, 11)]
+        [InlineData(5.006, 6, 11.01)]
+        public void CalculatePrice_WithTwoItems(double price1, double price2, double result)
+        {
+            var cart = new CartService();
+            cart.AddToCart(new Pizza { Id = 1, Price = price1 });
+            cart.AddToCart(new Pizza { Id = 2, Price = price2 });
+            cart.CalculateTotal().ShouldBe(result);
+        }
+
         [Fact]
-        public void CalculatePrice_WithTwoItems()
+        public void PriceCannotBeNegative()
         {
             var cart = new CartService();
             cart.AddToCart(new Pizza { Id = 1, Price = 5 });
-            cart.AddToCart(new Pizza { Id = 1, Price = 6 });
-            cart.CalculateTotal().ShouldBe(11);
+            Should.Throw<InvalidOperationException>(() => cart.AddToCart(new Pizza { Id = 1, Price = -6 }));
         }
 
     }

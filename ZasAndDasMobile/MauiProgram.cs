@@ -18,7 +18,7 @@ namespace ZasAndDasMobile
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
             builder.Services.AddSingleton(_ => MenuItemService.TestPizzas());
             builder.Services.AddSingleton<MainPageViewModel>();

@@ -15,6 +15,9 @@ namespace ZasAndDasMobile.Services
 
         public void AddToCart(IStoreItem item)
         {
+            if (item.Price < 0)
+                throw new InvalidOperationException();
+
             cart.Add(item);
         }
 
@@ -30,7 +33,7 @@ namespace ZasAndDasMobile.Services
             if (cart.Count == 0)
                 return 0;
 
-            return cart.Select(p => p.Price).Sum();
+            return Math.Round(cart.Select(p => p.Price).Sum(), 2);
         }
     }
 }
