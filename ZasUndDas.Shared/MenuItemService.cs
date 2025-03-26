@@ -9,8 +9,6 @@ namespace ZasUndDas.Shared
 {
     public class MenuItemService
     {
-        List<Pizza> pizzas = new List<Pizza>();
-        List<Drink> drinks = new List<Drink>();
         List<IStoreItem> menuItems = new List<IStoreItem>();
         public List<Pizza> GetAllPizzas()
         {
