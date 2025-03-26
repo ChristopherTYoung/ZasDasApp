@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
-using ZasAndDasMobile.Services;
 using ZasAndDasMobile.ViewModels;
-
+using ZasUndDas.Shared;
 namespace ZasAndDasMobile
 {
     public static class MauiProgram

@@ -1,7 +1,4 @@
-﻿using ZasAndDasMobile.Models;
-using ZasAndDasMobile.ViewModels;
-using ZasAndDasMobile.Services;
-using ZasUndDas.Shared;
+﻿using ZasUndDas.Shared;
 using Shouldly;
 namespace ZasAndDasMobile.Tests
 

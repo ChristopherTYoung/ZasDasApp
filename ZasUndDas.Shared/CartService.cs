@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZasUndDas.Shared;
 
-namespace ZasAndDasMobile.Services
+namespace ZasUndDas.Shared
 {
     public class CartService
     {

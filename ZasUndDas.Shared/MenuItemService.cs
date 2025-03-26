@@ -1,12 +1,11 @@
-﻿using Square;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZasUndDas.Shared;
 
-namespace ZasAndDasMobile.Services
+namespace ZasUndDas.Shared
 {
     public class MenuItemService
     {
@@ -33,7 +32,7 @@ namespace ZasAndDasMobile.Services
                             .ToList();
         }
 
-        internal static MenuItemService TestPizzas()
+        public static MenuItemService TestPizzas()
         {
             return (new MenuItemService()).AddItemToMenu(new Pizza() { Name = "Pizza1", Description = "This is a pizza", Price = 4.99 })
                                        .AddItemToMenu(new Pizza() { Name = "Pizza2", Description = "This is also a pizza", Price = 5.99 })

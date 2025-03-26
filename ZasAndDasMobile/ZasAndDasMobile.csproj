@@ -77,4 +77,8 @@
 	  <ProjectReference Include="..\ZasUndDas.Shared\ZasUndDas.Shared.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Services\" />
+	</ItemGroup>
+
 </Project>
