@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZasAndDasMobile.Services;
 using ZasUndDas.Shared;
 
 namespace ZasAndDasMobile.ViewModels

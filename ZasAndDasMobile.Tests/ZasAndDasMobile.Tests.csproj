@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ZasAndDasMobile\ZasAndDasMobile.csproj" />
     <ProjectReference Include="..\ZasUndDas.Shared\ZasUndDas.Shared.csproj" />
   </ItemGroup>
 
