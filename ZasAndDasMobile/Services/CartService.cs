@@ -30,9 +30,6 @@ namespace ZasAndDasMobile.Services
 
         public double CalculateTotal()
         {
-            if (cart.Count == 0)
-                return 0;
-
             return Math.Round(cart.Select(p => p.Price).Sum(), 2);
         }
     }

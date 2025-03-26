@@ -12,4 +12,4 @@ public record Pizza : IStoreItem
     public string Description { set; get; } = string.Empty;
     public List<Ingredient> Ingredients { set; get; } = new List<Ingredient>();
 }
-public enum PizzaSize { small, medium, large}
+public enum PizzaSize { small, medium, large }
