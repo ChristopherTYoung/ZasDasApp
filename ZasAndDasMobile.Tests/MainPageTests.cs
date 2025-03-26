@@ -5,12 +5,12 @@ namespace ZasAndDasMobile.Tests
 {
     public class MainPageTests
     {
-        [Fact]
+        [Fact ]
         public void Pizza()
         {
             var Pizzas = new MenuItemService();
         }
-        [Fact ]
+        [Fact]
         public void PizzaReturn()
         {
             var Pizzas = new MenuItemService();
