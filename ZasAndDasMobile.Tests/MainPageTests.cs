@@ -5,7 +5,7 @@ namespace ZasAndDasMobile.Tests
 {
     public class MainPageTests
     {
-        [Fact ]
+        [Fact]
         public void Pizza()
         {
             var Pizzas = new MenuItemService();
