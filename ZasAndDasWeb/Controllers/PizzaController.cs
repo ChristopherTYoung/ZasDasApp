@@ -5,7 +5,7 @@ namespace ZasAndDasWeb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PizzaController : ControllerBase
+    public class InventoryController : ControllerBase
     {
         [HttpGet]
         public List<IStoreItem> GetAll()

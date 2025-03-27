@@ -55,6 +55,8 @@ namespace ZasAndDas.IntegrationTests
                 price decimal NOT NULL
             );
 
+            INSERT INTO price_per_item (price) values (5.99);
+
             CREATE TABLE zasanddas.category (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 category_name VARCHAR(50) not null,
