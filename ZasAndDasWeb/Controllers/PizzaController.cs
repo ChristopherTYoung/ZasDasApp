@@ -8,7 +8,7 @@ namespace ZasAndDasWeb.Controllers
     public class PizzaController : ControllerBase
     {
         [HttpGet]
-        public Pizza GetAll()
+        public List<IStoreItem> GetAll()
         {
             return new();
         }
