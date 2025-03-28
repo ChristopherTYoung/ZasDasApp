@@ -32,7 +32,7 @@ jobs:
             ls
             docker build \
             -t nhowell02/zasanddas:${{github.run_id}} \
-            Dockerfile
+            .
 
 
             docker push nhowell02/zasanddas:${{github.run_id}}
