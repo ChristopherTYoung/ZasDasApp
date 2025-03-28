@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zas-db-dep
+  namespace: zasanddas
+  labels:
+    app: zas-db-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zas-db-dep
+  template:
+    metadata:
+      labels:
+        app: zas-db-dep
+    spec:
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: zas-db-pvc
+      - name: schema-init
+        configMap:
+          name: zas-init-sql
+      containers:
+      - name: zas-db-dep
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: data
+        - mountPath: /docker-entrypoint-initdb.d/init.sql
+          subPath: db-init
+          name: schema-init
+        image: postgres:16
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_PASSWORD
+          value: password
+        - name: POSTGRES_USER
+          value: postgres
+---
+ 

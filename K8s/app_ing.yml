@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: zas-web-ingress
+  namespace: 
+spec:
+  rules:
+  - host: "zasanddas.duckdns.org"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: chris-proj-06-svc
+            port:
+              number: 8080

@@ -36,3 +36,16 @@ jobs:
 
 
             docker push nhowell02/zasanddas:${{github.run_id}}
+
+    pushtokubernetes:
+        runs-on: self-hosted
+        needs: [test, pushtodocker]
+        steps:
+        - name: deploy to kubernetes
+          run: |
+            export BUILD_NUMBER=${{github.run_number}}
+
+            for FILE in "Kubernetes"/*
+            do
+              cat "$FILE \n---\n" | envsubst | kubectl apply -f -
+            done

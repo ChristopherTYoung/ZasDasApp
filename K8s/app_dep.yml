@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zas-web
+  namespace: zasanddas
+  labels:
+    app: zas-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zas-web
+  template:
+    metadata:
+      labels:
+        app: zas-web
+    spec:
+      containers:
+      - name: zas-web
+        image: nhowell02/zasanddas:$BUILD_NUMBER
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_CONN
+          value: Server=zas-db-svc;Username=postgres;Password=password;Database=postgres
