@@ -14,4 +14,4 @@ jobs:
           -f ./test.Dockerfile \
           -t chris_test_container \
           .
-          docker run --rm chris_test_container
+          docker run --rm chris_test_container -t

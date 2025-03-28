@@ -119,6 +119,10 @@ namespace ZasAndDasMobile.Tests
             cart.AddToCart(new Pizza { Id = 1, Price = 5 });
             Should.Throw<InvalidOperationException>(() => cart.AddToCart(new Pizza { Id = 1, Price = -6 }));
         }
-
+        [Fact]
+        public void PurposelyFailingTest()
+        {
+            throw new Exception("Pipeline Fails baby");
+        }
     }
 }
