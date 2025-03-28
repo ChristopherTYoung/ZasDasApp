@@ -43,7 +43,7 @@ jobs:
         steps:
         - name: deploy to kubernetes
           run: |
-            export BUILD_NUMBER=${{github.run_number}}
+            export BUILD_NUMBER=${{github.run_id}}
 
             for FILE in "K8s"/*
             do
