@@ -29,11 +29,10 @@ jobs:
 
        - name: Create container
          run: |
-            cd ZasAndDasWeb
             ls
             docker build \
             -t nhowell02/zasanddas:${{github.run_id}} \
-            .
+            Dockerfile
 
 
             docker push nhowell02/zasanddas:${{github.run_id}}
