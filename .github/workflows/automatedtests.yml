@@ -27,7 +27,7 @@ jobs:
            username: ${{ vars.DOCKERHUB_USERNAME }}
            password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-       - name: Create container
+       - name: Create container and push
          run: |
             ls
             docker build \
