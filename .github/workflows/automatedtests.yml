@@ -47,5 +47,5 @@ jobs:
 
             for FILE in "k8s"/*
             do
-              cat "$FILE \n---\n" | envsubst | kubectl apply -f -
+              cat "$FILE" | envsubst | kubectl apply -f -
             done
