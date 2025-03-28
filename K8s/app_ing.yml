@@ -12,6 +12,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: chris-proj-06-svc
+            name: zas-web-svc
             port:
               number: 8080
