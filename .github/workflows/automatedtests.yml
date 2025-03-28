@@ -32,5 +32,8 @@ jobs:
             cd Store
             ls
             docker build \
-            -t nhowell02/simpleapi:${{github.run_id}} \
+            -t nhowell02/zasanddas:${{github.run_id}} \
             .
+
+
+            docker push nhowell02/zasanddas:${{github.run_id}}
