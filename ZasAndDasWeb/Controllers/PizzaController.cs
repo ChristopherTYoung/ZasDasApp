@@ -9,13 +9,8 @@ namespace ZasAndDasWeb.Controllers
     [ApiController]
     public class InventoryController(PostgresContext context) : ControllerBase
     {
-        [HttpGet]
-        public List<IStoreItem> GetAll()
-        {
-            return new();
-        }
         [HttpGet("getallpizzabase")]
-        public async Task<IEnumerable<PizzaBase>> GetPizza()
+        public async Task<List<PizzaBase>> GetPizza()
         {
             return await context.PizzaBases.ToListAsync();
         }
@@ -34,9 +29,22 @@ namespace ZasAndDasWeb.Controllers
             return Results.Ok();
         }
         [HttpGet("getallprices")]
-        public async Task<IEnumerable<PricePerItem>> GetAllPrices()
+        public async Task<List<PricePerItem>> GetAllPrices()
         {
             return await context.PricePerItems.ToListAsync();
+        }
+        [HttpPost("addstockitem")]
+        public async Task<IResult> AddStockItem(StockItemDTO stockItem)
+        {
+            await context.StockItems.AddAsync(stockItem.ToStockItem());
+            await context.SaveChangesAsync();
+
+            return Results.Ok();
+        }
+        [HttpGet("getallstockitems")]
+        public async Task<List<StockItem>> GetAllStockItems()
+        {
+            return await context.StockItems.ToListAsync();
         }
     }
 }

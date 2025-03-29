@@ -17,10 +17,11 @@ namespace ZasAndDas.IntegrationTests
         {
             var client = _app.CreateClient();
             var price = new PricePerItem { Price = 6.99M };
-            await client.PostAsJsonAsync("/api/inventory/addbaseprice", price);
+            var response = await client.PostAsJsonAsync("/api/inventory/addbaseprice", price);
+            response.IsSuccessStatusCode.ShouldBeTrue();
 
             var prices = await client.GetFromJsonAsync<List<PricePerItem>>("/api/inventory/getallprices");
-            prices!.ShouldContain(prices!.First(p => p.Price == 6.99M));
+            prices!.First(p => p.Price == 6.99M).ShouldNotBeNull();
         }
 
         [Fact]
@@ -32,15 +33,19 @@ namespace ZasAndDas.IntegrationTests
             response.IsSuccessStatusCode.ShouldBeTrue();
 
             var pizzas = await client.GetFromJsonAsync<List<PizzaBase>>("/api/inventory/getallpizzabase");
-            pizzas!.ShouldContain(pizzas!.First(p => p.PizzaName == "The Za" && p.BasePriceId == 1));
+            pizzas!.First(p => p.PizzaName == "The Za" && p.BasePriceId == 1).ShouldNotBeNull();
         }
 
         [Fact]
         public async Task CanGetStockItem()
         {
             var client = _app.CreateClient();
+            var stockItem = new StockItemDTO { ItemName = "Diet Coke", ItemCategoryId = 1, BasePriceId = 2 };
+            var response = await client.PostAsJsonAsync("/api/inventory/addstockitem", stockItem);
+            response.IsSuccessStatusCode.ShouldBeTrue();
+
             var stockItems = await client.GetFromJsonAsync<IEnumerable<StockItem>>("/api/inventory/getallstockitems");
-            stockItems!.ShouldContain(stockItems!.First(s => s.ItemName == "Coke"));
+            stockItems!.FirstOrDefault(s => s.ItemName == "Diet Coke").ShouldNotBeNull();
         }
     }
 }
