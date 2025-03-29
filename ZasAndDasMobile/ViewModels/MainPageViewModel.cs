@@ -41,7 +41,7 @@ namespace ZasAndDasMobile.ViewModels
         private void Sync()
         {
             PizzaList = new ObservableCollection<PizzaViewModel>();
-            foreach (Pizza pizza in _service.GetAllPizzas())
+            foreach (PizzaDTO pizza in _service.GetAllPizzas())
                 PizzaList.Add(new PizzaViewModel(pizza));
         }
 

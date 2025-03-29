@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ZasAndDasWeb.Data;
+namespace ZasUndDas.Shared.Data;
 
 public partial class PizzaAddin
 {
@@ -15,5 +15,5 @@ public partial class PizzaAddin
 
     public virtual PAddin Addin { get; set; } = null!;
 
-    public virtual Pizza Pizza { get; set; } = null!;
+    public virtual Pizza _Pizza { get; set; } = null!;
 }

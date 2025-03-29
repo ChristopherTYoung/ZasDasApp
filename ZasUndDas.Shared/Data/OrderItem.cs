@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ZasAndDasWeb.Data;
+namespace ZasUndDas.Shared.Data;
 
 public partial class OrderItem
 {

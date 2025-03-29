@@ -2,7 +2,7 @@
 using Shouldly;
 using System.Net.Http.Json;
 using Xunit.Abstractions;
-using ZasAndDasWeb.Data;
+using ZasUndDas.Shared.Data;
 
 namespace ZasAndDas.IntegrationTests
 {
@@ -12,7 +12,6 @@ namespace ZasAndDas.IntegrationTests
         public APITests(WebApplicationFactory<Program> app, ITestOutputHelper outputHelper) : base(app, outputHelper)
         {
         }
-
         [Fact]
         public async Task CanAddABasePrice()
         {
@@ -21,18 +20,19 @@ namespace ZasAndDas.IntegrationTests
             await client.PostAsJsonAsync("/api/inventory/addbaseprice", price);
 
             var prices = await client.GetFromJsonAsync<List<PricePerItem>>("/api/inventory/getallprices");
-            prices.ShouldContain(price);
+            prices!.ShouldContain(prices!.First(p => p.Price == 6.99M));
         }
 
         [Fact]
         public async Task CanAddPizzaBase()
         {
             var client = _app.CreateClient();
-            var pizza = new PizzaBase { PizzaName = "The Za", BasePriceId = 1 };
-            await client.PostAsJsonAsync("/api/inventory/addpizzabase", pizza);
+            var pizza = new PizzaBaseDTO { PizzaName = "The Za", BasePriceId = 1 };
+            var response = await client.PostAsJsonAsync("/api/inventory/addpizzabase", pizza);
+            response.IsSuccessStatusCode.ShouldBeTrue();
 
-            var pizzas = await client.GetFromJsonAsync<List<PizzaBase>>("/api/inventory/getallpizza");
-            pizzas.ShouldContain(pizza);
+            var pizzas = await client.GetFromJsonAsync<List<PizzaBase>>("/api/inventory/getallpizzabase");
+            pizzas!.ShouldContain(pizzas!.First(p => p.PizzaName == "The Za" && p.BasePriceId == 1));
         }
     }
 }

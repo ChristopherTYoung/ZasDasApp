@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace ZasAndDasWeb.Data;
+namespace ZasUndDas.Shared.Data;
 
 public partial class PostgresContext : DbContext
 {
@@ -399,7 +399,7 @@ public partial class PostgresContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("pizza_addin_addin_id_fkey");
 
-            entity.HasOne(d => d.Pizza).WithMany(p => p.PizzaAddins)
+            entity.HasOne(d => d._Pizza).WithMany(p => p.PizzaAddins)
                 .HasForeignKey(d => d.PizzaId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("pizza_addin_pizza_id_fkey");

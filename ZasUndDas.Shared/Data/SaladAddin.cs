@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ZasAndDasWeb.Data;
+namespace ZasUndDas.Shared.Data;
 
-public partial class CalzonAddin
+public partial class SaladAddin
 {
     public int Id { get; set; }
 
-    public int CalzoneId { get; set; }
+    public int SaladId { get; set; }
 
     public int AddinId { get; set; }
 
@@ -15,5 +15,5 @@ public partial class CalzonAddin
 
     public virtual PAddin Addin { get; set; } = null!;
 
-    public virtual Calzone Calzone { get; set; } = null!;
+    public virtual Salad Salad { get; set; } = null!;
 }
