@@ -18,7 +18,7 @@ spec:
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: zas-db-pvc
+          claimName: zas-db-pvc2
       - name: schema-init
         configMap:
           name: zas-init-sql

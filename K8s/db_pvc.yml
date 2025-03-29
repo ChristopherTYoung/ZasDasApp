@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: zas-db-pvc
+  name: zas-db-pvc2
   namespace: zasanddas
 spec:
   accessModes:
