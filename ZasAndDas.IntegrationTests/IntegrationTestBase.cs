@@ -54,13 +54,18 @@ namespace ZasAndDas.IntegrationTests
                 price decimal NOT NULL
             );
 
-            INSERT INTO  zasanddas.price_per_item(price) values (5.99);
+            INSERT INTO  zasanddas.price_per_item(price) 
+            VALUES (5.99), 
+                   (3.75);
 
             CREATE TABLE zasanddas.category (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 category_name VARCHAR(50) not null,
                 description VARCHAR(256)
             );
+
+            INSERT INTO zasanddas.category(category_name)
+            VALUES ('2L Drink');
 
             CREATE TABLE zasanddas.stock_item (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -69,6 +74,9 @@ namespace ZasAndDas.IntegrationTests
                 base_price_id INT REFERENCES zasanddas.price_per_item(id) NOT NULL,
                 item_category_id INT REFERENCES zasanddas.category(id) NOT NULL
             );
+
+            INSERT INTO zasanddas.stock_item(item_name, base_price_id, item_category_id)
+            VALUES ('Coke', 2, 1);
 
             CREATE TABLE zasanddas.sauce (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,

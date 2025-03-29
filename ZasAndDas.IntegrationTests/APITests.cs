@@ -34,5 +34,13 @@ namespace ZasAndDas.IntegrationTests
             var pizzas = await client.GetFromJsonAsync<List<PizzaBase>>("/api/inventory/getallpizzabase");
             pizzas!.ShouldContain(pizzas!.First(p => p.PizzaName == "The Za" && p.BasePriceId == 1));
         }
+
+        [Fact]
+        public async Task CanGetStockItem()
+        {
+            var client = _app.CreateClient();
+            var stockItems = await client.GetFromJsonAsync<IEnumerable<StockItem>>("/api/inventory/getallstockitems");
+            stockItems!.ShouldContain(stockItems!.First(s => s.ItemName == "Coke"));
+        }
     }
 }
