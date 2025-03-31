@@ -96,7 +96,7 @@ namespace ZasAndDasMobile.Tests
         public void CalculatePrice_WithOneItem()
         {
             var cart = new CartService();
-            cart.AddToCart(new PizzaDTO { Id = 1, Price = 4.99 });
+            cart.AddToCart(new PizzaDTO { Price = 4.99 });
             cart.CalculateTotal().ShouldBe(4.99);
         }
 
@@ -107,8 +107,8 @@ namespace ZasAndDasMobile.Tests
         public void CalculatePrice_WithTwoItems(double price1, double price2, double result)
         {
             var cart = new CartService();
-            cart.AddToCart(new PizzaDTO { Id = 1, Price = price1 });
-            cart.AddToCart(new PizzaDTO { Id = 2, Price = price2 });
+            cart.AddToCart(new PizzaDTO { Price = price1 });
+            cart.AddToCart(new PizzaDTO { Price = price2 });
             cart.CalculateTotal().ShouldBe(result);
         }
 
@@ -116,8 +116,10 @@ namespace ZasAndDasMobile.Tests
         public void PriceCannotBeNegative()
         {
             var cart = new CartService();
-            cart.AddToCart(new PizzaDTO { Id = 1, Price = 5 });
-            Should.Throw<InvalidOperationException>(() => cart.AddToCart(new PizzaDTO { Id = 1, Price = -6 }));
+            cart.AddToCart(new PizzaDTO { Price = 5 });
+            Should.Throw<InvalidOperationException>(() => cart.AddToCart(new PizzaDTO { Price = -6 }));
         }
+
+
     }
 }
