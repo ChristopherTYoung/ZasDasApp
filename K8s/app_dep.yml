@@ -26,4 +26,4 @@ spec:
         - name: ASPNETCORE_ENVIRONMENT
           value: Development
         - name: SHOW_SWAGGER
-          value: True
+          value: "true"
