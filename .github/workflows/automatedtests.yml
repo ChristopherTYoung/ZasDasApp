@@ -49,3 +49,4 @@ jobs:
             do
               cat "$FILE" | envsubst | kubectl apply -f -
             done
+            echo "death to the saudis"
