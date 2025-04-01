@@ -41,7 +41,7 @@ namespace ZasAndDas.IntegrationTests
         }
 
         [Fact]
-        public async Task CanGetStockItem()
+        public async Task CanAddAndGetStockItem()
         {
             var client = _app.CreateClient();
             var stockItem = new StockItemDTO { Name = "Diet Coke", ItemCategoryId = 1, BasePriceId = 2 };
