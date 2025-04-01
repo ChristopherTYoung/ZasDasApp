@@ -25,5 +25,5 @@ spec:
           value: Server=zas-db-svc;Username=postgres;Password=password;Database=postgres
         - name: ASPNETCORE_ENVIRONMENT
           value: Development
-        - name: SHOW_SWAGGER
-          value: "true"
+        # - name: SHOW_SWAGGER
+        #   value: "true"
