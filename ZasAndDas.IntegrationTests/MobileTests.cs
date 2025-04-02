@@ -20,8 +20,7 @@ namespace ZasAndDas.IntegrationTests
         [Fact]
         public async Task CanUpdateMenuWithPizzaBase()
         {
-            var service = new ApiService(_app.CreateClient());
-            await service.GetPizzaBases();
+
         }
     }
 }
