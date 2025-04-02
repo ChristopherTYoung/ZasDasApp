@@ -5,8 +5,7 @@
              x:Class="ZasAndDasMobile.MainPage"
              Shell.NavBarIsVisible="False"
              x:DataType="pageModels:MainPageViewModel">
-    <Grid RowDefinitions="auto,*"
-          RowSpacing="50">
+    <Grid RowDefinitions="auto,auto,*,auto">
         <Grid Grid.Row="0"
               ColumnDefinitions="auto,*,auto,auto,auto"
               ColumnSpacing="10"
@@ -15,33 +14,48 @@
             <Image Source="babeslogo2.png"
                    HeightRequest="75"
                    Grid.Column="0"/>
-            <Button Text="Order"
-                    WidthRequest="100"
-                    HeightRequest="20"
+            <!--  <Button Text="Order"
                     CornerRadius="30"
                     Grid.Column="2"
                     Background="#00FFFFFF"
                     BorderWidth="1.5" 
-                    BorderColor="White"/>
-            
+                    BorderColor="White"
+                    VerticalOptions="FillAndExpand"
+                    HorizontalOptions="FillAndExpand"
+                    MinimumWidthRequest="100"
+                    MinimumHeightRequest="50"
+                    MaximumWidthRequest="100"
+                    MaximumHeightRequest="50"/> -->
+
             <ImageButton Source="cart_icon.png"
-                   Grid.Column="3"
-                   MaximumWidthRequest="32"
-                   MaximumHeightRequest="32"
-                   CornerRadius="32"/>
-            
+                         Grid.Column="3"
+                         MaximumHeightRequest="32"
+                         MaximumWidthRequest="32"
+                         MinimumHeightRequest="32"
+                         MinimumWidthRequest="32"
+                         CornerRadius="40"/>
+
             <Label Text="1" 
                    TextColor="White"
                    VerticalOptions="Center"
                    FontSize="16"
                    Grid.Column="4"/>
         </Grid>
+        <Grid Grid.Row="1"
+              RowDefinitions="auto,auto"
+              BackgroundColor="#303331">
+            <Label Text="726 N 50 E, Ephraim UT"
+                   HorizontalOptions="Center"
+                   TextColor="White"/>
+            <Label Text="435-283-1111"
+                   HorizontalOptions="Center"
+                   TextColor="White"
+                   Grid.Row="1"/>
+        </Grid>
 
-
-        <ScrollView Grid.Row="1">
-
+        <ScrollView Grid.Row="2">
             <VerticalStackLayout>
-                <Border HeightRequest="100"
+                <!-- <Border HeightRequest="100"
                         BackgroundColor="LightGray">
                     <HorizontalStackLayout>
 
@@ -50,46 +64,78 @@
                         <ImageButton Source="doodle_drink.png"
                                      Command="{Binding ShowDrinksCommand}" />
                         
-                    </HorizontalStackLayout>
-                </Border>
-                <VerticalStackLayout IsVisible="{Binding PizzasAreVisible}">
+                    </HorizontalStackLayout> 
+                    
+                </Border> -->
+
+                <Label Text="Specialty Pizzas"
+                       FontSize="Title"
+                       FontAttributes="Bold"
+                       Margin="5,20,0,10"/>
+
+                <VerticalStackLayout IsVisible="{Binding PizzasAreVisible}"
+                                     Margin="10,5,10,0">
+
                     <CollectionView ItemsSource="{Binding PizzaList}" 
                                     HorizontalOptions="Center">
-                    <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="pageModels:PizzaViewModel"
-                                          >
-                                <Border
-                            Padding="30,30"
-                            StrokeShape="RoundRectangle 40,40,40,40">
-                                    <HorizontalStackLayout>
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="2"
+                                             VerticalItemSpacing="10"
+                                             HorizontalItemSpacing="10"/>
+
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="pageModels:PizzaViewModel">
+                                <Border Padding="20,20"
+                                        StrokeShape="RoundRectangle 20,20,20,20">
+                                    <VerticalStackLayout>
+                                        <VerticalStackLayout.GestureRecognizers>
+
+                                        </VerticalStackLayout.GestureRecognizers>
                                         <Image Source="pizza.png" WidthRequest="120"/>
+                                        <BoxView HeightRequest="1" Color="DarkGray" HorizontalOptions="FillAndExpand" Margin="0,10"/>
                                         <VerticalStackLayout>
-                                            <Label Text="{Binding Name}" />
-                                            <Label Text="{Binding Description}" />
+                                            <Label Text="{Binding Name}" 
+                                                   FontAttributes="Bold"/>
                                             <HorizontalStackLayout>
                                                 <Label Text="Price: " />
                                                 <Label Text="{Binding Price}"  Padding="5,0"/>
                                             </HorizontalStackLayout>
+                                            <Label Text="{Binding Description}" />
                                         </VerticalStackLayout>
-                                    </HorizontalStackLayout>
+                                    </VerticalStackLayout>
                                 </Border>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </VerticalStackLayout>
-                <Grid Grid.Row="2"
-                  ColumnDefinitions="auto,*,*"
-                  RowDefinitions="auto,*"
-                  RowSpacing="10"
-                  BackgroundColor="Black">
-                    <Label Text="Location &amp; Hours (Need better solution lol)"
-                       TextColor="White"
-                       FontSize="17"
-                       Grid.Column="0"/>
-                </Grid>
-            </VerticalStackLayout>
-            </ScrollView>
 
+            </VerticalStackLayout>
+        </ScrollView>
+        <Grid MinimumHeightRequest="64"
+              Grid.Row="3"
+              BackgroundColor="Black"
+              ColumnDefinitions="*,*"
+              ColumnSpacing="10">
+            <ImageButton Source="alt_pizza_icon.png"
+                         Command="{Binding ShowPizzasCommand}" 
+                         MaximumHeightRequest="50"
+                         MaximumWidthRequest="50"
+                         MinimumHeightRequest="50"
+                         MinimumWidthRequest="50"
+                         HorizontalOptions="Center"
+                         Grid.Column="0"/>
+
+            <ImageButton Source="doodle_drink_icon.png"
+                         Command="{Binding ShowDrinksCommand}" 
+                         MaximumHeightRequest="40"
+                         MaximumWidthRequest="40"
+                         MinimumHeightRequest="40"
+                         MinimumWidthRequest="40"
+                         HorizontalOptions="Center"
+                         Grid.Column="1"/>
+
+        </Grid>
     </Grid>
 
 </ContentPage>
