@@ -14,18 +14,6 @@
             <Image Source="babeslogo2.png"
                    HeightRequest="75"
                    Grid.Column="0"/>
-            <!--  <Button Text="Order"
-                    CornerRadius="30"
-                    Grid.Column="2"
-                    Background="#00FFFFFF"
-                    BorderWidth="1.5" 
-                    BorderColor="White"
-                    VerticalOptions="FillAndExpand"
-                    HorizontalOptions="FillAndExpand"
-                    MinimumWidthRequest="100"
-                    MinimumHeightRequest="50"
-                    MaximumWidthRequest="100"
-                    MaximumHeightRequest="50"/> -->
 
             <ImageButton Source="cart_icon.png"
                          Grid.Column="3"
@@ -33,7 +21,8 @@
                          MaximumWidthRequest="32"
                          MinimumHeightRequest="32"
                          MinimumWidthRequest="32"
-                         CornerRadius="40"/>
+                         CornerRadius="40"
+                         Command="{Binding GoToCartCommand}"/>
 
             <Label Text="1" 
                    TextColor="White"

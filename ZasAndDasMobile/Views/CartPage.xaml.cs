@@ -1,9 +1,9 @@
-namespace ZasAndDasMobile.Views;
+namespace ZasAndDasMobile;
 
 public partial class CartPage : ContentPage
 {
-	public CartPage()
-	{
-		InitializeComponent();
-	}
+    public CartPage()
+    {
+        InitializeComponent();
+    }
 }
