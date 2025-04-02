@@ -32,7 +32,7 @@ namespace ZasAndDas.IntegrationTests
         public async Task CanAddPizzaBase()
         {
             var client = _app.CreateClient();
-            var pizza = new PizzaBaseDTO { PizzaName = "The Za", BasePriceId = 1 };
+            var pizza = new PizzaBaseDTO { Name = "The Za", BasePriceId = 1 };
             var response = await client.PostAsJsonAsync("/api/inventory/addpizzabase", pizza);
             response.IsSuccessStatusCode.ShouldBeTrue();
 
