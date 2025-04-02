@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZasUndDas.Shared;
+﻿using ZasUndDas.Shared.Data;
 
 namespace ZasUndDas.Shared
 {
     public class MenuItemService
     {
         List<IStoreItem> menuItems = new List<IStoreItem>();
-        public List<PizzaDTO> GetAllPizzas()
+        public List<PizzaBaseDTO> GetAllPizzas()
         {
-            return menuItems.Where(i => i.GetType() == typeof(PizzaDTO))
-                            .Select(p => (PizzaDTO)p)
+            return menuItems.Where(i => i.GetType() == typeof(PizzaBaseDTO))
+                            .Select(p => (PizzaBaseDTO)p)
                             .ToList();
         }
 
@@ -23,10 +18,10 @@ namespace ZasUndDas.Shared
             return this;
         }
 
-        public List<Drink> GetAllDrinks()
+        public List<DrinkDTO> GetAllDrinks()
         {
-            return menuItems.Where(i => i.GetType() == typeof(Drink))
-                            .Select(p => (Drink)p)
+            return menuItems.Where(i => i.GetType() == typeof(DrinkDTO))
+                            .Select(p => (DrinkDTO)p)
                             .ToList();
         }
 
