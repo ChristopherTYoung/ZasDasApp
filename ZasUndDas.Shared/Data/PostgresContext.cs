@@ -421,6 +421,9 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.PizzaName)
                 .HasMaxLength(50)
                 .HasColumnName("pizza_name");
+            entity.Property(e => e.ImagePath)
+                .HasColumnName("image_path")
+                .HasMaxLength(256);
 
             entity.HasOne(d => d.BasePrice).WithMany(p => p.PizzaBases)
                 .HasForeignKey(d => d.BasePriceId)
