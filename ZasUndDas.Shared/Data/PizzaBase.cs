@@ -12,6 +12,7 @@ public partial class PizzaBase
     public string? Description { get; set; }
 
     public int BasePriceId { get; set; }
+    public string? ImagePath { get; set; }
 
     public virtual PricePerItem BasePrice { get; set; } = null!;
 
@@ -26,5 +27,6 @@ public class PizzaBaseDTO
     public string? Description { get; set; }
 
     public int BasePriceId { get; set; }
+    public string? ImagePath { get; set; }
     public PizzaBase ToPizzaBase() => new PizzaBase() { BasePriceId = BasePriceId, PizzaName = PizzaName, Description = Description };
 }
