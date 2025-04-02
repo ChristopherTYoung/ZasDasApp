@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore;
 using ZasAndDasWeb.Components;
 using ZasUndDas.Shared.Data;
 public class Program
@@ -12,7 +13,18 @@ public class Program
 
         builder.Services.AddControllers();
         builder.Services.AddDbContext<PostgresContext>(o => o.UseNpgsql(builder.Configuration["DB_CONN"]));
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+
         var app = builder.Build();
+
+        var swaggerIsVisible = builder.Configuration.GetValue<bool?>("SHOW_SWAGGER") ?? false;
+
+        if (swaggerIsVisible)
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
         // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())
         {
@@ -22,7 +34,9 @@ public class Program
         }
         app.MapControllers();
         app.UseHttpsRedirection();
-
+#if Swagger
+        app.UseRouting();    
+#endif
 
         app.UseAntiforgery();
 

@@ -64,5 +64,11 @@ namespace ZasAndDasMobile.ViewModels
         private void UpdateTabs()
         {
         }
+
+        [RelayCommand]
+        private async Task GoToCart()
+        {
+            await Shell.Current.GoToAsync("//Cart");
+        }
     }
 }

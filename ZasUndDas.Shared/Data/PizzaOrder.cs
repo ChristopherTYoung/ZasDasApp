@@ -11,13 +11,13 @@ public partial class PizzaOrder
 
     public DateTime? DateOrdered { get; set; }
 
-    public decimal? GrossAmount { get; set; }
+    public decimal GrossAmount { get; set; }
 
-    public decimal? DiscountAmount { get; set; }
+    public decimal DiscountAmount { get; set; }
 
-    public decimal? NetAmount { get; set; }
+    public decimal NetAmount { get; set; }
 
-    public decimal? SalesTax { get; set; }
+    public decimal SalesTax { get; set; }
 
     public virtual Customer? Customer { get; set; }
 

@@ -15,7 +15,7 @@ namespace ZasAndDasMobile.ViewModels
         public string Name { get => pizza.Name; }
         public string Description { get => pizza.Description; }
         public double Price { get => pizza.Price; }
-        public ObservableCollection<string> Ingredients { get => new ObservableCollection<string>(pizza.Ingredients); }
+        public ObservableCollection<int> Ingredients { get => new ObservableCollection<int>(pizza.Ingredients); }
         [ObservableProperty]
         public partial int Quantity { set; get; }
         public PizzaViewModel(PizzaDTO pizza)
