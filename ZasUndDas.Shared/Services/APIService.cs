@@ -5,6 +5,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using ZasUndDas.Shared;
+using ZasUndDas.Shared.Data;
 namespace ZasUndDas.Shared.Services;
 public class APIService : IAPIService
 {
@@ -17,8 +18,8 @@ public class APIService : IAPIService
     {
         var result = new List<IStoreItem>();
         result = result
-            .Concat(await Client.GetFromJsonAsync<IEnumerable<IStoreItem>>("/api/inventory/getallpizzabase") ?? new List<IStoreItem>())
-            .Concat(await Client.GetFromJsonAsync<IEnumerable<IStoreItem>>("/api/inventory/getallstockitems") ?? new List<IStoreItem>())
+            .Concat(await Client.GetFromJsonAsync<IEnumerable<PizzaBaseDTO>>("/api/inventory/getallpizzabase") ?? new List<PizzaBaseDTO>())
+            .Concat(await Client.GetFromJsonAsync<IEnumerable<StockItemDTO>>("/api/inventory/getallstockitems") ?? new List<StockItemDTO>())
             .ToList();
         return result;
     }

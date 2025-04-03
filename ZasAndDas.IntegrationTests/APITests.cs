@@ -36,8 +36,8 @@ namespace ZasAndDas.IntegrationTests
             var response = await client.PostAsJsonAsync("/api/inventory/addpizzabase", pizza);
             response.IsSuccessStatusCode.ShouldBeTrue();
 
-            var pizzas = await client.GetFromJsonAsync<List<PizzaBase>>("/api/inventory/getallpizzabase");
-            pizzas!.First(p => p.PizzaName == "The Za" && p.BasePriceId == 1).ShouldNotBeNull();
+            var pizzas = await client.GetFromJsonAsync<List<PizzaBaseDTO>>("/api/inventory/getallpizzabase");
+            pizzas!.First(p => p.Name == "The Za" && p.BasePriceId == 1).ShouldNotBeNull();
         }
 
         [Fact]

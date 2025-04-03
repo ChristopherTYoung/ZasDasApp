@@ -20,6 +20,18 @@ public partial class PizzaBase
 }
 public class PizzaBaseDTO : IStoreItem
 {
+    public PizzaBaseDTO()
+    {
+    }
+    public PizzaBaseDTO(PizzaBase pizzza, double price)
+    {
+        Id = pizzza.Id;
+        Name = pizzza.PizzaName;
+        Description = pizzza.Description;
+        BasePriceId = pizzza.BasePriceId;
+        Price = price;
+        ImagePath = pizzza.ImagePath;
+    }
     public int Id { get; set; }
 
     public string Name { get; set; } = null!;

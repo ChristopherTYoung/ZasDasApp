@@ -3,6 +3,7 @@ using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using ZasAndDasMobile.ViewModels;
 using ZasUndDas.Shared.Services;
+using ZasUndDas.Shared;
 namespace ZasAndDasMobile
 {
     public static class MauiProgram

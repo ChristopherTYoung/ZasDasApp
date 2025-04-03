@@ -15,9 +15,13 @@ namespace ZasAndDasWeb.Controllers
             return "Hello this is the inventory controller endpoint";
         }
         [HttpGet("getallpizzabase")]
-        public async Task<List<PizzaBase>> GetPizza()
+        public async Task<List<PizzaBaseDTO>> GetPizza()
         {
-            return await context.PizzaBases.ToListAsync();
+            return await context.PizzaBases
+                .Select(
+                    p => new PizzaBaseDTO(p, (double)context.PricePerItems.First(
+                        x => p.BasePriceId == x.Id).Price))
+                .ToListAsync();
         }
         [HttpPost("addpizzabase")]
         public async Task<IResult> MakePizza(PizzaBaseDTO pizza)
@@ -47,9 +51,9 @@ namespace ZasAndDasWeb.Controllers
             return Results.Ok();
         }
         [HttpGet("getallstockitems")]
-        public async Task<List<StockItem>> GetAllStockItems()
+        public async Task<List<StockItemDTO>> GetAllStockItems()
         {
-            return await context.StockItems.ToListAsync();
+            return await context.StockItems.Select(p => new StockItemDTO(p)).ToListAsync();
         }
 
     }

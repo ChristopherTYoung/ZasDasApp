@@ -11,6 +11,7 @@ using ZasUndDas.Shared.Data;
 using ZasUndDas.Shared.Services;
 using ZasAndDasMobile.Popups;
 using CommunityToolkit.Maui.Views;
+using ZasUndDas.Shared;
 
 namespace ZasAndDasMobile.ViewModels
 {
@@ -40,6 +41,7 @@ namespace ZasAndDasMobile.ViewModels
 
         public MainPageViewModel(MenuItemService service, CartService cartService)
         {
+            this._cartService = cartService;
             PizzasAreVisible = true;
             DrinksAreVisible = false;
             _service = service;
