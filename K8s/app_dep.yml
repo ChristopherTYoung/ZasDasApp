@@ -10,6 +10,10 @@ spec:
   selector:
     matchLabels:
       app: zas-web
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+        maxUnavailable: 1
   template:
     metadata:
       labels:
