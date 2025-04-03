@@ -7,8 +7,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZasUndDas.Shared;
 using ZasUndDas.Shared.Data;
+using ZasUndDas.Shared.Services;
 using ZasAndDasMobile.Popups;
 using CommunityToolkit.Maui.Views;
 
@@ -44,7 +44,8 @@ namespace ZasAndDasMobile.ViewModels
             DrinksAreVisible = false;
             _service = service;
             PizzaList = new ObservableCollection<PizzaViewModel>();
-            _cartService = cartService;
+            service.Update += Sync;
+            service.ForceSync();
             Sync();
         }
         private void Sync()
