@@ -28,20 +28,12 @@ spec:
         - name: SHOW_SWAGGER
           value: "true"
         readinessProbe:
-          httpGet:
-            path: /ready
+          tcpSocket:
             port: 8080
-            httpHeaders:
-            - name: Custom-Header
-              value: Awesome
-          initialDelaySeconds: 3
-          periodSeconds: 3
+          initialDelaySeconds: 10
+          periodSeconds: 5
         livenessProbe:
-          httpGet:
-            path: /healthz
+          tcpSocket:
             port: 8080
-            httpHeaders:
-            - name: Custom-Header
-              value: Awesome
-          initialDelaySeconds: 3
-          periodSeconds: 3
+          initialDelaySeconds: 10
+          periodSeconds: 5
