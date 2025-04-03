@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ZasUndDas.Shared;
 using ZasUndDas.Shared.Data;
+using ZasAndDasMobile.Popups;
+using CommunityToolkit.Maui.Views;
 
 namespace ZasAndDasMobile.ViewModels
 {
@@ -16,6 +18,8 @@ namespace ZasAndDasMobile.ViewModels
     public partial class MainPageViewModel : ObservableObject
     {
         MenuItemService _service;
+        CartService _cartService;
+
         public string Rows => $"{DeviceDisplay.Current.MainDisplayInfo.Height - 200}";
 
         [ObservableProperty]
@@ -31,12 +35,16 @@ namespace ZasAndDasMobile.ViewModels
         [ObservableProperty]
         public partial ObservableCollection<PizzaViewModel> PizzaList { set; get; }
 
-        public MainPageViewModel(MenuItemService service)
+        [ObservableProperty]
+        public partial int CartItemsCount { get; set; }
+
+        public MainPageViewModel(MenuItemService service, CartService cartService)
         {
             PizzasAreVisible = true;
             DrinksAreVisible = false;
             _service = service;
             PizzaList = new ObservableCollection<PizzaViewModel>();
+            _cartService = cartService;
             Sync();
         }
         private void Sync()
@@ -67,9 +75,16 @@ namespace ZasAndDasMobile.ViewModels
         }
 
         [RelayCommand]
-        private async Task GoToCart()
+        public async Task GoToCart()
         {
             await Shell.Current.GoToAsync("//Cart");
+        }
+
+        [RelayCommand]
+        public void ShowItemPopup()
+        {
+            var popup = new ItemPopup();
+            Shell.Current.ShowPopup(popup);
         }
     }
 }

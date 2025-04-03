@@ -18,7 +18,7 @@
                          MinimumHeightRequest="32"
                          MinimumWidthRequest="32"
                          CornerRadius="40"
-                         Command="{Binding GoToCartCommand}"/>
+                         Command="{Binding ReturnToHomeCommand}"/>
             <Image Source="babeslogo2.png"
                    HeightRequest="75"
                    Grid.ColumnSpan="2"

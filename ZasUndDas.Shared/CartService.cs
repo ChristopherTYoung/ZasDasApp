@@ -32,5 +32,10 @@ namespace ZasUndDas.Shared
         {
             return Math.Round(cart.Select(p => p.Price).Sum(), 2);
         }
+
+        public int GetItemCount()
+        {
+            return cart.Count;
+        }
     }
 }

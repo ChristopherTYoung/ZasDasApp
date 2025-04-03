@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using ZasUndDas.Shared;
 
 namespace ZasAndDasMobile.ViewModels
@@ -7,9 +8,15 @@ namespace ZasAndDasMobile.ViewModels
     {
         private readonly CartService _cartService;
 
+        [RelayCommand]
+        public async Task ReturnToHome()
+        {
+            await Shell.Current.GoToAsync("//MainPage");
+        }
         public CartViewModel(CartService cartService)
         {
             _cartService = cartService;
         }
+
     }
 }

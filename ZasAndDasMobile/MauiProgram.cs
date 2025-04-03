@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using Microsoft.Extensions.Logging;
 using ZasAndDasMobile.ViewModels;
 using ZasUndDas.Shared;
 namespace ZasAndDasMobile
@@ -10,6 +11,7 @@ namespace ZasAndDasMobile
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -20,6 +22,9 @@ namespace ZasAndDasMobile
             builder.Logging.AddDebug();
 #endif
             builder.Services.AddSingleton(_ => MenuItemService.TestPizzas());
+            builder.Services.AddSingleton<CartService>();
+            builder.Services.AddSingleton<CartViewModel>();
+            builder.Services.AddSingleton<CartPage>();
             builder.Services.AddSingleton<MainPageViewModel>();
             builder.Services.AddSingleton<MainPage>();
             return builder.Build();
