@@ -3,4 +3,5 @@ WORKDIR /ZasAndDasWeb
 COPY . ./
 RUN dotnet publish ZasAndDasWeb -o out
 EXPOSE 8080
-ENTRYPOINT ["dotnet", "out/ZasAndDasWeb.dll"]
+WORKDIR /ZasAndDasWeb/out
+ENTRYPOINT ["dotnet", "ZasAndDasWeb.dll"]
