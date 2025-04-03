@@ -4,7 +4,8 @@ metadata:
   name: zas-init-sql
   namespace: zasanddas
 data:
-  db-init: | 
+  db-init: |
+    CREATE SCHEMA zasanddas;  
     CREATE TABLE price_per_item (
         id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         price decimal NOT NULL
