@@ -1,5 +1,6 @@
 ﻿using ZasUndDas.Shared;
 using ZasUndDas.Shared.Data;
+using ZasUndDas.Shared.Services;
 using Shouldly;
 namespace ZasAndDasMobile.Tests
 

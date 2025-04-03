@@ -7,8 +7,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZasUndDas.Shared;
 using ZasUndDas.Shared.Data;
+using ZasUndDas.Shared.Services;
 
 namespace ZasAndDasMobile.ViewModels
 {
@@ -37,6 +37,8 @@ namespace ZasAndDasMobile.ViewModels
             DrinksAreVisible = false;
             _service = service;
             PizzaList = new ObservableCollection<PizzaViewModel>();
+            service.Update += Sync;
+            service.ForceSync();
             Sync();
         }
         private void Sync()
