@@ -25,13 +25,21 @@ namespace ZasAndDasMobile
 #endif
             builder.Services.AddSingleton(_ => MenuItemService.TestPizzas());
             builder.Services.AddSingleton<HttpClient>(_ => new HttpClient() { BaseAddress = new Uri("http://localhost:5257/") });
-            builder.Services.AddSingleton<IAPIService, APIService>();
+            var IsModel = (Environment.GetEnvironmentVariable("ISNT_MODEL") ?? "True") == "True";
+            if (IsModel)
+            {
+                builder.Services.AddSingleton<IAPIService, APIService>();
+                builder.Services.AddSingleton<ISyncingService, SyncingService>();
+            }
+            else
+            {
+                builder.Services.AddSingleton<ISyncingService, FauxSyncingService>();
+            }
             builder.Services.AddSingleton<CartService>();
             builder.Services.AddSingleton<CartViewModel>();
             builder.Services.AddSingleton<CartPage>();
             builder.Services.AddSingleton<MainPageViewModel>();
             builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddSingleton<SyncingService>();
             return builder.Build();
         }
     }

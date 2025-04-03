@@ -6,7 +6,22 @@ using System.Threading.Tasks;
 
 namespace ZasUndDas.Shared.Services;
 
-public class SyncingService
+public class FauxSyncingService : ISyncingService
+{
+
+
+    public Task Sync()
+    {
+        return Task.CompletedTask;
+    }
+}
+
+public interface ISyncingService
+{
+    Task Sync();
+}
+
+public class SyncingService : ISyncingService
 {
     MenuItemService menuservice { get; set; }
     IAPIService apiservice { get; set; }

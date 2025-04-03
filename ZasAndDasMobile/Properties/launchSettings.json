@@ -3,6 +3,12 @@
     "Windows Machine": {
       "commandName": "Project",
       "nativeDebugging": false
+    },
+    "Windows Design": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ISNT_MODEL": "NOT_TRUE"
+      }
     }
   }
 }

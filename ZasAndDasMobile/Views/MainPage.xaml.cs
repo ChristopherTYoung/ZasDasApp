@@ -5,7 +5,7 @@ namespace ZasAndDasMobile
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage(MainPageViewModel vm, SyncingService ss)
+        public MainPage(MainPageViewModel vm, ISyncingService ss)
         {
             InitializeComponent();
             BindingContext = vm;
