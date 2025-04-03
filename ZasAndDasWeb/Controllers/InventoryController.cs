@@ -9,7 +9,7 @@ namespace ZasAndDasWeb.Controllers
     [ApiController]
     public class InventoryController(PostgresContext context) : ControllerBase
     {
-        [HttpGet("/")]
+        [HttpGet]
         public string Get()
         {
             return "Hello this is the inventory controller endpoint";
