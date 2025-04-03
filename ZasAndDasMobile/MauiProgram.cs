@@ -32,6 +32,7 @@ namespace ZasAndDasMobile
             builder.Services.AddSingleton<MainPageViewModel>();
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<SyncingService>();
+            //change Lol
             return builder.Build();
         }
     }
