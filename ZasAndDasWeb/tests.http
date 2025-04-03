@@ -1,0 +1,14 @@
+
+
+@ZasAndDasAPI_HostAddress = http://zasanddas.duckdns.org
+GET {{ZasAndDasAPI_HostAddress}}/api/inventory/getallprices
+Accept: application/json
+###
+POST {{ZasAndDasAPI_HostAddress}}/api/inventory/addbaseprice
+Content-Type: application/json
+
+{
+  "Price": 5.99
+}
+
+###

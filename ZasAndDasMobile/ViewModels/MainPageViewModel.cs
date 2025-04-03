@@ -7,7 +7,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZasUndDas.Shared;
+using ZasUndDas.Shared.Data;
+using ZasUndDas.Shared.Services;
+using ZasAndDasMobile.Popups;
+using CommunityToolkit.Maui.Views;
 
 namespace ZasAndDasMobile.ViewModels
 {
@@ -15,6 +18,8 @@ namespace ZasAndDasMobile.ViewModels
     public partial class MainPageViewModel : ObservableObject
     {
         MenuItemService _service;
+        CartService _cartService;
+
         public string Rows => $"{DeviceDisplay.Current.MainDisplayInfo.Height - 200}";
 
         [ObservableProperty]
@@ -30,18 +35,23 @@ namespace ZasAndDasMobile.ViewModels
         [ObservableProperty]
         public partial ObservableCollection<PizzaViewModel> PizzaList { set; get; }
 
-        public MainPageViewModel(MenuItemService service)
+        [ObservableProperty]
+        public partial int CartItemsCount { get; set; }
+
+        public MainPageViewModel(MenuItemService service, CartService cartService)
         {
             PizzasAreVisible = true;
             DrinksAreVisible = false;
             _service = service;
             PizzaList = new ObservableCollection<PizzaViewModel>();
+            service.Update += Sync;
+            service.ForceSync();
             Sync();
         }
         private void Sync()
         {
             PizzaList = new ObservableCollection<PizzaViewModel>();
-            foreach (PizzaDTO pizza in _service.GetAllPizzas())
+            foreach (PizzaBaseDTO pizza in _service.GetAllPizzas())
                 PizzaList.Add(new PizzaViewModel(pizza));
         }
 
@@ -63,6 +73,19 @@ namespace ZasAndDasMobile.ViewModels
 
         private void UpdateTabs()
         {
+        }
+
+        [RelayCommand]
+        public async Task GoToCart()
+        {
+            await Shell.Current.GoToAsync("//Cart");
+        }
+
+        [RelayCommand]
+        public void ShowItemPopup()
+        {
+            var popup = new ItemPopup();
+            Shell.Current.ShowPopup(popup);
         }
     }
 }

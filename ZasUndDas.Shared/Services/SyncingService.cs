@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ZasUndDas.Shared.Services;
+
+public class SyncingService
+{
+    MenuItemService menuservice { get; set; }
+    IAPIService apiservice { get; set; }
+
+    public SyncingService(MenuItemService menuservice, IAPIService apiservice)
+    {
+        this.menuservice = menuservice;
+        this.apiservice = apiservice;
+        this.menuservice.ToSync = Sync();
+        (new Thread(Initialize)).Start();
+    }
+    public async Task Sync()
+    {
+        menuservice.UpdateMenu(await apiservice.GetItems());
+    }
+    public async void Initialize()
+    {
+        await Sync();
+        var x = new Thread(thread);
+        x.Start();
+    }
+    async void thread()
+    {
+        while (true)
+        {
+            await Sync();
+            Thread.Sleep(3600000);
+        }
+    }
+}

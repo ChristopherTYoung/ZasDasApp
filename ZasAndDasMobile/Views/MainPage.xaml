@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pageModels="clr-namespace:ZasAndDasMobile.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="ZasAndDasMobile.MainPage"
              Shell.NavBarIsVisible="False"
              x:DataType="pageModels:MainPageViewModel">
@@ -14,18 +15,6 @@
             <Image Source="babeslogo2.png"
                    HeightRequest="75"
                    Grid.Column="0"/>
-            <!--  <Button Text="Order"
-                    CornerRadius="30"
-                    Grid.Column="2"
-                    Background="#00FFFFFF"
-                    BorderWidth="1.5" 
-                    BorderColor="White"
-                    VerticalOptions="FillAndExpand"
-                    HorizontalOptions="FillAndExpand"
-                    MinimumWidthRequest="100"
-                    MinimumHeightRequest="50"
-                    MaximumWidthRequest="100"
-                    MaximumHeightRequest="50"/> -->
 
             <ImageButton Source="cart_icon.png"
                          Grid.Column="3"
@@ -33,9 +22,10 @@
                          MaximumWidthRequest="32"
                          MinimumHeightRequest="32"
                          MinimumWidthRequest="32"
-                         CornerRadius="40"/>
+                         CornerRadius="40"
+                         Command="{Binding GoToCartCommand}"/>
 
-            <Label Text="1" 
+            <Label Text="{Binding CartItemsCount}" 
                    TextColor="White"
                    VerticalOptions="Center"
                    FontSize="16"
@@ -89,9 +79,7 @@
                                 <Border Padding="20,20"
                                         StrokeShape="RoundRectangle 20,20,20,20">
                                     <VerticalStackLayout>
-                                        <VerticalStackLayout.GestureRecognizers>
 
-                                        </VerticalStackLayout.GestureRecognizers>
                                         <Image Source="pizza.png" WidthRequest="120"/>
                                         <BoxView HeightRequest="1" Color="DarkGray" HorizontalOptions="FillAndExpand" Margin="0,10"/>
                                         <VerticalStackLayout>
@@ -104,6 +92,10 @@
                                             <Label Text="{Binding Description}" />
                                         </VerticalStackLayout>
                                     </VerticalStackLayout>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type pageModels:MainPageViewModel}}, Path=ShowItemPopupCommand}"/>
+                                    </Border.GestureRecognizers>
                                 </Border>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>

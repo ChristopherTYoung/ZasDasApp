@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace ZasAndDasMobile
+namespace ZasAndDasMobile.Platforms.iOS
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

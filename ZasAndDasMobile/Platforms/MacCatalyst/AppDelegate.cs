@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace ZasAndDasMobile
+namespace ZasAndDasMobile.Platforms.MacCatalyst
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

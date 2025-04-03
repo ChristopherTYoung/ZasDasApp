@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "Dual Servcie",
+    "Projects": [
+      {
+        "Path": "ZasAndDasWeb\\ZasAndDasWeb.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      },
+      {
+        "Path": "ZasAndDasMobile\\ZasAndDasMobile.csproj",
+        "Action": "Start",
+        "DebugTarget": "Windows Machine"
+      }
+    ]
+  }
+]
