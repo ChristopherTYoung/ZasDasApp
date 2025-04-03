@@ -23,7 +23,7 @@ namespace ZasAndDasMobile
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-            builder.Services.AddSingleton(_ => MenuItemService.TestPizzas());
+            builder.Services.AddSingleton<MenuItemService>();
             builder.Services.AddSingleton<HttpClient>(_ => new HttpClient() { BaseAddress = new Uri("http://localhost:5257/") });
             builder.Services.AddSingleton<IAPIService, APIService>();
             builder.Services.AddSingleton<CartService>();
