@@ -9,6 +9,11 @@ namespace ZasAndDasWeb.Controllers
     [ApiController]
     public class InventoryController(PostgresContext context) : ControllerBase
     {
+        [HttpGet("/")]
+        public string Get()
+        {
+            return "Hello this is the inventory controller endpoint";
+        }
         [HttpGet("getallpizzabase")]
         public async Task<List<PizzaBase>> GetPizza()
         {
@@ -46,5 +51,6 @@ namespace ZasAndDasWeb.Controllers
         {
             return await context.StockItems.ToListAsync();
         }
+
     }
 }
