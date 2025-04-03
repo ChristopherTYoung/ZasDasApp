@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZasUndDas.Shared;
+using ZasUndDas.Shared.Data;
 
 namespace ZasAndDasMobile.ViewModels
 {
@@ -41,7 +42,7 @@ namespace ZasAndDasMobile.ViewModels
         private void Sync()
         {
             PizzaList = new ObservableCollection<PizzaViewModel>();
-            foreach (PizzaDTO pizza in _service.GetAllPizzas())
+            foreach (PizzaBaseDTO pizza in _service.GetAllPizzas())
                 PizzaList.Add(new PizzaViewModel(pizza));
         }
 
