@@ -116,7 +116,8 @@ create table customer (
 	id int primary key generated always as identity, 
 	customer_name varchar(50) not null,
 	email varchar(50) not null,
-	phone varchar(50)
+	phone varchar(50),
+	api_key varchar(50) NOT NULL
 );
 create table promotion (
 	id int primary key generated always as identity,
