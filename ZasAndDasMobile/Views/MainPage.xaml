@@ -110,7 +110,8 @@
               ColumnDefinitions="*,*"
               ColumnSpacing="10">
             <ImageButton Source="alt_pizza_icon.png"
-                         Command="{Binding ShowPizzasCommand}" 
+                         Command="{Binding UpdateTabsCommand}" 
+                         CommandParameter="pizza"
                          MaximumHeightRequest="50"
                          MaximumWidthRequest="50"
                          MinimumHeightRequest="50"
@@ -119,7 +120,8 @@
                          Grid.Column="0"/>
 
             <ImageButton Source="doodle_drink_icon.png"
-                         Command="{Binding ShowDrinksCommand}" 
+                         Command="{Binding UpdateTabsCommand}"
+                         CommandParameter="drink"
                          MaximumHeightRequest="40"
                          MaximumWidthRequest="40"
                          MinimumHeightRequest="40"
