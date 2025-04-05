@@ -95,7 +95,8 @@ namespace ZasAndDas.IntegrationTests
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 pizza_name VARCHAR(50) not null,
                 description VARCHAR(256),
-                base_price_id INT REFERENCES zasanddas.price_per_item(id) NOT NULL
+                base_price_id INT REFERENCES price_per_item(id) NOT null,
+                image_path varchar(256)
             );
 
             INSERT INTO zasanddas.pizza_base (pizza_name, base_price_id) values ('Test', 4);
