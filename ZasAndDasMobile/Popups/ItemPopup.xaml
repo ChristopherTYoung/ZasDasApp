@@ -11,7 +11,12 @@
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="28"/>
         </Border.StrokeShape>
-
+        <VerticalStackLayout>
+            <Label Text="{Binding Name}"
+                   HorizontalOptions="Center"/>
+            <Label Text="{Binding Price, StringFormat='{}{0:C}'}"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
     </Border>
 
 </toolkit:Popup>

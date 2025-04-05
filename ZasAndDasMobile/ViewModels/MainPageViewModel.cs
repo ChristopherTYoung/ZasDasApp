@@ -1,12 +1,6 @@
-﻿using CommunityToolkit.Mvvm;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZasUndDas.Shared.Data;
 using ZasUndDas.Shared.Services;
 using ZasAndDasMobile.Popups;
@@ -30,7 +24,7 @@ namespace ZasAndDasMobile.ViewModels
         public partial bool DrinksAreVisible { set; get; } = false;
 
         [ObservableProperty]
-        public partial ObservableCollection<PizzaViewModel> PizzaList { set; get; }
+        public partial ObservableCollection<PizzaBaseDTO> PizzaList { set; get; } = new ObservableCollection<PizzaBaseDTO>();
 
         [ObservableProperty]
         public partial int CartItemsCount { get; set; }
@@ -41,18 +35,16 @@ namespace ZasAndDasMobile.ViewModels
             PizzasAreVisible = true;
             DrinksAreVisible = false;
             _service = service;
-            PizzaList = new ObservableCollection<PizzaViewModel>();
             service.Update += Sync;
             service.ForceSync();
             Sync();
         }
         private void Sync()
         {
-            PizzaList = new ObservableCollection<PizzaViewModel>();
+            PizzaList = new ObservableCollection<PizzaBaseDTO>();
             foreach (PizzaBaseDTO pizza in _service.GetAllPizzas())
-                PizzaList.Add(new PizzaViewModel(pizza));
+                PizzaList.Add(pizza);
         }
-
 
         [RelayCommand]
         public void UpdateTabs(string itemCategory)
