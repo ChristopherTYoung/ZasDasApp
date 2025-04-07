@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: chris-grafana-svc
-  namespace: chris-proj06
+  name: zas-grafana-svc
+  namespace: zasanddas
 spec:
   selector:
-    app: chris-grafana
+    app: zas-grafana
   ports:
     - protocol: TCP
       name: grafana

@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: chris-otel
-  namespace: chris-proj06
+  name: zas-otel
+  namespace: zassanddas
   labels:
-    app: chris-otel
+    app: zas-otel
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: chris-otel
+      app: zas-otel
   template:
     metadata:
       labels:
-        app: chris-otel
+        app: zas-otel
     spec:
       volumes:
       - name: otel-config
         configMap:
-          name: chris-otel-config
+          name: zas-otel-config
       containers:
-      - name: chris-otel
+      - name: zas-otel
         volumeMounts:
         - mountPath: /etc/otelcol-contrib/config.yaml
           subPath: config

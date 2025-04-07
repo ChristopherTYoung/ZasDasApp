@@ -12,9 +12,9 @@ jobs:
         run: |
           docker build \
           -f ./test.Dockerfile \
-          -t chris_test_container \
+          -t zas_test_container \
           .
-          docker run --rm chris_test_container
+          docker run --rm zas_test_container
 
     pushtodocker: 
        runs-on: self-hosted

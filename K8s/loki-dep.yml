@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: chris-loki
-  namespace: chris-proj06
+  name: zas-loki
+  namespace: zasanddas
   labels:
-    app: chris-loki
+    app: zas-loki
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: chris-loki
+      app: zas-loki
   template:
     metadata:
       labels:
-        app: chris-loki
+        app: zas-loki
     spec:
       containers:
-      - name: chris-loki
+      - name: zas-loki
         image: grafana/loki:latest
         ports:
         - containerPort: 3100

@@ -1,18 +1,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: chris-grafana-ingress
-  namespace: chris-proj06
+  name: zas-grafana-ingress
+  namespace: zasanddas
 spec:
   rules:
-  - host: "grafana.christyoung.duckdns.org"
+  - host: "grafana.zasanddas.duckdns.org"
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: chris-grafana-svc
+            name: zas-grafana-svc
             port:
               number: 6000
 ---
