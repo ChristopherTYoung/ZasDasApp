@@ -1,10 +1,22 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-               x:Class="ZasAndDasMobile.Popups.ItemPopup">
+               x:Class="ZasAndDasMobile.Popups.ItemPopup"
+               Color="Transparent">
 
-    <VerticalStackLayout>
-        <Label Text="This is a very important message!" />
-    </VerticalStackLayout>
+    <Border Padding="0" HeightRequest="500"
+           WidthRequest="300"
+           Stroke="Transparent"
+           BackgroundColor="#FFEAE7EC">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="28"/>
+        </Border.StrokeShape>
+        <VerticalStackLayout>
+            <Label Text="{Binding Name}"
+                   HorizontalOptions="Center"/>
+            <Label Text="{Binding Price, StringFormat='{}{0:C}'}"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+    </Border>
 
 </toolkit:Popup>

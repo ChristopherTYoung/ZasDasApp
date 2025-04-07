@@ -1,12 +1,6 @@
-﻿using CommunityToolkit.Mvvm;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZasUndDas.Shared.Data;
 using ZasUndDas.Shared.Services;
 using ZasAndDasMobile.Popups;
@@ -24,17 +18,13 @@ namespace ZasAndDasMobile.ViewModels
         public string Rows => $"{DeviceDisplay.Current.MainDisplayInfo.Height - 200}";
 
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(ShowPizzasCommand))]
-        [NotifyCanExecuteChangedFor(nameof(ShowDrinksCommand))]
-        public partial bool PizzasAreVisible { set; get; }
+        public partial bool PizzasAreVisible { set; get; } = true;
 
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(ShowDrinksCommand))]
-        [NotifyCanExecuteChangedFor(nameof(ShowPizzasCommand))]
-        public partial bool DrinksAreVisible { set; get; }
+        public partial bool DrinksAreVisible { set; get; } = false;
 
         [ObservableProperty]
-        public partial ObservableCollection<PizzaViewModel> PizzaList { set; get; }
+        public partial ObservableCollection<PizzaBaseDTO> PizzaList { set; get; } = new ObservableCollection<PizzaBaseDTO>();
 
         [ObservableProperty]
         public partial int CartItemsCount { set; get; }
@@ -45,36 +35,22 @@ namespace ZasAndDasMobile.ViewModels
             PizzasAreVisible = true;
             DrinksAreVisible = false;
             _service = service;
-            PizzaList = new ObservableCollection<PizzaViewModel>();
             service.Update += Sync;
             service.ForceSync();
             Sync();
         }
         private void Sync()
         {
-            PizzaList = new ObservableCollection<PizzaViewModel>();
+            PizzaList = new ObservableCollection<PizzaBaseDTO>();
             foreach (PizzaBaseDTO pizza in _service.GetAllPizzas())
-                PizzaList.Add(new PizzaViewModel(pizza));
+                PizzaList.Add(pizza);
         }
 
-        bool PizzasVis() => !PizzasAreVisible;
-        [RelayCommand(CanExecute = nameof(PizzasVis))]
-        private void ShowPizzas()
+        [RelayCommand]
+        public void UpdateTabs(string itemCategory)
         {
-            PizzasAreVisible = true;
-            DrinksAreVisible = false;
-        }
-        bool DrinksVis() => !DrinksAreVisible;
-
-        [RelayCommand(CanExecute = nameof(DrinksVis))]
-        private void ShowDrinks()
-        {
-            DrinksAreVisible = true;
-            PizzasAreVisible = false;
-        }
-
-        private void UpdateTabs()
-        {
+            PizzasAreVisible = itemCategory == "pizza";
+            DrinksAreVisible = itemCategory == "drink";
         }
 
         [RelayCommand]
@@ -84,9 +60,9 @@ namespace ZasAndDasMobile.ViewModels
         }
 
         [RelayCommand]
-        public void ShowItemPopup()
+        public void ShowItemPopup(IStoreItem item)
         {
-            var popup = new ItemPopup();
+            var popup = new ItemPopup(new ItemViewModel(item));
             Shell.Current.ShowPopup(popup);
         }
     }

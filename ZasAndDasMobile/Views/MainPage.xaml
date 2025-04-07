@@ -4,8 +4,8 @@
              xmlns:pageModels="clr-namespace:ZasAndDasMobile.ViewModels"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="ZasAndDasMobile.MainPage"
-             Shell.NavBarIsVisible="False"
-             x:DataType="pageModels:MainPageViewModel">
+             xmlns:viewmodels="clr-namespace:ZasAndDasMobile.ViewModels"
+             Shell.NavBarIsVisible="False">
     <Grid RowDefinitions="auto,auto,*,auto">
         <Grid Grid.Row="0"
               ColumnDefinitions="auto,*,auto,auto,auto"
@@ -45,19 +45,6 @@
 
         <ScrollView Grid.Row="2">
             <VerticalStackLayout>
-                <!-- <Border HeightRequest="100"
-                        BackgroundColor="LightGray">
-                    <HorizontalStackLayout>
-
-                        <ImageButton Source="pizza.png"
-                                     Command="{Binding ShowPizzasCommand}" />
-                        <ImageButton Source="doodle_drink.png"
-                                     Command="{Binding ShowDrinksCommand}" />
-                        
-                    </HorizontalStackLayout> 
-                    
-                </Border> -->
-
                 <Label Text="Specialty Pizzas"
                        FontSize="Title"
                        FontAttributes="Bold"
@@ -75,7 +62,7 @@
 
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="pageModels:PizzaViewModel">
+                            <DataTemplate>
                                 <Border Padding="20,20"
                                         StrokeShape="RoundRectangle 20,20,20,20">
                                     <VerticalStackLayout>
@@ -94,7 +81,8 @@
                                     </VerticalStackLayout>
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer 
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type pageModels:MainPageViewModel}}, Path=ShowItemPopupCommand}"/>
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainPageViewModel}}, Path=ShowItemPopupCommand}"
+                                            CommandParameter="{Binding .}"/>
                                     </Border.GestureRecognizers>
                                 </Border>
                             </DataTemplate>
@@ -110,7 +98,8 @@
               ColumnDefinitions="*,*"
               ColumnSpacing="10">
             <ImageButton Source="alt_pizza_icon.png"
-                         Command="{Binding ShowPizzasCommand}" 
+                         Command="{Binding UpdateTabsCommand}" 
+                         CommandParameter="pizza"
                          MaximumHeightRequest="50"
                          MaximumWidthRequest="50"
                          MinimumHeightRequest="50"
@@ -119,7 +108,8 @@
                          Grid.Column="0"/>
 
             <ImageButton Source="doodle_drink_icon.png"
-                         Command="{Binding ShowDrinksCommand}" 
+                         Command="{Binding UpdateTabsCommand}"
+                         CommandParameter="drink"
                          MaximumHeightRequest="40"
                          MaximumWidthRequest="40"
                          MinimumHeightRequest="40"
