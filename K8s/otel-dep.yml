@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: zas-otel
-  namespace: zassanddas
+  namespace: zasanddas
   labels:
     app: zas-otel
 spec:
