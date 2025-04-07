@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZasUndDas.Shared.Services
 {
-    public class EmailVerifierService(IAPIService service, )
+    public class EmailVerifierService(IAPIService service)
     {
-        GetApiKey
     }
 }
