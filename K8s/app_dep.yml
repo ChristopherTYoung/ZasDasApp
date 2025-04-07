@@ -31,6 +31,8 @@ spec:
           value: Development
         - name: SHOW_SWAGGER
           value: "true"
+        - name: COLLECTOR_URL
+          value: http://zas-otel-ser:4317
         readinessProbe:
           tcpSocket:
             port: 8080
