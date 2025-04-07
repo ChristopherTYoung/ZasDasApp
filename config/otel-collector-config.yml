@@ -1,0 +1,33 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+processors:
+  batch:
+
+exporters:
+  otlphttp:
+    endpoint: "http://loki:3100/otlp"
+  debug: 
+    verbosity: detailed
+  # prometheus:
+  #   endpoint: 0.0.0.0:8889
+  # zipkin: 
+  #   endpoint: http://zipkin:9411/api/v2/spans
+  
+service:
+  extensions: []
+  pipelines:
+    # traces: 
+    #   receivers: [otlp]
+    #   exporters: [zipkin]
+    # metrics:
+    #   receivers: [otlp]
+    #   processors: []
+    #   exporters: [prometheus, debug]
+    logs:
+      receivers: [otlp]
+      exporters: [otlphttp, debug]

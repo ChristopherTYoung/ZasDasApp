@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zasanddas-grafana-deployment
+  namespace: zasanddas
+  labels:
+    app: zasanddas-grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zasanddas-grafana
+  template:
+    metadata:
+      labels:
+        app: zasanddas-grafana
+    spec:
+      volumes:
+      - name: grafana-config
+        configMap:
+          name: zasanddas-grafana-config
+      containers:
+      - name: zasanddas-grafana
+        volumeMounts:
+        - mountPath: /etc/grafana/provisioning/datasources/ds.yaml
+          subPath: config
+          name: grafana-config
+        image: grafana/grafana:latest
+        env:
+        - name: GF_AUTH_ANONYMOUS_ENABLED
+          value: 'true'
+        - name: GF_AUTH_ANONYMOUS_ORG_ROLE
+          value: Admin
+        ports:
+        - containerPort: 3000
+---

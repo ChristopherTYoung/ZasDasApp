@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chris-loki
+  namespace: chris-proj06
+  labels:
+    app: chris-loki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chris-loki
+  template:
+    metadata:
+      labels:
+        app: chris-loki
+    spec:
+      containers:
+      - name: chris-loki
+        image: grafana/loki:latest
+        ports:
+        - containerPort: 3100
+        - containerPort: 9095
+---

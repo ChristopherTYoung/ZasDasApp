@@ -1,0 +1,60 @@
+
+services:
+    db:
+        image: postgres
+        restart: always
+        volumes:
+          - data:/var/lib/postgresql/data
+          - ./SQL/zas.sql:/docker-entrypoint-initdb.d/init.sql
+        environment:
+          POSTGRES_USER: mostgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: postgres
+        ports:
+            - 5432:5432
+    app:
+        build:
+          context: .
+          dockerfile: "Dockerfile"
+        environment:
+          DB_CONN: "Host=db;Port=5432;Username=mostgres;Password=password;Database=postgres"
+          COLLECTOR_URL: http://otel-collector:4317
+        ports:
+            - 8081:8080
+        depends_on:
+            - db
+    # aspire:
+    #     image: mcr.microsoft.com/dotnet/aspire-dashboard:9.0
+    #     container_name: nateaspire
+    #     ports:
+    #         - 18688:18888
+    otel-collector:
+        image: otel/opentelemetry-collector-contrib
+        volumes:
+          - ./config/otel-collector-config.yml:/etc/otelcol-contrib/config.yaml
+    loki:
+        image: grafana/loki:latest
+    grafana:
+        environment:
+          - GF_AUTH_ANONYMOUS_ENABLED=true
+          - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+        image: grafana/grafana:latest
+        ports:
+          - "8889:3000"
+        volumes:
+          - ./config/grafana-datasource.yml:/etc/grafana/provisioning/datasources/ds.yaml
+    # prometheus:
+    #     image: prom/prometheus
+    #     ports:
+    #     - 9090:9090
+    #     volumes:
+    #       - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+    # zipkin:
+    #     image: ghcr.io/openzipkin/zipkin-slim:${TAG:-latest}
+    #     container_name: zipkin
+    #     environment:
+    #       - STORAGE_TYPE=mem
+    #     ports:
+    #       - 9411:9411
+volumes:
+  data:

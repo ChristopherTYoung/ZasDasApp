@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chris-otel
+  namespace: chris-proj06
+  labels:
+    app: chris-otel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chris-otel
+  template:
+    metadata:
+      labels:
+        app: chris-otel
+    spec:
+      volumes:
+      - name: otel-config
+        configMap:
+          name: chris-otel-config
+      containers:
+      - name: chris-otel
+        volumeMounts:
+        - mountPath: /etc/otelcol-contrib/config.yaml
+          subPath: config
+          name: otel-config
+        image: otel/opentelemetry-collector-contrib:0.119.0
+        ports:
+        - containerPort: 4317
+        - containerPort: 4318
+        - containerPort: 55679
+        - containerPort: 8889
+---
