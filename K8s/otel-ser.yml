@@ -5,7 +5,7 @@ metadata:
   namespace: zasanddas
 spec:
   selector:
-    app: zas-otel-dep
+    app: zas-otel
   ports:
     - name: prometh
       protocol: TCP
