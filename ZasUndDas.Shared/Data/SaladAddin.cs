@@ -5,15 +5,15 @@ namespace ZasUndDas.Shared.Data;
 
 public partial class SaladAddin
 {
-    public int Id { get; set; }
+    public int Id { set; get; }
 
-    public int SaladId { get; set; }
+    public int SaladId { set; get; }
 
-    public int AddinId { get; set; }
+    public int AddinId { set; get; }
 
-    public int? Quantity { get; set; }
+    public int? Quantity { set; get; }
 
-    public virtual PAddin Addin { get; set; } = null!;
+    public virtual PAddin Addin { set; get; } = null!;
 
-    public virtual Salad Salad { get; set; } = null!;
+    public virtual Salad Salad { set; get; } = null!;
 }

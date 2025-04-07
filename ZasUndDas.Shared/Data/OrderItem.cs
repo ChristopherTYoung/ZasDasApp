@@ -5,35 +5,35 @@ namespace ZasUndDas.Shared.Data;
 
 public partial class OrderItem
 {
-    public int Id { get; set; }
+    public int Id { set; get; }
 
-    public int OrderId { get; set; }
+    public int OrderId { set; get; }
 
-    public int? Quantity { get; set; }
+    public int? Quantity { set; get; }
 
-    public int? StockItemId { get; set; }
+    public int? StockItemId { set; get; }
 
-    public int? PizzaId { get; set; }
+    public int? PizzaId { set; get; }
 
-    public int? DrinkId { get; set; }
+    public int? DrinkId { set; get; }
 
-    public int? CalzoneId { get; set; }
+    public int? CalzoneId { set; get; }
 
-    public int? SaladId { get; set; }
+    public int? SaladId { set; get; }
 
-    public int? CheeseBreadId { get; set; }
+    public int? CheeseBreadId { set; get; }
 
-    public virtual Calzone? Calzone { get; set; }
+    public virtual Calzone? Calzone { set; get; }
 
-    public virtual CheeseBread? CheeseBread { get; set; }
+    public virtual CheeseBread? CheeseBread { set; get; }
 
-    public virtual Drink? Drink { get; set; }
+    public virtual Drink? Drink { set; get; }
 
-    public virtual PizzaOrder Order { get; set; } = null!;
+    public virtual PizzaOrder Order { set; get; } = null!;
 
-    public virtual Pizza? Pizza { get; set; }
+    public virtual Pizza? Pizza { set; get; }
 
-    public virtual Salad? Salad { get; set; }
+    public virtual Salad? Salad { set; get; }
 
-    public virtual StockItem? StockItem { get; set; }
+    public virtual StockItem? StockItem { set; get; }
 }

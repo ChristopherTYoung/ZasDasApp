@@ -5,17 +5,17 @@ namespace ZasUndDas.Shared.Data;
 
 public partial class PAddin
 {
-    public int Id { get; set; }
+    public int Id { set; get; }
 
-    public string AddinName { get; set; } = null!;
+    public string AddinName { set; get; } = null!;
 
-    public int BasePriceId { get; set; }
+    public int BasePriceId { set; get; }
 
-    public virtual PricePerItem BasePrice { get; set; } = null!;
+    public virtual PricePerItem BasePrice { set; get; } = null!;
 
-    public virtual ICollection<CalzonAddin> CalzonAddins { get; set; } = new List<CalzonAddin>();
+    public virtual ICollection<CalzonAddin> CalzonAddins { set; get; } = new List<CalzonAddin>();
 
-    public virtual ICollection<PizzaAddin> PizzaAddins { get; set; } = new List<PizzaAddin>();
+    public virtual ICollection<PizzaAddin> PizzaAddins { set; get; } = new List<PizzaAddin>();
 
-    public virtual ICollection<SaladAddin> SaladAddins { get; set; } = new List<SaladAddin>();
+    public virtual ICollection<SaladAddin> SaladAddins { set; get; } = new List<SaladAddin>();
 }

@@ -5,13 +5,13 @@ namespace ZasUndDas.Shared.Data;
 
 public partial class Drink
 {
-    public int Id { get; set; }
+    public int Id { set; get; }
 
-    public int BaseId { get; set; }
+    public int BaseId { set; get; }
 
-    public virtual DrinkBase Base { get; set; } = null!;
+    public virtual DrinkBase Base { set; get; } = null!;
 
-    public virtual ICollection<DrinkAddin> DrinkAddins { get; set; } = new List<DrinkAddin>();
+    public virtual ICollection<DrinkAddin> DrinkAddins { set; get; } = new List<DrinkAddin>();
 
-    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+    public virtual ICollection<OrderItem> OrderItems { set; get; } = new List<OrderItem>();
 }

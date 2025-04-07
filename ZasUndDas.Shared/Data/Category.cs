@@ -5,11 +5,11 @@ namespace ZasUndDas.Shared.Data;
 
 public partial class Category
 {
-    public int Id { get; set; }
+    public int Id { set; get; }
 
-    public string CategoryName { get; set; } = null!;
+    public string CategoryName { set; get; } = null!;
 
-    public string? Description { get; set; }
+    public string? Description { set; get; }
 
-    public virtual ICollection<StockItem> StockItems { get; set; } = new List<StockItem>();
+    public virtual ICollection<StockItem> StockItems { set; get; } = new List<StockItem>();
 }

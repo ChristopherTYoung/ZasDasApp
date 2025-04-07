@@ -15,51 +15,51 @@ public partial class PostgresContext : DbContext
     {
     }
 
-    public virtual DbSet<CalzonAddin> CalzonAddins { get; set; }
+    public virtual DbSet<CalzonAddin> CalzonAddins { set; get; }
 
-    public virtual DbSet<Calzone> Calzones { get; set; }
+    public virtual DbSet<Calzone> Calzones { set; get; }
 
-    public virtual DbSet<Category> Categories { get; set; }
+    public virtual DbSet<Category> Categories { set; get; }
 
-    public virtual DbSet<CheeseBread> CheeseBreads { get; set; }
+    public virtual DbSet<CheeseBread> CheeseBreads { set; get; }
 
-    public virtual DbSet<Customer> Customers { get; set; }
+    public virtual DbSet<Customer> Customers { set; get; }
 
-    public virtual DbSet<DAddin> DAddins { get; set; }
+    public virtual DbSet<DAddin> DAddins { set; get; }
 
-    public virtual DbSet<Drink> Drinks { get; set; }
+    public virtual DbSet<Drink> Drinks { set; get; }
 
-    public virtual DbSet<DrinkAddin> DrinkAddins { get; set; }
+    public virtual DbSet<DrinkAddin> DrinkAddins { set; get; }
 
-    public virtual DbSet<DrinkBase> DrinkBases { get; set; }
+    public virtual DbSet<DrinkBase> DrinkBases { set; get; }
 
-    public virtual DbSet<OrderItem> OrderItems { get; set; }
+    public virtual DbSet<OrderItem> OrderItems { set; get; }
 
-    public virtual DbSet<OrderPromotion> OrderPromotions { get; set; }
+    public virtual DbSet<OrderPromotion> OrderPromotions { set; get; }
 
-    public virtual DbSet<PAddin> PAddins { get; set; }
+    public virtual DbSet<PAddin> PAddins { set; get; }
 
-    public virtual DbSet<Pizza> Pizzas { get; set; }
+    public virtual DbSet<Pizza> Pizzas { set; get; }
 
-    public virtual DbSet<PizzaAddin> PizzaAddins { get; set; }
+    public virtual DbSet<PizzaAddin> PizzaAddins { set; get; }
 
-    public virtual DbSet<PizzaBase> PizzaBases { get; set; }
+    public virtual DbSet<PizzaBase> PizzaBases { set; get; }
 
-    public virtual DbSet<PizzaOrder> PizzaOrders { get; set; }
+    public virtual DbSet<PizzaOrder> PizzaOrders { set; get; }
 
-    public virtual DbSet<PizzaSize> PizzaSizes { get; set; }
+    public virtual DbSet<PizzaSize> PizzaSizes { set; get; }
 
-    public virtual DbSet<PricePerItem> PricePerItems { get; set; }
+    public virtual DbSet<PricePerItem> PricePerItems { set; get; }
 
-    public virtual DbSet<Promotion> Promotions { get; set; }
+    public virtual DbSet<Promotion> Promotions { set; get; }
 
-    public virtual DbSet<Salad> Salads { get; set; }
+    public virtual DbSet<Salad> Salads { set; get; }
 
-    public virtual DbSet<SaladAddin> SaladAddins { get; set; }
+    public virtual DbSet<SaladAddin> SaladAddins { set; get; }
 
-    public virtual DbSet<Sauce> Sauces { get; set; }
+    public virtual DbSet<Sauce> Sauces { set; get; }
 
-    public virtual DbSet<StockItem> StockItems { get; set; }
+    public virtual DbSet<StockItem> StockItems { set; get; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -174,6 +174,9 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Phone)
                 .HasMaxLength(50)
                 .HasColumnName("phone");
+            entity.Property(e => e.ApiKey)
+                .HasMaxLength(50)
+                .HasColumnName("api_key");
         });
 
         modelBuilder.Entity<DAddin>(entity =>

@@ -5,13 +5,13 @@ namespace ZasUndDas.Shared.Data;
 
 public partial class DAddin
 {
-    public int Id { get; set; }
+    public int Id { set; get; }
 
-    public string AddinName { get; set; } = null!;
+    public string AddinName { set; get; } = null!;
 
-    public int BasePriceId { get; set; }
+    public int BasePriceId { set; get; }
 
-    public virtual PricePerItem BasePrice { get; set; } = null!;
+    public virtual PricePerItem BasePrice { set; get; } = null!;
 
-    public virtual ICollection<DrinkAddin> DrinkAddins { get; set; } = new List<DrinkAddin>();
+    public virtual ICollection<DrinkAddin> DrinkAddins { set; get; } = new List<DrinkAddin>();
 }

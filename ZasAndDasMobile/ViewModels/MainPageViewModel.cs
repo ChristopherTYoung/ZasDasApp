@@ -27,7 +27,7 @@ namespace ZasAndDasMobile.ViewModels
         public partial ObservableCollection<PizzaBaseDTO> PizzaList { set; get; } = new ObservableCollection<PizzaBaseDTO>();
 
         [ObservableProperty]
-        public partial int CartItemsCount { get; set; }
+        public partial int CartItemsCount { set; get; }
 
         public MainPageViewModel(MenuItemService service, CartService cartService)
         {

@@ -5,15 +5,15 @@ namespace ZasUndDas.Shared.Data;
 
 public partial class OrderPromotion
 {
-    public int Id { get; set; }
+    public int Id { set; get; }
 
-    public int PromotionId { get; set; }
+    public int PromotionId { set; get; }
 
-    public int OrderId { get; set; }
+    public int OrderId { set; get; }
 
-    public decimal? DollarAmountOff { get; set; }
+    public decimal? DollarAmountOff { set; get; }
 
-    public virtual PizzaOrder Order { get; set; } = null!;
+    public virtual PizzaOrder Order { set; get; } = null!;
 
-    public virtual Promotion Promotion { get; set; } = null!;
+    public virtual Promotion Promotion { set; get; } = null!;
 }

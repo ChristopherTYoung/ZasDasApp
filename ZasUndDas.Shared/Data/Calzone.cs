@@ -5,19 +5,19 @@ namespace ZasUndDas.Shared.Data;
 
 public partial class Calzone
 {
-    public int Id { get; set; }
+    public int Id { set; get; }
 
-    public int BasePriceId { get; set; }
+    public int BasePriceId { set; get; }
 
-    public int? SauceId { get; set; }
+    public int? SauceId { set; get; }
 
-    public bool? CookedAtHome { get; set; }
+    public bool? CookedAtHome { set; get; }
 
-    public virtual PricePerItem BasePrice { get; set; } = null!;
+    public virtual PricePerItem BasePrice { set; get; } = null!;
 
-    public virtual ICollection<CalzonAddin> CalzonAddins { get; set; } = new List<CalzonAddin>();
+    public virtual ICollection<CalzonAddin> CalzonAddins { set; get; } = new List<CalzonAddin>();
 
-    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+    public virtual ICollection<OrderItem> OrderItems { set; get; } = new List<OrderItem>();
 
-    public virtual Sauce? Sauce { get; set; }
+    public virtual Sauce? Sauce { set; get; }
 }
