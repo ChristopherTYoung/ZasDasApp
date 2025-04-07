@@ -37,7 +37,7 @@ namespace ZasAndDasMobile.ViewModels
         public partial ObservableCollection<PizzaViewModel> PizzaList { set; get; }
 
         [ObservableProperty]
-        public partial int CartItemsCount { get; set; }
+        public partial int CartItemsCount { set; get; }
 
         public MainPageViewModel(MenuItemService service, CartService cartService)
         {

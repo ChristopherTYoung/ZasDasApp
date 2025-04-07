@@ -5,13 +5,14 @@ namespace ZasUndDas.Shared.Data;
 
 public partial class Customer
 {
-    public int Id { get; set; }
+    public int Id { set; get; }
 
-    public string CustomerName { get; set; } = null!;
+    public string CustomerName { set; get; } = null!;
 
-    public string Email { get; set; } = null!;
+    public string Email { set; get; } = null!;
 
-    public string? Phone { get; set; }
+    public string? Phone { set; get; }
+    public string ApiKey { set; get; } = null!;
 
-    public virtual ICollection<PizzaOrder> PizzaOrders { get; set; } = new List<PizzaOrder>();
+    public virtual ICollection<PizzaOrder> PizzaOrders { set; get; } = new List<PizzaOrder>();
 }

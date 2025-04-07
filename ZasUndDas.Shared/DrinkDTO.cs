@@ -8,10 +8,10 @@ namespace ZasUndDas.Shared
 {
     public record DrinkDTO : IStoreItem
     {
-        public int Id { get; set; }
-        public string Name { get; set; } = "CYO";
-        public string Description { get; set; } = string.Empty;
-        public List<string> Ingredients { get; set; } = new List<string>();
-        public double Price { get; set; } = 0d;
+        public int Id { set; get; }
+        public string Name { set; get; } = "CYO";
+        public string Description { set; get; } = string.Empty;
+        public List<string> Ingredients { set; get; } = new List<string>();
+        public double Price { set; get; } = 0d;
     }
 }

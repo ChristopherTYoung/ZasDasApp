@@ -5,18 +5,18 @@ namespace ZasUndDas.Shared.Data;
 
 public partial class PizzaBase
 {
-    public int Id { get; set; }
+    public int Id { set; get; }
 
-    public string PizzaName { get; set; } = null!;
+    public string PizzaName { set; get; } = null!;
 
-    public string? Description { get; set; }
+    public string? Description { set; get; }
 
-    public int BasePriceId { get; set; }
-    public string? ImagePath { get; set; }
+    public int BasePriceId { set; get; }
+    public string? ImagePath { set; get; }
 
-    public virtual PricePerItem BasePrice { get; set; } = null!;
+    public virtual PricePerItem BasePrice { set; get; } = null!;
 
-    public virtual ICollection<Pizza> Pizzas { get; set; } = new List<Pizza>();
+    public virtual ICollection<Pizza> Pizzas { set; get; } = new List<Pizza>();
 }
 public class PizzaBaseDTO : IStoreItem
 {
@@ -32,15 +32,15 @@ public class PizzaBaseDTO : IStoreItem
         Price = price;
         ImagePath = pizzza.ImagePath;
     }
-    public int Id { get; set; }
+    public int Id { set; get; }
 
-    public string Name { get; set; } = null!;
+    public string Name { set; get; } = null!;
 
-    public string? Description { get; set; }
+    public string? Description { set; get; }
 
-    public int BasePriceId { get; set; }
-    public string? ImagePath { get; set; }
-    public double Price { get; set; }
+    public int BasePriceId { set; get; }
+    public string? ImagePath { set; get; }
+    public double Price { set; get; }
 
     public PizzaBase ToPizzaBase() => new PizzaBase() { BasePriceId = BasePriceId, PizzaName = Name, Description = Description };
 }

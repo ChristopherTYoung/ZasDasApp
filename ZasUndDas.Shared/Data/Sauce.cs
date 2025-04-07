@@ -5,9 +5,9 @@ namespace ZasUndDas.Shared.Data;
 
 public partial class Sauce
 {
-    public int Id { get; set; }
+    public int Id { set; get; }
 
-    public string SauceName { get; set; } = null!;
+    public string SauceName { set; get; } = null!;
 
-    public virtual ICollection<Calzone> Calzones { get; set; } = new List<Calzone>();
+    public virtual ICollection<Calzone> Calzones { set; get; } = new List<Calzone>();
 }

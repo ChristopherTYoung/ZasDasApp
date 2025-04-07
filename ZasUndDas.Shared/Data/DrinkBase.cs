@@ -5,15 +5,15 @@ namespace ZasUndDas.Shared.Data;
 
 public partial class DrinkBase
 {
-    public int Id { get; set; }
+    public int Id { set; get; }
 
-    public string DrinkName { get; set; } = null!;
+    public string DrinkName { set; get; } = null!;
 
-    public string? Description { get; set; }
+    public string? Description { set; get; }
 
-    public int BasePriceId { get; set; }
+    public int BasePriceId { set; get; }
 
-    public virtual PricePerItem BasePrice { get; set; } = null!;
+    public virtual PricePerItem BasePrice { set; get; } = null!;
 
-    public virtual ICollection<Drink> Drinks { get; set; } = new List<Drink>();
+    public virtual ICollection<Drink> Drinks { set; get; } = new List<Drink>();
 }

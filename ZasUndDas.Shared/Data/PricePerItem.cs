@@ -5,23 +5,23 @@ namespace ZasUndDas.Shared.Data;
 
 public partial class PricePerItem
 {
-    public int Id { get; set; }
+    public int Id { set; get; }
 
-    public decimal Price { get; set; }
+    public decimal Price { set; get; }
 
-    public virtual ICollection<Calzone> Calzones { get; set; } = new List<Calzone>();
+    public virtual ICollection<Calzone> Calzones { set; get; } = new List<Calzone>();
 
-    public virtual ICollection<DAddin> DAddins { get; set; } = new List<DAddin>();
+    public virtual ICollection<DAddin> DAddins { set; get; } = new List<DAddin>();
 
-    public virtual ICollection<DrinkBase> DrinkBases { get; set; } = new List<DrinkBase>();
+    public virtual ICollection<DrinkBase> DrinkBases { set; get; } = new List<DrinkBase>();
 
-    public virtual ICollection<PAddin> PAddins { get; set; } = new List<PAddin>();
+    public virtual ICollection<PAddin> PAddins { set; get; } = new List<PAddin>();
 
-    public virtual ICollection<PizzaBase> PizzaBases { get; set; } = new List<PizzaBase>();
+    public virtual ICollection<PizzaBase> PizzaBases { set; get; } = new List<PizzaBase>();
 
-    public virtual ICollection<PizzaSize> PizzaSizes { get; set; } = new List<PizzaSize>();
+    public virtual ICollection<PizzaSize> PizzaSizes { set; get; } = new List<PizzaSize>();
 
-    public virtual ICollection<Salad> Salads { get; set; } = new List<Salad>();
+    public virtual ICollection<Salad> Salads { set; get; } = new List<Salad>();
 
-    public virtual ICollection<StockItem> StockItems { get; set; } = new List<StockItem>();
+    public virtual ICollection<StockItem> StockItems { set; get; } = new List<StockItem>();
 }

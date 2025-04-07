@@ -8,10 +8,10 @@ namespace ZasUndDas.Shared
 {
     public class OrderDTO
     {
-        public decimal GrossAmt { get; set; }
-        public decimal NetAmt { get; set; }
-        public decimal SalesTax { get; set; }
-        public List<OrderItemDTO> Items { get; set; } = new List<OrderItemDTO>();
-        public DateTime? DateOrdered { get; set; }
+        public decimal GrossAmt { set; get; }
+        public decimal NetAmt { set; get; }
+        public decimal SalesTax { set; get; }
+        public List<OrderItemDTO> Items { set; get; } = new List<OrderItemDTO>();
+        public DateTime? DateOrdered { set; get; }
     }
 }

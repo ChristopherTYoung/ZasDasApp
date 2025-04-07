@@ -5,9 +5,9 @@ namespace ZasUndDas.Shared.Data;
 
 public partial class Promotion
 {
-    public int Id { get; set; }
+    public int Id { set; get; }
 
-    public string PromotionName { get; set; } = null!;
+    public string PromotionName { set; get; } = null!;
 
-    public virtual ICollection<OrderPromotion> OrderPromotions { get; set; } = new List<OrderPromotion>();
+    public virtual ICollection<OrderPromotion> OrderPromotions { set; get; } = new List<OrderPromotion>();
 }

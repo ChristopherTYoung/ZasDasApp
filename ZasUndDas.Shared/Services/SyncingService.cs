@@ -23,8 +23,8 @@ public interface ISyncingService
 
 public class SyncingService : ISyncingService
 {
-    MenuItemService menuservice { get; set; }
-    IAPIService apiservice { get; set; }
+    MenuItemService menuservice { set; get; }
+    IAPIService apiservice { set; get; }
 
     public SyncingService(MenuItemService menuservice, IAPIService apiservice)
     {

@@ -5,13 +5,13 @@ namespace ZasUndDas.Shared.Data;
 
 public partial class Salad
 {
-    public int Id { get; set; }
+    public int Id { set; get; }
 
-    public int BasePriceId { get; set; }
+    public int BasePriceId { set; get; }
 
-    public virtual PricePerItem BasePrice { get; set; } = null!;
+    public virtual PricePerItem BasePrice { set; get; } = null!;
 
-    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+    public virtual ICollection<OrderItem> OrderItems { set; get; } = new List<OrderItem>();
 
-    public virtual ICollection<SaladAddin> SaladAddins { get; set; } = new List<SaladAddin>();
+    public virtual ICollection<SaladAddin> SaladAddins { set; get; } = new List<SaladAddin>();
 }

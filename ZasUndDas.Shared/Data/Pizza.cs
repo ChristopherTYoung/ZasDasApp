@@ -5,19 +5,19 @@ namespace ZasUndDas.Shared.Data;
 
 public partial class Pizza
 {
-    public int Id { get; set; }
+    public int Id { set; get; }
 
-    public int SizeId { get; set; }
+    public int SizeId { set; get; }
 
-    public int BaseId { get; set; }
+    public int BaseId { set; get; }
 
-    public bool CookedAtHome { get; set; }
+    public bool CookedAtHome { set; get; }
 
-    public virtual PizzaBase Base { get; set; } = null!;
+    public virtual PizzaBase Base { set; get; } = null!;
 
-    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+    public virtual ICollection<OrderItem> OrderItems { set; get; } = new List<OrderItem>();
 
-    public virtual ICollection<PizzaAddin> PizzaAddins { get; set; } = new List<PizzaAddin>();
+    public virtual ICollection<PizzaAddin> PizzaAddins { set; get; } = new List<PizzaAddin>();
 
-    public virtual PizzaSize Size { get; set; } = null!;
+    public virtual PizzaSize Size { set; get; } = null!;
 }
