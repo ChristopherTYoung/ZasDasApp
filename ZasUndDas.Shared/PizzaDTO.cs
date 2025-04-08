@@ -9,7 +9,7 @@ public record PizzaDTO : IStoreItem
     public string Name { set; get; } = "CYO";
     public double Price { set; get; } = 0d;
     public string Description { set; get; } = string.Empty;
-    public List<int> Ingredients { set; get; } = new List<int>();
+    public List<int> I ngredients { set; get; } = new List<int>();
     public int Id { set; get; }
 }
 public enum ItemSize { small, medium, large }
