@@ -9,6 +9,13 @@
       "environmentVariables": {
         "ISNT_MODEL": "NOT_TRUE"
       }
+    },
+    "Samsung Design": {
+      "commandName": "Project",
+      "commandLineArgs": "-f net9.0-android",
+      "environmentVariables": {
+        "ISNT_MODEL": "NOT_TRUE"
+      }
     }
   }
 }
