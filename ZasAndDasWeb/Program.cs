@@ -19,19 +19,23 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        var resourceBuilder = ResourceBuilder
-            .CreateDefault()
-            .AddService("TelemetryAspireDashboardQuickstart");
+        var collectorURL = builder.Configuration["COLLECTOR_URL"] ?? null;
 
-        var collectorURL = builder.Configuration["COLLECTOR_URL"] ?? throw new Exception("Missing collector url");
-        builder.Logging.AddOpenTelemetry(options =>
+        if (collectorURL != null)
         {
-            options.SetResourceBuilder(resourceBuilder);
-            // options.AddOtlpExporter(options => options.Endpoint = new Uri(uriString: builder.Configuration["ASPIRE_DASHBOARD_URL"]));
-            options.AddOtlpExporter(options => options.Endpoint = new Uri(collectorURL));
-            options.IncludeFormattedMessage = true;
-            options.IncludeScopes = true;
-        });
+            var resourceBuilder = ResourceBuilder
+                .CreateDefault()
+                .AddService("TelemetryAspireDashboardQuickstart");
+
+            builder.Logging.AddOpenTelemetry(options =>
+            {
+                options.SetResourceBuilder(resourceBuilder);
+                // options.AddOtlpExporter(options => options.Endpoint = new Uri(uriString: builder.Configuration["ASPIRE_DASHBOARD_URL"]));
+                options.AddOtlpExporter(options => options.Endpoint = new Uri(collectorURL));
+                options.IncludeFormattedMessage = true;
+                options.IncludeScopes = true;
+            });
+        }
 
         var app = builder.Build();
 
