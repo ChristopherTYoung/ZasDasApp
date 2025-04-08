@@ -52,7 +52,7 @@ jobs:
 
     notifydiscord:
         runs-on: self-hosted
-        needs: [pushtokubernetes]
+        needs: [test, pushtodocker, pushtokubernetes]
         if: ${{ always() && contains(needs.*.result, 'failure') }}
         steps: 
         - name: Discord notifications
@@ -60,4 +60,4 @@ jobs:
             DISCORD_WEBHOOK:  ${{secrets.DISCORD_WEBHOOK}}
           uses: Ilshidur/action-discord@master
           with:
-              args: 'The project {{EVENT_PAYLOAD.repository.full_name}} has not pushed to kubernetes'
+              args: 'The project {{EVENT_PAYLOAD.repository.full_name}} pipeline has failed from commit {{GITHUB_SHA}}'
