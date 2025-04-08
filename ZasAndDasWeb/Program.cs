@@ -37,7 +37,7 @@ public class Program
             });
         }
 
-        var app = bui lder.Build();
+        var app = builder.Build();
 
         var swaggerIsVisible = builder.Configuration.GetValue<bool?>("SHOW_SWAGGER") ?? false;
 
