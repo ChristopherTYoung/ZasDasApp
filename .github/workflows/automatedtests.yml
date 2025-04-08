@@ -60,4 +60,4 @@ jobs:
             DISCORD_WEBHOOK:  ${{secrets.DISCORD_WEBHOOK}}
           uses: Ilshidur/action-discord@master
           with:
-              args: 'The project {{EVENT_PAYLOAD.repository.full_name}} pipeline has failed from commit {{GITHUB_SHA}}'
+              args: '@everyone The project {{EVENT_PAYLOAD.repository.full_name}} pipeline has failed from commit {{GITHUB_SHA}} on run: https://github.com/ChristopherTYoung/ZasDasApp/actions/runs${{github.run_id}}'
