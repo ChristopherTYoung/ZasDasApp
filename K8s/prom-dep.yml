@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zas-prom
+  namespace: zasanddas
+  labels:
+    app: zas-prom
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zas-prom
+  template:
+    metadata:
+      labels:
+        app: zas-prom
+    spec:
+      volumes:
+      - name: prom-config
+        configMap:
+          name: zas-prom-config
+      containers:
+      - name: zas-prom
+        volumeMounts:
+        - mountPath: /etc/prometheus/prometheus.yml
+          subPath: config
+          name: prom-config
+        image: prom/prometheus
+        ports:
+        - containerPort: 9090
+---

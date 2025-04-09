@@ -18,17 +18,13 @@ namespace ZasAndDasWeb.Controllers
         public async Task<List<PizzaBaseDTO>> GetPizza()
         {
             logger.LogInformation("Getting all pizza bases");
-            return await context.PizzaBases
-                .Select(
-                    p => new PizzaBaseDTO(p, (double)context.PricePerItems.First(
-                        x => p.BasePriceId == x.Id).Price))
-                .ToListAsync();
+            return await context.PizzaBases.ToListAsync();
         }
         [HttpPost("addpizzabase")]
         public async Task<IResult> MakePizza(PizzaBaseDTO pizza)
         {
             logger.LogInformation($"Adding pizza: {pizza.Name}");
-            await context.PizzaBases.AddAsync(pizza.ToPizzaBase());
+            await context.PizzaBases.AddAsync(pizza);
             await context.SaveChangesAsync();
             return Results.Ok();
         }
@@ -60,6 +56,12 @@ namespace ZasAndDasWeb.Controllers
         {
             logger.LogInformation($"Getting all stock items");
             return await context.StockItems.Select(p => new StockItemDTO(p)).ToListAsync();
+        }
+
+        [HttpGet("getpizzatoppings")]
+        public async Task<List<PAddinDTO>> GetPizzaToppings()
+        {
+            return await context.PAddins.ToListAsync();
         }
 
     }

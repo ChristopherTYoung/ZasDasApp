@@ -11,6 +11,7 @@ namespace ZasUndDas.Shared.Services
         }
         public Action Update;
         List<IStoreItem> menuItems = new List<IStoreItem>();
+        List<PAddin> pAddins = new List<PAddin>();
         public List<PizzaBaseDTO> GetAllPizzas()
         {
             return menuItems.Where(i => i.GetType() == typeof(PizzaBaseDTO))
@@ -23,9 +24,10 @@ namespace ZasUndDas.Shared.Services
             menuItems.Add(item);
             return this;
         }
-        public void UpdateMenu(IEnumerable<IStoreItem> storeItems)
+        public void UpdateMenu(IEnumerable<IStoreItem> storeItems, List<PAddin> addins)
         {
             menuItems = storeItems.ToList();
+            pAddins = addins;
             Update.Invoke();
         }
         public List<DrinkDTO> GetAllDrinks()

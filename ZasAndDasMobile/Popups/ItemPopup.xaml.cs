@@ -7,7 +7,7 @@ namespace ZasAndDasMobile.Popups;
 
 public partial class ItemPopup : Popup
 {
-    public ItemPopup(ItemViewModel<PizzaDTO> vm)
+    public ItemPopup(ItemViewModel vm)
     {
         InitializeComponent();
         vm.SetPopup(this);

@@ -66,7 +66,7 @@ namespace ZasAndDasMobile.ViewModels
         {
             if (item.GetType() == typeof(PizzaBaseDTO))
             {
-                var popup = new ItemPopup(new ItemViewModel<PizzaDTO>(((PizzaBaseDTO)item).ToPizzaEmpty(), _cartService));
+                var popup = new ItemPopup(new ItemViewModel(item, _cartService));
                 Shell.Current.ShowPopup(popup);
             }
         }

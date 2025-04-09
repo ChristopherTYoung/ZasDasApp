@@ -7,7 +7,7 @@ namespace ZasAndDasWeb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController(PostgresContext context) : ControllerBase
+    public class OrderController : ControllerBase
     {
         [HttpPost("sendorder")]
         public IResult SendOrder(OrderDTO order)
@@ -16,10 +16,10 @@ namespace ZasAndDasWeb.Controllers
                 return Results.BadRequest();
             return Results.Ok();
         }
-        [HttpGet("allorders")]
-        public IEnumerable<OrderDTO> GetOrders()
-        {
-            return context.PizzaOrders.Select(o => o.ToOrderDTO(context));
-        }
+        //[HttpGet("allorders")]
+        //public IEnumerable<OrderDTO> GetOrders()
+        //{
+        //    return context.PizzaOrders.Select(o => o.ToOrderDTO(context));
+        //}
     }
 }

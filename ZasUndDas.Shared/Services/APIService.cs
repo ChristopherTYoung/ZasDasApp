@@ -24,6 +24,12 @@ public class APIService : IAPIService
         return result;
     }
 
+    public async Task<List<PAddin>> GetPizzaToppings()
+    {
+        var result = await Client.GetFromJsonAsync<List<PAddin>>("/api/inventory/getpizzatoppings");
+        return result;
+    }
+
     public Task Order(OrderDTO order)
     {
         throw new NotImplementedException();
@@ -33,5 +39,6 @@ public class APIService : IAPIService
 public interface IAPIService
 {
     public Task<List<IStoreItem>> GetItems();
+    public Task<List<PAddin>> GetPizzaToppings();
     public Task Order(OrderDTO order);
 }

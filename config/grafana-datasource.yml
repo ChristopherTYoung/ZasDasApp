@@ -4,27 +4,11 @@ datasources:
     type: loki
     access: proxy
     url: http://loki:3100
-    jsonData:
-      httpHeaderName1: "X-Scope-OrgID"
-    secureJsonData:
-      httpHeaderValue1: "tenant1"
-  # - name:  Zipkin
-  #   type: zipkin
-  #   uid: EbPG8fYoz
-  #   url: http://zipkin:16686
-  # - name: Prometheus
-  #   type: prometheus
-  #   access: proxy
-  #   url: http://prometheus:9090
-  #   jsonData:
-  #     httpMethod: POST
-  #     manageAlerts: true
-  #     prometheusType: Prometheus
-  #     cacheLevel: 'High'
-  #     disableRecordingRules: false
-  #     incrementalQueryOverlapWindow: 10m
-  #     exemplarTraceIdDestinations:
-  #       - datasourceUid: prometheus
-  #         name: traceID
-  #   secureJsonData:
-  #     httpHeaderValue1: "tenant1"
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+  - name: Zipkin
+    type: zipkin
+    url: http://zas-zipkin:9411
+    access: proxy

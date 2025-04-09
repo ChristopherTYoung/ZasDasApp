@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zas-prom-svc
+  namespace: zasanddas
+spec:
+  selector:
+    app: zas-prom
+  ports:
+    - protocol: TCP
+      name: prom
+      port: 9090
+      targetPort: 9090
+---

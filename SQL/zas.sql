@@ -1,8 +1,3 @@
-CREATE TABLE price_per_item (
-    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    price decimal NOT NULL
-);
-
 CREATE TABLE category (
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     category_name VARCHAR(50) not null,
@@ -13,7 +8,7 @@ CREATE TABLE stock_item (
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     item_name VARCHAR(50) not null,
     description VARCHAR(256),
-    base_price_id INT REFERENCES price_per_item(id) NOT NULL,
+    base_price decimal NOT NULL,
     item_category_id INT REFERENCES category(id) NOT NULL
 );
 
@@ -25,21 +20,21 @@ CREATE TABLE sauce (
 CREATE TABLE pizza_size (
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     size_name VARCHAR(10) not null, 
-    base_price_id INT REFERENCES price_per_item(id) NOT NULL
+    price decimal NOT NULL
 );
 
 CREATE TABLE pizza_base (
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     pizza_name VARCHAR(50) not null,
     description VARCHAR(256),
-    base_price_id INT REFERENCES price_per_item(id) NOT null,
+    base_price decimal NOT null,
     image_path varchar(256)
 );
 
 CREATE TABLE p_addin (
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     addin_name VARCHAR(50) not null,
-    base_price_id INT REFERENCES price_per_item(id) NOT NULL
+    base_price decimal NOT null
 );
 
 CREATE TABLE pizza (
@@ -60,13 +55,13 @@ CREATE TABLE drink_base (
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     drink_name VARCHAR(10) not null,
     description VARCHAR(256),
-    base_price_id INT REFERENCES price_per_item(id) NOT NULL
+    base_price decimal NOT NULL
 );
 
 CREATE TABLE d_addin (
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     addin_name VARCHAR(50) not null,
-    base_price_id INT REFERENCES price_per_item(id) NOT NULL
+    base_price decimal NOT NULL
 );
 
 CREATE TABLE drink (
@@ -82,7 +77,7 @@ CREATE TABLE drink_addin (
 
 CREATE TABLE calzone (
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    base_price_id INT REFERENCES price_per_item(id) NOT NULL,
+    base_price decimal NOT NULL,
     sauce_id INT REFERENCES sauce(id),
     cooked_at_home BOOLEAN default(False)
 );
@@ -96,7 +91,7 @@ CREATE TABLE calzon_addin (
 
 CREATE TABLE salad (
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    base_price_id INT REFERENCES price_per_item(id) not null
+    base_price_id decimal not null
 );
 
 CREATE TABLE salad_addin (
@@ -158,40 +153,29 @@ CREATE TABLE order_item (
      (calzone_id is not null)::int = 1))
 );
 
-INSERT INTO zasanddas.price_per_item (price)
+INSERT INTO zasanddas.pizza_base (pizza_name, base_price)
 VALUES 
-    (9.99),
-    (10.99),
-    (11.99),
-    (12.99),
-    (13.99),
-    (14.99),
-    (15.99),
-    (16.99);
-   select * from zasanddas.price_per_item ppi;
-INSERT INTO zasanddas.pizza_base (pizza_name, base_price_id)
-VALUES 
-    ('Chicken Pesto', 6),
-    ('Chicken Bacon Ranch', 5),
-    ('Combo', 7),
-    ('Hawaiian', 5),
-    ('BBQ Chicken', 6),
-    ('Buffalo Chicken', 6),
-    ('Dragonscale Pepperoni', 6),
-    ('Biscuits and Gravy', 5),
-    ('Cheese', 1),
-    ('Pepperoni', 3),
-    ('Chicken Bacon Artichoke', 6),
-    ('Sweet Chili Hawaiian', 6),
-    ('Mediterranean', 6),
-    ('Fun Guy', 6),
-    ('Hog Heaven', 6),
-    ('All Meat', 7),
-    ('Honey Badger', 6),
-    ('BLT', 4),
-    ('Margarita', 4),
-    ('Vegetarian', 6),
-    ('Choose your own', 2),
-    ('The Za', 8),
-    ('Ninja Turtle', 4);
+    ('Chicken Pesto', 14.99),
+    ('Chicken Bacon Ranch', 13.99),
+    ('Combo', 15.99),
+    ('Hawaiian', 13.99),
+    ('BBQ Chicken', 14.99),
+    ('Buffalo Chicken', 14.99),
+    ('Dragonscale Pepperoni', 14.99),
+    ('Biscuits and Gravy', 13.99),
+    ('Cheese', 9.99),
+    ('Pepperoni', 11.99),
+    ('Chicken Bacon Artichoke', 14.99),
+    ('Sweet Chili Hawaiian', 14.99),
+    ('Mediterranean', 14.99),
+    ('Fun Guy', 14.99),
+    ('Hog Heaven', 14.99),
+    ('All Meat', 15.99),
+    ('Honey Badger', 14.99),
+    ('BLT', 12.99),
+    ('Margarita', 12.99),
+    ('Vegetarian', 14.99),
+    ('Choose your own', 10.99),
+    ('The Za', 16.99),
+    ('Ninja Turtle', 12.99);
 

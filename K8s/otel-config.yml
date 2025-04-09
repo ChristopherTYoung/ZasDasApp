@@ -18,20 +18,19 @@ data:
         endpoint: http://zas-loki-svc:3100/otlp
       debug:
         verbosity: detailed
-      # prometheus:
-      #   endpoint: 0.0.0.0:8889
-      #   namespace: default
-      # prometheusremotewrite:
-      #   endpoint: 'http://prometheus:9090/api/v1/push'
-      #   tls:
-      #     insecure: true
-      
+      prometheus:
+        endpoint: 0.0.0.0:8889
+      zipkin: 
+        endpoint: http://zas-zipkin-svc:9411/api/v2/spans
 
     service:
       pipelines:
-        # metrics:
-        #   receivers: [otlp]
-        #   exporters: [prometheus]
+        traces: 
+          receivers: [otlp]
+          exporters: [zipkin]
+        metrics:
+          receivers: [otlp]
+          exporters: [prometheus]
         logs:
           receivers: [otlp]
           exporters: [otlphttp, debug]

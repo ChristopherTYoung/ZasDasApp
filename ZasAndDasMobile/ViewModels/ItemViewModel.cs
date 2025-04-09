@@ -12,10 +12,10 @@ using ZasUndDas.Shared.Data;
 
 namespace ZasAndDasMobile.ViewModels
 {
-    public partial class ItemViewModel<T> : ObservableObject where T : IStoreItem
+    public partial class ItemViewModel : ObservableObject
     {
         Popup? _popup;
-        T item;
+        IStoreItem item;
         CartService _cartService;
         public string Name { get => item.Name; }
         public string? Description { get => item.Description; }
@@ -30,11 +30,11 @@ namespace ZasAndDasMobile.ViewModels
         [RelayCommand]
         public void AddItemToCart()
         {
-            _cartService.AddToCart(item);
+            _cartService.AddToCart(new PizzaDTO((PizzaBaseDTO)item));
             _popup?.Close();
         }
 
-        public ItemViewModel(T item, CartService cartService)
+        public ItemViewModel(IStoreItem item, CartService cartService)
         {
             this.item = item;
             _cartService = cartService;

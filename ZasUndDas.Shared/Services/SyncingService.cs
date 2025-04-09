@@ -35,7 +35,7 @@ public class SyncingService : ISyncingService
     }
     public async Task Sync()
     {
-        menuservice.UpdateMenu(await apiservice.GetItems());
+        menuservice.UpdateMenu(await apiservice.GetItems(), await apiservice.GetPizzaToppings());
     }
     public async void Initialize()
     {
