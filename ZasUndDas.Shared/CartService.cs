@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ namespace ZasUndDas.Shared
         List<ICheckoutItem> cart = new List<ICheckoutItem>();
 
         public List<ICheckoutItem> GetCartItems() => cart;
+        public int GetItemCount => cart.Count;
+        public event EventHandler CartUpdated;
 
         public void AddToCart(ICheckoutItem item)
         {
@@ -19,6 +22,7 @@ namespace ZasUndDas.Shared
             if (price < 0)
                 throw new InvalidOperationException();
             cart.Add(item);
+            OnCartUpdated();
         }
 
         public ICheckoutItem RemoveItem(int id)
@@ -32,10 +36,9 @@ namespace ZasUndDas.Shared
         {
             return Math.Round(cart.Select(p => p.GetPrice()).Sum(), 2);
         }
-
-        public int GetItemCount()
+        private void OnCartUpdated()
         {
-            return cart.Count;
+            CartUpdated?.Invoke(this, EventArgs.Empty);
         }
     }
 }
