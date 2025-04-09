@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zas-zipkin
+  namespace: zasanddas
+  labels:
+    app: zas-zipkin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zas-zipkin
+  template:
+    metadata:
+      labels:
+        app: zas-zipkin
+    spec:
+      containers:
+      - name: zas-zipkin
+        image: ghcr.io/openzipkin/zipkin-slim:latest
+        ports:
+        - containerPort: 9411
+---

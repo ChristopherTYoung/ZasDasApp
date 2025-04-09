@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace ZasUndDas.Shared.Data;
 
 public partial class OrderItem
 {
+
     public int Id { set; get; }
 
     public int OrderId { set; get; }

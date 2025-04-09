@@ -49,3 +49,15 @@ jobs:
             do
               cat "$FILE" | envsubst | kubectl apply -f -
             done
+
+    notifydiscord:
+        runs-on: self-hosted
+        needs: [test, pushtodocker, pushtokubernetes]
+        if: ${{ always() && contains(needs.*.result, 'failure') }}
+        steps: 
+        - name: Discord notifications
+          env:
+            DISCORD_WEBHOOK:  ${{secrets.DISCORD_WEBHOOK}}
+          uses: Ilshidur/action-discord@master
+          with:
+              args: '@everyone The project {{EVENT_PAYLOAD.repository.full_name}} pipeline has failed from commit {{GITHUB_SHA}} on run: https://github.com/ChristopherTYoung/ZasDasApp/actions/runs/${{github.run_id}}'

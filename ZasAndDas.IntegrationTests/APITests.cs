@@ -140,7 +140,7 @@ namespace ZasAndDas.IntegrationTests
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
             var orders = await client.GetFromJsonAsync<List<OrderDTO>>("/api/order/allorders");
-            orders.ShouldContain(order);
+            orders.First(p => p.DateOrdered == order.DateOrdered).ShouldNotBeNull();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ZasAndDasWeb.Controllers
     public class OrderController(PostgresContext context) : ControllerBase
     {
         [HttpPost("sendorder")]
-        public IResult MakePizza(OrderDTO order)
+        public IResult SendOrder(OrderDTO order)
         {
             if (order.Items.Count() < 1)
                 return Results.BadRequest();
