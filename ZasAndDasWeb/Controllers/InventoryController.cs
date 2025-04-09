@@ -20,6 +20,12 @@ namespace ZasAndDasWeb.Controllers
             logger.LogInformation("Getting all pizza bases");
             return await context.PizzaBases.ToListAsync();
         }
+        [HttpGet("getalldrinkbase")]
+        public async Task<List<DrinkBaseDTO>> GetDrink()
+        {
+            logger.LogInformation("Getting all Drink bases");
+            return await context.DrinkBases.ToListAsync();
+        }
         [HttpPost("addpizzabase")]
         public async Task<IResult> MakePizza(PizzaBaseDTO pizza)
         {

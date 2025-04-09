@@ -35,14 +35,11 @@ namespace ZasAndDasMobile.ViewModels
             PizzasAreVisible = true;
             DrinksAreVisible = false;
             _service = service;
-            service.Update += Sync;
-            service.ForceSync();
-            Sync();
         }
-        private void Sync()
+        public async Task Initialize()
         {
             PizzaList = new ObservableCollection<PizzaBaseDTO>();
-            foreach (PizzaBaseDTO pizza in _service.GetAllPizzas())
+            foreach (PizzaBaseDTO pizza in await _service.GetAllPizzas())
                 PizzaList.Add(pizza);
         }
 

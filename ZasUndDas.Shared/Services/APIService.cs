@@ -14,31 +14,31 @@ public class APIService : IAPIService
         Client = client;
     }
     HttpClient Client { get; init; }
-    public async Task<List<IStoreItem>> GetItems()
+    public async Task<List<PizzaBaseDTO>> GetPizzas()
     {
-        var result = new List<IStoreItem>();
-        result = result
-            .Concat(await Client.GetFromJsonAsync<IEnumerable<PizzaBaseDTO>>("/api/inventory/getallpizzabase") ?? new List<PizzaBaseDTO>())
-            .Concat(await Client.GetFromJsonAsync<IEnumerable<StockItemDTO>>("/api/inventory/getallstockitems") ?? new List<StockItemDTO>())
-            .ToList();
-        return result;
+        return await Client.GetFromJsonAsync<List<PizzaBaseDTO>>("/api/inventory/getallpizzabase") ?? new List<PizzaBaseDTO>();
     }
-
-    public async Task<List<PAddin>> GetPizzaToppings()
+    public async Task<List<DrinkBaseDTO>> GetDrinks()
     {
-        var result = await Client.GetFromJsonAsync<List<PAddin>>("/api/inventory/getpizzatoppings");
-        return result;
+        return await Client.GetFromJsonAsync<List<DrinkBaseDTO>>("/api/inventory/getalldrinkbase") ?? new List<DrinkBaseDTO>();
+
+    }
+    public async Task<List<PAddinDTO>> GetPizzaToppings()
+    {
+        return await Client.GetFromJsonAsync<List<PAddinDTO>>("/api/inventory/getpizzatoppings") ?? new List<PAddinDTO>();
     }
 
     public Task Order(OrderDTO order)
     {
         throw new NotImplementedException();
     }
+
 }
 
 public interface IAPIService
 {
-    public Task<List<IStoreItem>> GetItems();
-    public Task<List<PAddin>> GetPizzaToppings();
+    public Task<List<DrinkBaseDTO>> GetDrinks();
+    public Task<List<PizzaBaseDTO>> GetPizzas();
+    public Task<List<PAddinDTO>> GetPizzaToppings();
     public Task Order(OrderDTO order);
 }
