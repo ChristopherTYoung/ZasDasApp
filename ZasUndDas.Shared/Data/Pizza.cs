@@ -25,6 +25,7 @@ public class PizzaDTO : ICheckoutItem
 {
     public PizzaDTO()
     {
+        Addins = new List<PAddinDTO>();
     }
     public PizzaDTO(PizzaBaseDTO pizzaBase)
     {

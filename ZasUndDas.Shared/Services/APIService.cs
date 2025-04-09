@@ -26,7 +26,8 @@ public class APIService : IAPIService
 
     public async Task<List<PAddin>> GetPizzaToppings()
     {
-        var result = await Client.GetFromJsonAsync<List<PAddin>>("/api/inventory/getpizzatoppings");
+        var result = new List<PAddin>();
+        result = await Client.GetFromJsonAsync<List<PAddin>>("/api/inventory/getpizzatoppings");
         return result;
     }
 

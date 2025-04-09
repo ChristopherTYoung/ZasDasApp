@@ -14,7 +14,7 @@ namespace ZasUndDas.Shared
 
         public List<ICheckoutItem> GetCartItems() => cart;
         public int GetItemCount => cart.Count;
-        public event EventHandler CartUpdated;
+        public event EventHandler? CartUpdated;
 
         public void AddToCart(ICheckoutItem item)
         {

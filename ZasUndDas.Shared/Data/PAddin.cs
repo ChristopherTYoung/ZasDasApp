@@ -22,6 +22,6 @@ public partial class PAddin
 public class PAddinDTO
 {
     public int Id { set; get; }
-    public string AddinName { set; get; }
+    public string AddinName { set; get; } = null!;
     public double BasePrice { set; get; }
 }
