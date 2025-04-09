@@ -45,7 +45,7 @@ public class PizzaDTO : ICheckoutItem
         double price = 0;
         price += Base.Price;
         foreach (var addin in Addins)
-            price += addin.BasePrice;
+            price += addin.Price;
         return price;
     }
     public void AddTopping(PAddinDTO addin)
