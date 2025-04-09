@@ -13,7 +13,7 @@ public partial class PricePerItem
 
     public virtual ICollection<DAddin> DAddins { set; get; } = new List<DAddin>();
 
-    public virtual ICollection<DrinkBase> DrinkBases { set; get; } = new List<DrinkBase>();
+    public virtual ICollection<DrinkBaseDTO> DrinkBases { set; get; } = new List<DrinkBaseDTO>();
 
     public virtual ICollection<PAddin> PAddins { set; get; } = new List<PAddin>();
 

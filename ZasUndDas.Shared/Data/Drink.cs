@@ -9,7 +9,7 @@ public partial class Drink
 
     public int BaseId { set; get; }
 
-    public virtual DrinkBase Base { set; get; } = null!;
+    public virtual DrinkBaseDTO Base { set; get; } = null!;
 
     public virtual ICollection<DrinkAddin> DrinkAddins { set; get; } = new List<DrinkAddin>();
 

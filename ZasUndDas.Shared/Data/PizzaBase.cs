@@ -29,5 +29,6 @@ public class PizzaBaseDTO : IStoreItem
 
     public string? Description { set; get; }
     public string? ImagePath { set; get; }
-    public double Price { set; get; }
+    public double Price { set; get; } = null!;
+    public string? ImagePath { set; get; }
 }

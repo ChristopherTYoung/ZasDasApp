@@ -35,16 +35,11 @@ namespace ZasAndDasMobile.ViewModels
             this._cartService = cartService;
             UpdateTabs(defaultShown);
             _service = service;
-            _cartService.CartUpdated += OnCartUpdated!;
-            CartItemCount = _cartService.GetItemCount;
-            service.Update += Sync;
-            service.ForceSync();
-            Sync();
         }
-        private void Sync()
+        public async Task Initialize()
         {
             PizzaList = new ObservableCollection<PizzaBaseDTO>();
-            foreach (PizzaBaseDTO pizza in _service.GetAllPizzas())
+            foreach (PizzaBaseDTO pizza in await _service.GetAllPizzas())
                 PizzaList.Add(pizza);
         }
 
