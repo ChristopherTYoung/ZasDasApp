@@ -33,4 +33,3 @@ spec:
           value: Admin
         ports:
         - containerPort: 3000
----
