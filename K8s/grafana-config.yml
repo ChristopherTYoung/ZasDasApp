@@ -12,7 +12,12 @@ data:
         type: loki
         access: proxy
         url: http://zasanddas-loki-svc:3100
-        jsonData:
-          timeout: 60
-          maxLines: 1000
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://zas-prom-svc:9090
+      - name: Zipkin
+        type: zipkin
+        url: http://zas-zipkin-svc:9411
+        access: proxy
 ---

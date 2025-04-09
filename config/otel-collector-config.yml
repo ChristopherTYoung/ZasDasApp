@@ -13,21 +13,19 @@ exporters:
     endpoint: "http://loki:3100/otlp"
   debug: 
     verbosity: detailed
-  # prometheus:
-  #   endpoint: 0.0.0.0:8889
-  # zipkin: 
-  #   endpoint: http://zipkin:9411/api/v2/spans
+  prometheus:
+    endpoint: 0.0.0.0:8889
+  zipkin: 
+    endpoint: http://zas-zipkin:9411/api/v2/spans
   
 service:
-  extensions: []
   pipelines:
-    # traces: 
-    #   receivers: [otlp]
-    #   exporters: [zipkin]
-    # metrics:
-    #   receivers: [otlp]
-    #   processors: []
-    #   exporters: [prometheus, debug]
+    traces: 
+      receivers: [otlp]
+      exporters: [zipkin]
+    metrics:
+      receivers: [otlp]
+      exporters: [prometheus]
     logs:
       receivers: [otlp]
       exporters: [otlphttp, debug]

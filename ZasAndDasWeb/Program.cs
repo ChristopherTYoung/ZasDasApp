@@ -5,6 +5,8 @@ using OpenTelemetry.Exporter;
 using Swashbuckle.AspNetCore;
 using ZasAndDasWeb.Components;
 using ZasUndDas.Shared.Data;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Trace;
 public class Program
 {
     private static void Main(string[] args)
@@ -26,6 +28,20 @@ public class Program
             var resourceBuilder = ResourceBuilder
                 .CreateDefault()
                 .AddService("TelemetryAspireDashboardQuickstart");
+
+            var serviceName = "chris-web";
+            builder.Services.AddOpenTelemetry()
+                .ConfigureResource(resource =>
+                    resource.AddService(serviceName: serviceName)
+                )
+                .WithMetrics(metrics => metrics
+                    .AddMeter(serviceName)
+                    .AddMeter("ZasAndDasMetrics")
+                    .AddAspNetCoreInstrumentation()
+                    .AddOtlpExporter(options => options.Endpoint = new Uri(collectorURL)))
+                .WithTracing(tracing => tracing
+                    .AddAspNetCoreInstrumentation()
+                    .AddOtlpExporter(options => options.Endpoint = new Uri(collectorURL)));
 
             builder.Logging.AddOpenTelemetry(options =>
             {
@@ -58,7 +74,7 @@ public class Program
 #if Swagger
         app.UseRouting();    
 #endif
-
+        // this is breaking things for some reason
         app.UseAntiforgery();
 
         app.MapStaticAssets();

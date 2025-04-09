@@ -10,26 +10,12 @@ data:
       - name: Loki
         type: loki
         access: proxy
-        url: http://zas-loki-ser:3100
-        jsonData:
-          httpHeaderName1: "X-Scope-OrgID"
-        secureJsonData:
-          httpHeaderValue1: "tenant1"
-
+        url: http://loki:3100
       - name: Prometheus
         type: prometheus
         access: proxy
-        url: http://nate-prom-service:9090
-        jsonData:
-          httpMethod: POST
-          manageAlerts: true
-          prometheusType: Prometheus
-          prometheusVersion: 2.44.0
-          cacheLevel: 'High'
-          disableRecordingRules: false
-          incrementalQueryOverlapWindow: 10m
-          exemplarTraceIdDestinations:
-            - datasourceUid: prometheus
-              name: traceID
-        secureJsonData:
-          httpHeaderValue1: "tenant1"
+        url: http://prometheus:9090
+      - name: Zipkin
+        type: zipkin
+        url: http://zas-zipkin:9411
+        access: proxy
