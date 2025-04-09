@@ -23,6 +23,5 @@ public class PAddinDTO
 {
     public int Id { set; get; }
     public string AddinName { set; get; }
-    public int BasePriceId { set; get; }
-    public double Price { get; set; }
+    public double BasePrice { set; get; }
 }

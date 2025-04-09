@@ -28,8 +28,6 @@ public class PizzaBaseDTO : IStoreItem
     public string Name { set; get; } = null!;
 
     public string? Description { set; get; }
-
-    public int BasePriceId { set; get; }
     public string? ImagePath { set; get; }
     public double Price { set; get; }
 }

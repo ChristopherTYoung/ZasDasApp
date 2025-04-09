@@ -109,14 +109,14 @@ public partial class PostgresContext : DbContext
                 .HasColumnName("cooked_at_home");
             entity.Property(e => e.SauceId).HasColumnName("sauce_id");
 
-            entity.HasOne(d => d.BasePrice).WithMany(p => p.Calzones)
-                .HasForeignKey(d => d.BasePriceId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("calzone_base_price_id_fkey");
+            //entity.HasOne(d => d.BasePrice).WithMany(p => p.Calzones)
+            //    .HasForeignKey(d => d.BasePriceId)
+            //    .OnDelete(DeleteBehavior.ClientSetNull)
+            //    .HasConstraintName("calzone_base_price_id_fkey");
 
-            entity.HasOne(d => d.Sauce).WithMany(p => p.Calzones)
-                .HasForeignKey(d => d.SauceId)
-                .HasConstraintName("calzone_sauce_id_fkey");
+            //entity.HasOne(d => d.Sauce).WithMany(p => p.Calzones)
+            //    .HasForeignKey(d => d.SauceId)
+            //    .HasConstraintName("calzone_sauce_id_fkey");
         });
 
         modelBuilder.Entity<Category>(entity =>
@@ -348,7 +348,7 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.AddinName)
                 .HasMaxLength(50)
                 .HasColumnName("addin_name");
-            entity.Property(e => e.BasePriceId).HasColumnName("base_price_id");
+            entity.Property(e => e.BasePrice).HasColumnName("base_price");
 
             //entity.HasOne(d => d.BasePrice).WithMany(p => p.PAddins)
             //    .HasForeignKey(d => d.BasePriceId)
@@ -417,7 +417,7 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Id)
                 .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
-            entity.Property(e => e.BasePriceId).HasColumnName("base_price_id");
+            entity.Property(e => e.Price).HasColumnName("base_price");
             entity.Property(e => e.Description)
                 .HasMaxLength(256)
                 .HasColumnName("description");
@@ -572,7 +572,7 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Id)
                 .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
-            entity.Property(e => e.BasePriceId).HasColumnName("base_price_id");
+            entity.Property(e => e.Price).HasColumnName("base_price");
             entity.Property(e => e.Description)
                 .HasMaxLength(256)
                 .HasColumnName("description");
