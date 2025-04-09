@@ -38,10 +38,18 @@ public class Program
                     .AddMeter(serviceName)
                     .AddMeter("ZasAndDasMetrics")
                     .AddAspNetCoreInstrumentation()
-                    .AddOtlpExporter(options => options.Endpoint = new Uri(collectorURL)))
+                    .AddOtlpExporter(options =>
+                    {
+                        options.Endpoint = new Uri(collectorURL);
+                        options.Protocol = OtlpExportProtocol.Grpc;
+                    }))
                 .WithTracing(tracing => tracing
                     .AddAspNetCoreInstrumentation()
-                    .AddOtlpExporter(options => options.Endpoint = new Uri(collectorURL)));
+                    .AddOtlpExporter(options =>
+                    {
+                        options.Endpoint = new Uri(collectorURL);
+                        options.Protocol = OtlpExportProtocol.Grpc;
+                    }));
 
             builder.Logging.AddOpenTelemetry(options =>
             {
