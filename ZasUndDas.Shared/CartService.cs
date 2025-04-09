@@ -17,7 +17,6 @@ namespace ZasUndDas.Shared
         {
             if (item.Price < 0)
                 throw new InvalidOperationException();
-
             cart.Add(item);
         }
 

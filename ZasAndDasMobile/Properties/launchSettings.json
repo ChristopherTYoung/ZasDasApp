@@ -12,7 +12,7 @@
     },
     "Samsung Design": {
       "commandName": "Project",
-      "commandLineArgs": "-f net9.0-android",
+      "commandLineArgs": "--framework net9.0-android",
       "environmentVariables": {
         "ISNT_MODEL": "NOT_TRUE"
       }
