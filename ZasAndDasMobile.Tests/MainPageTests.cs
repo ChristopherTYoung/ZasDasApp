@@ -10,50 +10,25 @@ namespace ZasAndDasMobile.Tests
         [Fact]
         public void Pizza()
         {
-            var Pizzas = new MenuItemService();
+            var Pizzas = new MenuItemService(new MockAPIService());
         }
         [Fact]
-        public void PizzaReturn()
+        public async Task PizzaReturn()
         {
-            var Pizzas = new MenuItemService();
-            Pizzas.GetAllPizzas().ShouldBe(new List<PizzaBaseDTO>());
-        }
-        [Theory]
-        [InlineData("Jeff")]
-        public void PizzaReturnSomething(string pizza)
-        {
-            var Pizzas = new MenuItemService();
-            PizzaBaseDTO pipza = new PizzaBaseDTO() { Name = pizza };
-            Pizzas.AddItemToMenu(pipza);
-            Pizzas.GetAllPizzas().ShouldBe(new List<PizzaBaseDTO>() { pipza });
-        }
-        [Fact]
-        public void PizzaReturnsListCopy()
-        {
-            var Pizzas = new MenuItemService();
-            PizzaBaseDTO pipza = new PizzaBaseDTO() { Name = "pizza" };
-            Pizzas.AddItemToMenu(pipza);
-            var list = Pizzas.GetAllPizzas();
-            list.Add(new PizzaBaseDTO());
-            Pizzas.GetAllPizzas().ShouldBe(new List<PizzaBaseDTO>() { pipza });
-
+            var api = new MockAPIService();
+            var Pizzas = new MenuItemService(api);
+            (await Pizzas.GetAllPizzas()).ShouldBeEquivalentTo(await api.GetPizzas());
         }
 
         [Fact]
-        public void DrinksReturnEmptyList()
+        public async Task DrinksReturnEmptyList()
         {
-            var drinks = new MenuItemService();
-            drinks.GetAllDrinks().ShouldBeEmpty();
+            var Pizzas = new MenuItemService(new MockAPIService());
+
+            (await Pizzas.GetAllDrinks()).Count().ShouldBe(3);
         }
 
-        [Fact]
-        public void AddDrinkToList()
-        {
-            var drinks = new MenuItemService();
-            DrinkDTO drink = new DrinkDTO() { Name = "Kyle's Monseter" };
-            drinks.AddItemToMenu(drink);
-            drinks.GetAllDrinks().Count.ShouldBe(1);
-        }
+
         [Fact]
         public void EmptyCart()
         {

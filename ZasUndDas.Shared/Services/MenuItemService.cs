@@ -23,12 +23,6 @@ namespace ZasUndDas.Shared.Services
             }
             return Drinks;
         }
-
-        public MenuItemService AddPizza(PizzaBaseDTO item)
-        {
-            Pizzas.Add(item);
-            return this;
-        }
         public static MenuItemService TestPizzas()
         {
             return (new MenuItemService(new MockAPIService()));
