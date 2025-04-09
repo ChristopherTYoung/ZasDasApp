@@ -27,7 +27,7 @@ public class PizzaBaseDTO : IStoreItem
     {
         Id = pizzza.Id;
         Name = pizzza.PizzaName;
-        Description = pizzza.Description;
+        Description = pizzza.Description ?? String.Empty;
         BasePriceId = pizzza.BasePriceId;
         Price = price;
         ImagePath = pizzza.ImagePath;
@@ -36,11 +36,15 @@ public class PizzaBaseDTO : IStoreItem
 
     public string Name { set; get; } = null!;
 
-    public string? Description { set; get; }
+    public string Description { set; get; } = String.Empty;
 
     public int BasePriceId { set; get; }
     public string? ImagePath { set; get; }
     public double Price { set; get; }
+    public PizzaDTO ToPizzaEmpty()
+    {
+        return new PizzaDTO() { Name = this.Name, Price = this.Price, Description = this.Description ?? String.Empty, Id = this.Id };
+    }
 
     public PizzaBase ToPizzaBase() => new PizzaBase() { BasePriceId = BasePriceId, PizzaName = Name, Description = Description };
 }

@@ -10,6 +10,7 @@ public record PizzaDTO : IStoreItem
     public double Price { set; get; } = 0d;
     public string Description { set; get; } = string.Empty;
     public List<int> Ingredients { set; get; } = new List<int>();
+    public string ImagePath { set; get; }
     public int Id { set; get; }
 }
 public enum ItemSize { small, medium, large }
