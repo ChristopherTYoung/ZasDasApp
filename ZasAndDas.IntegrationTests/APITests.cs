@@ -52,6 +52,7 @@ namespace ZasAndDas.IntegrationTests
             stockItems!.FirstOrDefault(s => s.ItemName == "Diet Coke").ShouldNotBeNull();
         }
 
+
         //[Fact]
         //public async Task CanConvertPizzaDTO()
         //{

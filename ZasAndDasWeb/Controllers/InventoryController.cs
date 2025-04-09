@@ -58,5 +58,11 @@ namespace ZasAndDasWeb.Controllers
             return await context.StockItems.Select(p => new StockItemDTO(p)).ToListAsync();
         }
 
+        [HttpGet("getpizzatoppings")]
+        public async Task<List<PAddinDTO>> GetPizzaToppings()
+        {
+            return await context.PAddins.ToListAsync();
+        }
+
     }
 }
