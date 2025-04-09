@@ -6,5 +6,10 @@ using System.Threading.Tasks;
 
 namespace ZasUndDas.Shared
 {
+    public interface ICheckoutItem
+    {
+        public int Id { get; set; }
 
+        public double GetPrice();
+    }
 }

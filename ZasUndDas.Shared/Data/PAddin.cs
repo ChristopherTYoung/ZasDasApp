@@ -19,3 +19,10 @@ public partial class PAddin
 
     public virtual ICollection<SaladAddin> SaladAddins { set; get; } = new List<SaladAddin>();
 }
+public class PAddinDTO
+{
+    public int Id { set; get; }
+    public string AddinName { set; get; }
+    public int BasePriceId { set; get; }
+    public double Price { get; set; }
+}

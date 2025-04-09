@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Exporter;
@@ -16,6 +17,7 @@ public class Program
         // Add services to the container.
         builder.Services.AddRazorComponents();
 
+        builder.Services.AddMetrics();
         builder.Services.AddControllers();
         builder.Services.AddDbContext<PostgresContext>(o => o.UseNpgsql(builder.Configuration["DB_CONN"]));
         builder.Services.AddEndpointsApiExplorer();

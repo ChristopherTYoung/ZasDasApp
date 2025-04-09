@@ -21,7 +21,7 @@ public partial class StockItem
 
     public virtual ICollection<OrderItem> OrderItems { set; get; } = new List<OrderItem>();
 }
-public class StockItemDTO : IStoreItem
+public class StockItemDTO : IStoreItem, ICheckoutItem
 {
     public StockItemDTO()
     {
@@ -44,6 +44,11 @@ public class StockItemDTO : IStoreItem
 
     public int ItemCategoryId { set; get; }
     public double Price { set; get; }
+
+    public double GetPrice()
+    {
+        return Price;
+    }
 
     public StockItem ToStockItem() => new StockItem { BasePriceId = BasePriceId, ItemCategoryId = ItemCategoryId, ItemName = Name, Description = Description };
 }
