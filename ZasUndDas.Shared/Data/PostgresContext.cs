@@ -59,7 +59,7 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<Sauce> Sauces { set; get; }
 
-    public virtual DbSet<StockItem> StockItems { set; get; }
+    public virtual DbSet<StockItemDTO> StockItems { set; get; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -109,14 +109,14 @@ public partial class PostgresContext : DbContext
                 .HasColumnName("cooked_at_home");
             entity.Property(e => e.SauceId).HasColumnName("sauce_id");
 
-            entity.HasOne(d => d.BasePrice).WithMany(p => p.Calzones)
-                .HasForeignKey(d => d.BasePriceId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("calzone_base_price_id_fkey");
+            //entity.HasOne(d => d.BasePrice).WithMany(p => p.Calzones)
+            //    .HasForeignKey(d => d.BasePriceId)
+            //    .OnDelete(DeleteBehavior.ClientSetNull)
+            //    .HasConstraintName("calzone_base_price_id_fkey");
 
-            entity.HasOne(d => d.Sauce).WithMany(p => p.Calzones)
-                .HasForeignKey(d => d.SauceId)
-                .HasConstraintName("calzone_sauce_id_fkey");
+            //entity.HasOne(d => d.Sauce).WithMany(p => p.Calzones)
+            //    .HasForeignKey(d => d.SauceId)
+            //    .HasConstraintName("calzone_sauce_id_fkey");
         });
 
         modelBuilder.Entity<Category>(entity =>
@@ -563,7 +563,7 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Id)
                 .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
-            entity.Property(e => e.BasePriceId).HasColumnName("base_price_id");
+            entity.Property(e => e.Price).HasColumnName("base_price");
             entity.Property(e => e.Description)
                 .HasMaxLength(256)
                 .HasColumnName("description");

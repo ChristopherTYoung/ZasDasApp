@@ -13,7 +13,6 @@ public partial class Calzone
 
     public bool? CookedAtHome { set; get; }
 
-    public virtual PricePerItem BasePrice { set; get; } = null!;
 
     public virtual ICollection<CalzonAddin> CalzonAddins { set; get; } = new List<CalzonAddin>();
 

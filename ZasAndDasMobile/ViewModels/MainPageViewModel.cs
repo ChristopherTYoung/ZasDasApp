@@ -6,6 +6,7 @@ using ZasUndDas.Shared.Services;
 using ZasAndDasMobile.Popups;
 using CommunityToolkit.Maui.Views;
 using ZasUndDas.Shared;
+using System.ComponentModel;
 
 namespace ZasAndDasMobile.ViewModels
 {
@@ -15,7 +16,7 @@ namespace ZasAndDasMobile.ViewModels
         MenuItemService _service;
         CartService _cartService;
 
-        public string Rows => $"{DeviceDisplay.Current.MainDisplayInfo.Height - 200}";
+        string defaultShown = "pizza";
 
         [ObservableProperty]
         public partial bool PizzasAreVisible { set; get; } = true;
@@ -27,13 +28,12 @@ namespace ZasAndDasMobile.ViewModels
         public partial ObservableCollection<PizzaBaseDTO> PizzaList { set; get; } = new ObservableCollection<PizzaBaseDTO>();
 
         [ObservableProperty]
-        public partial int CartItemsCount { set; get; }
+        public partial int CartItemCount { get; set; } = 0;
 
         public MainPageViewModel(MenuItemService service, CartService cartService)
         {
             this._cartService = cartService;
-            PizzasAreVisible = true;
-            DrinksAreVisible = false;
+            UpdateTabs(defaultShown);
             _service = service;
         }
         public async Task Initialize()
@@ -59,8 +59,15 @@ namespace ZasAndDasMobile.ViewModels
         [RelayCommand]
         public void ShowItemPopup(IStoreItem item)
         {
-            var popup = new ItemPopup(new ItemViewModel(item));
-            Shell.Current.ShowPopup(popup);
+            if (item.GetType() == typeof(PizzaBaseDTO))
+            {
+                var popup = new ItemPopup(new ItemViewModel(item, _cartService));
+                Shell.Current.ShowPopup(popup);
+            }
+        }
+        private void OnCartUpdated(object sender, EventArgs e)
+        {
+            CartItemCount = _cartService.GetItemCount;
         }
     }
 }

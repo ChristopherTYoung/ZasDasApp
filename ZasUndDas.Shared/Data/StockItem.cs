@@ -26,21 +26,11 @@ public class StockItemDTO : IStoreItem, ICheckoutItem
     public StockItemDTO()
     {
     }
-    public StockItemDTO(StockItem item)
-    {
-        this.Description = item.Description;
-        this.Price = (double)(item.BasePrice?.Price ?? 0.0m);
-        this.ItemCategoryId = item.ItemCategoryId;
-        this.Name = item.ItemName;
-        this.BasePriceId = item?.BasePriceId ?? 0;
-    }
     public int Id { set; get; }
 
     public string Name { set; get; } = null!;
 
     public string? Description { set; get; }
-
-    public int BasePriceId { set; get; }
 
     public int ItemCategoryId { set; get; }
     public double Price { set; get; }
@@ -49,7 +39,5 @@ public class StockItemDTO : IStoreItem, ICheckoutItem
     {
         return Price;
     }
-
-    public StockItem ToStockItem() => new StockItem { BasePriceId = BasePriceId, ItemCategoryId = ItemCategoryId, ItemName = Name, Description = Description };
 }
 

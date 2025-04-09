@@ -2,21 +2,120 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                x:Class="ZasAndDasMobile.Popups.ItemPopup"
+               CanBeDismissedByTappingOutsideOfPopup="False"
                Color="Transparent">
 
-    <Border Padding="0" HeightRequest="500"
-           WidthRequest="300"
+    <Border Padding="0" HeightRequest="600"
+           WidthRequest="325"
            Stroke="Transparent"
-           BackgroundColor="#FFEAE7EC">
+           BackgroundColor="#FFFFFF">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="28"/>
         </Border.StrokeShape>
-        <VerticalStackLayout>
-            <Label Text="{Binding Name}"
-                   HorizontalOptions="Center"/>
-            <Label Text="{Binding Price, StringFormat='{}{0:C}'}"
-                   HorizontalOptions="Center"/>
-        </VerticalStackLayout>
+        <Grid RowDefinitions="*,auto">
+            <ScrollView Grid.Row="0"
+                        MinimumHeightRequest="550"
+                        MaximumHeightRequest="550"
+                        x:Name="ItemScrollView">
+                <VerticalStackLayout>
+                    <ImageButton Source="close_icon.png"
+                                 MinimumHeightRequest="24"
+                                 MinimumWidthRequest="24"
+                                 MaximumHeightRequest="24"
+                                 MaximumWidthRequest="24"
+                                 HorizontalOptions="End"
+                                 VerticalOptions="End"
+                                 Margin="0,15,15,0"
+                                 Command="{Binding ClosePopupCommand}"/>
+                    <Image Source="pizza.png"/>
+                    <HorizontalStackLayout>
+                        <Label Text="{Binding Name}"
+                               Padding="10,0,10,0"
+                               FontAttributes="Bold"
+                               FontSize="Medium"/>
+                        <Label Text="{Binding Price, StringFormat='{}{0:C}'}"
+                               TextColor="Gray"
+                               VerticalOptions="End"
+                               FontSize="Subtitle"/>
+                    </HorizontalStackLayout>
+                    <BoxView HeightRequest="1" Color="DarkGray" HorizontalOptions="FillAndExpand" Margin="0,5"/>
+                    <Label Text="Size"
+                           FontSize="Body"
+                           Padding="10,0,0,10"
+                           FontAttributes="Bold"/>
+                    <Border Stroke="DarkGray" HorizontalOptions="Center"
+                            MinimumHeightRequest="40"
+                            MaximumHeightRequest="40">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="15"/>
+                        </Border.StrokeShape>
+                        <HorizontalStackLayout>
+                            <Picker HorizontalOptions="Center"
+                                    WidthRequest="300"/>
+                        </HorizontalStackLayout>
+                    </Border>                    
+                    <Label Text="Pizza Sauce"
+                           FontSize="Body"
+                           Padding="10,0,0,10"
+                           FontAttributes="Bold"/>
+                    <Border Stroke="DarkGray" HorizontalOptions="Center"
+                            MinimumHeightRequest="40"
+                            MaximumHeightRequest="40">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="15"/>
+                        </Border.StrokeShape>
+                        <Picker HorizontalOptions="Center"
+                                WidthRequest="300"/>
+                    </Border>
+                    <Label Text="Additional Toppings"
+                           FontSize="Body"
+                           Padding="10,0,0,10"
+                           FontAttributes="Bold"/>
+
+                    <Label Text="Comments"
+                           FontSize="Body"
+                           FontAttributes="Bold"
+                           Padding="10,0,0,10"/>
+                    <Border Stroke="DarkGray" HorizontalOptions="Center"
+                            Padding="2">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="15"/>
+                        </Border.StrokeShape>
+                        <Editor Placeholder="Add information about your order"
+                            HorizontalOptions="Center"
+                            WidthRequest="300"
+                            HeightRequest="150"
+                                x:Name="CommentEditor"/>
+                    </Border>
+                    <Label Text="Cook Style"
+                           FontSize="Body"
+                           Padding="10,0,0,10"
+                           FontAttributes="Bold"/>
+                    <Border Stroke="DarkGray" HorizontalOptions="Center"
+                            MinimumHeightRequest="40"
+                            MaximumHeightRequest="40">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="15"/>
+                        </Border.StrokeShape>
+                        
+                        <Picker HorizontalOptions="Center"
+                                WidthRequest="300"/>
+                    </Border>
+
+                </VerticalStackLayout>
+            </ScrollView>
+            <Grid ColumnDefinitions="*,*,*"
+                  ColumnSpacing="50"
+                  Grid.Row="1">
+
+                <Button Text="Add to cart"
+                        BackgroundColor="Black"
+                        WidthRequest="200"
+                        Grid.Column="1"
+                        Command="{Binding AddItemToCartCommand}"/>
+            </Grid>
+        </Grid>
+        
     </Border>
 
 </toolkit:Popup>

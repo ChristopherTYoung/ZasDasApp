@@ -4,6 +4,11 @@ using Microsoft.Extensions.Logging;
 using ZasAndDasMobile.ViewModels;
 using ZasUndDas.Shared.Services;
 using ZasUndDas.Shared;
+using Microsoft.Maui.Handlers;
+#if ANDROID
+using Android.Graphics.Drawables;
+#endif
+
 namespace ZasAndDasMobile
 {
     public static class MauiProgram
@@ -19,6 +24,24 @@ namespace ZasAndDasMobile
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+            PickerHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
+            {
+#if ANDROID
+
+                handler.PlatformView.BackgroundTintList =
+                    Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+#endif
+            });
+
+            EditorHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
+            {
+#if ANDROID
+
+                handler.PlatformView.BackgroundTintList =
+                    Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+#endif
+            });
 
 #if DEBUG
             builder.Logging.AddDebug();
