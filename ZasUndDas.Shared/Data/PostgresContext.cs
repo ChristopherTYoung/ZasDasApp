@@ -59,7 +59,7 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<Sauce> Sauces { set; get; }
 
-    public virtual DbSet<StockItem> StockItems { set; get; }
+    public virtual DbSet<StockItemDTO> StockItems { set; get; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
