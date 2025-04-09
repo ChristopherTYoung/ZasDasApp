@@ -6,7 +6,6 @@ metadata:
 data:
   config: |
     apiVersion: 1
-
     datasources:
       - name: Loki
         type: loki
