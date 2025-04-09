@@ -46,7 +46,7 @@ namespace ZasAndDasWeb.Controllers
         public async Task<IResult> AddStockItem(StockItemDTO stockItem)
         {
             logger.LogInformation($"Adding stock item: {stockItem.Name}");
-            await context.StockItems.AddAsync(stockItem.ToStockItem());
+            await context.StockItems.AddAsync(stockItem);
             await context.SaveChangesAsync();
 
             return Results.Ok();
@@ -55,7 +55,7 @@ namespace ZasAndDasWeb.Controllers
         public async Task<List<StockItemDTO>> GetAllStockItems()
         {
             logger.LogInformation($"Getting all stock items");
-            return await context.StockItems.Select(p => new StockItemDTO(p)).ToListAsync();
+            return await context.StockItems.ToListAsync();
         }
 
         [HttpGet("getpizzatoppings")]
