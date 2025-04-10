@@ -15,5 +15,4 @@ public partial class Calzone
 
     public double Price { set; get; }
     public virtual Sauce? Sauce { set; get; }
-    public virtual Sauce? Sauce { set; get; }
 }
