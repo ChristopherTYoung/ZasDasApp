@@ -50,7 +50,7 @@ namespace ZasAndDas.IntegrationTests
             response.IsSuccessStatusCode.ShouldBeTrue();
 
             var drinks = await client.GetFromJsonAsync<List<DrinkBaseDTO>>("/api/inventory/getalldrinkbase");
-            drinks.ShouldContain(d => d.DrinkName == drink.Name);
+            drinks!.ShouldContain(d => d.DrinkName == drink.Name);
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace ZasAndDas.IntegrationTests
                 GrossAmount = 0,
                 NetAmount = 0,
                 SalesTax = 0,
-                Items = new List<ZasUndDas.Shared.OrderItemDTO>(),
+                Items = new List<OrderItemDTO>(),
                 DateOrdered = DateTime.Parse("03-31-2025 12:30:00 PM")
             };
             var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
@@ -85,7 +85,7 @@ namespace ZasAndDas.IntegrationTests
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
             var orders = await client.GetFromJsonAsync<List<OrderDTO>>("/api/order/allorders");
-            orders.ShouldContain(order);
+            orders!.ShouldContain(order);
         }
     }
 }

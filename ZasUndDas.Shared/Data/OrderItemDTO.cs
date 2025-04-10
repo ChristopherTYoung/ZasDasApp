@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using ZasUndDas.Shared;
+using ZasUndDas.Shared.Data;
 
 namespace ZasUndDas.Shared.Data;
 
-public partial class OrderItemDTO
+public partial class OrderItem
 {
-
     public int Id { set; get; }
 
     public int OrderId { set; get; }
@@ -25,42 +26,42 @@ public partial class OrderItemDTO
 
     public int? CheeseBreadId { set; get; }
 
-    public virtual Calzone? Calzone { set; get; }
-
-    public virtual CheeseBread? CheeseBread { set; get; }
-
-    public virtual DrinkDTO\? Drink { set; get; }
-
-    public virtual Pizza? Pizza { set; get; }
-
-    public virtual Salad? Salad { set; get; }
-
-    public virtual StockItem? StockItem { set; get; }
+    public async Task<OrderItemDTO> ToOrderItemDTO(PostgresContext context)
+    {
+        var orderItem = new OrderItemDTO
+        {
+            Id = this.Id,
+            OrderId = this.OrderId,
+            StockItem = await context.StockItems.FindAsync(StockItemId),
+            Pizza = await context.Pizzas.FindAsync(PizzaId)
+        };
+        return new OrderItemDTO();
+    }
 }
-//public class OrderItemDTO
-//{
-//    public int Id { set; get; }
-//    public int OrderId { get; set; }
-//    //public DrinkDTO {set; get;}
-//    public StockItemDTO? StockItem { set; get; }
-//    public PizzaDTO? Pizza { set; get; }
-//    public ItemType? Item { set; get; }
-//    public int Quantity { set; get; }
-//    public OrderItemDTO()
-//    {
-//    }
+public class OrderItemDTO
+{
+    public int Id { set; get; }
+    public int OrderId { get; set; }
+    //public DrinkDTO {set; get;}
+    public StockItemDTO? StockItem { set; get; }
+    public PizzaDTO? Pizza { set; get; }
+    public ItemType? Item { set; get; }
+    public int Quantity { set; get; }
+    public OrderItemDTO()
+    {
+    }
 
-//    public OrderItemDTO(ICheckoutItem item, int quantity = 1)
-//    {
-//        switch (item.GetType().Name)
-//        {
-//            case nameof(StockItemDTO):
-//                StockItem = (StockItemDTO)item;
-//                Item = ItemType.Stock;
-//                break;
-//            default:
-//                break;
-//        };
-//        Quantity = quantity;
-//    }
-//}
+    public OrderItemDTO(ICheckoutItem item, int quantity = 1)
+    {
+        switch (item.GetType().Name)
+        {
+            case nameof(StockItemDTO):
+                StockItem = (StockItemDTO)item;
+                Item = ItemType.Stock;
+                break;
+            default:
+                break;
+        };
+        Quantity = quantity;
+    }
+}

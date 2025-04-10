@@ -17,7 +17,7 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<CalzonAddin> CalzonAddins { set; get; }
 
-    public virtual DbSet<Calzone> Calzones { set; get; }
+    public virtual DbSet<CalzoneDTO> Calzones { set; get; }
 
     public virtual DbSet<Category> Categories { set; get; }
 
@@ -27,19 +27,19 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<DAddin> DAddins { set; get; }
 
-    public virtual DbSet<DrinkDTO\> Drinks { set; get; }
+    public virtual DbSet<DrinkDTO> Drinks { set; get; }
 
     public virtual DbSet<DrinkAddin> DrinkAddins { set; get; }
 
     public virtual DbSet<DrinkBaseDTO> DrinkBases { set; get; }
 
-    public virtual DbSet<OrderItemDTO> OrderItems { set; get; }
+    public virtual DbSet<OrderItem> OrderItems { set; get; }
 
     public virtual DbSet<OrderPromotion> OrderPromotions { set; get; }
 
     public virtual DbSet<PAddinDTO> PAddins { set; get; }
 
-    public virtual DbSet<Pizza> Pizzas { set; get; }
+    public virtual DbSet<PizzaDTO> Pizzas { set; get; }
 
     public virtual DbSet<PizzaAddin> PizzaAddins { set; get; }
 
@@ -90,7 +90,7 @@ public partial class PostgresContext : DbContext
 
         });
 
-        modelBuilder.Entity<Calzone>(entity =>
+        modelBuilder.Entity<CalzoneDTO>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("calzone_pkey");
 
@@ -99,7 +99,7 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Id)
                 .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
-            entity.Property(e => e.BasePriceId).HasColumnName("base_price_id");
+            entity.Property(e => e.Price).HasColumnName("base_price");
             entity.Property(e => e.CookedAtHome)
                 .HasDefaultValue(false)
                 .HasColumnName("cooked_at_home");
@@ -181,7 +181,7 @@ public partial class PostgresContext : DbContext
                 .HasConstraintName("d_addin_base_price_id_fkey");
         });
 
-        modelBuilder.Entity<DrinkDTO\>(entity =>
+        modelBuilder.Entity<DrinkDTO>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("drink_pkey");
 
@@ -190,7 +190,8 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Id)
                 .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
-            entity.Property(e => e.BaseId).HasColumnName("base_id");
+            // fix later lol
+            //entity.Property(e => e.BaseId).HasColumnName("base_id");
 
         });
 
@@ -231,7 +232,7 @@ public partial class PostgresContext : DbContext
                 .HasColumnName("drink_name");
         });
 
-        modelBuilder.Entity<OrderItemDTO>(entity =>
+        modelBuilder.Entity<OrderItem>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("order_item_pkey");
 
