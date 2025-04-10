@@ -23,24 +23,11 @@ public class PizzaBaseDTO : IStoreItem
     public PizzaBaseDTO()
     {
     }
-    public PizzaBaseDTO(PizzaBase pizzza, double price)
-    {
-        Id = pizzza.Id;
-        Name = pizzza.PizzaName;
-        Description = pizzza.Description;
-        BasePriceId = pizzza.BasePriceId;
-        Price = price;
-        ImagePath = pizzza.ImagePath;
-    }
     public int Id { set; get; }
 
     public string Name { set; get; } = null!;
 
     public string? Description { set; get; }
-
-    public int BasePriceId { set; get; }
     public string? ImagePath { set; get; }
     public double Price { set; get; }
-
-    public PizzaBase ToPizzaBase() => new PizzaBase() { BasePriceId = BasePriceId, PizzaName = Name, Description = Description };
 }

@@ -49,17 +49,6 @@ namespace ZasAndDas.IntegrationTests
             var InitScript = """"
             CREATE SCHEMA zasanddas;
 
-            CREATE TABLE zasanddas.price_per_item (
-                id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-                price decimal NOT NULL
-            );
-
-            INSERT INTO  zasanddas.price_per_item(price) 
-            VALUES (5.99), 
-                   (3.75),
-                   (1.50),
-                   (15.99);
-
             CREATE TABLE zasanddas.category (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 category_name VARCHAR(50) not null,
@@ -73,7 +62,7 @@ namespace ZasAndDas.IntegrationTests
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 item_name VARCHAR(50) not null,
                 description VARCHAR(256),
-                base_price_id INT REFERENCES zasanddas.price_per_item(id) NOT NULL,
+                base_price decimal NOT NULL,
                 item_category_id INT REFERENCES zasanddas.category(id) NOT NULL
             );
 
@@ -88,14 +77,14 @@ namespace ZasAndDas.IntegrationTests
             CREATE TABLE zasanddas.pizza_size (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 size_name VARCHAR(10) not null, 
-                base_price_id INT REFERENCES zasanddas.price_per_item(id) NOT NULL
+                price decimal NOT NULL
             );
 
             CREATE TABLE zasanddas.pizza_base (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 pizza_name VARCHAR(50) not null,
                 description VARCHAR(256),
-                base_price_id INT REFERENCES price_per_item(id) NOT null,
+                base_price decimal NOT null,
                 image_path varchar(256)
             );
 
@@ -104,10 +93,8 @@ namespace ZasAndDas.IntegrationTests
             CREATE TABLE zasanddas.p_addin (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 addin_name VARCHAR(50) not null,
-                base_price_id INT REFERENCES zasanddas.price_per_item(id) NOT NULL
+                base_price decimal NOT null
             );
-
-            INSERT INTO zasanddas.p_addin (addin_name, base_price_id) values ('pepperoni', 3);
 
             CREATE TABLE zasanddas.pizza (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -127,13 +114,13 @@ namespace ZasAndDas.IntegrationTests
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 drink_name VARCHAR(10) not null,
                 description VARCHAR(256),
-                base_price_id INT REFERENCES zasanddas.price_per_item(id) NOT NULL
+                base_price decimal NOT NULL
             );
 
             CREATE TABLE zasanddas.d_addin (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 addin_name VARCHAR(50) not null,
-                base_price_id INT REFERENCES zasanddas.price_per_item(id) NOT NULL
+                base_price decimal NOT NULL
             );
 
             CREATE TABLE zasanddas.drink (
@@ -149,9 +136,9 @@ namespace ZasAndDas.IntegrationTests
 
             CREATE TABLE zasanddas.calzone (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-                base_price_id INT REFERENCES zasanddas.price_per_item(id) NOT NULL,
+                base_price decimal NOT NULL,
                 sauce_id INT REFERENCES zasanddas.sauce(id),
-                cooked_at_home BOOLEAN default(False)
+                cooked_at_home BOOLEAN zasanddas.default(False)
             );
 
             CREATE TABLE zasanddas.calzon_addin (
@@ -163,7 +150,7 @@ namespace ZasAndDas.IntegrationTests
 
             CREATE TABLE zasanddas.salad (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-                base_price_id INT REFERENCES zasanddas.price_per_item(id) not null
+                base_price_id decimal not null
             );
 
             CREATE TABLE zasanddas.salad_addin (
@@ -179,35 +166,36 @@ namespace ZasAndDas.IntegrationTests
                 cooked_at_home BOOLEAN default(False)
             );
 
-            create TABLE zasanddas.customer (
+            create table zasanddas.customer (
             	id int primary key generated always as identity, 
             	customer_name varchar(50) not null,
             	email varchar(50) not null,
-            	phone varchar(50)
+            	phone varchar(50),
+            	api_key varchar(50) NOT NULL
             );
-            create TABLE zasanddas.promotion (
+            create table zasanddas.promotion (
             	id int primary key generated always as identity,
             	promotion_name varchar(50) not null
             );
-            create TABLE zasanddas.pizza_order (
+            create table zasanddas.pizza_order (
             	id int primary key generated always as identity,
-            	customer_id int REFERENCES zasanddas.customer(id),
+            	customer_id int references zasanddas.customer(id),
             	date_ordered timestamp,
             	gross_amount decimal,
             	discount_amount decimal default(0),
             	net_amount decimal,
             	sales_tax decimal
             );
-            create TABLE zasanddas.order_promotion (
+            create table zasanddas.order_promotion (
             	id int primary key generated always as identity,
-            	promotion_id int REFERENCES zasanddas.promotion(id) not null,
-            	order_id int REFERENCES zasanddas.pizza_order(id) not null,
+            	promotion_id int references zasanddas.promotion(id) not null,
+            	order_id int references zasanddas.pizza_order(id) not null,
             	dollar_amount_off decimal
             );
 
             CREATE TABLE zasanddas.order_item (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-                order_id int REFERENCES zasanddas.pizza_order(id) not null,
+                order_id int references zasanddas.pizza_order(id) not null,
                 quantity INT default(1),
                 stock_item_id INT REFERENCES zasanddas.stock_item(id),
                 pizza_id INT REFERENCES zasanddas.pizza(id),

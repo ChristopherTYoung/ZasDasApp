@@ -10,78 +10,54 @@ namespace ZasAndDasMobile.Tests
         [Fact]
         public void Pizza()
         {
-            var Pizzas = new MenuItemService();
+            var Pizzas = new MenuItemService(new MockAPIService());
         }
         [Fact]
-        public void PizzaReturn()
+        public async Task PizzaReturn()
         {
-            var Pizzas = new MenuItemService();
-            Pizzas.GetAllPizzas().ShouldBe(new List<PizzaBaseDTO>());
-        }
-        [Theory]
-        [InlineData("Jeff")]
-        public void PizzaReturnSomething(string pizza)
-        {
-            var Pizzas = new MenuItemService();
-            PizzaBaseDTO pipza = new PizzaBaseDTO() { Name = pizza };
-            Pizzas.AddItemToMenu(pipza);
-            Pizzas.GetAllPizzas().ShouldBe(new List<PizzaBaseDTO>() { pipza });
-        }
-        [Fact]
-        public void PizzaReturnsListCopy()
-        {
-            var Pizzas = new MenuItemService();
-            PizzaBaseDTO pipza = new PizzaBaseDTO() { Name = "pizza" };
-            Pizzas.AddItemToMenu(pipza);
-            var list = Pizzas.GetAllPizzas();
-            list.Add(new PizzaBaseDTO());
-            Pizzas.GetAllPizzas().ShouldBe(new List<PizzaBaseDTO>() { pipza });
-
+            var api = new MockAPIService();
+            var Pizzas = new MenuItemService(api);
+            (await Pizzas.GetAllPizzas()).ShouldBeEquivalentTo(await api.GetPizzas());
         }
 
         [Fact]
-        public void DrinksReturnEmptyList()
+        public async Task DrinksReturnEmptyList()
         {
-            var drinks = new MenuItemService();
-            drinks.GetAllDrinks().ShouldBeEmpty();
+            var Pizzas = new MenuItemService(new MockAPIService());
+
+            (await Pizzas.GetAllDrinks()).Count().ShouldBe(3);
         }
 
-        [Fact]
-        public void AddDrinkToList()
-        {
-            var drinks = new MenuItemService();
-            DrinkDTO drink = new DrinkDTO() { Name = "Kyle's Monseter" };
-            drinks.AddItemToMenu(drink);
-            drinks.GetAllDrinks().Count.ShouldBe(1);
-        }
+
         [Fact]
         public void EmptyCart()
         {
             var cart = new CartService();
-            cart.GetCartItems().ShouldBe(new List<IStoreItem>());
+            cart.GetCartItems().ShouldBe(new List<ICheckoutItem>());
 
         }
         [Fact]
         public void AddToCart()
         {
             var cart = new CartService();
-            var pizza = new PizzaDTO();
+            var pizza = new PizzaDTO(new PizzaBaseDTO() { Price = 10.99 });
             cart.AddToCart(pizza);
             cart.GetCartItems().ShouldContain(pizza);
         }
+        // ? 
         [Fact]
         public void AddToCartDoesEquivalent()
         {
             var cart = new CartService();
-            cart.AddToCart(new PizzaDTO());
-            cart.GetCartItems().ShouldNotBe(new() { new PizzaDTO() { Name = "jeff" } });
+            cart.AddToCart(new PizzaDTO(new PizzaBaseDTO()));
+            cart.GetCartItems().ShouldNotBe(new() { new PizzaDTO(new PizzaBaseDTO() { Name = "jeff" }) });
         }
 
         [Fact]
         public void RemoveFromCart()
         {
             var cart = new CartService();
-            cart.AddToCart(new PizzaDTO() { Id = 1 });
+            cart.AddToCart(new PizzaDTO(new PizzaBaseDTO()) { Id = 1 });
             cart.GetCartItems().Count.ShouldBe(1);
             cart.RemoveItem(1);
             cart.GetCartItems().Count.ShouldBe(0);
@@ -98,7 +74,7 @@ namespace ZasAndDasMobile.Tests
         public void CalculatePrice_WithOneItem()
         {
             var cart = new CartService();
-            cart.AddToCart(new PizzaDTO { Price = 4.99 });
+            cart.AddToCart(new PizzaDTO(new PizzaBaseDTO() { Price = 4.99 }));
             cart.CalculateTotal().ShouldBe(4.99);
         }
 
@@ -109,8 +85,8 @@ namespace ZasAndDasMobile.Tests
         public void CalculatePrice_WithTwoItems(double price1, double price2, double result)
         {
             var cart = new CartService();
-            cart.AddToCart(new PizzaDTO { Price = price1 });
-            cart.AddToCart(new PizzaDTO { Price = price2 });
+            cart.AddToCart(new PizzaDTO(new PizzaBaseDTO() { Price = price1 }));
+            cart.AddToCart(new PizzaDTO(new PizzaBaseDTO() { Price = price2 }));
             cart.CalculateTotal().ShouldBe(result);
         }
 
@@ -118,8 +94,8 @@ namespace ZasAndDasMobile.Tests
         public void PriceCannotBeNegative()
         {
             var cart = new CartService();
-            cart.AddToCart(new PizzaDTO { Price = 5 });
-            Should.Throw<InvalidOperationException>(() => cart.AddToCart(new PizzaDTO { Price = -6 }));
+            cart.AddToCart(new PizzaDTO(new PizzaBaseDTO() { Price = 5 }));
+            Should.Throw<InvalidOperationException>(() => cart.AddToCart(new PizzaDTO(new PizzaBaseDTO() { Price = -6 })));
         }
 
 

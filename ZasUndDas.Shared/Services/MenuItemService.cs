@@ -2,56 +2,30 @@
 
 namespace ZasUndDas.Shared.Services
 {
-    public class MenuItemService
+    public class MenuItemService(IAPIService api)
     {
-        public Task? ToSync;
-        public MenuItemService()
+        List<PizzaBaseDTO>? Pizzas;
+        List<DrinkBaseDTO>? Drinks;
+        List<PAddin> pAddins = new List<PAddin>();
+        public async Task<List<PizzaBaseDTO>> GetAllPizzas()
         {
-            Update = () => { };
+            if (Pizzas == null)
+            {
+                Pizzas = await api.GetPizzas();
+            }
+            return Pizzas;
         }
-        public Action Update;
-        List<IStoreItem> menuItems = new List<IStoreItem>();
-        public List<PizzaBaseDTO> GetAllPizzas()
+        public async Task<List<DrinkBaseDTO>> GetAllDrinks()
         {
-            return menuItems.Where(i => i.GetType() == typeof(PizzaBaseDTO))
-                            .Select(p => (PizzaBaseDTO)p)
-                            .ToList();
-        }
-
-        public MenuItemService AddItemToMenu(IStoreItem item)
-        {
-            menuItems.Add(item);
-            return this;
-        }
-        public void UpdateMenu(IEnumerable<IStoreItem> storeItems)
-        {
-            menuItems = storeItems.ToList();
-            Update.Invoke();
-        }
-        public List<DrinkDTO> GetAllDrinks()
-        {
-            return menuItems.Where(i => i.GetType() == typeof(DrinkDTO))
-                            .Select(p => (DrinkDTO)p)
-                            .ToList();
-        }
-        public async void ForceSync()
-        {
-            if (ToSync != null)
-                await ToSync;
+            if (Drinks == null)
+            {
+                Drinks = await api.GetDrinks();
+            }
+            return Drinks;
         }
         public static MenuItemService TestPizzas()
         {
-            return (new MenuItemService()).AddItemToMenu(new PizzaBaseDTO() { Name = "Pizza1", Description = "This is a pizza", Price = 4.99 })
-                                       .AddItemToMenu(new PizzaBaseDTO() { Name = "Pizza2", Description = "This is also a pizza", Price = 5.99 })
-                                       .AddItemToMenu(new PizzaBaseDTO() { Name = "Pizza2", Description = "This is also a pizza", Price = 5.99 })
-                                       .AddItemToMenu(new PizzaBaseDTO() { Name = "Pizza2", Description = "This is also a pizza", Price = 5.99 })
-                                       .AddItemToMenu(new PizzaBaseDTO() { Name = "Pizza2", Description = "This is also a pizza", Price = 5.99 })
-                                       .AddItemToMenu(new PizzaBaseDTO() { Name = "Pizza2", Description = "This is also a pizza", Price = 5.99 })
-                                       .AddItemToMenu(new PizzaBaseDTO() { Name = "Pizza2", Description = "This is also a pizza", Price = 5.99 })
-                                       .AddItemToMenu(new PizzaBaseDTO() { Name = "Pizza2", Description = "This is also a pizza", Price = 5.99 })
-                                       .AddItemToMenu(new PizzaBaseDTO() { Name = "Pizza3", Description = "This is not a pizza", Price = 6.99 });
+            return (new MenuItemService(new MockAPIService()));
         }
-
-
     }
 }

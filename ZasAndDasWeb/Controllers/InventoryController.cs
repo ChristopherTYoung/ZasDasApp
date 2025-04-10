@@ -18,48 +18,60 @@ namespace ZasAndDasWeb.Controllers
         public async Task<List<PizzaBaseDTO>> GetPizza()
         {
             logger.LogInformation("Getting all pizza bases");
-            return await context.PizzaBases
-                .Select(
-                    p => new PizzaBaseDTO(p, (double)context.PricePerItems.First(
-                        x => p.BasePriceId == x.Id).Price))
-                .ToListAsync();
+            return await context.PizzaBases.ToListAsync();
+        }
+        [HttpGet("getalldrinkbase")]
+        public async Task<List<DrinkBaseDTO>> GetDrink()
+        {
+            logger.LogInformation("Getting all Drink bases");
+            return await context.DrinkBases.ToListAsync();
         }
         [HttpPost("addpizzabase")]
         public async Task<IResult> MakePizza(PizzaBaseDTO pizza)
         {
             logger.LogInformation($"Adding pizza: {pizza.Name}");
-            await context.PizzaBases.AddAsync(pizza.ToPizzaBase());
+            await context.PizzaBases.AddAsync(pizza);
             await context.SaveChangesAsync();
             return Results.Ok();
         }
-        [HttpPost("addbaseprice")]
-        public async Task<IResult> AddBasePrice(PricePerItem item)
-        {
-            logger.LogInformation($"Adding base price: {item.Price}");
-            await context.PricePerItems.AddAsync(item);
-            await context.SaveChangesAsync();
-            return Results.Ok();
-        }
-        [HttpGet("getallprices")]
-        public async Task<List<PricePerItem>> GetAllPrices()
-        {
-            logger.LogInformation($"Getting all prices");
-            return await context.PricePerItems.ToListAsync();
-        }
+
         [HttpPost("addstockitem")]
         public async Task<IResult> AddStockItem(StockItemDTO stockItem)
         {
             logger.LogInformation($"Adding stock item: {stockItem.Name}");
-            await context.StockItems.AddAsync(stockItem.ToStockItem());
+            await context.StockItems.AddAsync(stockItem);
             await context.SaveChangesAsync();
 
             return Results.Ok();
         }
+
+        [HttpPost("adddrinkbase")]
+        public async Task<IResult> AddDrinkBase(DrinkBaseDTO drink)
+        {
+            logger.LogInformation($"Adding drink base: {drink.DrinkName}");
+            await context.DrinkBases.AddAsync(drink);
+            await context.SaveChangesAsync();
+
+            return Results.Ok();
+        }
+
         [HttpGet("getallstockitems")]
         public async Task<List<StockItemDTO>> GetAllStockItems()
         {
             logger.LogInformation($"Getting all stock items");
-            return await context.StockItems.Select(p => new StockItemDTO(p)).ToListAsync();
+            return await context.StockItems.ToListAsync();
+        }
+
+        [HttpGet("getpizzatoppings")]
+        public async Task<List<PAddinDTO>> GetPizzaToppings()
+        {
+            return await context.PAddins.ToListAsync();
+        }
+
+        [HttpGet("getalldrinkbase")]
+        public async Task<List<DrinkBaseDTO>> GetAllDrinks()
+        {
+            return await context.DrinkBases.ToListAsync();
         }
 
     }

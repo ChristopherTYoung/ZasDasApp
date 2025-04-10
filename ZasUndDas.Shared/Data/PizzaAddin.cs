@@ -17,3 +17,11 @@ public partial class PizzaAddin
 
     public virtual Pizza _Pizza { set; get; } = null!;
 }
+
+public class PizzaAddinDTO
+{
+    public int Id { set; get; }
+    public int PizzaId { set; get; }
+    public int AddinId { set; get; }
+    public int? AddinQuantity { set; get; }
+}

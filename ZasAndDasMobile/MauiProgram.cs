@@ -4,6 +4,11 @@ using Microsoft.Extensions.Logging;
 using ZasAndDasMobile.ViewModels;
 using ZasUndDas.Shared.Services;
 using ZasUndDas.Shared;
+using Microsoft.Maui.Handlers;
+#if ANDROID
+using Android.Graphics.Drawables;
+#endif
+
 namespace ZasAndDasMobile
 {
     public static class MauiProgram
@@ -20,6 +25,24 @@ namespace ZasAndDasMobile
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            PickerHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
+            {
+#if ANDROID
+
+                handler.PlatformView.BackgroundTintList =
+                    Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+#endif
+            });
+
+            EditorHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
+            {
+#if ANDROID
+
+                handler.PlatformView.BackgroundTintList =
+                    Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+#endif
+            });
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
@@ -29,17 +52,17 @@ namespace ZasAndDasMobile
             // Enjoy my rant. I have no clue why env variables are so difficult on mobile. Or I'm just dumb -Logan
             var IsModel = false;
             //var IsModel = (Environment.GetEnvironmentVariable("ISNT_MODEL") ?? "True") == "True";
-            if (IsModel)
+            if (!IsModel)
             {
-                builder.Services.AddSingleton<MenuItemService>();
-                builder.Services.AddSingleton<IAPIService, APIService>();
-                builder.Services.AddSingleton<ISyncingService, SyncingService>();
+                builder.Services.AddSingleton<IAPIService, MockAPIService>();
+
             }
             else
             {
-                builder.Services.AddSingleton<MenuItemService>(_ => MenuItemService.TestPizzas());
-                builder.Services.AddSingleton<ISyncingService, FauxSyncingService>();
+                builder.Services.AddSingleton<IAPIService, APIService>();
+
             }
+            builder.Services.AddSingleton<MenuItemService>();
             builder.Services.AddSingleton<CartService>();
             builder.Services.AddSingleton<CartViewModel>();
             builder.Services.AddSingleton<CartPage>();

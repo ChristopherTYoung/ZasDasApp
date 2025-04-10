@@ -37,3 +37,30 @@ public partial class OrderItemDTO
 
     public virtual StockItem? StockItem { set; get; }
 }
+public class OrderItemDTO
+{
+    public int Id { set; get; }
+    public int OrderId { get; set; }
+    //public DrinkDTO {set; get;}
+    public StockItemDTO? StockItem { set; get; }
+    public PizzaDTO? Pizza { set; get; }
+    public ItemType? Item { set; get; }
+    public int Quantity { set; get; }
+    public OrderItemDTO()
+    {
+    }
+
+    public OrderItemDTO(ICheckoutItem item, int quantity = 1)
+    {
+        switch (item.GetType().Name)
+        {
+            case nameof(StockItemDTO):
+                StockItem = (StockItemDTO)item;
+                Item = ItemType.Stock;
+                break;
+            default:
+                break;
+        };
+        Quantity = quantity;
+    }
+}
