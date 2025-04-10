@@ -35,6 +35,8 @@ namespace ZasAndDasMobile.ViewModels
             this._cartService = cartService;
             UpdateTabs(defaultShown);
             _service = service;
+            _cartService.CartUpdated += OnCartUpdated!;
+            CartItemCount = _cartService.GetItemCount;
         }
         public async Task Initialize()
         {
