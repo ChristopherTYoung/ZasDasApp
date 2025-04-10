@@ -9,7 +9,7 @@ public partial class PricePerItem
 
     public decimal Price { set; get; }
 
-    public virtual ICollection<Calzone> Calzones { set; get; } = new List<Calzone>();
+    public virtual ICollection<CalzoneDTO> Calzones { set; get; } = new List<CalzoneDTO>();
 
     public virtual ICollection<DAddin> DAddins { set; get; } = new List<DAddin>();
 

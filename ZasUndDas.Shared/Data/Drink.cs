@@ -3,15 +3,11 @@ using System.Collections.Generic;
 
 namespace ZasUndDas.Shared.Data;
 
-public partial class Drink
+public partial class DrinkDTO
 {
     public int Id { set; get; }
 
     public int BaseId { set; get; }
 
-    public virtual DrinkBaseDTO Base { set; get; } = null!;
 
-    public virtual ICollection<DrinkAddin> DrinkAddins { set; get; } = new List<DrinkAddin>();
-
-    public virtual ICollection<OrderItem> OrderItems { set; get; } = new List<OrderItem>();
 }

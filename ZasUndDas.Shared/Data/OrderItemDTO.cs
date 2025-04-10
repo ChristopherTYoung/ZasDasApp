@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using ZasUndDas.Shared;
+using ZasUndDas.Shared.Data;
 
 namespace ZasUndDas.Shared.Data;
 
 public partial class OrderItem
 {
-
     public int Id { set; get; }
 
     public int OrderId { set; get; }
@@ -25,19 +26,17 @@ public partial class OrderItem
 
     public int? CheeseBreadId { set; get; }
 
-    public virtual Calzone? Calzone { set; get; }
-
-    public virtual CheeseBread? CheeseBread { set; get; }
-
-    public virtual Drink? Drink { set; get; }
-
-    public virtual PizzaOrder Order { set; get; } = null!;
-
-    public virtual Pizza? Pizza { set; get; }
-
-    public virtual Salad? Salad { set; get; }
-
-    public virtual StockItem? StockItem { set; get; }
+    public async Task<OrderItemDTO> ToOrderItemDTO(PostgresContext context)
+    {
+        var orderItem = new OrderItemDTO
+        {
+            Id = this.Id,
+            OrderId = this.OrderId,
+            StockItem = await context.StockItems.FindAsync(StockItemId),
+            Pizza = await context.Pizzas.FindAsync(PizzaId)
+        };
+        return new OrderItemDTO();
+    }
 }
 public class OrderItemDTO
 {

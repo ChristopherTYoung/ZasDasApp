@@ -3,13 +3,11 @@ using System.Collections.Generic;
 
 namespace ZasUndDas.Shared.Data;
 
-public partial class CheeseBread
+public class CalzoneDTO
 {
     public int Id { set; get; }
-
-    public int SizeId { set; get; }
-
+    public int? SauceId { set; get; }
     public bool? CookedAtHome { set; get; }
-
-
+    public double Price { set; get; }
+    public virtual Sauce? Sauce { set; get; }
 }

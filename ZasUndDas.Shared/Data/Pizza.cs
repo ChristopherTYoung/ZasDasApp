@@ -13,13 +13,6 @@ public partial class Pizza
 
     public bool CookedAtHome { set; get; }
 
-    public virtual PizzaBase Base { set; get; } = null!;
-
-    public virtual ICollection<OrderItem> OrderItems { set; get; } = new List<OrderItem>();
-
-    public virtual ICollection<PizzaAddin> PizzaAddins { set; get; } = new List<PizzaAddin>();
-
-    public virtual PizzaSize Size { set; get; } = null!;
 }
 public class PizzaDTO : ICheckoutItem
 {
@@ -51,5 +44,10 @@ public class PizzaDTO : ICheckoutItem
     public void AddTopping(PAddinDTO addin)
     {
         Addins.Add(addin);
+    }
+    public async Task SaveToppingsToDatabase(PostgresContext context)
+    {
+        foreach (var addin in Addins)
+            await context.PizzaAddins.AddAsync(new PizzaAddin { AddinId = addin.Id, PizzaId = this.Id });
     }
 }

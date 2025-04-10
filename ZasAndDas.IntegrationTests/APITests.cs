@@ -49,8 +49,8 @@ namespace ZasAndDas.IntegrationTests
             var response = await client.PostAsJsonAsync("/api/inventory/adddrinkbase", drink);
             response.IsSuccessStatusCode.ShouldBeTrue();
 
-            var drinks = await client.GetFromJsonAsync<List<DrinkBaseDTO>>("/api/inventory/getalldrinks");
-            drinks.ShouldContain(d => d.DrinkName == drink.Name);
+            var drinks = await client.GetFromJsonAsync<List<DrinkBaseDTO>>("/api/inventory/getalldrinkbase");
+            drinks!.ShouldContain(d => d.DrinkName == drink.Name);
         }
 
         [Fact]
@@ -85,7 +85,7 @@ namespace ZasAndDas.IntegrationTests
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
             var orders = await client.GetFromJsonAsync<List<OrderDTO>>("/api/order/allorders");
-            orders.ShouldContain(order);
+            orders!.ShouldContain(order);
         }
     }
 }

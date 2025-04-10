@@ -15,5 +15,5 @@ public partial class CalzonAddin
 
     public virtual PAddin Addin { set; get; } = null!;
 
-    public virtual Calzone Calzone { set; get; } = null!;
+    public virtual CalzoneDTO Calzone { set; get; } = null!;
 }

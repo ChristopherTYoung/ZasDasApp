@@ -14,15 +14,15 @@ namespace ZasAndDas.IntegrationTests
             _categoryName = categoryName;
         }
 
-        public IDisposable BeginScope<TState>(TState state) => null;
+        public IDisposable? BeginScope<TState>(TState? state) => null;
 
         public bool IsEnabled(LogLevel logLevel) => logLevel >= LogLevel.Information; // Adjust log level if needed.
 
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception, string> formatter)
         {
             if (!IsEnabled(logLevel)) return;
 
-            var message = formatter(state, exception);
+            var message = formatter(state, exception!);
             if (!string.IsNullOrEmpty(message))
             {
                 _outputHelper.WriteLine($"{logLevel}: {_categoryName}: {message}");

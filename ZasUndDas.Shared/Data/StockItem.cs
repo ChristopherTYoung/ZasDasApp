@@ -19,7 +19,6 @@ public partial class StockItem
 
     public virtual Category ItemCategory { set; get; } = null!;
 
-    public virtual ICollection<OrderItem> OrderItems { set; get; } = new List<OrderItem>();
 }
 public class StockItemDTO : IStoreItem, ICheckoutItem
 {

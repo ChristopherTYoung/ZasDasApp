@@ -9,5 +9,5 @@ public partial class Sauce
 
     public string SauceName { set; get; } = null!;
 
-    public virtual ICollection<Calzone> Calzones { set; get; } = new List<Calzone>();
+    public virtual ICollection<CalzoneDTO> Calzones { set; get; } = new List<CalzoneDTO>();
 }
