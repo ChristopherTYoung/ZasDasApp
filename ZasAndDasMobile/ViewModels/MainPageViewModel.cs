@@ -28,7 +28,7 @@ namespace ZasAndDasMobile.ViewModels
         public partial ObservableCollection<PizzaBaseDTO> PizzaList { set; get; } = new ObservableCollection<PizzaBaseDTO>();
 
         [ObservableProperty]
-        public partial int CartItemCount { get; set; } = 0;
+        public partial int CartItemCount { get; set; }
 
         public MainPageViewModel(MenuItemService service, CartService cartService)
         {
@@ -53,7 +53,7 @@ namespace ZasAndDasMobile.ViewModels
         [RelayCommand]
         public async Task GoToCart()
         {
-            await Shell.Current.GoToAsync("//Cart");
+            await Shell.Current.GoToAsync("///Cart");
         }
 
         [RelayCommand]

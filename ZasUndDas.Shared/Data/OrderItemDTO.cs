@@ -29,7 +29,7 @@ public partial class OrderItemDTO
 
     public virtual CheeseBread? CheeseBread { set; get; }
 
-    public virtual DrinkDTO\? Drink { set; get; }
+    public virtual DrinkDTO? Drink { set; get; }
 
     public virtual Pizza? Pizza { set; get; }
 

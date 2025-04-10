@@ -15,7 +15,12 @@ namespace ZasUndDas.Shared
         public List<ICheckoutItem> GetCartItems() => cart;
         public int GetItemCount => cart.Count;
         public event EventHandler? CartUpdated;
-
+        string? nonce;
+        public bool IsNonce { get => nonce != null; }
+        public void AddNonce(string nonce)
+        {
+            this.nonce = nonce;
+        }
         public void AddToCart(ICheckoutItem item)
         {
             var price = item.GetPrice();

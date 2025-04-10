@@ -68,6 +68,7 @@ namespace ZasAndDasMobile
             builder.Services.AddSingleton<CartPage>();
             builder.Services.AddSingleton<MainPageViewModel>();
             builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddScoped<PaymentPage>();
             return builder.Build();
         }
     }

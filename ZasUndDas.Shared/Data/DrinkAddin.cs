@@ -13,5 +13,5 @@ public partial class DrinkAddin
 
     public virtual DAddin Addin { set; get; } = null!;
 
-    public virtual DrinkDTO\ Drink { set; get; } = null!;
+    public virtual DrinkDTO Drink { set; get; } = null!;
 }

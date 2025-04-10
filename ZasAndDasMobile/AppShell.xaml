@@ -11,4 +11,12 @@
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+    <ShellContent
+        Title="Pay"
+        ContentTemplate="{DataTemplate local:PaymentPage}"
+        Route="Payment"/>
+    <ShellContent
+        Title="CartCheckout"
+        ContentTemplate="{DataTemplate local:CartPage}"
+        Route="Cart"/>
 </Shell>

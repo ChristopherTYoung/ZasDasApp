@@ -27,7 +27,7 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<DAddin> DAddins { set; get; }
 
-    public virtual DbSet<DrinkDTO\> Drinks { set; get; }
+    public virtual DbSet<DrinkDTO> Drinks { set; get; }
 
     public virtual DbSet<DrinkAddin> DrinkAddins { set; get; }
 
@@ -181,7 +181,7 @@ public partial class PostgresContext : DbContext
                 .HasConstraintName("d_addin_base_price_id_fkey");
         });
 
-        modelBuilder.Entity<DrinkDTO\>(entity =>
+        modelBuilder.Entity<DrinkDTO>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("drink_pkey");
 
