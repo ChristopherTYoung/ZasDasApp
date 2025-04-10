@@ -5,10 +5,11 @@ namespace ZasAndDasMobile
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage(MainPageViewModel vm, ISyncingService ss)
+        public MainPage(MainPageViewModel vm)
         {
             InitializeComponent();
             BindingContext = vm;
+            (new Task(async () => await vm.Initialize())).RunSynchronously();
         }
     }
 

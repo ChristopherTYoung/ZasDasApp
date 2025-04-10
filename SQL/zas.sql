@@ -4,6 +4,9 @@ CREATE TABLE category (
     description VARCHAR(256)
 );
 
+INSERT INTO zasanddas.category(category_name)
+VALUES ('2L Drink');
+
 CREATE TABLE stock_item (
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     item_name VARCHAR(50) not null,
@@ -11,6 +14,9 @@ CREATE TABLE stock_item (
     base_price decimal NOT NULL,
     item_category_id INT REFERENCES category(id) NOT NULL
 );
+
+INSERT INTO zasanddas.stock_item(item_name, base_price_id, item_category_id)
+VALUES ('Coke', 2, 1);
 
 CREATE TABLE sauce (
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -30,6 +36,8 @@ CREATE TABLE pizza_base (
     base_price decimal NOT null,
     image_path varchar(256)
 );
+
+INSERT INTO zasanddas.pizza_base (pizza_name, base_price_id) values ('Test', 4);
 
 CREATE TABLE p_addin (
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,

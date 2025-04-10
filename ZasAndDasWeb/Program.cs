@@ -43,14 +43,14 @@ public class Program
                     .AddOtlpExporter(options =>
                     {
                         options.Endpoint = new Uri(collectorURL);
-                        options.Protocol = OtlpExportProtocol.Grpc;
+                        //options.Protocol = OtlpExportProtocol.Grpc;
                     }))
                 .WithTracing(tracing => tracing
                     .AddAspNetCoreInstrumentation()
                     .AddOtlpExporter(options =>
                     {
                         options.Endpoint = new Uri(collectorURL);
-                        options.Protocol = OtlpExportProtocol.Grpc;
+                        //options.Protocol = OtlpExportProtocol.Grpc;
                     }));
 
             builder.Logging.AddOpenTelemetry(options =>

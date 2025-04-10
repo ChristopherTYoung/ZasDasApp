@@ -53,17 +53,17 @@ namespace ZasAndDasMobile
             // Enjoy my rant. I have no clue why env variables are so difficult on mobile. Or I'm just dumb -Logan
             var IsModel = false;
             //var IsModel = (Environment.GetEnvironmentVariable("ISNT_MODEL") ?? "True") == "True";
-            if (IsModel)
+            if (!IsModel)
             {
-                builder.Services.AddSingleton<MenuItemService>();
-                builder.Services.AddSingleton<IAPIService, APIService>();
-                builder.Services.AddSingleton<ISyncingService, SyncingService>();
+                builder.Services.AddSingleton<IAPIService, MockAPIService>();
+
             }
             else
             {
-                builder.Services.AddSingleton<MenuItemService>(_ => MenuItemService.TestPizzas());
-                builder.Services.AddSingleton<ISyncingService, FauxSyncingService>();
+                builder.Services.AddSingleton<IAPIService, APIService>();
+
             }
+            builder.Services.AddSingleton<MenuItemService>();
             builder.Services.AddSingleton<CartService>();
             builder.Services.AddSingleton<CartViewModel>();
             builder.Services.AddSingleton<CartPage>();

@@ -49,7 +49,7 @@ namespace ZasAndDas.IntegrationTests
             var InitScript = """"
             CREATE SCHEMA zasanddas;
 
-            CREATE TABLE category (
+            CREATE TABLE zasanddas.category (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 category_name VARCHAR(50) not null,
                 description VARCHAR(256)
@@ -58,29 +58,29 @@ namespace ZasAndDas.IntegrationTests
             INSERT INTO zasanddas.category(category_name)
             VALUES ('2L Drink');
 
-            CREATE TABLE stock_item (
+            CREATE TABLE zasanddas.stock_item (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 item_name VARCHAR(50) not null,
                 description VARCHAR(256),
                 base_price decimal NOT NULL,
-                item_category_id INT REFERENCES category(id) NOT NULL
+                item_category_id INT REFERENCES zasanddas.category(id) NOT NULL
             );
 
             INSERT INTO zasanddas.stock_item(item_name, base_price_id, item_category_id)
             VALUES ('Coke', 2, 1);
 
-            CREATE TABLE sauce (
+            CREATE TABLE zasanddas.sauce (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 sauce_name VARCHAR(50) not null
             );
 
-            CREATE TABLE pizza_size (
+            CREATE TABLE zasanddas.pizza_size (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 size_name VARCHAR(10) not null, 
                 price decimal NOT NULL
             );
 
-            CREATE TABLE pizza_base (
+            CREATE TABLE zasanddas.pizza_base (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 pizza_name VARCHAR(50) not null,
                 description VARCHAR(256),
@@ -90,119 +90,119 @@ namespace ZasAndDas.IntegrationTests
 
             INSERT INTO zasanddas.pizza_base (pizza_name, base_price_id) values ('Test', 4);
 
-            CREATE TABLE p_addin (
+            CREATE TABLE zasanddas.p_addin (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 addin_name VARCHAR(50) not null,
                 base_price decimal NOT null
             );
 
-            CREATE TABLE pizza (
+            CREATE TABLE zasanddas.pizza (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-                size_id INT REFERENCES pizza_size(id) not null,
-                base_id INT REFERENCES pizza_base(id) not null,
+                size_id INT REFERENCES zasanddas.pizza_size(id) not null,
+                base_id INT REFERENCES zasanddas.pizza_base(id) not null,
                 cooked_at_home BOOLEAN NOT NULL DEFAULT FALSE
             );
 
-            CREATE TABLE pizza_addin (
+            CREATE TABLE zasanddas.pizza_addin (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-                pizza_id INT REFERENCES pizza(id) not null,
-                addin_id INT REFERENCES p_addin(id) not null,
+                pizza_id INT REFERENCES zasanddas.pizza(id) not null,
+                addin_id INT REFERENCES zasanddas.p_addin(id) not null,
                 addin_quantity INT default(1)
             );
 
-            CREATE TABLE drink_base (
+            CREATE TABLE zasanddas.drink_base (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 drink_name VARCHAR(10) not null,
                 description VARCHAR(256),
                 base_price decimal NOT NULL
             );
 
-            CREATE TABLE d_addin (
+            CREATE TABLE zasanddas.d_addin (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 addin_name VARCHAR(50) not null,
                 base_price decimal NOT NULL
             );
 
-            CREATE TABLE drink (
+            CREATE TABLE zasanddas.drink (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-                base_id INT REFERENCES drink_base(id) not null
+                base_id INT REFERENCES zasanddas.drink_base(id) not null
             );
 
-            CREATE TABLE drink_addin (
+            CREATE TABLE zasanddas.drink_addin (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-                drink_id INT REFERENCES drink(id) not null,
-                addin_id INT REFERENCES d_addin(id) not null
+                drink_id INT REFERENCES zasanddas.drink(id) not null,
+                addin_id INT REFERENCES zasanddas.d_addin(id) not null
             );
 
-            CREATE TABLE calzone (
+            CREATE TABLE zasanddas.calzone (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 base_price decimal NOT NULL,
-                sauce_id INT REFERENCES sauce(id),
-                cooked_at_home BOOLEAN default(False)
+                sauce_id INT REFERENCES zasanddas.sauce(id),
+                cooked_at_home BOOLEAN zasanddas.default(False)
             );
 
-            CREATE TABLE calzon_addin (
+            CREATE TABLE zasanddas.calzon_addin (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-                calzone_id INT REFERENCES calzone(id) not null,
-                addin_id INT REFERENCES p_addin(id) not null,
+                calzone_id INT REFERENCES zasanddas.calzone(id) not null,
+                addin_id INT REFERENCES zasanddas.p_addin(id) not null,
                 quantity INT default(1)
             );
 
-            CREATE TABLE salad (
+            CREATE TABLE zasanddas.salad (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 base_price_id decimal not null
             );
 
-            CREATE TABLE salad_addin (
+            CREATE TABLE zasanddas.salad_addin (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-                salad_id INT REFERENCES salad(id) not null,
-                addin_id INT REFERENCES p_addin(id) not null,
+                salad_id INT REFERENCES zasanddas.salad(id) not null,
+                addin_id INT REFERENCES zasanddas.p_addin(id) not null,
                 quantity INT default(1)
             );
 
-            CREATE TABLE cheese_bread (
+            CREATE TABLE zasanddas.cheese_bread (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-                size_id INT REFERENCES pizza_size(id) not null,
+                size_id INT REFERENCES zasanddas.pizza_size(id) not null,
                 cooked_at_home BOOLEAN default(False)
             );
 
-            create table customer (
+            create table zasanddas.customer (
             	id int primary key generated always as identity, 
             	customer_name varchar(50) not null,
             	email varchar(50) not null,
             	phone varchar(50),
             	api_key varchar(50) NOT NULL
             );
-            create table promotion (
+            create table zasanddas.promotion (
             	id int primary key generated always as identity,
             	promotion_name varchar(50) not null
             );
-            create table pizza_order (
+            create table zasanddas.pizza_order (
             	id int primary key generated always as identity,
-            	customer_id int references customer(id),
+            	customer_id int references zasanddas.customer(id),
             	date_ordered timestamp,
             	gross_amount decimal,
             	discount_amount decimal default(0),
             	net_amount decimal,
             	sales_tax decimal
             );
-            create table order_promotion (
+            create table zasanddas.order_promotion (
             	id int primary key generated always as identity,
-            	promotion_id int references promotion(id) not null,
-            	order_id int references pizza_order(id) not null,
+            	promotion_id int references zasanddas.promotion(id) not null,
+            	order_id int references zasanddas.pizza_order(id) not null,
             	dollar_amount_off decimal
             );
 
-            CREATE TABLE order_item (
+            CREATE TABLE zasanddas.order_item (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-                order_id int references pizza_order(id) not null,
+                order_id int references zasanddas.pizza_order(id) not null,
                 quantity INT default(1),
-                stock_item_id INT REFERENCES stock_item(id),
-                pizza_id INT REFERENCES pizza(id),
-                drink_id INT REFERENCES drink(id),
-                calzone_id INT REFERENCES calzone(id),
-                salad_id INT REFERENCES salad(id),
-                cheese_bread_id INT REFERENCES cheese_bread(id),
+                stock_item_id INT REFERENCES zasanddas.stock_item(id),
+                pizza_id INT REFERENCES zasanddas.pizza(id),
+                drink_id INT REFERENCES zasanddas.drink(id),
+                calzone_id INT REFERENCES zasanddas.calzone(id),
+                salad_id INT REFERENCES zasanddas.salad(id),
+                cheese_bread_id INT REFERENCES zasanddas.cheese_bread(id),
                 CHECK (
                 ((stock_item_id IS NOT NULL)::int +
                  (pizza_id IS NOT NULL)::int +
