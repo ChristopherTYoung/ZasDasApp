@@ -34,20 +34,7 @@ namespace ZasAndDasWeb.Controllers
             await context.SaveChangesAsync();
             return Results.Ok();
         }
-        [HttpPost("addbaseprice")]
-        public async Task<IResult> AddBasePrice(PricePerItem item)
-        {
-            logger.LogInformation($"Adding base price: {item.Price}");
-            await context.PricePerItems.AddAsync(item);
-            await context.SaveChangesAsync();
-            return Results.Ok();
-        }
-        [HttpGet("getallprices")]
-        public async Task<List<PricePerItem>> GetAllPrices()
-        {
-            logger.LogInformation($"Getting all prices");
-            return await context.PricePerItems.ToListAsync();
-        }
+
         [HttpPost("addstockitem")]
         public async Task<IResult> AddStockItem(StockItemDTO stockItem)
         {
@@ -57,6 +44,17 @@ namespace ZasAndDasWeb.Controllers
 
             return Results.Ok();
         }
+
+        [HttpPost("adddrinkbase")]
+        public async Task<IResult> AddDrinkBase(DrinkBaseDTO drink)
+        {
+            logger.LogInformation($"Adding drink base: {drink.DrinkName}");
+            await context.DrinkBases.AddAsync(drink);
+            await context.SaveChangesAsync();
+
+            return Results.Ok();
+        }
+
         [HttpGet("getallstockitems")]
         public async Task<List<StockItemDTO>> GetAllStockItems()
         {
@@ -68,6 +66,12 @@ namespace ZasAndDasWeb.Controllers
         public async Task<List<PAddinDTO>> GetPizzaToppings()
         {
             return await context.PAddins.ToListAsync();
+        }
+
+        [HttpGet("getalldrinks")]
+        public async Task<List<DrinkBaseDTO>> GetAllDrinks()
+        {
+            return await context.DrinkBases.ToListAsync();
         }
 
     }

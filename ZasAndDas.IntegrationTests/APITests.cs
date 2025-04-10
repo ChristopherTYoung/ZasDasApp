@@ -16,17 +16,6 @@ namespace ZasAndDas.IntegrationTests
         public APITests(WebApplicationFactory<Program> app, ITestOutputHelper outputHelper) : base(app, outputHelper)
         {
         }
-        [Fact]
-        public async Task CanAddABasePrice()
-        {
-            var client = _app.CreateClient();
-            var price = new PricePerItem { Price = 6.99M };
-            var response = await client.PostAsJsonAsync("/api/inventory/addbaseprice", price);
-            response.IsSuccessStatusCode.ShouldBeTrue();
-
-            var prices = await client.GetFromJsonAsync<List<PricePerItem>>("/api/inventory/getallprices");
-            prices!.First(p => p.Price == 6.99M).ShouldNotBeNull();
-        }
 
         [Fact]
         public async Task CanAddPizzaBase()
@@ -50,6 +39,18 @@ namespace ZasAndDas.IntegrationTests
 
             var stockItems = await client.GetFromJsonAsync<IEnumerable<StockItem>>("/api/inventory/getallstockitems");
             stockItems!.FirstOrDefault(s => s.ItemName == "Diet Coke").ShouldNotBeNull();
+        }
+
+        [Fact]
+        public async Task CanAddAndGetDrinkBases()
+        {
+            var client = _app.CreateClient();
+            var drink = new DrinkDTO { Name = "Kyle's Monster" };
+            var response = await client.PostAsJsonAsync("/api/inventory/adddrinkbase", drink);
+            response.IsSuccessStatusCode.ShouldBeTrue();
+
+            var drinks = await client.GetFromJsonAsync<List<DrinkBaseDTO>>("/api/inventory/getalldrinks");
+            drinks.ShouldContain(d => d.DrinkName == drink.Name);
         }
 
         [Fact]
