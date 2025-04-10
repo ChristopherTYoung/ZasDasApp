@@ -68,7 +68,7 @@ namespace ZasAndDasWeb.Controllers
             return await context.PAddins.ToListAsync();
         }
 
-        [HttpGet("getalldrinks")]
+        [HttpGet("getalldrinkbase")]
         public async Task<List<DrinkBaseDTO>> GetAllDrinks()
         {
             return await context.DrinkBases.ToListAsync();

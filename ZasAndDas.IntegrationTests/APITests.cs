@@ -49,7 +49,7 @@ namespace ZasAndDas.IntegrationTests
             var response = await client.PostAsJsonAsync("/api/inventory/adddrinkbase", drink);
             response.IsSuccessStatusCode.ShouldBeTrue();
 
-            var drinks = await client.GetFromJsonAsync<List<DrinkBaseDTO>>("/api/inventory/getalldrinks");
+            var drinks = await client.GetFromJsonAsync<List<DrinkBaseDTO>>("/api/inventory/getalldrinkbase");
             drinks.ShouldContain(d => d.DrinkName == drink.Name);
         }
 
