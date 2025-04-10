@@ -21,7 +21,7 @@ namespace ZasAndDasWeb.Controllers
             return await context.PizzaBases.ToListAsync();
         }
         [HttpGet("getalldrinkbase")]
-        public async Task<List<DrinkBaseDTO>> GetDrink()
+        public async Task<List<DrinkBaseDTO>> GetAllDrink()
         {
             logger.LogInformation("Getting all Drink bases");
             return await context.DrinkBases.ToListAsync();
@@ -66,12 +66,6 @@ namespace ZasAndDasWeb.Controllers
         public async Task<List<PAddinDTO>> GetPizzaToppings()
         {
             return await context.PAddins.ToListAsync();
-        }
-
-        [HttpGet("getalldrinkbase")]
-        public async Task<List<DrinkBaseDTO>> GetAllDrinks()
-        {
-            return await context.DrinkBases.ToListAsync();
         }
 
     }

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,12 +11,17 @@ namespace ZasUndDas.Shared
 {
     public class CartService
     {
-        List<ICheckoutItem> cart = new List<ICheckoutItem>();
+        ObservableCollection<ICheckoutItem> cart = new ObservableCollection<ICheckoutItem>();
 
-        public List<ICheckoutItem> GetCartItems() => cart;
+        public ObservableCollection<ICheckoutItem> GetCartItems => cart;
         public int GetItemCount => cart.Count;
         public event EventHandler? CartUpdated;
-
+        string? nonce;
+        public bool IsNonce { get => nonce != null; }
+        public void AddNonce(string nonce)
+        {
+            this.nonce = nonce;
+        }
         public void AddToCart(ICheckoutItem item)
         {
             var price = item.GetPrice();

@@ -11,7 +11,7 @@
           ColumnSpacing="0"
           BackgroundColor="Black"
           Padding="10,0,10,0">
-
+    
             <ImageButton Source="back_arrow_icon.png"
                          MaximumHeightRequest="32"
                          MaximumWidthRequest="32"
@@ -23,6 +23,8 @@
                    HeightRequest="75"
                    Grid.ColumnSpan="2"
                    HorizontalOptions="Center"/>
+            <ScrollView Grid.Row="1">
+            </ScrollView>
         </Grid>
         
         <Grid Grid.Row="1"
@@ -36,5 +38,24 @@
                TextColor="White"
                Grid.Row="1"/>
         </Grid>
+        <VerticalStackLayout Grid.Row="2"
+                             Padding="0,10,0,0">
+            <Label Text="Your Cart"
+                   FontSize="Title"
+                   FontAttributes="Bold"
+                   Padding="10,0,0,0"/>
+
+            <CollectionView ItemsSource="{Binding CartItems}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout>
+                            <Label Text="Test"/>
+                            <Label Text="{Binding Id}" 
+                                   FontAttributes="Bold"/>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
     </Grid>
 </ContentPage>

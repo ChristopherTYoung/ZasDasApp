@@ -45,4 +45,9 @@ public class PizzaDTO : ICheckoutItem
     {
         Addins.Add(addin);
     }
+    public async Task SaveToppingsToDatabase(PostgresContext context)
+    {
+        foreach (var addin in Addins)
+            await context.PizzaAddins.AddAsync(new PizzaAddin { AddinId = addin.Id, PizzaId = this.Id });
+    }
 }
