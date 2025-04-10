@@ -13,11 +13,4 @@ public partial class Pizza
 
     public bool CookedAtHome { set; get; }
 
-    public virtual PizzaBase Base { set; get; } = null!;
-
-    public virtual ICollection<OrderItem> OrderItems { set; get; } = new List<OrderItem>();
-
-    public virtual ICollection<PizzaAddin> PizzaAddins { set; get; } = new List<PizzaAddin>();
-
-    public virtual PizzaSize Size { set; get; } = null!;
 }

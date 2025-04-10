@@ -49,16 +49,16 @@ namespace ZasUndDas.Shared
             return order;
         }
 
-        public static OrderItemDTO ToItemDTO(this OrderItem item)
+        public static OrderItemDTO ToItemDTO(this Data.OrderItemDTO item)
         {
             if (item.StockItem == null)
                 throw new Exception("not a stock item");
             return new OrderItemDTO(new StockItemDTO(item.StockItem));
         }
 
-        public static async Task<OrderItem> ToItem(this OrderItemDTO itemDTO, PostgresContext context)
+        public static async Task<Data.OrderItemDTO> ToItem(this OrderItemDTO itemDTO, PostgresContext context)
         {
-            var orderItem = new OrderItem()
+            var orderItem = new Data.OrderItemDTO()
             {
                 Quantity = itemDTO.Quantity,
                 Pizza = await itemDTO.Pizza.ToPizza(context),

@@ -84,7 +84,7 @@ namespace ZasAndDas.IntegrationTests
                 GrossAmt = 0,
                 NetAmt = 0,
                 SalesTax = 0,
-                Items = new List<OrderItemDTO>(),
+                Items = new List<ZasUndDas.Shared.OrderItemDTO>(),
                 DateOrdered = DateTime.Parse("03-31-2025 12:30:00 PM")
             };
             var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
@@ -99,7 +99,7 @@ namespace ZasAndDas.IntegrationTests
             options.UseNpgsql(_dbContainer.GetConnectionString());
             var context = new PostgresContext(options.Options);
 
-            var item = new OrderItem
+            var item = new ZasUndDas.Shared.Data.OrderItemDTO
             {
                 StockItem = new StockItem { ItemName = "Coke", BasePriceId = 3 }
             };
@@ -133,7 +133,7 @@ namespace ZasAndDas.IntegrationTests
                 GrossAmt = 0,
                 NetAmt = 0,
                 SalesTax = 0,
-                Items = new List<OrderItemDTO>() { new OrderItemDTO(new StockItemDTO { BasePriceId = 3, ItemCategoryId = 1, Name = "Sprite", Description = "" }) },
+                Items = new List<ZasUndDas.Shared.OrderItemDTO>() { new ZasUndDas.Shared.OrderItemDTO(new StockItemDTO { BasePriceId = 3, ItemCategoryId = 1, Name = "Sprite", Description = "" }) },
                 DateOrdered = DateTime.Parse("03-31-2025 12:30:00 PM")
             };
             var response = await client.PostAsJsonAsync("/api/order/sendorder", order);

@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace ZasUndDas.Shared.Data;
 
-public partial class OrderItem
+public partial class OrderItemDTO
 {
 
     public int Id { set; get; }
@@ -30,8 +30,6 @@ public partial class OrderItem
     public virtual CheeseBread? CheeseBread { set; get; }
 
     public virtual Drink? Drink { set; get; }
-
-    public virtual PizzaOrder Order { set; get; } = null!;
 
     public virtual Pizza? Pizza { set; get; }
 

@@ -11,7 +11,6 @@ public partial class Salad
 
     public virtual PricePerItem BasePrice { set; get; } = null!;
 
-    public virtual ICollection<OrderItem> OrderItems { set; get; } = new List<OrderItem>();
 
     public virtual ICollection<SaladAddin> SaladAddins { set; get; } = new List<SaladAddin>();
 }

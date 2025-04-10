@@ -11,7 +11,5 @@ public partial class CheeseBread
 
     public bool? CookedAtHome { set; get; }
 
-    public virtual ICollection<OrderItem> OrderItems { set; get; } = new List<OrderItem>();
 
-    public virtual PizzaSize Size { set; get; } = null!;
 }

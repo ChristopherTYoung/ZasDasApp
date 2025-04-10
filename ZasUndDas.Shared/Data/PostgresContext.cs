@@ -33,7 +33,7 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<DrinkBase> DrinkBases { set; get; }
 
-    public virtual DbSet<OrderItem> OrderItems { set; get; }
+    public virtual DbSet<OrderItemDTO> OrderItems { set; get; }
 
     public virtual DbSet<OrderPromotion> OrderPromotions { set; get; }
 
@@ -262,7 +262,7 @@ public partial class PostgresContext : DbContext
                 .HasConstraintName("drink_base_base_price_id_fkey");
         });
 
-        modelBuilder.Entity<OrderItem>(entity =>
+        modelBuilder.Entity<OrderItemDTO>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("order_item_pkey");
 

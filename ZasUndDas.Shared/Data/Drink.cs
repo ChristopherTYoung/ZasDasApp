@@ -9,9 +9,4 @@ public partial class Drink
 
     public int BaseId { set; get; }
 
-    public virtual DrinkBase Base { set; get; } = null!;
-
-    public virtual ICollection<DrinkAddin> DrinkAddins { set; get; } = new List<DrinkAddin>();
-
-    public virtual ICollection<OrderItem> OrderItems { set; get; } = new List<OrderItem>();
 }

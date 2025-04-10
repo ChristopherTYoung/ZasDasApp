@@ -21,7 +21,7 @@ public partial class PizzaOrder
 
     public virtual Customer? Customer { set; get; }
 
-    public virtual ICollection<OrderItem> OrderItems { set; get; } = new List<OrderItem>();
+    public virtual ICollection<OrderItemDTO> OrderItems { set; get; } = new List<OrderItemDTO>();
 
     public virtual ICollection<OrderPromotion> OrderPromotions { set; get; } = new List<OrderPromotion>();
 }
