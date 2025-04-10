@@ -36,5 +36,24 @@
                TextColor="White"
                Grid.Row="1"/>
         </Grid>
+        <VerticalStackLayout Grid.Row="2"
+                             Padding="0,10,0,0">
+            <Label Text="Your Cart"
+                   FontSize="Title"
+                   FontAttributes="Bold"
+                   Padding="10,0,0,0"/>
+
+            <CollectionView ItemsSource="{Binding CartItems}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout>
+                            <Label Text="Test"/>
+                            <Label Text="{Binding Id}" 
+                                   FontAttributes="Bold"/>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
     </Grid>
 </ContentPage>

@@ -5,6 +5,7 @@ using ZasAndDasMobile.ViewModels;
 using ZasUndDas.Shared.Services;
 using ZasUndDas.Shared;
 using Microsoft.Maui.Handlers;
+using ZasAndDasMobile.Popups;
 #if ANDROID
 using Android.Graphics.Drawables;
 #endif
@@ -68,6 +69,8 @@ namespace ZasAndDasMobile
             builder.Services.AddSingleton<CartPage>();
             builder.Services.AddSingleton<MainPageViewModel>();
             builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddTransient<ItemPopup>();
+            builder.Services.AddTransient<ItemViewModel>();
             return builder.Build();
         }
     }
