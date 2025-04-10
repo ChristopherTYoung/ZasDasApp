@@ -71,6 +71,7 @@ namespace ZasAndDasMobile
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddTransient<ItemPopup>();
             builder.Services.AddTransient<ItemViewModel>();
+            builder.Services.AddScoped<PaymentPage>();
             return builder.Build();
         }
     }
