@@ -23,7 +23,7 @@ public class Program
         builder.Services.AddDbContext<PostgresContext>(o => o.UseNpgsql(builder.Configuration["DB_CONN"]));
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        builder.Services.AddSingleton<OrderService>();
+        builder.Services.AddScoped<OrderService>();
 
         var collectorURL = builder.Configuration["COLLECTOR_URL"] ?? null;
 
