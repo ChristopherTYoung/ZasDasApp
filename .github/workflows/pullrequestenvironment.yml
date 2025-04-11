@@ -11,7 +11,6 @@ jobs:
         - name: kubectl
           run: |
             kubectl create namespace ${{github.event.pull_request.number}}-zasanddas
-                steps:
         - name: deploy to kubernetes
           run: |
             export BUILD_NUMBER=${{github.run_id}}
