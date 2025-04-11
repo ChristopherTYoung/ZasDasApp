@@ -1,4 +1,6 @@
 name: automated testing
+permissions: 
+   pull-requests: write 
 on:
   pull_request:
     types: [opened, closed, synchronize]
