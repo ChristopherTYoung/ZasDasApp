@@ -57,7 +57,7 @@ jobs:
 
     notifydiscord:
         runs-on: self-hosted
-        needs: [createnamespace, destroynamespace]
+        needs: [pushtokubernetes, destroynamespace]
         if: always() && contains(needs.*.result, 'success')
         steps: 
         - name: Discord notifications
