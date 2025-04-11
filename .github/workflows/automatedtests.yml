@@ -17,10 +17,10 @@ jobs:
           docker run --rm zas_test_container
 
     pushtodocker: 
+       if: ${{ github.ref == 'refs/heads/main' }}
        runs-on: self-hosted
        needs: test
        steps: 
-
        - name: Login to Docker Hub
          uses: docker/login-action@v3
          with:
