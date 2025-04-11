@@ -9,7 +9,7 @@ jobs:
         steps:
         - name: kubectl
           run: |
-            kubectl create namespace ${{github.run_id}}-ZasAndDas
+            kubectl create namespace ${{github.run_id}}-zasanddas
 
     notifydiscord:
         runs-on: self-hosted
