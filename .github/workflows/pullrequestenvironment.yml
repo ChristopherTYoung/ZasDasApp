@@ -21,9 +21,18 @@ jobs:
          with:
            username: ${{ vars.DOCKERHUB_USERNAME }}
            password: ${{ secrets.DOCKERHUB_TOKEN }}
+       - name: Create container and push
+         run: |
+            ls
+            docker build \
+            -t nhowell02/zasanddas:${{github.run_id}} \
+            .
+
+
+            docker push nhowell02/zasanddas:${{github.run_id}}
     pushtokubernetes:
         runs-on: self-hosted
-        needs: [test, pushtodocker]
+        needs: [pushtodocker]
         steps:
         - name: deploy to kubernetes
           run: |
@@ -35,17 +44,6 @@ jobs:
             do
               cat "$FILE" | envsubst | kubectl apply -f -
             done
-
-       - name: Create container and push
-         run: |
-            ls
-            docker build \
-            -t nhowell02/zasanddas:${{github.run_id}} \
-            .
-
-
-            docker push nhowell02/zasanddas:${{github.run_id}}
-    
     destroynamespace:
         if: github.event.action == 'closed'
         runs-on: self-hosted
