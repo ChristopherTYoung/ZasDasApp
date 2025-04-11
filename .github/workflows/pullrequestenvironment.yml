@@ -11,6 +11,16 @@ jobs:
         - name: kubectl
           run: |
             kubectl create namespace ${{github.event.pull_request.number}}-zasanddas
+                steps:
+        - name: deploy to kubernetes
+          run: |
+            export BUILD_NUMBER=${{github.run_id}}
+            export NAMESPACE=${{github.event.pull_request.number}}-
+            export SUBDOMAIN=${{github.event.pull_request.number}}.
+            for FILE in "K8s"/*
+            do
+              cat "$FILE" | envsubst | kubectl apply -f -
+            done
     
     destroynamespace:
         if: github.event.action == 'closed'
