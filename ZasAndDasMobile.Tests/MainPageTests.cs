@@ -3,7 +3,7 @@ using ZasUndDas.Shared.Data;
 using ZasUndDas.Shared.Services;
 using Shouldly;
 namespace ZasAndDasMobile.Tests
-
+//adding a useless comment
 {
     public class MainPageTests
     {
