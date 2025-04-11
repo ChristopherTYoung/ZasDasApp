@@ -25,6 +25,7 @@ public partial class OrderItem
     public int? SaladId { set; get; }
 
     public int? CheeseBreadId { set; get; }
+    public virtual CalzoneDTO? Calzone { set; get; }
 
     public async Task<OrderItemDTO> ToOrderItemDTO(PostgresContext context)
     {

@@ -33,7 +33,7 @@ namespace ZasAndDasMobile.Tests
         public void EmptyCart()
         {
             var cart = new CartService();
-            cart.GetCartItems().ShouldBe(new List<ICheckoutItem>());
+            cart.GetCartItems.ShouldBe(new List<ICheckoutItem>());
 
         }
         [Fact]
@@ -42,7 +42,7 @@ namespace ZasAndDasMobile.Tests
             var cart = new CartService();
             var pizza = new PizzaDTO(new PizzaBaseDTO() { Price = 10.99 });
             cart.AddToCart(pizza);
-            cart.GetCartItems().ShouldContain(pizza);
+            cart.GetCartItems.ShouldContain(pizza);
         }
         // ? 
         [Fact]
@@ -50,7 +50,7 @@ namespace ZasAndDasMobile.Tests
         {
             var cart = new CartService();
             cart.AddToCart(new PizzaDTO(new PizzaBaseDTO()));
-            cart.GetCartItems().ShouldNotBe(new() { new PizzaDTO(new PizzaBaseDTO() { Name = "jeff" }) });
+            cart.GetCartItems.ShouldNotBe(new() { new PizzaDTO(new PizzaBaseDTO() { Name = "jeff" }) });
         }
 
         [Fact]
@@ -58,9 +58,9 @@ namespace ZasAndDasMobile.Tests
         {
             var cart = new CartService();
             cart.AddToCart(new PizzaDTO(new PizzaBaseDTO()) { Id = 1 });
-            cart.GetCartItems().Count.ShouldBe(1);
+            cart.GetCartItems.Count.ShouldBe(1);
             cart.RemoveItem(1);
-            cart.GetCartItems().Count.ShouldBe(0);
+            cart.GetCartItems.Count.ShouldBe(0);
         }
 
         [Fact]
