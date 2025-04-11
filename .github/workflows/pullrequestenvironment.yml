@@ -1,0 +1,23 @@
+name: automated testing
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+    createnamespace:
+        runs-on: self-hosted
+        steps:
+        - name: kubectl
+          run: |
+            kubectl create namespace ${{github.run_id}}-ZasAndDas
+
+    notifydiscord:
+        runs-on: self-hosted
+        needs: [createnamespace]
+        steps: 
+        - name: Discord notifications
+          env:
+            DISCORD_WEBHOOK:  ${{secrets.DISCORD_WEBHOOK}}
+          uses: Ilshidur/action-discord@master
+          with:
+              args: '@everyone Pull request environment created: ${{github.run_id}}-ZasAndDas'
