@@ -11,16 +11,38 @@ jobs:
         - name: kubectl
           run: |
             kubectl create namespace ${{github.event.pull_request.number}}-zasanddas
+    pushtodocker:
+       runs-on: self-hosted
+       needs: createnamespace
+       steps: 
+       - name: Login to Docker Hub
+         uses: docker/login-action@v3
+         with:
+           username: ${{ vars.DOCKERHUB_USERNAME }}
+           password: ${{ secrets.DOCKERHUB_TOKEN }}
+       - name: Create container and push
+         run: |
+            ls
+            docker build \
+            -t nhowell02/zasanddas:${{github.run_id}} \
+            .
+
+
+            docker push nhowell02/zasanddas:${{github.run_id}}
+    pushtokubernetes:
+        runs-on: self-hosted
+        needs: [pushtodocker]
+        steps:
         - name: deploy to kubernetes
           run: |
-            export BUILD_NUMBER=${{github.run_id}}
             export NAMESPACE=${{github.event.pull_request.number}}-
             export SUBDOMAIN=${{github.event.pull_request.number}}.
+            export BUILD_NUMBER=${{github.run_id}}
+
             for FILE in "K8s"/*
             do
               cat "$FILE" | envsubst | kubectl apply -f -
             done
-    
     destroynamespace:
         if: github.event.action == 'closed'
         runs-on: self-hosted
