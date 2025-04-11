@@ -9,7 +9,7 @@ jobs:
         steps:
         - name: kubectl
           run: |
-            SUBDOMAIN = ${{github.ref}} | tr '[:upper:]' '[:lower:]'
+            SUBDOMAIN=${{github.ref}} | tr '[:upper:]' '[:lower:]'
             kubectl create namespace "${SUBDOMAIN}-zasanddas""
 
     notifydiscord:
