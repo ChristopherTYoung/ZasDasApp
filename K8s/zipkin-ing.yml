@@ -2,10 +2,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: zas-zipkin-ingress
-  namespace: zasanddas
+  namespace: ${NAMESPACE}zasanddas
 spec:
   rules:
-  - host: "zipkin.zasanddas.duckdns.org"
+  - host: "zipkin.${SUBDOMAIN}zasanddas.duckdns.org"
     http:
       paths:
       - path: /

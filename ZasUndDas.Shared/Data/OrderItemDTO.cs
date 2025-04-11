@@ -27,15 +27,17 @@ public partial class OrderItem
     public int? CheeseBreadId { set; get; }
     public virtual CalzoneDTO? Calzone { set; get; }
 
-    public virtual CheeseBread? CheeseBread { set; get; }
-
-    public virtual DrinkDTO? Drink { set; get; }
-
-    public virtual Pizza? Pizza { set; get; }
-
-    public virtual Salad? Salad { set; get; }
-
-    public virtual StockItem? StockItem { set; get; }
+    public async Task<OrderItemDTO> ToOrderItemDTO(PostgresContext context)
+    {
+        var orderItem = new OrderItemDTO
+        {
+            Id = this.Id,
+            OrderId = this.OrderId,
+            StockItem = await context.StockItems.FindAsync(StockItemId),
+            Pizza = await context.Pizzas.FindAsync(PizzaId)
+        };
+        return orderItem;
+    }
 }
 public class OrderItemDTO
 {
@@ -57,6 +59,10 @@ public class OrderItemDTO
             case nameof(StockItemDTO):
                 StockItem = (StockItemDTO)item;
                 Item = ItemType.Stock;
+                break;
+            case nameof(PizzaDTO):
+                Pizza = (PizzaDTO)item;
+                Item = ItemType.Pizza;
                 break;
             default:
                 break;

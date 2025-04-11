@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: zas-web
-  namespace: zasanddas
+  namespace: ${NAMESPACE}zasanddas
   labels:
     app: zas-web
 spec:

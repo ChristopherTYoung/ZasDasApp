@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: zas-graff-con
-  namespace: zasanddas
+  namespace: ${NAMESPACE}zasanddas
 data:
   grafana-datasource.yml: |
     apiVersion: 1
