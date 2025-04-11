@@ -9,7 +9,8 @@ jobs:
         steps:
         - name: kubectl
           run: |
-            kubectl create namespace ${{github.run_id}}-zasanddas
+            SUBDOMAIN = ${{github.ref}} | tr '[:upper:]' '[:lower:]'
+            kubectl create namespace "${SUBDOMAIN}-zasanddas""
 
     notifydiscord:
         runs-on: self-hosted
@@ -20,4 +21,4 @@ jobs:
             DISCORD_WEBHOOK:  ${{secrets.DISCORD_WEBHOOK}}
           uses: Ilshidur/action-discord@master
           with:
-              args: '@everyone Pull request environment created: ${{github.run_id}}-ZasAndDas'
+              args: '@everyone Pull request environment created: ${{github.ref}}-zasanddas'
