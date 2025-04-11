@@ -15,7 +15,7 @@ jobs:
 
     pushtodocker:
        runs-on: self-hosted
-       if: github.event.action == "synchronize" || contains(needs.*.result, 'success')
+       if: github.event.action == 'synchronize' || contains(needs.*.result, 'success')
        needs: createnamespace
        steps: 
        - name: Login to Docker Hub
