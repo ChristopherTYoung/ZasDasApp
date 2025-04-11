@@ -1,18 +1,21 @@
 name: automated testing
 on:
   pull_request:
-    types: [opened, closed]
+    types: [opened, closed, synchronize]
 
 jobs:
     createnamespace:
-        if: github.event.action == 'opened'
+        if: github.event.action == 'opened' || github.event.action == 'synchronize'
         runs-on: self-hosted
         steps:
         - name: kubectl
+          if: github.event.action == 'opened'
           run: |
             kubectl create namespace ${{github.event.pull_request.number}}-zasanddas
+
     pushtodocker:
        runs-on: self-hosted
+       if: github.event.action == "synchronize" || contains(needs.*.result, 'success')
        needs: createnamespace
        steps: 
        - name: Login to Docker Hub
@@ -43,6 +46,7 @@ jobs:
             do
               cat "$FILE" | envsubst | kubectl apply -f -
             done
+
     destroynamespace:
         if: github.event.action == 'closed'
         runs-on: self-hosted
@@ -62,3 +66,4 @@ jobs:
           uses: Ilshidur/action-discord@master
           with:
               args: '@everyone Pull request environment ${{github.event.action}}: ${{github.ref}}-zasanddas'
+
