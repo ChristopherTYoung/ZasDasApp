@@ -18,7 +18,7 @@ jobs:
         steps:
         - name: Delete namespace
           run: |
-           kubectl delete namespace ${{github.event.pull_request.number}}
+           kubectl delete namespace ${{github.event.pull_request.number}}-zasanddas
 
     notifydiscord:
         runs-on: self-hosted
