@@ -11,8 +11,7 @@ jobs:
         - name: kubectl
           run: |
             kubectl create namespace ${{github.event.pull_request.number}}-zasanddas
-    pushtodocker: 
-       if: ${{ github.ref == 'refs/heads/main' }}
+    pushtodocker:
        runs-on: self-hosted
        needs: createnamespace
        steps: 
