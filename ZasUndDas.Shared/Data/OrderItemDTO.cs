@@ -35,7 +35,7 @@ public partial class OrderItem
             StockItem = await context.StockItems.FindAsync(StockItemId),
             Pizza = await context.Pizzas.FindAsync(PizzaId)
         };
-        return new OrderItemDTO();
+        return orderItem;
     }
 }
 public class OrderItemDTO
@@ -58,6 +58,10 @@ public class OrderItemDTO
             case nameof(StockItemDTO):
                 StockItem = (StockItemDTO)item;
                 Item = ItemType.Stock;
+                break;
+            case nameof(PizzaDTO):
+                Pizza = (PizzaDTO)item;
+                Item = ItemType.Pizza;
                 break;
             default:
                 break;
