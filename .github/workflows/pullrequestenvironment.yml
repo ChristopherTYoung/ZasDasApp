@@ -71,6 +71,7 @@ jobs:
     example_comment_pr:
        runs-on: ubuntu-latest
        if: github.event.action == 'opened'
+       needs: pushtokubernetes
        steps:
        - name: Checkout
          uses: actions/checkout@v3
@@ -79,5 +80,5 @@ jobs:
          uses: thollander/actions-comment-pull-request@v3
          with:
              message: |
-                ${{github.event.pull_request.number}}.zasanddas.duckdns.org
+                <a href="${{github.event.pull_request.number}}.zasanddas.duckdns.org">Click here for website</a>
 
