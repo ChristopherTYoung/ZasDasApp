@@ -1,24 +1,33 @@
 name: automated testing
 on:
   pull_request:
-    types: [opened]
+    types: [opened, closed]
 
 jobs:
     createnamespace:
+        if: github.event.action == 'opened'
         runs-on: self-hosted
         steps:
         - name: kubectl
           run: |
-            SUBDOMAIN=${{github.ref}} | tr '[:upper:]' '[:lower:]'
-            kubectl create namespace "${SUBDOMAIN}-zasanddas"
+            kubectl create namespace ${{github.event.pull_request.number}}-zasanddas
+    
+    destroynamespace:
+        if: github.event.action == 'closed'
+        runs-on: self-hosted
+        steps:
+        - name: Delete namespace
+          run: |
+           kubectl delete namespace ${{github.event.pull_request.number}}
 
     notifydiscord:
         runs-on: self-hosted
-        needs: [createnamespace]
+        needs: [createnamespace, destroynamespace]
+        if: always() && contains(needs.*.result, 'success')
         steps: 
         - name: Discord notifications
           env:
             DISCORD_WEBHOOK:  ${{secrets.DISCORD_WEBHOOK}}
           uses: Ilshidur/action-discord@master
           with:
-              args: '@everyone Pull request environment created: ${{github.ref}}-zasanddas'
+              args: '@everyone Pull request environment ${{github.event.action}}: ${{github.ref}}-zasanddas'
