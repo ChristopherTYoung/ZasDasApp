@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: zas-web-ingress
-  namespace: zasanddas
+  namespace: ${NAMESPACE}zasanddas
   annotations:
     nginx.ingress.kubernetes.io/affinity: "cookie"
     nginx.ingress.kubernetes.io/session-cookie-name: "affinity"
@@ -10,7 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/session-cookie-max-age: "14400"
 spec:
   rules:
-  - host: "zasanddas.duckdns.org"
+  - host: "${SUBDOMAIN}zasanddas.duckdns.org"
     http:
       paths:
       - path: /

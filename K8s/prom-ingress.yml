@@ -2,10 +2,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: zas-prom-ingress
-  namespace: zasanddas
+  namespace: ${NAMESPACE}zasanddas
 spec:
   rules:
-  - host: "prom.zasanddas.duckdns.org"
+  - host: "prom.${SUBDOMAIN}zasanddas.duckdns.org"
     http:
       paths:
       - path: /
