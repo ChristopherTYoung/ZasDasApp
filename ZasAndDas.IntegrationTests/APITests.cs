@@ -45,7 +45,7 @@ namespace ZasAndDas.IntegrationTests
         public async Task CanAddAndGetDrinkBases()
         {
             var client = _app.CreateClient();
-            var drink = new DrinkDTO { Name = "Kyle's Monster" };
+            var drink = new ZasUndDas.Shared.DrinkDTO { Name = "Kyle's Monster" };
             var response = await client.PostAsJsonAsync("/api/inventory/adddrinkbase", drink);
             response.IsSuccessStatusCode.ShouldBeTrue();
 

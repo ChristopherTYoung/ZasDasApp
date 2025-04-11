@@ -23,8 +23,6 @@
                    HeightRequest="75"
                    Grid.ColumnSpan="2"
                    HorizontalOptions="Center"/>
-            <ScrollView Grid.Row="1">
-            </ScrollView>
         </Grid>
         
         <Grid Grid.Row="1"
@@ -44,7 +42,7 @@
                    FontSize="Title"
                    FontAttributes="Bold"
                    Padding="10,0,0,0"/>
-
+            <Button Text="Pay here" Command="{Binding OpenPaymentsCommand}"/>
             <CollectionView ItemsSource="{Binding CartItems}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
