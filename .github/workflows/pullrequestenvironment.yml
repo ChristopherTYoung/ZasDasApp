@@ -10,7 +10,7 @@ jobs:
         - name: kubectl
           run: |
             SUBDOMAIN=${{github.ref}} | tr '[:upper:]' '[:lower:]'
-            kubectl create namespace ${SUBDOMAIN}-zasanddas
+            kubectl create namespace "${SUBDOMAIN}-zasanddas"
 
     notifydiscord:
         runs-on: self-hosted
