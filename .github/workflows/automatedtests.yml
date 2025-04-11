@@ -53,7 +53,7 @@ jobs:
     notifydiscord:
         runs-on: self-hosted
         needs: [test, pushtodocker, pushtokubernetes]
-        if: ${{ always() && contains(needs.*.result, 'failure') }}
+        if: ${{ always() && contains(needs.*.result, 'failure') && (github.ref == 'refs/heads/main') }}
         steps: 
         - name: Discord notifications
           env:
