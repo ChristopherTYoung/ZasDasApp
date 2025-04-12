@@ -17,10 +17,10 @@ public partial class ItemPopup : Popup
     }
     private async void OnPopupOpened(object? sender, EventArgs e)
     {
-        // Optional: temporarily disable Editor so it doesn't grab focus
+        // temporarily disable Editor so it doesn't grab focus
         CommentEditor.IsEnabled = false;
 
-        await Task.Delay(100); // Let layout settle
+        await Task.Delay(100);
 
         await ItemScrollView.ScrollToAsync(0, 0, animated: false);
 

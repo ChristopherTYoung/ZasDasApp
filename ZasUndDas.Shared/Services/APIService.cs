@@ -50,5 +50,7 @@ public interface IAPIService
     public Task<List<DrinkBaseDTO>> GetDrinks();
     public Task<List<PizzaBaseDTO>> GetPizzas();
     public Task<List<PAddinDTO>> GetPizzaToppings();
+    public Task<List<PizzaSize>> GetPizzaSizes();
+    public Task<List<Sauce>> GetSauces();
     public Task Order(OrderDTO order);
 }

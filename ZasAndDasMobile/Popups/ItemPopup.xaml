@@ -7,7 +7,7 @@
 
     <Border Padding="0" HeightRequest="600"
            WidthRequest="325"
-           Stroke="Transparent"
+           Stroke="DarkRed"
            BackgroundColor="#FFFFFF">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="28"/>
@@ -45,13 +45,17 @@
                            FontAttributes="Bold"/>
                     <Border Stroke="DarkGray" HorizontalOptions="Center"
                             MinimumHeightRequest="40"
-                            MaximumHeightRequest="40">
+                            MaximumHeightRequest="40"
+                            Padding="5,0,0,0">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="15"/>
                         </Border.StrokeShape>
                         <HorizontalStackLayout>
                             <Picker HorizontalOptions="Center"
-                                    WidthRequest="300"/>
+                                    WidthRequest="300"
+                                    Title="Select an Option"
+                                    ItemsSource="{Binding PizzaSizes}"
+                                    ItemDisplayBinding="{Binding SizeName}"/>
                         </HorizontalStackLayout>
                     </Border>                    
                     <Label Text="Pizza Sauce"
@@ -60,12 +64,16 @@
                            FontAttributes="Bold"/>
                     <Border Stroke="DarkGray" HorizontalOptions="Center"
                             MinimumHeightRequest="40"
-                            MaximumHeightRequest="40">
+                            MaximumHeightRequest="40"
+                            Padding="5,0,0,0">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="15"/>
                         </Border.StrokeShape>
                         <Picker HorizontalOptions="Center"
-                                WidthRequest="300"/>
+                                WidthRequest="300"
+                                Title="Select an Option"
+                                ItemsSource="{Binding PizzaSauces}"
+                                ItemDisplayBinding="{Binding SauceName}"/>
                     </Border>
                     <Label Text="Additional Toppings"
                            FontSize="Body"
@@ -93,20 +101,24 @@
                            FontAttributes="Bold"/>
                     <Border Stroke="DarkGray" HorizontalOptions="Center"
                             MinimumHeightRequest="40"
-                            MaximumHeightRequest="40">
+                            MaximumHeightRequest="40"
+                            Padding="5,0,0,0">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="15"/>
                         </Border.StrokeShape>
-                        
+
                         <Picker HorizontalOptions="Center"
-                                WidthRequest="300"/>
+                                WidthRequest="300"
+                                ItemsSource="{Binding CookStyle}"
+                                SelectedItem="{Binding SelectedCookStyle}" />
                     </Border>
 
                 </VerticalStackLayout>
             </ScrollView>
             <Grid ColumnDefinitions="*,*,*"
                   ColumnSpacing="50"
-                  Grid.Row="1">
+                  Grid.Row="1"
+                  Margin="0,0,0,10">
 
                 <Button Text="Add to cart"
                         BackgroundColor="Black"
