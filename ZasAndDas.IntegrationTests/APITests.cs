@@ -79,15 +79,17 @@ namespace ZasAndDas.IntegrationTests
                 GrossAmount = 3.75M,
                 NetAmount = 3.85M,
                 SalesTax = 0.10M,
-                Items = new List<OrderItemDTO>() { new OrderItemDTO(new StockItemDTO { Price = 3.75, ItemCategoryId = 1, Name = "Sprite", Description = "" }) },
+                Items = new List<OrderItemDTO>() { new OrderItemDTO(new StockItemDTO { Id = 1, Name = "Coke", Price = 3.75, ItemCategoryId = 1 }) },
                 DateOrdered = DateTime.Parse("03-31-2025 12:30:00 PM")
             };
+
             var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
             var orders = await client.GetFromJsonAsync<List<OrderDTO>>("/api/order/allorders");
             orders!.Count.ShouldBe(1);
-            orders.First().NetAmount.ShouldBe(order.NetAmount);
+            var orderDTO = orders.First();
+            orderDTO.NetAmount.ShouldBe(order.NetAmount);
         }
     }
 }

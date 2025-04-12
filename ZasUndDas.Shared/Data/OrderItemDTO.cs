@@ -29,12 +29,14 @@ public partial class OrderItem
 
     public async Task<OrderItemDTO> ToOrderItemDTO(PostgresContext context)
     {
+        var pizza = await context.Pizzas.FindAsync(PizzaId);
+        var stock = await context.StockItems.FindAsync(StockItemId);
         var orderItem = new OrderItemDTO
         {
             Id = this.Id,
             OrderId = this.OrderId,
-            StockItem = await context.StockItems.FindAsync(StockItemId),
-            Pizza = await context.Pizzas.FindAsync(PizzaId)
+            StockItem = stock,
+            Pizza = pizza
         };
         return orderItem;
     }

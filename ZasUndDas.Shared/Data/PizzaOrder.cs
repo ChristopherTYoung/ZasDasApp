@@ -1,4 +1,5 @@
-﻿using Square;
+﻿using Microsoft.EntityFrameworkCore;
+using Square;
 using System;
 using System.Collections.Generic;
 
@@ -22,9 +23,8 @@ public partial class PizzaOrder
 
     public async Task<OrderDTO> ToOrderDTO(PostgresContext context)
     {
-        var items = context.OrderItems.Where(i => i.OrderId == Id)
-                                       .Select(i => i.ToOrderItemDTO(context))
-                                       .ToList();
+        var allItems = await context.OrderItems.Where(i => i.OrderId == Id).ToListAsync();
+        var items = allItems.Select(i => i.ToOrderItemDTO(context)).ToList();
         var orderItemDTOs = await Task.WhenAll(items);
         return new OrderDTO
         {
