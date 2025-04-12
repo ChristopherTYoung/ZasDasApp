@@ -86,7 +86,8 @@ namespace ZasAndDas.IntegrationTests
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
             var orders = await client.GetFromJsonAsync<List<OrderDTO>>("/api/order/allorders");
-            orders!.ShouldContain(order);
+            orders!.Count.ShouldBe(1);
+            orders.First().NetAmount.ShouldBe(order.NetAmount);
         }
     }
 }

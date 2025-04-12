@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ZasAndDasWeb.Services;
 using ZasUndDas.Shared;
 using ZasUndDas.Shared.Data;
+using static Square.CatalogObject;
 
 namespace ZasAndDasWeb.Controllers
 {
@@ -22,7 +23,9 @@ namespace ZasAndDasWeb.Controllers
         [HttpGet("allorders")]
         public async Task<List<OrderDTO>> GetOrders()
         {
-            return await context.PizzaOrders.ToListAsync();
+            var orders = await context.PizzaOrders.ToListAsync();
+            var orderDTOs = await Task.WhenAll(orders.Select(i => i.ToOrderDTO(context)));
+            return orderDTOs.ToList();
         }
     }
 }

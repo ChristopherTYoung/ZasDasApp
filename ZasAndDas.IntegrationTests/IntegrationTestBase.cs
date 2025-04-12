@@ -66,8 +66,8 @@ namespace ZasAndDas.IntegrationTests
                 item_category_id INT REFERENCES zasanddas.category(id) NOT NULL
             );
 
-            INSERT INTO zasanddas.stock_item(item_name, base_price_id, item_category_id)
-            VALUES ('Coke', 2, 1);
+            INSERT INTO zasanddas.stock_item(item_name, base_price, item_category_id)
+            VALUES ('Coke', 3.75, 1);
 
             CREATE TABLE zasanddas.sauce (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -88,7 +88,7 @@ namespace ZasAndDas.IntegrationTests
                 image_path varchar(256)
             );
 
-            INSERT INTO zasanddas.pizza_base (pizza_name, base_price_id) values ('Test', 4);
+            INSERT INTO zasanddas.pizza_base (pizza_name, base_price) values ('Test', 15.99);
 
             CREATE TABLE zasanddas.p_addin (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -138,7 +138,7 @@ namespace ZasAndDas.IntegrationTests
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 base_price decimal NOT NULL,
                 sauce_id INT REFERENCES zasanddas.sauce(id),
-                cooked_at_home BOOLEAN zasanddas.default(False)
+                cooked_at_home BOOLEAN DEFAULT FALSE
             );
 
             CREATE TABLE zasanddas.calzon_addin (
@@ -150,7 +150,7 @@ namespace ZasAndDas.IntegrationTests
 
             CREATE TABLE zasanddas.salad (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-                base_price_id decimal not null
+                base_price decimal not null
             );
 
             CREATE TABLE zasanddas.salad_addin (
@@ -193,7 +193,7 @@ namespace ZasAndDas.IntegrationTests
             	dollar_amount_off decimal
             );
 
-            CREATE TABLE zasanddas.order_item (
+            create table zasanddas.order_item (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 order_id int references zasanddas.pizza_order(id) not null,
                 quantity INT default(1),

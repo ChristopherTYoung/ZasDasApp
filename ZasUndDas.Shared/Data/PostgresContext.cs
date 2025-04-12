@@ -45,7 +45,7 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<PizzaBaseDTO> PizzaBases { set; get; }
 
-    public virtual DbSet<OrderDTO> PizzaOrders { set; get; }
+    public virtual DbSet<PizzaOrder> PizzaOrders { set; get; }
 
     public virtual DbSet<PizzaSize> PizzaSizes { set; get; }
 
@@ -241,6 +241,7 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Id)
                 .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
+            entity.Property(e => e.OrderId).HasColumnName("order_id");
             entity.Property(e => e.CalzoneId).HasColumnName("calzone_id");
             entity.Property(e => e.CheeseBreadId).HasColumnName("cheese_bread_id");
             entity.Property(e => e.DrinkId).HasColumnName("drink_id");
@@ -266,15 +267,15 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.OrderId).HasColumnName("order_id");
             entity.Property(e => e.PromotionId).HasColumnName("promotion_id");
 
-            entity.HasOne(d => d.Order).WithMany(p => p.OrderPromotions)
-                .HasForeignKey(d => d.OrderId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("order_promotion_order_id_fkey");
+            //entity.HasOne(d => d.Order).WithMany(p => p.OrderPromotions)
+            //    .HasForeignKey(d => d.OrderId)
+            //    .OnDelete(DeleteBehavior.ClientSetNull)
+            //    .HasConstraintName("order_promotion_order_id_fkey");
 
-            entity.HasOne(d => d.Promotion).WithMany(p => p.OrderPromotions)
-                .HasForeignKey(d => d.PromotionId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("order_promotion_promotion_id_fkey");
+            //entity.HasOne(d => d.Promotion).WithMany(p => p.OrderPromotions)
+            //    .HasForeignKey(d => d.PromotionId)
+            //    .OnDelete(DeleteBehavior.ClientSetNull)
+            //    .HasConstraintName("order_promotion_promotion_id_fkey");
         });
 
         modelBuilder.Entity<PAddinDTO>(entity =>
@@ -353,7 +354,7 @@ public partial class PostgresContext : DbContext
 
         });
 
-        modelBuilder.Entity<OrderDTO>(entity =>
+        modelBuilder.Entity<PizzaOrder>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("pizza_order_pkey");
 
