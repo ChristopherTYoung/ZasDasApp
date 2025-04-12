@@ -42,6 +42,7 @@ namespace ZasAndDasWeb.Services
         {
             var item = await AddItemToDatabase(orderItem);
             await context.OrderItems.AddAsync(item);
+            await context.SaveChangesAsync();
         }
 
         public async Task AddOrderToDatabase(OrderDTO orderDTO)
