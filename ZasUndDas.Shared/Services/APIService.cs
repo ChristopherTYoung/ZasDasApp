@@ -28,6 +28,16 @@ public class APIService : IAPIService
         return await Client.GetFromJsonAsync<List<PAddinDTO>>("/api/inventory/getpizzatoppings") ?? new List<PAddinDTO>();
     }
 
+    public async Task<List<PizzaSize>> GetPizzaSizes()
+    {
+        return await Client.GetFromJsonAsync<List<PizzaSize>>("/api/inventory/getpizzasizes") ?? new List<PizzaSize>();
+    }
+
+    public async Task<List<Sauce>> GetSauces()
+    {
+        return await Client.GetFromJsonAsync<List<Sauce>>("/api/inventory/getsauces") ?? new List<Sauce>();
+    }
+
     public Task Order(OrderDTO order)
     {
         throw new NotImplementedException();
