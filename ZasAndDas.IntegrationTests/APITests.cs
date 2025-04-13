@@ -91,5 +91,31 @@ namespace ZasAndDas.IntegrationTests
             var orderDTO = orders.First();
             orderDTO.NetAmount.ShouldBe(order.NetAmount);
         }
+
+        [Fact]
+        public async Task CanSendPizzaOrder()
+        {
+            var client = _app.CreateClient();
+            var pizza = new PizzaDTO(new PizzaBaseDTO { Name = "Test", Price = 15.99 });
+            pizza.AddTopping(new PAddinDTO { Id = 1, AddinName = "Pepperoni", Price = 1.50 });
+            pizza.ChangeSize(new PizzaSize { Id = 1, SizeName = "medium", Price = 2.99 });
+            var order = new OrderDTO
+            {
+                GrossAmount = 3.75M,
+                NetAmount = 3.85M,
+                SalesTax = 0.10M,
+                Items = new List<OrderItemDTO>() { new OrderItemDTO(pizza) },
+                DateOrdered = DateTime.Parse("03-31-2025 12:30:00 PM")
+            };
+
+            var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+
+            var orders = await client.GetFromJsonAsync<List<OrderDTO>>("/api/order/allorders");
+            var orderDTO = orders.First();
+            var dbPizza = orderDTO.Items.First().Pizza;
+            bool pizzaIsStored = dbPizza.Addins.Count() == 1 && dbPizza.Base == new PizzaBaseDTO { Id = 1, Name = "Test", Price = 15.99 };
+            pizzaIsStored.ShouldBeTrue();
+        }
     }
 }
