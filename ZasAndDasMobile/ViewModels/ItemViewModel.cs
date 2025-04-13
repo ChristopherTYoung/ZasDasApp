@@ -62,6 +62,7 @@ namespace ZasAndDasMobile.ViewModels
             PizzaSizes = _menuItemService.GetPizzaSizes().Result;
             PizzaSauces = _menuItemService.GetSauces().Result;
             SelectedCookStyle = CookStyle[0];
+            SelectedPizzaSauce = PizzaSauces.FirstOrDefault(s => s.Id == 0);
             OnPropertyChanged(nameof(CanAddToCart));
         }
 
