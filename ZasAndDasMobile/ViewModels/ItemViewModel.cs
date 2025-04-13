@@ -39,6 +39,8 @@ namespace ZasAndDasMobile.ViewModels
         [ObservableProperty]
         public partial Sauce? SelectedPizzaSauce { get; set; }
 
+        public bool CanAddToCart => SelectedPizzaSize != null && SelectedPizzaSauce != null;
+
         [RelayCommand]
         public void ClosePopup()
         {
@@ -60,12 +62,21 @@ namespace ZasAndDasMobile.ViewModels
             PizzaSizes = _menuItemService.GetPizzaSizes().Result;
             PizzaSauces = _menuItemService.GetSauces().Result;
             SelectedCookStyle = CookStyle[0];
+            OnPropertyChanged(nameof(CanAddToCart));
         }
 
         public void SetPopup(Popup popup)
         {
             _popup = popup;
         }
+        partial void OnSelectedPizzaSizeChanged(PizzaSize? value)
+        {
+            OnPropertyChanged(nameof(CanAddToCart));
+        }
 
+        partial void OnSelectedPizzaSauceChanged(Sauce? value)
+        {
+            OnPropertyChanged(nameof(CanAddToCart));
+        }
     }
 }

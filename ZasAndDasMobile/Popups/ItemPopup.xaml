@@ -55,7 +55,8 @@
                                     WidthRequest="300"
                                     Title="Select an Option"
                                     ItemsSource="{Binding PizzaSizes}"
-                                    ItemDisplayBinding="{Binding SizeName}"/>
+                                    ItemDisplayBinding="{Binding SizeName}"
+                                    SelectedItem="{Binding SelectedPizzaSize}"/>
                         </HorizontalStackLayout>
                     </Border>                    
                     <Label Text="Pizza Sauce"
@@ -73,7 +74,8 @@
                                 WidthRequest="300"
                                 Title="Select an Option"
                                 ItemsSource="{Binding PizzaSauces}"
-                                ItemDisplayBinding="{Binding SauceName}"/>
+                                ItemDisplayBinding="{Binding SauceName}"
+                                SelectedItem="{Binding SelectedPizzaSauce}"/>
                     </Border>
                     <Label Text="Additional Toppings"
                            FontSize="Body"
@@ -124,7 +126,21 @@
                         BackgroundColor="Black"
                         WidthRequest="200"
                         Grid.Column="1"
-                        Command="{Binding AddItemToCartCommand}"/>
+                        Command="{Binding AddItemToCartCommand}"
+                        IsEnabled="{Binding CanAddToCart}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="BackgroundColor" Value="Black" />
+                            <Setter Property="TextColor" Value="White" />
+                            <Setter Property="Opacity" Value="1" />
+                            <Style.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding CanAddToCart}" Value="False">
+                                    <Setter Property="Opacity" Value="0.2" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </Grid>
         </Grid>
         
