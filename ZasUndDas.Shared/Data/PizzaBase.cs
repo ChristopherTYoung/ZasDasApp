@@ -13,10 +13,6 @@ public partial class PizzaBase
 
     public int BasePriceId { set; get; }
     public string? ImagePath { set; get; }
-
-    public virtual PricePerItem BasePrice { set; get; } = null!;
-
-    public virtual ICollection<Pizza> Pizzas { set; get; } = new List<Pizza>();
 }
 public class PizzaBaseDTO : IStoreItem
 {
