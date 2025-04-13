@@ -80,6 +80,10 @@ namespace ZasAndDas.IntegrationTests
                 price decimal NOT NULL
             );
 
+            INSERT INTO zasanddas.pizza_size (size_name, price)
+            values (medium, 0.00),
+                   (large, 2.99);
+
             CREATE TABLE zasanddas.pizza_base (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 pizza_name VARCHAR(50) not null,
@@ -95,6 +99,8 @@ namespace ZasAndDas.IntegrationTests
                 addin_name VARCHAR(50) not null,
                 base_price decimal NOT null
             );
+
+            INSERT INTO zasanddas.p_addin (addin_name, base_price) values ('Pepperoni', 1.50);
 
             CREATE TABLE zasanddas.pizza (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,

@@ -26,11 +26,12 @@ public class PizzaDTO : ICheckoutItem
         Addins = new List<PAddinDTO>();
     }
     public int Id { set; get; }
-    public int SizeId { set; get; }
+    public int SizeId { set; get; } = 2;
     public int BaseId { set; get; }
     public bool CookedAtHome { get; set; }
     public PizzaBaseDTO Base { get; set; } = null!;
-    public ItemSize Size { set; get; } //size indeed matters
+    public ItemSize Size { set; get; } = ItemSize.medium; //size indeed matters
+    public PizzaSize PizzaSize { get; set; }
     public List<PAddinDTO> Addins { set; get; }
 
     public double GetPrice()
@@ -39,11 +40,18 @@ public class PizzaDTO : ICheckoutItem
         price += Base.Price;
         foreach (var addin in Addins)
             price += addin.Price;
+        price += PizzaSize.Price;
+
         return price;
     }
     public void AddTopping(PAddinDTO addin)
     {
         Addins.Add(addin);
+    }
+    public void ChangeSize(PizzaSize size)
+    {
+        PizzaSize = size;
+        SizeId = size.Id;
     }
     public async Task SaveToppingsToDatabase(PostgresContext context)
     {
