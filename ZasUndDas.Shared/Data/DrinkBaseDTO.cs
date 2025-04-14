@@ -1,10 +1,10 @@
 ﻿namespace ZasUndDas.Shared.Data;
 
-public partial class DrinkBaseDTO
+public partial class DrinkBaseDTO : IStoreItem
 {
     public int Id { set; get; }
 
-    public string DrinkName { set; get; } = null!;
+    public string Name { set; get; } = null!;
 
     public string? Description { set; get; }
 

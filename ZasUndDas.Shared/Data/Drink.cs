@@ -6,9 +6,23 @@ namespace ZasUndDas.Shared.Data;
 
 public partial class DrinkDTO : ICheckoutItem
 {
+    public DrinkDTO()
+    {
+        DrinkAddin = new List<DrinkAddin>();
+    }
+
+    public DrinkDTO(DrinkBaseDTO _base)
+    {
+        Base = _base;
+        BaseId = Base.Id;
+        Name = Base.Name;
+        DrinkAddin = new List<DrinkAddin>();
+    }
     public int Id { set; get; }
 
     public int BaseId { set; get; }
+
+    public string? Name { set; get; } = null;
 
     public decimal Price
     {

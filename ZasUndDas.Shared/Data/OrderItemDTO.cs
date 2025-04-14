@@ -36,7 +36,7 @@ public partial class OrderItem
             Id = this.Id,
             OrderId = this.OrderId,
             StockItem = stock,
-            Pizza = pizza
+            Pizza = await pizza.ToPizzaDTO(context)
         };
         return orderItem;
     }

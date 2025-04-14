@@ -13,6 +13,14 @@ public partial class Pizza
 
     public bool CookedAtHome { set; get; }
 
+    public async Task<PizzaDTO> ToPizzaDTO(PostgresContext context)
+    {
+        return new PizzaDTO(context.PizzaBases.First(p => p.Id == this.Id))
+        {
+            SizeId = this.SizeId,
+            CookedAtHome = this.CookedAtHome
+        };
+    }
 }
 public class PizzaDTO : ICheckoutItem
 {
@@ -24,40 +32,46 @@ public class PizzaDTO : ICheckoutItem
     {
         Base = pizzaBase;
         BaseId = pizzaBase.Id;
+        Name = Base.Name;
         Addins = new List<PAddinDTO>();
+        Price = CalculatePrice();
+        Size = ItemSize.medium;
+        SizeId = 1;
     }
     public int Id { set; get; }
-    public int SizeId { set; get; } = 2;
+    public int SizeId { set; get; }
     public int BaseId { set; get; }
     public bool CookedAtHome { get; set; }
+    public string? Name { get; set; } = null;
     public PizzaBaseDTO Base { get; set; }
-    public ItemSize Size { set; get; } = ItemSize.medium; //size indeed matters
-    public PizzaSize PizzaSize { get; set; }
+    public ItemSize Size { set; get; } //size indeed matters
+    public PizzaSize? PizzaSize { get; set; }
     public List<PAddinDTO> Addins { set; get; }
-    public Sauce Sauce { get; set; }
+    public Sauce? Sauce { get; set; }
 
-    public decimal Price
+    public double Price { set; get; }
+
+    private double CalculatePrice()
     {
-        set { }
-        get
-        {
-            decimal price = 0;
-            price += Base.Price;
-            foreach (var addin in Addins)
-                price += addin.Price;
+        double price = 0;
+        price += Base.Price;
+        foreach (var addin in Addins)
+            price += addin.Price;
 
-            price += PizzaSize.Price;
-            return price;
-        }
+        //price += PizzaSize.Price;
+        return Math.Round(price, 2);
     }
+
     public void AddTopping(PAddinDTO addin)
     {
         Addins.Add(addin);
+        Price = CalculatePrice();
     }
     public void ChangeSize(PizzaSize size)
     {
         PizzaSize = size;
         SizeId = size.Id;
+        Price = CalculatePrice();
     }
 
     public void ChangeSauce(Sauce sauce)
@@ -69,12 +83,14 @@ public class PizzaDTO : ICheckoutItem
         foreach (var addin in Addins)
             await context.PizzaAddins.AddAsync(new PizzaAddin { AddinId = addin.Id, PizzaId = this.Id });
     }
-    public PizzaDTO Clean()
+
+    public Pizza ToPizza()
     {
-        Sauce = null;
-        Addins = new List<PAddinDTO>();
-        PizzaSize = null;
-        Base = null;
-        return this;
+        return new Pizza
+        {
+            SizeId = this.SizeId,
+            BaseId = this.BaseId,
+            CookedAtHome = this.CookedAtHome
+        };
     }
 }

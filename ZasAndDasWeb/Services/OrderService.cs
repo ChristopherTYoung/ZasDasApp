@@ -15,11 +15,12 @@ namespace ZasAndDasWeb.Services
             switch (itemDTO.Item)
             {
                 case ItemType.Pizza:
-                    await context.Pizzas.AddAsync(itemDTO.Pizza!.Clean());
+                    await context.Pizzas.AddAsync(itemDTO.Pizza!.ToPizza());
                     await context.SaveChangesAsync();
-                    var pizza = context.Pizzas.First(p => p == itemDTO.Pizza);
-                    await pizza.SaveToppingsToDatabase(context);
+                    var pizza = context.Pizzas.OrderBy(p => p.Id).Last();
                     item.PizzaId = pizza.Id;
+                    itemDTO.Pizza.Id = pizza.Id;
+                    await itemDTO.Pizza.SaveToppingsToDatabase(context);
                     break;
                 case ItemType.Drink:
                     break;

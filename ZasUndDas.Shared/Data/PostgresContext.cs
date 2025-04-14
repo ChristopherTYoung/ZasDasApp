@@ -39,7 +39,7 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<PAddinDTO> PAddins { set; get; }
 
-    public virtual DbSet<PizzaDTO> Pizzas { set; get; }
+    public virtual DbSet<Pizza> Pizzas { set; get; }
 
     public virtual DbSet<PizzaAddin> PizzaAddins { set; get; }
 
@@ -209,7 +209,7 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Description)
                 .HasMaxLength(256)
                 .HasColumnName("description");
-            entity.Property(e => e.DrinkName)
+            entity.Property(e => e.Name)
                 .HasMaxLength(10)
                 .HasColumnName("drink_name");
         });
@@ -266,7 +266,7 @@ public partial class PostgresContext : DbContext
 
         });
 
-        modelBuilder.Entity<PizzaDTO>(entity =>
+        modelBuilder.Entity<Pizza>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("pizza_pkey");
 

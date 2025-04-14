@@ -48,7 +48,7 @@ namespace ZasAndDasWeb.Controllers
         [HttpPost("adddrinkbase")]
         public async Task<IResult> AddDrinkBase(DrinkBaseDTO drink)
         {
-            logger.LogInformation($"Adding drink base: {drink.DrinkName}");
+            logger.LogInformation($"Adding drink base: {drink.Name}");
             await context.DrinkBases.AddAsync(drink);
             await context.SaveChangesAsync();
 

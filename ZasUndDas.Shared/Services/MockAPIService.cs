@@ -11,9 +11,9 @@ public class MockAPIService : IAPIService
         // Simulating a predefined list of drinks
         return await Task.FromResult(new List<DrinkBaseDTO>
         {
-            new DrinkBaseDTO { Id = 1, DrinkName = "Coke", Price = 1.99m },
-            new DrinkBaseDTO { Id = 2, DrinkName = "Pepsi", Price = 1.89m },
-            new DrinkBaseDTO { Id = 3, DrinkName = "Sprite", Price = 1.79m }
+            new DrinkBaseDTO { Id = 1, Name = "Coke", Price = 1.99m },
+            new DrinkBaseDTO { Id = 2, Name = "Pepsi", Price = 1.89m },
+            new DrinkBaseDTO { Id = 3, Name = "Sprite", Price = 1.79m }
         });
     }
 

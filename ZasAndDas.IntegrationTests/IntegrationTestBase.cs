@@ -81,8 +81,8 @@ namespace ZasAndDas.IntegrationTests
             );
 
             INSERT INTO zasanddas.pizza_size (size_name, price)
-            values (medium, 0.00),
-                   (large, 2.99);
+            values ('medium', 0.00),
+                   ('large', 2.99);
 
             CREATE TABLE zasanddas.pizza_base (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
