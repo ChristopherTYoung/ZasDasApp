@@ -25,5 +25,10 @@
   <ItemGroup>
     <ProjectReference Include="..\ZasUndDas.Shared\ZasUndDas.Shared.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Update="wwwroot\square-payment.html">
+      <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </Content>
+  </ItemGroup>
 
 </Project>

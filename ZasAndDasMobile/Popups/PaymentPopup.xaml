@@ -7,6 +7,6 @@
                Color="Transparent">
         <WebView x:Name="PaymentWebView"
              Navigating="WebMessageReceived"
-             Source="square-payment.html"
+             Source=""
              HeightRequest="500" />
 </toolkit:Popup>

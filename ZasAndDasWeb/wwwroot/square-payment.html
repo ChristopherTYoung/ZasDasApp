@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+</head>
+<body>
+    <div id="card-container"></div>
+    <button id="pay-button">Pay</button>
+
+    <script>
+        async function initSquare() {
+            const payments = Square.payments("sandbox-sq0idb-DEq9UmYnNJfviK6YP6hNMQ", "sandbox"); // or 'production'
+            const card = await payments.card();
+            await card.attach("#card-container");
+
+            document.getElementById("pay-button").addEventListener("click", async () => {
+                const result = await card.tokenize();
+                if (result.status === "OK") {
+                    window.location.href = result.token;
+                }
+                else {
+                    alert("Payment failed: " + JSON.stringify(result.errors));
+                }
+            });
+        }
+
+        initSquare();
+    </script>
+</body>
+</html>

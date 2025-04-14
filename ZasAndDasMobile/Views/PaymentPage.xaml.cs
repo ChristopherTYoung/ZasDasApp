@@ -7,11 +7,13 @@ public partial class PaymentPage : ContentPage
     bool loaded = false;
     CartService cart;
     Func<Task>? SendOrder;
+    public string Url => cart.PayUrl();
     public PaymentPage(CartService cart, Func<Task>? SendOrder = null)
     {
         this.cart = cart;
         InitializeComponent();
         this.SendOrder = SendOrder;
+        BindingContext = this;
     }
     public async void WebMessageReceived(object sender, WebNavigatingEventArgs e)
     {

@@ -27,7 +27,7 @@ namespace ZasAndDasMobile.ViewModels
         [RelayCommand]
         public async Task OrderAndPay()
         {
-            await OpenPayments(async () => await _cartService.SendOrder());
+            await OpenPayments(async () => { await _cartService.SendOrder(); _cartService.ClearCart(); });
         }
         public async Task OpenPayments(Func<Task> SendOrder)
         {

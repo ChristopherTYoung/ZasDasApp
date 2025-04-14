@@ -3,10 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ZasAndDasMobile.PaymentPage"
              Title="NewPage1">
-    <VerticalStackLayout>
         <WebView x:Name="PaymentWebView"
              Navigating="WebMessageReceived"
-             Source="square-payment.html"
-             HeightRequest="500" />
-    </VerticalStackLayout>
+             Source="https://localhost:7197/pay" />
 </ContentPage>

@@ -46,7 +46,7 @@ namespace ZasAndDasMobile
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-            builder.Services.AddSingleton<HttpClient>(_ => new HttpClient() { BaseAddress = new Uri("http://localhost:5257/") });
+            builder.Services.AddSingleton<HttpClient>(_ => new HttpClient() { BaseAddress = new Uri("https://localhost:7197/") });
             // I just set this here because android app can't read the env variables and I spent like an hour trying to get it to work
             // The Window Design works but only for the Windows App and not for the Phone app
             // Enjoy my rant. I have no clue why env variables are so difficult on mobile. Or I'm just dumb -Logan

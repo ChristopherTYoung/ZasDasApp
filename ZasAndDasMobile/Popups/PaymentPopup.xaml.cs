@@ -11,6 +11,7 @@ public partial class PaymentPopup : Popup
     {
         this.cart = cart;
         InitializeComponent();
+        BindingContext = this;
     }
     public async void WebMessageReceived(object sender, WebNavigatingEventArgs e)
     {

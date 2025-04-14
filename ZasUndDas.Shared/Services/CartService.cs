@@ -66,5 +66,15 @@ namespace ZasUndDas.Shared.Services
         {
             CartUpdated?.Invoke(this, EventArgs.Empty);
         }
+        public void ClearCart()
+        {
+            cart.Clear();
+        }
+        public string PayUrl()
+        {
+            if (api != null && api.BaseAddress != null)
+                return api.BaseAddress.AbsolutePath + "pay";
+            throw new Exception();
+        }
     }
 }

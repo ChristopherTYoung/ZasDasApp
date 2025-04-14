@@ -14,6 +14,13 @@ public class APIService : IAPIService
         Client = client;
     }
     HttpClient Client { get; init; }
+    public Uri? BaseAddress
+    {
+        get
+        {
+            return Client.BaseAddress;
+        }
+    }
     public async Task<List<PizzaBaseDTO>> GetPizzas()
     {
         return await Client.GetFromJsonAsync<List<PizzaBaseDTO>>("/api/inventory/getallpizzabase") ?? new List<PizzaBaseDTO>();
@@ -53,4 +60,5 @@ public interface IAPIService
     public Task<List<PizzaSize>> GetPizzaSizes();
     public Task<List<Sauce>> GetSauces();
     public Task Order(OrderDTO order);
+    public Uri? BaseAddress { get; }
 }

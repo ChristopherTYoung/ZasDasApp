@@ -5,6 +5,7 @@ using ZasUndDas.Shared.Services;
 
 public class MockAPIService : IAPIService
 {
+    public Uri? BaseAddress => new("http://zasanddas.duckdns.org/");
     public async Task<List<DrinkBaseDTO>> GetDrinks()
     {
         // Simulating a predefined list of drinks
