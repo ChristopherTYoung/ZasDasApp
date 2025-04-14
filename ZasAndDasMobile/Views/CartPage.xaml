@@ -42,13 +42,13 @@
                    FontSize="Title"
                    FontAttributes="Bold"
                    Padding="10,0,0,0"/>
-            <Button Text="Pay here" Command="{Binding OpenPaymentsCommand}"/>
+            <Button Text="Pay here" Command="{Binding OrderAndPayCommand}"/>
             <CollectionView ItemsSource="{Binding CartItems}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <HorizontalStackLayout>
-                            <Label Text="Test"/>
-                            <Label Text="{Binding Id}" 
+                            <Label Text="Price:"/>
+                            <Label Text="{Binding Price}" 
                                    FontAttributes="Bold"/>
                         </HorizontalStackLayout>
                     </DataTemplate>

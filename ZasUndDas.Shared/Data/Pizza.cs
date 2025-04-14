@@ -36,15 +36,17 @@ public class PizzaDTO : ICheckoutItem
     public List<PAddinDTO> Addins { set; get; }
     public Sauce Sauce { get; set; }
 
-    public double GetPrice()
+    public double Price
     {
-        double price = 0;
-        price += Base.Price;
-        foreach (var addin in Addins)
-            price += addin.Price;
-        price += PizzaSize.Price;
-
-        return price;
+        set { }
+        get
+        {
+            double price = 0;
+            price += Base.Price;
+            foreach (var addin in Addins)
+                price += addin.Price;
+            return price;
+        }
     }
     public void AddTopping(PAddinDTO addin)
     {

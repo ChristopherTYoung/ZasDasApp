@@ -40,7 +40,7 @@ public class APIService : IAPIService
 
     public Task Order(OrderDTO order)
     {
-        throw new NotImplementedException();
+        await Client.PostAsJsonAsync("/api/order/sendorder", order);
     }
 
 }

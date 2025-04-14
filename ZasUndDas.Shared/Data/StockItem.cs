@@ -30,9 +30,6 @@ public class StockItemDTO : IStoreItem, ICheckoutItem
     public int ItemCategoryId { set; get; }
     public double Price { set; get; }
 
-    public double GetPrice()
-    {
-        return Price;
-    }
+
 }
 

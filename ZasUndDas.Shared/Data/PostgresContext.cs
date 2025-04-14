@@ -165,7 +165,8 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.AddinName)
                 .HasMaxLength(50)
                 .HasColumnName("addin_name");
-            entity.Property(e => e.Price).HasColumnName("base_price");
+            entity.Property(d => d.Price)
+                .HasColumnName("base_price");
         });
 
         modelBuilder.Entity<DrinkDTO>(entity =>

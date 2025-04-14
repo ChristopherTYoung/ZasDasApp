@@ -1,5 +1,5 @@
 using CommunityToolkit.Maui.Views;
-using ZasUndDas.Shared;
+using ZasUndDas.Shared.Services;
 
 namespace ZasAndDasMobile.Popups;
 

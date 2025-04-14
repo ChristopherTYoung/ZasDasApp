@@ -1,15 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Square;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZasUndDas.Shared;
+using ZasUndDas.Shared.Data;
 
-namespace ZasUndDas.Shared
+namespace ZasUndDas.Shared.Services
 {
-    public class CartService
+    public class CartService(IAPIService api)
     {
         ObservableCollection<ICheckoutItem> cart = new ObservableCollection<ICheckoutItem>();
 
@@ -24,13 +25,31 @@ namespace ZasUndDas.Shared
         }
         public void AddToCart(ICheckoutItem item)
         {
-            var price = item.GetPrice();
+            var price = item.Price;
             if (price < 0)
                 throw new InvalidOperationException();
             cart.Add(item);
             OnCartUpdated();
         }
+        public async Task SendOrder()
+        {
+            if (nonce != null)
+            {
+                var order = new OrderDTO() { nonce = nonce };
+                decimal total = 0;
+                foreach (var item in cart)
+                {
+                    order.Items.Add(new(item));
+                    total += (decimal)item.Price;
+                }
+                order.DateOrdered = DateTime.Now;
+                order.GrossAmount = total;
+                order.SalesTax = total * .0775m;
+                order.NetAmount = order.GrossAmount + order.NetAmount;
+                await api.Order(order);
 
+            }
+        }
         public ICheckoutItem RemoveItem(int id)
         {
             var item = cart.First(i => i.Id == id);
@@ -40,7 +59,7 @@ namespace ZasUndDas.Shared
 
         public double CalculateTotal()
         {
-            return Math.Round(cart.Select(p => p.GetPrice()).Sum(), 2);
+            return Math.Round(cart.Select(p => p.Price).Sum(), 2);
         }
         private void OnCartUpdated()
         {

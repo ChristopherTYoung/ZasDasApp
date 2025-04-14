@@ -18,7 +18,8 @@
                 const result = await card.tokenize();
                 if (result.status === "OK") {
                     window.location.href = result.token;
-                } else {
+                }
+                else {
                     alert("Payment failed: " + JSON.stringify(result.errors));
                 }
             });
