@@ -18,7 +18,7 @@ public partial class DrinkDTO : ICheckoutItem
             double baseprice = Base.Price;
             foreach (var adin in DrinkAddin)
             {
-                baseprice += adin.Addin.Price;
+                baseprice += (double)adin.Addin.Price;
             }
             return baseprice;
         }

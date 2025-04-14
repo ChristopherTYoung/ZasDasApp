@@ -38,7 +38,7 @@ public class APIService : IAPIService
         return await Client.GetFromJsonAsync<List<Sauce>>("/api/inventory/getsauces") ?? new List<Sauce>();
     }
 
-    public Task Order(OrderDTO order)
+    public async Task Order(OrderDTO order)
     {
         await Client.PostAsJsonAsync("/api/order/sendorder", order);
     }

@@ -45,6 +45,8 @@ public class PizzaDTO : ICheckoutItem
             price += Base.Price;
             foreach (var addin in Addins)
                 price += addin.Price;
+
+            price += PizzaSize.Price;
             return price;
         }
     }
