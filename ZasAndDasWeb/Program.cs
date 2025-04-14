@@ -8,6 +8,7 @@ using ZasAndDasWeb.Components;
 using ZasUndDas.Shared.Data;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
+using ZasAndDasWeb.Services;
 public class Program
 {
     private static void Main(string[] args)
@@ -22,6 +23,7 @@ public class Program
         builder.Services.AddDbContext<PostgresContext>(o => o.UseNpgsql(builder.Configuration["DB_CONN"]));
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddScoped<OrderService>();
 
         var collectorURL = builder.Configuration["COLLECTOR_URL"] ?? null;
 

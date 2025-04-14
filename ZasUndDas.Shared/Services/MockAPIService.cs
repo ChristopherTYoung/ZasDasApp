@@ -38,6 +38,29 @@ public class MockAPIService : IAPIService
         });
     }
 
+    public async Task<List<PizzaSize>> GetPizzaSizes()
+    {
+        return await Task.FromResult(new List<PizzaSize>
+        {
+            new PizzaSize { Id = 0, SizeName = "8\" Pizza" },
+            new PizzaSize { Id = 1, SizeName ="12\" Pizza" },
+            new PizzaSize { Id = 2, SizeName ="16\" Pizza" }
+        });
+    }
+
+
+    public async Task<List<Sauce>> GetSauces()
+    {
+        return await Task.FromResult(new List<Sauce>
+        {
+            new Sauce { Id = 0, SauceName = "Default" },
+            new Sauce { Id = 1, SauceName = "Ranch" },
+            new Sauce { Id = 2, SauceName ="Marinaria" },
+            new Sauce { Id = 3, SauceName ="BBQ" }
+        });
+    }
+
+
     public async Task Order(OrderDTO order)
     {
         // Simulating a successful order processing

@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ZasAndDasWeb.Services;
 using ZasUndDas.Shared;
 using ZasUndDas.Shared.Data;
+using static Square.CatalogObject;
 
 namespace ZasAndDasWeb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController(PostgresContext context) : ControllerBase
+    public class OrderController(PostgresContext context, OrderService orderService) : ControllerBase
     {
         [HttpPost("sendorder")]
         public async Task<IResult> SendOrder(OrderDTO order)
@@ -15,14 +17,15 @@ namespace ZasAndDasWeb.Controllers
             if (order.Items.Count() < 1)
                 return Results.BadRequest();
 
-            await context.PizzaOrders.AddAsync(order);
-            await context.SaveChangesAsync();
+            await orderService.AddOrderToDatabase(order);
             return Results.Ok();
         }
         [HttpGet("allorders")]
         public async Task<List<OrderDTO>> GetOrders()
         {
-            return await context.PizzaOrders.ToListAsync();
+            var orders = await context.PizzaOrders.ToListAsync();
+            var orderDTOs = await Task.WhenAll(orders.Select(i => i.ToOrderDTO(context)));
+            return orderDTOs.ToList();
         }
     }
 }

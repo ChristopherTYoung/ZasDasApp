@@ -45,11 +45,9 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<PizzaBaseDTO> PizzaBases { set; get; }
 
-    public virtual DbSet<OrderDTO> PizzaOrders { set; get; }
+    public virtual DbSet<PizzaOrder> PizzaOrders { set; get; }
 
     public virtual DbSet<PizzaSize> PizzaSizes { set; get; }
-
-    public virtual DbSet<PricePerItem> PricePerItems { set; get; }
 
     public virtual DbSet<Promotion> Promotions { set; get; }
 
@@ -82,12 +80,6 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Quantity)
                 .HasDefaultValue(1)
                 .HasColumnName("quantity");
-
-            entity.HasOne(d => d.Addin).WithMany(p => p.CalzonAddins)
-                .HasForeignKey(d => d.AddinId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("calzon_addin_addin_id_fkey");
-
         });
 
         modelBuilder.Entity<CalzoneDTO>(entity =>
@@ -231,6 +223,7 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Id)
                 .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
+            entity.Property(e => e.OrderId).HasColumnName("order_id");
             entity.Property(e => e.CalzoneId).HasColumnName("calzone_id");
             entity.Property(e => e.CheeseBreadId).HasColumnName("cheese_bread_id");
             entity.Property(e => e.DrinkId).HasColumnName("drink_id");
@@ -255,16 +248,6 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.DollarAmountOff).HasColumnName("dollar_amount_off");
             entity.Property(e => e.OrderId).HasColumnName("order_id");
             entity.Property(e => e.PromotionId).HasColumnName("promotion_id");
-
-            entity.HasOne(d => d.Order).WithMany(p => p.OrderPromotions)
-                .HasForeignKey(d => d.OrderId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("order_promotion_order_id_fkey");
-
-            entity.HasOne(d => d.Promotion).WithMany(p => p.OrderPromotions)
-                .HasForeignKey(d => d.PromotionId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("order_promotion_promotion_id_fkey");
         });
 
         modelBuilder.Entity<PAddinDTO>(entity =>
@@ -314,11 +297,6 @@ public partial class PostgresContext : DbContext
                 .HasDefaultValue(1)
                 .HasColumnName("addin_quantity");
             entity.Property(e => e.PizzaId).HasColumnName("pizza_id");
-
-            entity.HasOne(d => d.Addin).WithMany(p => p.PizzaAddins)
-                .HasForeignKey(d => d.AddinId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("pizza_addin_addin_id_fkey");
         });
 
         modelBuilder.Entity<PizzaBaseDTO>(entity =>
@@ -343,7 +321,7 @@ public partial class PostgresContext : DbContext
 
         });
 
-        modelBuilder.Entity<OrderDTO>(entity =>
+        modelBuilder.Entity<PizzaOrder>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("pizza_order_pkey");
 
@@ -374,27 +352,10 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Id)
                 .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
-            entity.Property(e => e.BasePriceId).HasColumnName("base_price_id");
+            entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.SizeName)
                 .HasMaxLength(10)
                 .HasColumnName("size_name");
-
-            entity.HasOne(d => d.BasePrice).WithMany(p => p.PizzaSizes)
-                .HasForeignKey(d => d.BasePriceId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("pizza_size_base_price_id_fkey");
-        });
-
-        modelBuilder.Entity<PricePerItem>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("price_per_item_pkey");
-
-            entity.ToTable("price_per_item", "zasanddas");
-
-            entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("id");
-            entity.Property(e => e.Price).HasColumnName("price");
         });
 
         modelBuilder.Entity<Promotion>(entity =>
@@ -421,11 +382,6 @@ public partial class PostgresContext : DbContext
                 .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
             entity.Property(e => e.BasePriceId).HasColumnName("base_price_id");
-
-            entity.HasOne(d => d.BasePrice).WithMany(p => p.Salads)
-                .HasForeignKey(d => d.BasePriceId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("salad_base_price_id_fkey");
         });
 
         modelBuilder.Entity<SaladAddin>(entity =>
@@ -442,16 +398,6 @@ public partial class PostgresContext : DbContext
                 .HasDefaultValue(1)
                 .HasColumnName("quantity");
             entity.Property(e => e.SaladId).HasColumnName("salad_id");
-
-            entity.HasOne(d => d.Addin).WithMany(p => p.SaladAddins)
-                .HasForeignKey(d => d.AddinId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("salad_addin_addin_id_fkey");
-
-            entity.HasOne(d => d.Salad).WithMany(p => p.SaladAddins)
-                .HasForeignKey(d => d.SaladId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("salad_addin_salad_id_fkey");
         });
 
         modelBuilder.Entity<Sauce>(entity =>

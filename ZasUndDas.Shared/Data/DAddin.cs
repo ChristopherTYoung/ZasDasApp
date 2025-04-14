@@ -9,7 +9,5 @@ public partial class DAddin
 
     public string AddinName { set; get; } = null!;
 
-    public double Price { set; get; }
-
-
+    public decimal Price { set; get; }
 }

@@ -42,13 +42,22 @@ namespace ZasAndDasWeb.Services
         {
             var item = await AddItemToDatabase(orderItem);
             await context.OrderItems.AddAsync(item);
+            await context.SaveChangesAsync();
         }
 
         public async Task AddOrderToDatabase(OrderDTO orderDTO)
         {
-            await context.PizzaOrders.AddAsync(orderDTO);
+            var order = new PizzaOrder
+            {
+                GrossAmount = orderDTO.GrossAmount,
+                NetAmount = orderDTO.NetAmount,
+                DiscountAmount = orderDTO.DiscountAmount,
+                SalesTax = orderDTO.SalesTax,
+                DateOrdered = orderDTO.DateOrdered,
+            };
+            await context.PizzaOrders.AddAsync(order);
             await context.SaveChangesAsync();
-            var orderId = context.PizzaOrders.First(o => o == orderDTO).Id;
+            var orderId = context.PizzaOrders.First(o => o == order).Id;
             foreach (var item in orderDTO.Items)
             {
                 item.OrderId = orderId;

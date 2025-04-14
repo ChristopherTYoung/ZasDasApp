@@ -23,9 +23,24 @@ namespace ZasUndDas.Shared.Services
             }
             return Drinks;
         }
+        public async Task<List<PizzaSize>> GetPizzaSizes()
+        {
+            return await api.GetPizzaSizes();
+        }
+
+        public async Task<List<Sauce>> GetSauces()
+        {
+            return await api.GetSauces();
+        }
+
+        public async Task<List<PAddinDTO>> GetPAddonDTOs()
+        {
+            return await api.GetPizzaToppings();
+        }
         public static MenuItemService TestPizzas()
         {
             return (new MenuItemService(new MockAPIService()));
         }
+
     }
 }

@@ -15,10 +15,6 @@ public partial class StockItem
 
     public int ItemCategoryId { set; get; }
 
-    public virtual PricePerItem BasePrice { set; get; } = null!;
-
-    public virtual Category ItemCategory { set; get; } = null!;
-
 }
 public class StockItemDTO : IStoreItem, ICheckoutItem
 {

@@ -27,15 +27,19 @@ public partial class OrderItem
     public int? CheeseBreadId { set; get; }
     public virtual CalzoneDTO? Calzone { set; get; }
 
-    public virtual CheeseBread? CheeseBread { set; get; }
-
-    public virtual DrinkDTO? Drink { set; get; }
-
-    public virtual Pizza? Pizza { set; get; }
-
-    public virtual Salad? Salad { set; get; }
-
-    public virtual StockItem? StockItem { set; get; }
+    public async Task<OrderItemDTO> ToOrderItemDTO(PostgresContext context)
+    {
+        var pizza = await context.Pizzas.FindAsync(PizzaId);
+        var stock = await context.StockItems.FindAsync(StockItemId);
+        var orderItem = new OrderItemDTO
+        {
+            Id = this.Id,
+            OrderId = this.OrderId,
+            StockItem = stock,
+            Pizza = pizza
+        };
+        return orderItem;
+    }
 }
 public class OrderItemDTO
 {

@@ -7,7 +7,7 @@
 
     <Border Padding="0" HeightRequest="600"
            WidthRequest="325"
-           Stroke="Transparent"
+           Stroke="DarkRed"
            BackgroundColor="#FFFFFF">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="28"/>
@@ -39,43 +39,75 @@
                                FontSize="Subtitle"/>
                     </HorizontalStackLayout>
                     <BoxView HeightRequest="1" Color="DarkGray" HorizontalOptions="FillAndExpand" Margin="0,5"/>
-                    <Label Text="Size"
-                           FontSize="Body"
-                           Padding="10,0,0,10"
-                           FontAttributes="Bold"/>
+
+                    <Grid Padding="10,0,0,10" ColumnDefinitions="*,Auto">
+                        <Label Text="Size"
+                               FontSize="Body"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center" />
+                        <Label Text="*required"
+                               FontSize="Small"
+                               TextColor="Red"
+                               Opacity=".7"
+                               FontAttributes="Italic"
+                               VerticalOptions="Center"
+                               HorizontalOptions="End"
+                               Padding="0,0,20,0"/>
+                    </Grid>
                     <Border Stroke="DarkGray" HorizontalOptions="Center"
                             MinimumHeightRequest="40"
-                            MaximumHeightRequest="40">
+                            MaximumHeightRequest="40"
+                            Padding="5,0,0,0">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="15"/>
                         </Border.StrokeShape>
                         <HorizontalStackLayout>
                             <Picker HorizontalOptions="Center"
-                                    WidthRequest="300"/>
+                                    WidthRequest="300"
+                                    Title="Select an Option"
+                                    ItemsSource="{Binding PizzaSizes}"
+                                    ItemDisplayBinding="{Binding SizeName}"
+                                    SelectedItem="{Binding SelectedPizzaSize}"/>
                         </HorizontalStackLayout>
                     </Border>                    
                     <Label Text="Pizza Sauce"
                            FontSize="Body"
-                           Padding="10,0,0,10"
+                           Padding="10,10,0,5"
                            FontAttributes="Bold"/>
                     <Border Stroke="DarkGray" HorizontalOptions="Center"
                             MinimumHeightRequest="40"
-                            MaximumHeightRequest="40">
+                            MaximumHeightRequest="40"
+                            Padding="5,0,0,0">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="15"/>
                         </Border.StrokeShape>
                         <Picker HorizontalOptions="Center"
-                                WidthRequest="300"/>
+                                WidthRequest="300"
+                                Title="Select an Option"
+                                ItemsSource="{Binding PizzaSauces}"
+                                ItemDisplayBinding="{Binding SauceName}"
+                                SelectedItem="{Binding SelectedPizzaSauce}"/>
                     </Border>
                     <Label Text="Additional Toppings"
                            FontSize="Body"
-                           Padding="10,0,0,10"
+                           Padding="10,10,0,10"
                            FontAttributes="Bold"/>
-
+                    <CollectionView ItemsSource="{Binding PizzaAddins}"
+                                    SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <HorizontalStackLayout Padding="10,5">
+                                    <CheckBox IsChecked="{Binding IsChecked}"/>
+                                    <Label Text="{Binding AddinName}"
+                                           VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                     <Label Text="Comments"
                            FontSize="Body"
                            FontAttributes="Bold"
-                           Padding="10,0,0,10"/>
+                           Padding="10,0,0,5"/>
                     <Border Stroke="DarkGray" HorizontalOptions="Center"
                             Padding="2">
                         <Border.StrokeShape>
@@ -89,30 +121,48 @@
                     </Border>
                     <Label Text="Cook Style"
                            FontSize="Body"
-                           Padding="10,0,0,10"
+                           Padding="10,10,0,5"
                            FontAttributes="Bold"/>
                     <Border Stroke="DarkGray" HorizontalOptions="Center"
                             MinimumHeightRequest="40"
-                            MaximumHeightRequest="40">
+                            MaximumHeightRequest="40"
+                            Padding="5,0,0,0">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="15"/>
                         </Border.StrokeShape>
-                        
+
                         <Picker HorizontalOptions="Center"
-                                WidthRequest="300"/>
+                                WidthRequest="300"
+                                ItemsSource="{Binding CookStyle}"
+                                SelectedItem="{Binding SelectedCookStyle}" />
                     </Border>
 
                 </VerticalStackLayout>
             </ScrollView>
             <Grid ColumnDefinitions="*,*,*"
                   ColumnSpacing="50"
-                  Grid.Row="1">
+                  Grid.Row="1"
+                  Margin="0,0,0,10">
 
                 <Button Text="Add to cart"
                         BackgroundColor="Black"
                         WidthRequest="200"
                         Grid.Column="1"
-                        Command="{Binding AddItemToCartCommand}"/>
+                        Command="{Binding AddItemToCartCommand}"
+                        IsEnabled="{Binding CanAddToCart}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="BackgroundColor" Value="Black" />
+                            <Setter Property="TextColor" Value="White" />
+                            <Setter Property="Opacity" Value="1" />
+                            <Style.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding CanAddToCart}" Value="False">
+                                    <Setter Property="Opacity" Value="0.2" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </Grid>
         </Grid>
         

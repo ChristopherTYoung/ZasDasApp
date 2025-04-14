@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: zas-prom-config
-  namespace: zasanddas
+  namespace: ${NAMESPACE}zasanddas
 data:
   config: |
     # my global config

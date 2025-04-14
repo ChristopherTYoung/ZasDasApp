@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Square;
+using System;
 using System.Collections.Generic;
 
 namespace ZasUndDas.Shared.Data;
@@ -19,11 +21,23 @@ public partial class PizzaOrder
 
     public decimal SalesTax { set; get; }
 
-    public virtual Customer? Customer { set; get; }
-
-    public virtual ICollection<OrderItemDTO> OrderItems { set; get; } = new List<OrderItemDTO>();
-
-    public virtual ICollection<OrderPromotion> OrderPromotions { set; get; } = new List<OrderPromotion>();
+    public async Task<OrderDTO> ToOrderDTO(PostgresContext context)
+    {
+        var allItems = await context.OrderItems.Where(i => i.OrderId == Id).ToListAsync();
+        var items = allItems.Select(i => i.ToOrderItemDTO(context)).ToList();
+        var orderItemDTOs = await Task.WhenAll(items);
+        return new OrderDTO
+        {
+            Id = Id,
+            CustomerId = CustomerId,
+            DateOrdered = DateOrdered,
+            GrossAmount = GrossAmount,
+            DiscountAmount = DiscountAmount,
+            NetAmount = NetAmount,
+            SalesTax = SalesTax,
+            Items = orderItemDTOs.ToList()
+        };
+    }
 }
 public class OrderDTO
 {
