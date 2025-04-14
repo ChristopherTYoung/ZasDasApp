@@ -9,8 +9,6 @@ public partial class Salad
 
     public int BasePriceId { set; get; }
 
-    public virtual PricePerItem BasePrice { set; get; } = null!;
-
 
     public virtual ICollection<SaladAddin> SaladAddins { set; get; } = new List<SaladAddin>();
 }

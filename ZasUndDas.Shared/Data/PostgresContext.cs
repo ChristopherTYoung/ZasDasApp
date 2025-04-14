@@ -80,12 +80,6 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Quantity)
                 .HasDefaultValue(1)
                 .HasColumnName("quantity");
-
-            entity.HasOne(d => d.Addin).WithMany(p => p.CalzonAddins)
-                .HasForeignKey(d => d.AddinId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("calzon_addin_addin_id_fkey");
-
         });
 
         modelBuilder.Entity<CalzoneDTO>(entity =>
@@ -302,11 +296,6 @@ public partial class PostgresContext : DbContext
                 .HasDefaultValue(1)
                 .HasColumnName("addin_quantity");
             entity.Property(e => e.PizzaId).HasColumnName("pizza_id");
-
-            entity.HasOne(d => d.Addin).WithMany(p => p.PizzaAddins)
-                .HasForeignKey(d => d.AddinId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("pizza_addin_addin_id_fkey");
         });
 
         modelBuilder.Entity<PizzaBaseDTO>(entity =>
@@ -392,11 +381,6 @@ public partial class PostgresContext : DbContext
                 .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
             entity.Property(e => e.BasePriceId).HasColumnName("base_price_id");
-
-            entity.HasOne(d => d.BasePrice).WithMany(p => p.Salads)
-                .HasForeignKey(d => d.BasePriceId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("salad_base_price_id_fkey");
         });
 
         modelBuilder.Entity<SaladAddin>(entity =>
@@ -413,16 +397,6 @@ public partial class PostgresContext : DbContext
                 .HasDefaultValue(1)
                 .HasColumnName("quantity");
             entity.Property(e => e.SaladId).HasColumnName("salad_id");
-
-            entity.HasOne(d => d.Addin).WithMany(p => p.SaladAddins)
-                .HasForeignKey(d => d.AddinId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("salad_addin_addin_id_fkey");
-
-            entity.HasOne(d => d.Salad).WithMany(p => p.SaladAddins)
-                .HasForeignKey(d => d.SaladId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("salad_addin_salad_id_fkey");
         });
 
         modelBuilder.Entity<Sauce>(entity =>
