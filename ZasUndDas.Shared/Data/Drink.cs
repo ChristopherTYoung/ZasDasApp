@@ -12,21 +12,23 @@ public partial class DrinkDTO : ICheckoutItem
 
     public double Price
     {
-        set { }
-        get
-        {
-            double baseprice = Base.Price;
-            foreach (var adin in DrinkAddin)
-            {
-                baseprice += adin.Addin.Price;
-            }
-            return baseprice;
-        }
+        set;
+        get;
     }
 
     DrinkBaseDTO Base { set; get; } = null!;
 
     List<DrinkAddin> DrinkAddin { set; get; } = null!;
 
+    public Double CalculatePrice()
+    {
 
+        double baseprice = Base.Price;
+        foreach (var adin in DrinkAddin)
+        {
+            baseprice += adin.Addin.Price;
+        }
+        return baseprice;
+
+    }
 }
