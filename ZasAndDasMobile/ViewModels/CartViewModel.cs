@@ -5,12 +5,14 @@ using System.Collections.ObjectModel;
 using ZasAndDasMobile.Popups;
 using ZasUndDas.Shared;
 using ZasUndDas.Shared.Data;
+using ZasUndDas.Shared.Services;
 
 namespace ZasAndDasMobile.ViewModels
 {
     public partial class CartViewModel : ObservableObject
     {
         private readonly CartService _cartService;
+        private INavigation? nav;
 
         [ObservableProperty]
         public partial ObservableCollection<ICheckoutItem>? CartItems { get; set; }
@@ -20,15 +22,17 @@ namespace ZasAndDasMobile.ViewModels
         {
             await Shell.Current.GoToAsync("///MainPage");
         }
+
+
         [RelayCommand]
-        public void OpenPayments()
+        public async Task OrderAndPay()
         {
-            var displayInfo = DeviceDisplay.MainDisplayInfo;
-            var popup = new PaymentPopup(_cartService)
-            {
-                Size = new() { Height = displayInfo.Height * .5, Width = displayInfo.Width * .5 }
-            };
-            Shell.Current.ShowPopup(popup);
+            await OpenPayments(async () => await _cartService.SendOrder());
+        }
+        public async Task OpenPayments(Func<Task> SendOrder)
+        {
+            var popup = new PaymentPage(_cartService, SendOrder);
+            await nav!.PushAsync(popup);
         }
         public CartViewModel(CartService cartService)
         {
@@ -46,5 +50,9 @@ namespace ZasAndDasMobile.ViewModels
             OnPropertyChanged(nameof(CartItems));
         }
 
+        internal void setNavigation(INavigation navigation)
+        {
+            nav = navigation;
+        }
     }
 }

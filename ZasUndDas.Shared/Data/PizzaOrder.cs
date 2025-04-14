@@ -35,4 +35,5 @@ public class OrderDTO
     public decimal SalesTax { set; get; }
     public List<OrderItemDTO> Items { set; get; } = new List<OrderItemDTO>();
     public DateTime? DateOrdered { set; get; }
+    public string nonce = String.Empty;
 }

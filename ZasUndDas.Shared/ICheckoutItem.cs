@@ -10,6 +10,6 @@ namespace ZasUndDas.Shared
     {
         public int Id { get; set; }
 
-        public double GetPrice();
+        public double Price { get; }
     }
 }

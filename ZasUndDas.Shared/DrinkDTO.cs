@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZasUndDas.Shared
 {
-    public record DrinkDTO : IStoreItem
+    public record DrinkDTO : ICheckoutItem
     {
         public int Id { set; get; }
         public string Name { set; get; } = "CYO";

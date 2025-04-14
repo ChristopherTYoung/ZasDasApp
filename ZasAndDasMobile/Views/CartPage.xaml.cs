@@ -7,5 +7,6 @@ public partial class CartPage : ContentPage
     {
         InitializeComponent();
         BindingContext = vm;
+        vm.setNavigation(Navigation);
     }
 }

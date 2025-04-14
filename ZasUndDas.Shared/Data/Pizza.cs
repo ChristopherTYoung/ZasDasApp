@@ -33,13 +33,17 @@ public class PizzaDTO : ICheckoutItem
     public ItemSize Size { set; get; } //size indeed matters
     public List<PAddinDTO> Addins { set; get; }
 
-    public double GetPrice()
+    public double Price
     {
-        double price = 0;
-        price += Base.Price;
-        foreach (var addin in Addins)
-            price += addin.Price;
-        return price;
+        set { }
+        get
+        {
+            double price = 0;
+            price += Base.Price;
+            foreach (var addin in Addins)
+                price += addin.Price;
+            return price;
+        }
     }
     public void AddTopping(PAddinDTO addin)
     {

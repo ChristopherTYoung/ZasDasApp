@@ -9,9 +9,7 @@ public partial class DAddin
 
     public string AddinName { set; get; } = null!;
 
-    public int BasePriceId { set; get; }
+    public double Price { set; get; }
 
-    public virtual PricePerItem BasePrice { set; get; } = null!;
 
-    public virtual ICollection<DrinkAddin> DrinkAddins { set; get; } = new List<DrinkAddin>();
 }

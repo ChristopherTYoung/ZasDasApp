@@ -10,7 +10,22 @@
       {
         "Path": "ZasAndDasMobile\\ZasAndDasMobile.csproj",
         "Action": "Start",
-        "DebugTarget": "Pixel 7 - API 35 (Android 15.0 - API 35)"
+        "DebugTarget": "Windows Machine"
+      }
+    ]
+  },
+  {
+    "Name": "Dual Servcie (1)",
+    "Projects": [
+      {
+        "Path": "ZasAndDasWeb\\ZasAndDasWeb.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      },
+      {
+        "Path": "ZasAndDasMobile\\ZasAndDasMobile.csproj",
+        "Action": "Start",
+        "DebugTarget": "Windows Machine"
       }
     ]
   }

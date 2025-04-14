@@ -58,6 +58,10 @@ public class OrderItemDTO
                 StockItem = (StockItemDTO)item;
                 Item = ItemType.Stock;
                 break;
+            case nameof(PizzaDTO):
+                Pizza = (PizzaDTO)item;
+                Item = ItemType.Pizza;
+                break;
             default:
                 break;
         };

@@ -28,9 +28,9 @@ public class APIService : IAPIService
         return await Client.GetFromJsonAsync<List<PAddinDTO>>("/api/inventory/getpizzatoppings") ?? new List<PAddinDTO>();
     }
 
-    public Task Order(OrderDTO order)
+    public async Task Order(OrderDTO order)
     {
-        throw new NotImplementedException();
+        await Client.PostAsJsonAsync("/api/order/sendorder", order);
     }
 
 }
