@@ -101,8 +101,8 @@ namespace ZasAndDas.IntegrationTests
         public async Task CanSendPizzaOrder()
         {
             var client = _app.CreateClient();
-            var pizza = new PizzaDTO(new PizzaBaseDTO { Id = 1, Name = "Test", Price = 15.99 });
-            pizza.AddTopping(new PAddinDTO { Id = 1, AddinName = "Pepperoni", Price = 1.50 });
+            var pizza = new PizzaDTO(new PizzaBaseDTO { Id = 1, Name = "Test", Price = 15.99M });
+            pizza.AddTopping(new PAddinDTO { Id = 1, AddinName = "Pepperoni", Price = 1.50M });
             var order = new OrderDTO
             {
                 GrossAmount = 3.75M,
