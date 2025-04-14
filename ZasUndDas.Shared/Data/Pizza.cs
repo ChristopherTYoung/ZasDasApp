@@ -23,13 +23,14 @@ public class PizzaDTO : ICheckoutItem
     public PizzaDTO(PizzaBaseDTO pizzaBase)
     {
         Base = pizzaBase;
+        BaseId = pizzaBase.Id;
         Addins = new List<PAddinDTO>();
     }
     public int Id { set; get; }
     public int SizeId { set; get; } = 2;
     public int BaseId { set; get; }
     public bool CookedAtHome { get; set; }
-    public PizzaBaseDTO Base { get; set; } = null!;
+    public PizzaBaseDTO Base { get; set; }
     public ItemSize Size { set; get; } = ItemSize.medium; //size indeed matters
     public PizzaSize PizzaSize { get; set; }
     public List<PAddinDTO> Addins { set; get; }
@@ -63,5 +64,13 @@ public class PizzaDTO : ICheckoutItem
     {
         foreach (var addin in Addins)
             await context.PizzaAddins.AddAsync(new PizzaAddin { AddinId = addin.Id, PizzaId = this.Id });
+    }
+    public PizzaDTO Clean()
+    {
+        Sauce = null;
+        Addins = new List<PAddinDTO>();
+        PizzaSize = null;
+        Base = null;
+        return this;
     }
 }

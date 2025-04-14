@@ -15,7 +15,7 @@ namespace ZasAndDasWeb.Services
             switch (itemDTO.Item)
             {
                 case ItemType.Pizza:
-                    await context.Pizzas.AddAsync(itemDTO.Pizza!);
+                    await context.Pizzas.AddAsync(itemDTO.Pizza!.Clean());
                     await context.SaveChangesAsync();
                     var pizza = context.Pizzas.First(p => p == itemDTO.Pizza);
                     await pizza.SaveToppingsToDatabase(context);
