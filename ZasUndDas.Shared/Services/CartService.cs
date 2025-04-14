@@ -73,7 +73,7 @@ namespace ZasUndDas.Shared.Services
         public string PayUrl()
         {
             if (api != null && api.BaseAddress != null)
-                return api.BaseAddress.AbsolutePath + "pay";
+                return api.BaseAddress.OriginalString + "/pay";
             throw new Exception();
         }
     }
