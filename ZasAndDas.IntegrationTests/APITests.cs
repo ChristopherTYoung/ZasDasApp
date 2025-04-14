@@ -101,14 +101,14 @@ namespace ZasAndDas.IntegrationTests
         public async Task CanSendPizzaOrder()
         {
             var client = _app.CreateClient();
-            var pizza = new PizzaDTO(new PizzaBaseDTO { Id = 1, Name = "Test", Price = 15.99M });
-            pizza.AddTopping(new PAddinDTO { Id = 1, AddinName = "Pepperoni", Price = 1.50M });
+            var pizza = new PizzaDTO(new() { Id = 1, Name = "Test", Price = 15.99M });
+            pizza.AddTopping(new() { Id = 1, AddinName = "Pepperoni", Price = 1.50M });
             var order = new OrderDTO
             {
                 GrossAmount = 3.75M,
                 NetAmount = 3.85M,
                 SalesTax = 0.10M,
-                Items = new List<OrderItemDTO>() { new OrderItemDTO(pizza) },
+                Items = [new(pizza)],
                 DateOrdered = DateTime.ParseExact("03-31-2025 12:30:00 PM", "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)
             };
 
