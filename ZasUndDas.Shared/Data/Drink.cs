@@ -21,6 +21,7 @@ public partial class DrinkDTO : ICheckoutItem
     public int Id { set; get; }
 
     public int BaseId { set; get; }
+    public int Quantity { get; set; } = 1;
 
     public string? Name { set; get; } = null;
 
@@ -44,6 +45,11 @@ public partial class DrinkDTO : ICheckoutItem
         }
         return baseprice;
 
+    }
+
+    public void ChangeQuantity(int quantity)
+    {
+        Quantity = quantity;
     }
     public DrinkDTO Clean()
     {
