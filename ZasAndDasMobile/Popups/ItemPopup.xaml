@@ -92,7 +92,18 @@
                            FontSize="Body"
                            Padding="10,10,0,10"
                            FontAttributes="Bold"/>
-
+                    <CollectionView ItemsSource="{Binding PizzaAddins}"
+                                    SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <HorizontalStackLayout Padding="10,5">
+                                    <CheckBox IsChecked="{Binding IsChecked}"/>
+                                    <Label Text="{Binding AddinName}"
+                                           VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                     <Label Text="Comments"
                            FontSize="Body"
                            FontAttributes="Bold"

@@ -38,6 +38,8 @@ namespace ZasAndDasMobile.ViewModels
         public partial List<Sauce> PizzaSauces { get; set; }
         [ObservableProperty]
         public partial Sauce? SelectedPizzaSauce { get; set; }
+        [ObservableProperty]
+        public partial List<PAddinDTO> PizzaAddins { get; set; }
 
         public bool CanAddToCart => SelectedPizzaSize != null;
 
@@ -50,7 +52,15 @@ namespace ZasAndDasMobile.ViewModels
         [RelayCommand]
         public void AddItemToCart()
         {
-            _cartService.AddToCart(new PizzaDTO((PizzaBaseDTO)item));
+            var pizza = new PizzaDTO((PizzaBaseDTO)item);
+            foreach (var addin in PizzaAddins.Where(addin => addin.IsChecked))
+            {
+                pizza.AddTopping(addin);
+            }
+            pizza.ChangeSize(SelectedPizzaSize!);
+            pizza.ChangeSauce(SelectedPizzaSauce!);
+            pizza.CookedAtHome = SelectedCookStyle == "Take and Bake";
+            _cartService.AddToCart(pizza);
             _popup?.Close();
         }
 
@@ -61,6 +71,7 @@ namespace ZasAndDasMobile.ViewModels
             _menuItemService = menuItemService;
             PizzaSizes = _menuItemService.GetPizzaSizes().Result;
             PizzaSauces = _menuItemService.GetSauces().Result;
+            PizzaAddins = _menuItemService.GetPAddonDTOs().Result;
             SelectedCookStyle = CookStyle[0];
             SelectedPizzaSauce = PizzaSauces.FirstOrDefault(s => s.Id == 0);
             OnPropertyChanged(nameof(CanAddToCart));

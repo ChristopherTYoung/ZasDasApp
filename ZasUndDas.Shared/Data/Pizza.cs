@@ -33,6 +33,7 @@ public class PizzaDTO : ICheckoutItem
     public ItemSize Size { set; get; } = ItemSize.medium; //size indeed matters
     public PizzaSize PizzaSize { get; set; }
     public List<PAddinDTO> Addins { set; get; }
+    public Sauce Sauce { get; set; }
 
     public double GetPrice()
     {
@@ -52,6 +53,11 @@ public class PizzaDTO : ICheckoutItem
     {
         PizzaSize = size;
         SizeId = size.Id;
+    }
+
+    public void ChangeSauce(Sauce sauce)
+    {
+        Sauce = sauce;
     }
     public async Task SaveToppingsToDatabase(PostgresContext context)
     {

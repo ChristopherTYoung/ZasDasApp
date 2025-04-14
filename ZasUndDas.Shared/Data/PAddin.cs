@@ -24,4 +24,5 @@ public class PAddinDTO
     public int Id { set; get; }
     public string AddinName { set; get; } = null!;
     public double Price { get; set; }
+    public bool IsChecked { get; set; } = false;
 }
