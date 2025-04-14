@@ -21,19 +21,19 @@ namespace ZasAndDas.IntegrationTests
         public async Task CanAddPizzaBase()
         {
             var client = _app.CreateClient();
-            var pizza = new PizzaBaseDTO { Name = "The Za", Price = 15.99 };
+            var pizza = new PizzaBaseDTO { Name = "The Za", Price = 15.99m };
             var response = await client.PostAsJsonAsync("/api/inventory/addpizzabase", pizza);
             response.IsSuccessStatusCode.ShouldBeTrue();
 
             var pizzas = await client.GetFromJsonAsync<List<PizzaBaseDTO>>("/api/inventory/getallpizzabase");
-            pizzas!.First(p => p.Name == "The Za" && p.Price == 15.99).ShouldNotBeNull();
+            pizzas!.First(p => p.Name == "The Za" && p.Price == 15.99m).ShouldNotBeNull();
         }
 
         [Fact]
         public async Task CanAddAndGetStockItem()
         {
             var client = _app.CreateClient();
-            var stockItem = new StockItemDTO { Name = "Diet Coke", ItemCategoryId = 1, Price = 3.75 };
+            var stockItem = new StockItemDTO { Name = "Diet Coke", ItemCategoryId = 1, Price = 3.75m };
             var response = await client.PostAsJsonAsync("/api/inventory/addstockitem", stockItem);
             response.IsSuccessStatusCode.ShouldBeTrue();
 
@@ -79,7 +79,7 @@ namespace ZasAndDas.IntegrationTests
                 GrossAmount = 3.75M,
                 NetAmount = 3.85M,
                 SalesTax = 0.10M,
-                Items = new List<OrderItemDTO>() { new OrderItemDTO(new StockItemDTO { Id = 1, Name = "Coke", Price = 3.75, ItemCategoryId = 1 }) },
+                Items = new List<OrderItemDTO>() { new OrderItemDTO(new StockItemDTO { Id = 1, Name = "Coke", Price = 3.75m, ItemCategoryId = 1 }) },
                 DateOrdered = DateTime.Parse("03-31-2025 12:30:00 PM")
             };
 
@@ -96,9 +96,9 @@ namespace ZasAndDas.IntegrationTests
         public async Task CanSendPizzaOrder()
         {
             var client = _app.CreateClient();
-            var pizza = new PizzaDTO(new PizzaBaseDTO { Id = 1, Name = "Test", Price = 15.99 });
-            pizza.AddTopping(new PAddinDTO { Id = 1, AddinName = "Pepperoni", Price = 1.50 });
-            pizza.ChangeSize(new PizzaSize { Id = 1, SizeName = "medium", Price = 2.99 });
+            var pizza = new PizzaDTO(new PizzaBaseDTO { Id = 1, Name = "Test", Price = 15.99m });
+            pizza.AddTopping(new PAddinDTO { Id = 1, AddinName = "Pepperoni", Price = 1.50m });
+            pizza.ChangeSize(new PizzaSize { Id = 1, SizeName = "medium", Price = 2.99m });
             var order = new OrderDTO
             {
                 GrossAmount = 3.75M,
@@ -114,7 +114,7 @@ namespace ZasAndDas.IntegrationTests
             var orders = await client.GetFromJsonAsync<List<OrderDTO>>("/api/order/allorders");
             var orderDTO = orders.First();
             var dbPizza = orderDTO.Items.First().Pizza;
-            bool pizzaIsStored = dbPizza.Addins.Count() == 1 && dbPizza.Base == new PizzaBaseDTO { Id = 1, Name = "Test", Price = 15.99 };
+            bool pizzaIsStored = dbPizza.Addins.Count() == 1 && dbPizza.Base == new PizzaBaseDTO { Id = 1, Name = "Test", Price = 15.99m };
             pizzaIsStored.ShouldBeTrue();
         }
     }

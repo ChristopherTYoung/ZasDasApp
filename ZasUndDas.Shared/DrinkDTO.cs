@@ -12,6 +12,6 @@ namespace ZasUndDas.Shared
         public string Name { set; get; } = "CYO";
         public string? Description { set; get; } = string.Empty;
         public List<string> Ingredients { set; get; } = new List<string>();
-        public double Price { set; get; } = 0d;
+        public decimal Price { set; get; } = 0m;
     }
 }

@@ -10,7 +10,7 @@ public partial class DrinkDTO : ICheckoutItem
 
     public int BaseId { set; get; }
 
-    public double Price
+    public decimal Price
     {
         set;
         get;
@@ -20,15 +20,21 @@ public partial class DrinkDTO : ICheckoutItem
 
     List<DrinkAddin> DrinkAddin { set; get; } = null!;
 
-    public Double CalculatePrice()
+    public decimal CalculatePrice()
     {
 
-        double baseprice = Base.Price;
+        decimal baseprice = Base.Price;
         foreach (var adin in DrinkAddin)
         {
             baseprice += adin.Addin.Price;
         }
         return baseprice;
 
+    }
+    public DrinkDTO Clean()
+    {
+        DrinkAddin = new List<DrinkAddin>();
+        Base = null;
+        return this;
     }
 }

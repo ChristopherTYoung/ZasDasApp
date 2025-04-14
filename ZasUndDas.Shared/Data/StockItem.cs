@@ -28,7 +28,7 @@ public class StockItemDTO : IStoreItem, ICheckoutItem
     public string? Description { set; get; }
 
     public int ItemCategoryId { set; get; }
-    public double Price { set; get; }
+    public decimal Price { set; get; }
 
 
 }

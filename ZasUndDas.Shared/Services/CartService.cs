@@ -58,7 +58,7 @@ namespace ZasUndDas.Shared.Services
             return item;
         }
 
-        public double CalculateTotal()
+        public decimal CalculateTotal()
         {
             return Math.Round(cart.Select(p => p.Price).Sum(), 2);
         }
