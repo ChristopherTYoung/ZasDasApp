@@ -49,11 +49,11 @@ public class PizzaDTO : ICheckoutItem
     public List<PAddinDTO> Addins { set; get; }
     public Sauce? Sauce { get; set; }
 
-    public double Price { set; get; }
+    public decimal Price { set; get; }
 
-    private double CalculatePrice()
+    private decimal CalculatePrice()
     {
-        double price = 0;
+        decimal price = 0;
         price += Base.Price;
         foreach (var addin in Addins)
             price += addin.Price;
