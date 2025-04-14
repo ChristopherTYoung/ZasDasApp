@@ -23,7 +23,7 @@ jobs:
         with:
           dotnet-version: '9.x'
       - name: change directory
-        run: cd /ZasAndDasWeb
+        run: cd ./ZasAndDasWeb
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
