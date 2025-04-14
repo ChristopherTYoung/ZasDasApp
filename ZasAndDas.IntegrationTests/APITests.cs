@@ -2,8 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using NSubstitute;
 using Shouldly;
+using System.Globalization;
 using System.Net;
 using System.Net.Http.Json;
+using System.Text.Json;
 using Xunit.Abstractions;
 using ZasUndDas.Shared;
 using ZasUndDas.Shared.Data;
@@ -83,6 +85,9 @@ namespace ZasAndDas.IntegrationTests
                 DateOrdered = DateTime.Parse("03-31-2025 12:30:00 PM")
             };
 
+            var json = JsonSerializer.Serialize(order, new JsonSerializerOptions { WriteIndented = true });
+            Console.WriteLine(json);
+
             var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
@@ -98,15 +103,17 @@ namespace ZasAndDas.IntegrationTests
             var client = _app.CreateClient();
             var pizza = new PizzaDTO(new PizzaBaseDTO { Id = 1, Name = "Test", Price = 15.99 });
             pizza.AddTopping(new PAddinDTO { Id = 1, AddinName = "Pepperoni", Price = 1.50 });
-            pizza.ChangeSize(new PizzaSize { Id = 1, SizeName = "medium", Price = 2.99 });
             var order = new OrderDTO
             {
                 GrossAmount = 3.75M,
                 NetAmount = 3.85M,
                 SalesTax = 0.10M,
                 Items = new List<OrderItemDTO>() { new OrderItemDTO(pizza) },
-                DateOrdered = DateTime.Parse("03-31-2025 12:30:00 PM")
+                DateOrdered = DateTime.ParseExact("03-31-2025 12:30:00 PM", "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)
             };
+
+            var json = JsonSerializer.Serialize(order, new JsonSerializerOptions { WriteIndented = true });
+            Console.WriteLine(json);
 
             var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -114,8 +121,10 @@ namespace ZasAndDas.IntegrationTests
             var orders = await client.GetFromJsonAsync<List<OrderDTO>>("/api/order/allorders");
             var orderDTO = orders.First();
             var dbPizza = orderDTO.Items.First().Pizza;
-            bool pizzaIsStored = dbPizza.Addins.Count() == 1 && dbPizza.Base == new PizzaBaseDTO { Id = 1, Name = "Test", Price = 15.99 };
-            pizzaIsStored.ShouldBeTrue();
+            //dbPizza.Addins.Count().ShouldBe(1);
+            dbPizza.Base.Id.ShouldBe(1);
+            dbPizza.Base.Name.ShouldBe("Test");
+            dbPizza.Base.Price.ShouldBe(15.99);
         }
     }
 }

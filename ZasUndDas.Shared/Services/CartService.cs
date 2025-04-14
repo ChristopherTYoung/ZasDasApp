@@ -10,7 +10,7 @@ using ZasUndDas.Shared.Data;
 
 namespace ZasUndDas.Shared.Services
 {
-    public class CartService(IAPIService? api = null)
+    public class CartService(IAPIService api)
     {
         ObservableCollection<ICheckoutItem> cart = new ObservableCollection<ICheckoutItem>();
 
@@ -35,7 +35,7 @@ namespace ZasUndDas.Shared.Services
         {
             if (nonce != null)
             {
-                var order = new OrderDTO() { nonce = nonce };
+                var order = new OrderDTO() { Nonce = nonce };
                 decimal total = 0;
                 foreach (var item in cart)
                 {
@@ -46,8 +46,7 @@ namespace ZasUndDas.Shared.Services
                 order.GrossAmount = total;
                 order.SalesTax = total * .0775m;
                 order.NetAmount = order.GrossAmount + order.NetAmount;
-                if (api != null)
-                    await api.Order(order);
+                await api.Order(order);
 
             }
         }

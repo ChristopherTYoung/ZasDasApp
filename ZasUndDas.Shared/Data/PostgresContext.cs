@@ -39,7 +39,7 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<PAddinDTO> PAddins { set; get; }
 
-    public virtual DbSet<PizzaDTO> Pizzas { set; get; }
+    public virtual DbSet<Pizza> Pizzas { set; get; }
 
     public virtual DbSet<PizzaAddin> PizzaAddins { set; get; }
 
@@ -266,7 +266,7 @@ public partial class PostgresContext : DbContext
 
         });
 
-        modelBuilder.Entity<PizzaDTO>(entity =>
+        modelBuilder.Entity<Pizza>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("pizza_pkey");
 
