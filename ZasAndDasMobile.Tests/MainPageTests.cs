@@ -40,8 +40,8 @@ namespace ZasAndDasMobile.Tests
         public void AddToCart()
         {
             var cart = new CartService();
-            var pizza = new PizzaDTO(new PizzaBaseDTO() { Price = 10.99 });
-            pizza.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 3.00 };
+            var pizza = new PizzaDTO(new PizzaBaseDTO() { Price = 10.99m });
+            pizza.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 3.00m };
             cart.AddToCart(pizza);
             cart.GetCartItems.ShouldContain(pizza);
         }
@@ -51,7 +51,7 @@ namespace ZasAndDasMobile.Tests
         {
             var cart = new CartService();
             var pizza = new PizzaDTO(new PizzaBaseDTO());
-            pizza.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 3.00 };
+            pizza.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 3.00m };
             cart.AddToCart(pizza);
             cart.GetCartItems.ShouldNotBe(new() { new PizzaDTO(new PizzaBaseDTO() { Name = "jeff" }) });
         }
@@ -61,7 +61,7 @@ namespace ZasAndDasMobile.Tests
         {
             var cart = new CartService();
             var pizza = new PizzaDTO(new PizzaBaseDTO()) { Id = 1 };
-            pizza.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 3.00 };
+            pizza.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 3.00m };
             cart.AddToCart(pizza);
             cart.GetCartItems.Count.ShouldBe(1);
             cart.RemoveItem(1);
@@ -79,23 +79,23 @@ namespace ZasAndDasMobile.Tests
         public void CalculatePrice_WithOneItem()
         {
             var cart = new CartService();
-            var pizza = new PizzaDTO(new PizzaBaseDTO() { Price = 4.99 });
-            pizza.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 0.00 };
+            var pizza = new PizzaDTO(new PizzaBaseDTO() { Price = 4.99m });
+            pizza.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 0.00m };
             cart.AddToCart(pizza);
-            cart.CalculateTotal().ShouldBe(4.99);
+            cart.CalculateTotal().ShouldBe(4.99m);
         }
 
         [Theory]
         [InlineData(5, 6, 11)]
         [InlineData(5.001, 6, 11)]
         [InlineData(5.006, 6, 11.01)]
-        public void CalculatePrice_WithTwoItems(double price1, double price2, double result)
+        public void CalculatePrice_WithTwoItems(decimal price1, decimal price2, decimal result)
         {
             var cart = new CartService();
             var pizza1 = new PizzaDTO(new PizzaBaseDTO() { Price = price1 });
             var pizza2 = new PizzaDTO(new PizzaBaseDTO() { Price = price2 });
-            pizza1.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 0.00 };
-            pizza2.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 0.00 };
+            pizza1.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 0.00m };
+            pizza2.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 0.00m };
             cart.AddToCart(pizza1);
             cart.AddToCart(pizza2);
             cart.CalculateTotal().ShouldBe(result);
@@ -107,8 +107,8 @@ namespace ZasAndDasMobile.Tests
             var cart = new CartService();
             var pizza = new PizzaDTO(new PizzaBaseDTO() { Price = 5 });
             var errorPizza = new PizzaDTO(new PizzaBaseDTO() { Price = -6 });
-            pizza.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 0.00 };
-            errorPizza.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 0.00 };
+            pizza.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 0.00m };
+            errorPizza.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 0.00m };
             cart.AddToCart(pizza);
             Should.Throw<InvalidOperationException>(() => cart.AddToCart(errorPizza));
         }

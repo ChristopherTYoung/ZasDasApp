@@ -22,7 +22,7 @@ namespace ZasAndDasMobile.ViewModels
         MenuItemService _menuItemService;
         public string Name { get => item.Name; }
         public string? Description { get => item.Description; }
-        public double Price { get => item.Price; }
+        public decimal Price { get => item.Price; }
 
         [ObservableProperty]
         public partial ObservableCollection<string> CookStyle { get; set; } = new ObservableCollection<string>() { "In Store", "Take and Bake" };

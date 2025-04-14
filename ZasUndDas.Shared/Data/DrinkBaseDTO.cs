@@ -8,6 +8,6 @@ public partial class DrinkBaseDTO
 
     public string? Description { set; get; }
 
-    public double Price { set; get; }
+    public decimal Price { set; get; }
 
 }

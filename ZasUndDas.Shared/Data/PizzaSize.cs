@@ -9,5 +9,5 @@ public class PizzaSize
 
     public string SizeName { set; get; } = null!;
 
-    public double Price { get; set; }
+    public decimal Price { get; set; }
 }

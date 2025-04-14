@@ -23,19 +23,19 @@ namespace ZasAndDas.IntegrationTests
         public async Task CanAddPizzaBase()
         {
             var client = _app.CreateClient();
-            var pizza = new PizzaBaseDTO { Name = "The Za", Price = 15.99 };
+            var pizza = new PizzaBaseDTO { Name = "The Za", Price = 15.99M };
             var response = await client.PostAsJsonAsync("/api/inventory/addpizzabase", pizza);
             response.IsSuccessStatusCode.ShouldBeTrue();
 
             var pizzas = await client.GetFromJsonAsync<List<PizzaBaseDTO>>("/api/inventory/getallpizzabase");
-            pizzas!.First(p => p.Name == "The Za" && p.Price == 15.99).ShouldNotBeNull();
+            pizzas!.First(p => p.Name == "The Za" && p.Price == 15.99m).ShouldNotBeNull();
         }
 
         [Fact]
         public async Task CanAddAndGetStockItem()
         {
             var client = _app.CreateClient();
-            var stockItem = new StockItemDTO { Name = "Diet Coke", ItemCategoryId = 1, Price = 3.75 };
+            var stockItem = new StockItemDTO { Name = "Diet Coke", ItemCategoryId = 1, Price = 3.75m };
             var response = await client.PostAsJsonAsync("/api/inventory/addstockitem", stockItem);
             response.IsSuccessStatusCode.ShouldBeTrue();
 
@@ -81,7 +81,7 @@ namespace ZasAndDas.IntegrationTests
                 GrossAmount = 3.75M,
                 NetAmount = 3.85M,
                 SalesTax = 0.10M,
-                Items = new List<OrderItemDTO>() { new OrderItemDTO(new StockItemDTO { Id = 1, Name = "Coke", Price = 3.75, ItemCategoryId = 1 }) },
+                Items = new List<OrderItemDTO>() { new OrderItemDTO(new StockItemDTO { Id = 1, Name = "Coke", Price = 3.75m, ItemCategoryId = 1 }) },
                 DateOrdered = DateTime.Parse("03-31-2025 12:30:00 PM")
             };
 
@@ -124,7 +124,7 @@ namespace ZasAndDas.IntegrationTests
             //dbPizza.Addins.Count().ShouldBe(1);
             dbPizza.Base.Id.ShouldBe(1);
             dbPizza.Base.Name.ShouldBe("Test");
-            dbPizza.Base.Price.ShouldBe(15.99);
+            dbPizza.Base.Price.ShouldBe(15.99M);
         }
     }
 }
