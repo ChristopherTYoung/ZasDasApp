@@ -209,7 +209,7 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Description)
                 .HasMaxLength(256)
                 .HasColumnName("description");
-            entity.Property(e => e.DrinkName)
+            entity.Property(e => e.Name)
                 .HasMaxLength(10)
                 .HasColumnName("drink_name");
         });

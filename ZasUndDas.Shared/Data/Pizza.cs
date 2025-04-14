@@ -24,12 +24,14 @@ public class PizzaDTO : ICheckoutItem
     {
         Base = pizzaBase;
         BaseId = pizzaBase.Id;
+        Name = Base.Name;
         Addins = new List<PAddinDTO>();
     }
     public int Id { set; get; }
     public int SizeId { set; get; } = 2;
     public int BaseId { set; get; }
     public bool CookedAtHome { get; set; }
+    public string? Name { get; set; } = null;
     public PizzaBaseDTO Base { get; set; }
     public ItemSize Size { set; get; } = ItemSize.medium; //size indeed matters
     public PizzaSize PizzaSize { get; set; }

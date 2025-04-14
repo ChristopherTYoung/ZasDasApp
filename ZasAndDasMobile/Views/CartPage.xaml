@@ -42,18 +42,20 @@
                    FontSize="Title"
                    FontAttributes="Bold"
                    Padding="10,0,0,0"/>
+            <ScrollView>
+                <CollectionView ItemsSource="{Binding CartItems}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <HorizontalStackLayout>
+                                <Label Text="Price:"/>
+                                <Label Text="{Binding Price}" 
+                                       FontAttributes="Bold"/>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
             <Button Text="Pay here" Command="{Binding OrderAndPayCommand}"/>
-            <CollectionView ItemsSource="{Binding CartItems}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <HorizontalStackLayout>
-                            <Label Text="Price:"/>
-                            <Label Text="{Binding Price}" 
-                                   FontAttributes="Bold"/>
-                        </HorizontalStackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
         </VerticalStackLayout>
     </Grid>
 </ContentPage>
