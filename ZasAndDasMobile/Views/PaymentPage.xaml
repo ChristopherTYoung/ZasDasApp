@@ -5,5 +5,5 @@
              Title="NewPage1">
         <WebView x:Name="PaymentWebView"
              Navigating="WebMessageReceived"
-             Source="https://localhost:7197/pay" />
+             Source="{Binding Url}" />
 </ContentPage>

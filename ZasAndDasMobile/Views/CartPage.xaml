@@ -47,9 +47,12 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <HorizontalStackLayout>
+                                <Label Text="{Binding Name}"/>
                                 <Label Text="Price:"/>
                                 <Label Text="{Binding Price}" 
                                        FontAttributes="Bold"/>
+                                <Label Text="Qty:"/>
+                                <Label Text="{Binding Quantity}"/>
                             </HorizontalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

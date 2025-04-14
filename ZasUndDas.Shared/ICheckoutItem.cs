@@ -11,6 +11,7 @@ namespace ZasUndDas.Shared
         public int Id { get; set; }
 
         public decimal Price { get; }
+        public int Quantity { get; set; }
         public string? Name { get; set; }
     }
 }
