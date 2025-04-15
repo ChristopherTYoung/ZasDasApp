@@ -17,6 +17,7 @@ jobs:
             if ! test -d "$backup_dir"; then
                 mkdir $backup_dir
             fi
+            kubectl port-forward svc/zas-db-svc 5432:5432 -n zasanddas
             pg_dump postgres > ./backups/backup-${{github.event.pull_request.number}}.sql \
                 --host=$POSTGRES_HOST
                 --username=$POSTGRES_USER
@@ -26,3 +27,4 @@ jobs:
                 oldest_file=$(find /backups -type f | sort | head -n 1)
                 rm -f "$oldest_file"
             fi
+            kill -9 $(lsof -ti :5432)
