@@ -1,0 +1,36 @@
+name: backup database
+on:
+  - push
+
+jobs:
+    backup:
+        runs-on: self-hosted
+        steps:
+        - name: backup
+          env:
+            PGDATABASE: ${{ secrets.POSTGRES_DB || 'postgres' }}
+            PGUSER: 'postgres'
+            PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD || 'password' }}
+            PGHOST: ${{ secrets.POSTGRES_HOST || '127.0.0.1' }}
+          run: |
+            backup_dir="./backups"
+            if ! test -d "$backup_dir"; then
+                mkdir $backup_dir
+            fi
+            kubectl port-forward svc/zas-db-svc 5432:5432 -n zasanddas &
+            while ! nc -z localhost 5432; do
+                sleep 0.5
+            done
+            PGPASSWORD=$POSTGRES_PASSWORD pg_dump postgres > ./backups/backup-${{github.run_id}}.sql
+            backup_count=$(ls ./backups | grep 'backup' | wc -l)
+            max_files=4
+            if [ "$backup_count" -gt "$max_files" ]; then
+                oldest_file=$(find ./backups -type f | sort | head -n 1)
+                rm -f "$oldest_file"
+            fi
+            pwd
+
+        - name: Cleaning up
+          if: always()
+          run: |
+            kill -9 $(lsof -ti :5432)

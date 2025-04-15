@@ -49,6 +49,8 @@ public class PizzaDTO : ICheckoutItem
     public List<PAddinDTO> Addins { set; get; }
     public Sauce? Sauce { get; set; }
 
+    public int Quantity { get; set; } = 1;
+
     public decimal Price { set; get; }
 
     private decimal CalculatePrice()
@@ -74,6 +76,10 @@ public class PizzaDTO : ICheckoutItem
         Price = CalculatePrice();
     }
 
+    public void ChangeQuantity(int quantity)
+    {
+        Quantity = quantity;
+    }
     public void ChangeSauce(Sauce sauce)
     {
         Sauce = sauce;
