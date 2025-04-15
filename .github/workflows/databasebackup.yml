@@ -22,10 +22,10 @@ jobs:
                 sleep 0.5
             done
             PGPASSWORD=$POSTGRES_PASSWORD pg_dump postgres > ./backups/backup-${{github.run_id}}.sql
-            backup_count=$(ls /backups | grep 'backup' | wc -l)
+            backup_count=$(ls ./backups | grep 'backup' | wc -l)
             max_files=4
             if [ "$backup_count" -gt "$max_files" ]; then
-                oldest_file=$(find /backups -type f | sort | head -n 1)
+                oldest_file=$(find ./backups -type f | sort | head -n 1)
                 rm -f "$oldest_file"
             fi
 
