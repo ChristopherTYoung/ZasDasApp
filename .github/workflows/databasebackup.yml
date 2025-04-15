@@ -11,7 +11,7 @@ jobs:
             POSTGRES_DB: ${{ secrets.POSTGRES_DB || 'postgres' }}
             POSTGRES_USER: ${{ secrets.POSTGRES_USER || 'postgres' }}
             POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD || 'password' }}
-            POSTGRES_HOST: ${{ secrets.POSTGRES_HOST || 'zas-db-svc' }}
+            POSTGRES_HOST: ${{ secrets.POSTGRES_HOST || 'zas-db-svc.zasanddas.svc.cluster.local' }}
           run: |
             backup_dir="./backups"
             if ! test -d "$backup_dir"; then
