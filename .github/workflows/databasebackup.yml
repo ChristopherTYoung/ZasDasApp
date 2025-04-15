@@ -9,6 +9,9 @@ jobs:
         - name: backup
           run: |
             backup_dir="/backups"
+            if ! test -d "$backup_dir"; then
+                mkdir $backup_dir
+            fi
             pg_dump postgres > /backups/backup-${{github.event.pull_request.number}}
             backup_count=$(ls /backups | grep 'backup' | wc -l)
             max_files=4
