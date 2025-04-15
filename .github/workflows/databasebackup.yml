@@ -12,7 +12,7 @@ jobs:
             if ! test -d "$backup_dir"; then
                 mkdir $backup_dir
             fi
-            pg_dump postgres > /backups/backup-${{github.event.pull_request.number}}
+            pg_dump postgres > ./backups/backup-${{github.event.pull_request.number}}.sql
             backup_count=$(ls /backups | grep 'backup' | wc -l)
             max_files=4
             if [ "$backup_count" -gt "$max_files" ]; then
