@@ -9,9 +9,9 @@ jobs:
         - name: backup
           env:
             POSTGRES_DB: ${{ secrets.POSTGRES_DB || 'postgres' }}
-            POSTGRES_USER: 'postgres'
-            POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD || 'password' }}
-            POSTGRES_HOST: ${{ secrets.POSTGRES_HOST || '127.0.0.1' }}
+            PGUSER: 'postgres'
+            PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD || 'password' }}
+            PGHOST: ${{ secrets.POSTGRES_HOST || '127.0.0.1' }}
           run: |
             backup_dir="./backups"
             if ! test -d "$backup_dir"; then
@@ -21,9 +21,7 @@ jobs:
             while ! nc -z localhost 5432; do
                 sleep 0.5
             done
-            PGPASSWORD=$POSTGRES_PASSWORD pg_dump postgres > ./backups/backup-${{github.run_id}}.sql \
-                -h $POSTGRES_HOST
-                -U postgres
+            PGPASSWORD=$POSTGRES_PASSWORD pg_dump postgres > ./backups/backup-${{github.run_id}}.sql
             backup_count=$(ls /backups | grep 'backup' | wc -l)
             max_files=4
             if [ "$backup_count" -gt "$max_files" ]; then
