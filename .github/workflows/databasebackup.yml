@@ -24,6 +24,7 @@ jobs:
             PGPASSWORD=$POSTGRES_PASSWORD pg_dump postgres > ./backups/backup-${{github.run_id}}.sql \
                 --host=$POSTGRES_HOST
                 --username='postgres'
+                --role=app_readonly
             backup_count=$(ls /backups | grep 'backup' | wc -l)
             max_files=4
             if [ "$backup_count" -gt "$max_files" ]; then
