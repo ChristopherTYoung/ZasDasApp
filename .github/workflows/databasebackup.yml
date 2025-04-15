@@ -28,6 +28,7 @@ jobs:
                 oldest_file=$(find ./backups -type f | sort | head -n 1)
                 rm -f "$oldest_file"
             fi
+            pwd
 
         - name: Cleaning up
           if: always()
