@@ -5,12 +5,12 @@
       {
         "Path": "ZasAndDasWeb\\ZasAndDasWeb.csproj",
         "Action": "Start",
-        "DebugTarget": "http"
+        "DebugTarget": "https"
       },
       {
         "Path": "ZasAndDasMobile\\ZasAndDasMobile.csproj",
         "Action": "Start",
-        "DebugTarget": "Windows Machine"
+        "DebugTarget": "Pixel 7 - API 35 (Android 15.0 - API 35)"
       }
     ]
   },
