@@ -11,7 +11,7 @@ jobs:
             POSTGRES_DB: ${{ secrets.POSTGRES_DB || 'postgres' }}
             POSTGRES_USER: 'postgres'
             POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD || 'password' }}
-            POSTGRES_HOST: ${{ secrets.POSTGRES_HOST || '10.43.161.232' }}
+            POSTGRES_HOST: ${{ secrets.POSTGRES_HOST || 'localhost' }}
           run: |
             backup_dir="./backups"
             if ! test -d "$backup_dir"; then
