@@ -36,4 +36,3 @@ jobs:
           if: always()
           run: |
             kill -9 $(lsof -ti :5432)
-
