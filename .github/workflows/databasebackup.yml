@@ -25,7 +25,7 @@ jobs:
             backup_count=$(find ./backups -type f -name "*.sql" | wc -l)
             max_files=4
             if [ "$backup_count" -gt "$max_files" ]; then
-                oldest_file=$(find ./backups -type f -name "*.sql" | sort | head -n 1)
+                oldest_file=$(find ./backups -type f -name "*.sql" -printf '%T@ %p\n' | sort -n | head -n 1 | cut -d' ' -f2-)
                 rm -f "$oldest_file"
             fi
             pwd
