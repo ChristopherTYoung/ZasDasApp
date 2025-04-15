@@ -9,7 +9,7 @@ jobs:
         - name: backup
           env:
             POSTGRES_DB: ${{ secrets.POSTGRES_DB || 'postgres' }}
-            POSTGRES_USER: ${{ secrets.POSTGRES_USER || 'postgres' }}
+            POSTGRES_USER: 'postgres'
             POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD || 'password' }}
             POSTGRES_HOST: ${{ secrets.POSTGRES_HOST || '10.43.161.232' }}
           run: |
