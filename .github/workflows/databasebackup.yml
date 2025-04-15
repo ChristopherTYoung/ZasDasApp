@@ -12,8 +12,9 @@ jobs:
             PGUSER: 'postgres'
             PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD || 'password' }}
             PGHOST: ${{ secrets.POSTGRES_HOST || '127.0.0.1' }}
+            WD: /home/chris/backups
           run: |
-            backup_dir="./backups"
+            backup_dir="$WD"
             if ! test -d "$backup_dir"; then
                 mkdir $backup_dir
             fi
@@ -21,11 +22,11 @@ jobs:
             while ! nc -z localhost 5432; do
                 sleep 0.5
             done
-            PGPASSWORD=$POSTGRES_PASSWORD pg_dump postgres > ./backups/backup-${{github.run_id}}.sql
-            backup_count=$(find ./backups -type f -name "*.sql" | wc -l)
+            PGPASSWORD=$POSTGRES_PASSWORD pg_dump postgres > $WD/backup-${{github.run_id}}.sql
+            backup_count=$(find $WD -type f -name "*.sql" | wc -l)
             max_files=4
             if [ "$backup_count" -gt "$max_files" ]; then
-                oldest_file=$(find ./backups -type f -name "*.sql" -printf '%T@ %p\n' | sort -n | head -n 1 | cut -d' ' -f2-)
+                oldest_file=$(find $WD -type f -name "*.sql" -printf '%T@ %p\n' | sort -n | head -n 1 | cut -d' ' -f2-)
                 echo "$oldest_file"
                 rm -f "$oldest_file"
             fi
