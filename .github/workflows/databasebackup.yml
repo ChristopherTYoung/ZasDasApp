@@ -8,7 +8,7 @@ jobs:
         steps:
         - name: backup
           run: |
-            backup_dir="/backups"
+            backup_dir="./backups"
             if ! test -d "$backup_dir"; then
                 mkdir $backup_dir
             fi
