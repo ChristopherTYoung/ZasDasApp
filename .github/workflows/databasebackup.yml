@@ -8,7 +8,7 @@ jobs:
         steps:
         - name: backup
           env:
-            POSTGRES_DB: ${{ secrets.POSTGRES_DB || 'postgres' }}
+            PGDATABASE: ${{ secrets.POSTGRES_DB || 'postgres' }}
             PGUSER: 'postgres'
             PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD || 'password' }}
             PGHOST: ${{ secrets.POSTGRES_HOST || '127.0.0.1' }}
