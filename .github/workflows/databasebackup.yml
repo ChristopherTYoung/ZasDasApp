@@ -1,0 +1,18 @@
+name: backup database
+on:
+  - push
+
+jobs:
+    backup:
+        runs-on: self-hosted
+        steps:
+        - name: backup
+          run: |
+            backup_dir="/backups"
+            pg_dump postgres > /backups/backup-${{github.event.pull_request.number}}
+            backup_count=$(ls /backups | grep 'backup' | wc -l)
+            max_files=4
+            if [ "$backup_count" -gt "$max_files" ]; then
+                oldest_file=$(find /backups -type f | sort | head -n 1)
+                rm -f "$oldest_file"
+            fi
