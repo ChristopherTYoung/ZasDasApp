@@ -39,6 +39,7 @@ jobs:
 
     restore:
         runs-on: self-hosted
+        needs: [backup]
         env:
             PGDATABASE: ${{ secrets.POSTGRES_DB || 'postgres' }}
             PGUSER: 'postgres'
@@ -56,6 +57,7 @@ jobs:
             done
             psql -U $PGUSER -c "drop schema zasanddas cascade"
             psql postgres < $newest_file
+
         - name: Cleaning up
           if: always()
           run: |
