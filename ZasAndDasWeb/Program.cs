@@ -9,6 +9,7 @@ using ZasUndDas.Shared.Data;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 using ZasAndDasWeb.Services;
+using ZasAndDasWeb.Middleware;
 public class Program
 {
     private static void Main(string[] args)
@@ -81,6 +82,7 @@ public class Program
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
         }
+        app.UseMiddleware<APIKeyValidationMiddleware>();
         app.MapControllers();
         app.UseHttpsRedirection();
 #if Swagger

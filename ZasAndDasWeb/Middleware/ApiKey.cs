@@ -8,7 +8,7 @@ namespace ZasAndDasWeb.Middleware
         public async Task InvokeAsync(HttpContext context)
         {
             var path = context.Request.Path.ToString();
-            if (path.Contains("Player/") || path.Contains("GetLevel")) await next(context);
+            if (!path.Contains("api") && path.Contains("api/auth")) await next(context);
             else
             {
                 using (var scope = serviceProvider.CreateScope())

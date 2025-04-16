@@ -67,4 +67,14 @@ public class MockAPIService : IAPIService
         // Simulating a successful order processing
         await Task.CompletedTask;
     }
+
+    public Task Authorize(AuthRequest request)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task CreateAccount(CreateRequest request)
+    {
+        throw new NotImplementedException();
+    }
 }
