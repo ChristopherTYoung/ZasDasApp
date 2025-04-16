@@ -54,10 +54,9 @@ jobs:
             while ! nc -z localhost 5432; do
                 sleep 0.5
             done
-            psql -U $PGUSER -c "drop cascade schema zasanddas"
+            psql -U $PGUSER -c "drop schema cascade zasanddas"
             psql postgres < $newest_file
         - name: Cleaning up
           if: always()
           run: |
                kill -9 $(lsof -ti :5432)
-            
