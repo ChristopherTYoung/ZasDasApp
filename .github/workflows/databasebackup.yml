@@ -56,4 +56,8 @@ jobs:
             done
             psql -U $PGUSER -c "drop schema zasanddas"
             psql postgres < $newest_file
+        - name: Cleaning up
+          if: always()
+          run: |
+               kill -9 $(lsof -ti :5432)
             
