@@ -50,5 +50,9 @@ jobs:
           run: |
             cd $WD
             newest_file=$(find "$WD" -type f -name "*.sql" -printf '%T@ %p\n' | sort -nr | head -n 1 | cut -d' ' -f2-)
+            kubectl port-forward svc/zas-db-svc 5432:5432 -n zasanddas &
+            while ! nc -z localhost 5432; do
+                sleep 0.5
+            done
             psql postgres < $newest_file
             
