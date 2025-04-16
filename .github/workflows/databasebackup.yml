@@ -14,6 +14,7 @@ jobs:
             PGHOST: ${{ secrets.POSTGRES_HOST || '127.0.0.1' }}
             WD: /home/chris/backups
           run: |
+            pwd
             backup_dir="$WD"
             if ! test -d "$backup_dir"; then
                 mkdir $backup_dir
