@@ -1,64 +1,64 @@
-# name: backup database
-# on:
-#   - push
+name: backup database
+on:
+  - push
 
-# jobs:
-    # backup:
-    #     runs-on: self-hosted
-    #     steps:
-    #     - name: backup
-    #       env:
-    #         PGDATABASE: ${{ secrets.POSTGRES_DB || 'postgres' }}
-    #         PGUSER: 'postgres'
-    #         PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD || 'password' }}
-    #         PGHOST: ${{ secrets.POSTGRES_HOST || '127.0.0.1' }}
-    #         WD: /home/chris/backups
-    #       run: |
-    #         backup_dir="$WD"
-    #         if ! test -d "$backup_dir"; then
-    #             mkdir $backup_dir
-    #         fi
-    #         kubectl port-forward svc/zas-db-svc 5432:5432 -n zasanddas &
-    #         while ! nc -z localhost 5432; do
-    #             sleep 0.5
-    #         done
-    #         PGPASSWORD=$POSTGRES_PASSWORD pg_dump postgres > $WD/backup-${{github.run_id}}.sql
-    #         backup_count=$(find $WD -type f -name "*.sql" | wc -l)
-    #         max_files=4
-    #         if [ "$backup_count" -gt "$max_files" ]; then
-    #             oldest_file=$(find $WD -type f -name "*.sql" -printf '%T@ %p\n' | sort -n | head -n 1 | cut -d' ' -f2-)
-    #             echo "$oldest_file"
-    #             rm -f "$oldest_file"
-    #         fi
-    #         pwd
+jobs:
+    backup:
+        runs-on: self-hosted
+        steps:
+        - name: backup
+          env:
+            PGDATABASE: ${{ secrets.POSTGRES_DB || 'postgres' }}
+            PGUSER: 'postgres'
+            PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD || 'password' }}
+            PGHOST: ${{ secrets.POSTGRES_HOST || '127.0.0.1' }}
+            WD: /home/chris/backups
+          run: |
+            backup_dir="$WD"
+            if ! test -d "$backup_dir"; then
+                mkdir $backup_dir
+            fi
+            kubectl port-forward svc/zas-db-svc 5432:5432 -n zasanddas &
+            while ! nc -z localhost 5432; do
+                sleep 0.5
+            done
+            PGPASSWORD=$POSTGRES_PASSWORD pg_dump postgres > $WD/backup-${{github.run_id}}.sql
+            backup_count=$(find $WD -type f -name "*.sql" | wc -l)
+            max_files=4
+            if [ "$backup_count" -gt "$max_files" ]; then
+                oldest_file=$(find $WD -type f -name "*.sql" -printf '%T@ %p\n' | sort -n | head -n 1 | cut -d' ' -f2-)
+                echo "$oldest_file"
+                rm -f "$oldest_file"
+            fi
+            pwd
 
-    #     - name: Cleaning up
-    #       if: always()
-    #       run: |
-    #         kill -9 $(lsof -ti :5432)
+        - name: Cleaning up
+          if: always()
+          run: |
+            kill -9 $(lsof -ti :5432)
 
-    # restore:
-    #     runs-on: self-hosted
-    #     needs: [backup]
-    #     env:
-    #         PGDATABASE: ${{ secrets.POSTGRES_DB || 'postgres' }}
-    #         PGUSER: 'postgres'
-    #         PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD || 'password' }}
-    #         PGHOST: ${{ secrets.POSTGRES_HOST || '127.0.0.1' }}
-    #         WD: /home/chris/backups
-    #     steps:
-    #     - name: restore
-    #       run: |
-    #         cd $WD
-    #         newest_file=$(find "$WD" -type f -name "*.sql" -printf '%T@ %p\n' | sort -nr | head -n 1 | cut -d' ' -f2-)
-    #         kubectl port-forward svc/zas-db-svc 5432:5432 -n zasanddas &
-    #         while ! nc -z localhost 5432; do
-    #             sleep 0.5
-    #         done
-    #         psql -U $PGUSER -c "drop schema zasanddas cascade"
-    #         psql postgres < $newest_file
+    restore:
+        runs-on: self-hosted
+        needs: [backup]
+        env:
+            PGDATABASE: ${{ secrets.POSTGRES_DB || 'postgres' }}
+            PGUSER: 'postgres'
+            PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD || 'password' }}
+            PGHOST: ${{ secrets.POSTGRES_HOST || '127.0.0.1' }}
+            WD: /home/chris/backups
+        steps:
+        - name: restore
+          run: |
+            cd $WD
+            newest_file=$(find "$WD" -type f -name "*.sql" -printf '%T@ %p\n' | sort -nr | head -n 1 | cut -d' ' -f2-)
+            kubectl port-forward svc/zas-db-svc 5432:5432 -n zasanddas &
+            while ! nc -z localhost 5432; do
+                sleep 0.5
+            done
+            psql -U $PGUSER -c "drop schema zasanddas cascade"
+            psql postgres < $newest_file
 
-    #     - name: Cleaning up
-    #       if: always()
-    #       run: |
-    #            kill -9 $(lsof -ti :5432)
+        - name: Cleaning up
+          if: always()
+          run: |
+               kill -9 $(lsof -ti :5432)
