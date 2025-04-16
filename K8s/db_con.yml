@@ -5,6 +5,8 @@ metadata:
   namespace: ${NAMESPACE}zasanddas
 data:
   db-init: |
+    CREATE SCHEMA zasanddas;
+  
     CREATE TABLE zasanddas.category (
         id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         category_name VARCHAR(50) not null,
