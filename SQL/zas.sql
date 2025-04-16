@@ -1,4 +1,4 @@
-drop schema zasanddas cascade;
+DROP SCHEMA IF EXISTS zasanddas CASCADE;
 
 create schema zasanddas;
 
