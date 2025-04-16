@@ -54,6 +54,6 @@ jobs:
             while ! nc -z localhost 5432; do
                 sleep 0.5
             done
-            psql -U $PGUSER -c "drop database $PGDATABASE"
+            psql -U $PGUSER -d template1 -c "drop database $PGDATABASE"
             psql postgres < $newest_file
             
