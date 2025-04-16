@@ -22,7 +22,7 @@ jobs:
             while ! nc -z localhost 5432; do
                 sleep 0.5
             done
-            PGPASSWORD=$POSTGRES_PASSWORD pg_dump postgres > $WD/backup-${{github.run_id}}.sql
+            pg_dump postgres > $WD/backup-${{github.run_id}}.sql
             backup_count=$(find $WD -type f -name "*.sql" | wc -l)
             max_files=4
             if [ "$backup_count" -gt "$max_files" ]; then
@@ -55,7 +55,7 @@ jobs:
             while ! nc -z localhost 5432; do
                 sleep 0.5
             done
-            # psql -U $PGUSER -c "drop schema zasanddas cascade"
+            psql -U $PGUSER -c "drop schema zasanddas cascade"
             psql postgres < $newest_file
 
         - name: Cleaning up
