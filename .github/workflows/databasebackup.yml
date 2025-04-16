@@ -55,7 +55,7 @@ jobs:
             while ! nc -z localhost 5432; do
                 sleep 0.5
             done
-            psql -U $PGUSER -c "drop schema zasanddas cascade"
+            # psql -U $PGUSER -c "drop schema zasanddas cascade"
             psql postgres < $newest_file
 
         - name: Cleaning up
