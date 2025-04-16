@@ -36,3 +36,19 @@ jobs:
           if: always()
           run: |
             kill -9 $(lsof -ti :5432)
+
+    restore:
+        runs-on: self-hosted
+        env:
+            PGDATABASE: ${{ secrets.POSTGRES_DB || 'postgres' }}
+            PGUSER: 'postgres'
+            PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD || 'password' }}
+            PGHOST: ${{ secrets.POSTGRES_HOST || '127.0.0.1' }}
+            WD: /home/chris/backups
+        steps:
+        - name: restore
+          run: |
+            cd $WD
+            newest_file=$(find "$WD" -type f -name "*.sql" -printf '%T@ %p\n' | sort -nr | head -n 1 | cut -d' ' -f2-)
+            psql postgres < $newest_file
+            

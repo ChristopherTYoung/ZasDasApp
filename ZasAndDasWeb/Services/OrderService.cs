@@ -15,12 +15,7 @@ namespace ZasAndDasWeb.Services
             switch (itemDTO.Item)
             {
                 case ItemType.Pizza:
-                    await context.Pizzas.AddAsync(itemDTO.Pizza!.ToPizza());
-                    await context.SaveChangesAsync();
-                    var pizza = context.Pizzas.OrderBy(p => p.Id).Last();
-                    item.PizzaId = pizza.Id;
-                    itemDTO.Pizza.Id = pizza.Id;
-                    await itemDTO.Pizza.SaveToppingsToDatabase(context);
+                    item.PizzaId = await AddPizzaToDatabase(itemDTO);
                     break;
                 case ItemType.Drink:
                     break;
@@ -37,6 +32,16 @@ namespace ZasAndDasWeb.Services
                     break;
             }
             return item;
+        }
+
+        private async Task<int> AddPizzaToDatabase(OrderItemDTO itemDTO)
+        {
+            await context.Pizzas.AddAsync(itemDTO.Pizza!.ToPizza());
+            await context.SaveChangesAsync();
+            var pizza = context.Pizzas.OrderBy(p => p.Id).Last();
+            itemDTO.Pizza.Id = pizza.Id;
+            await itemDTO.Pizza.SaveToppingsToDatabase(context);
+            return pizza.Id;
         }
 
         public async Task AddOrderItemToDatabase(OrderItemDTO orderItem)
