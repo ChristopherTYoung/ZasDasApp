@@ -46,12 +46,12 @@ jobs:
             PGUSER: 'postgres'
             PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD || 'password' }}
             PGHOST: ${{ secrets.POSTGRES_HOST || '127.0.0.1' }}
-            WD: /home/chris/backups
+            BACKUPS: /home/chris/backups
+            WD: /home/chris/actions-runner2/_work/ZasDasApp/ZasDasApp
         steps:
         - name: restore
           run: |
-            cd $WD
-            FILEIN=$(find "$WD" -type f -name "*.sql" -printf '%T@ %p\n' | sort -nr | head -n 1 | cut -d' ' -f2-) sh ./SQL/fullConfidenceRestore.sh
+            FILEIN=$(find "$BACKUPS" -type f -name "*.sql" -printf '%T@ %p\n' | sort -nr | head -n 1 | cut -d' ' -f2-) sh ./SQL/fullConfidenceRestore.sh
         - name: Cleaning up
           if: always()
           run: |
