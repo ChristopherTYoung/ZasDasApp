@@ -52,7 +52,3 @@ jobs:
         - name: restore
           run: |
             FILEIN=$(find "$BACKUPS" -type f -name "*.sql" -printf '%T@ %p\n' | sort -nr | head -n 1 | cut -d' ' -f2-) sh ./SQL/fullConfidenceRestore.sh
-        - name: Cleaning up
-          if: always()
-          run: |
-               kill -9 $(lsof -ti :5432)
