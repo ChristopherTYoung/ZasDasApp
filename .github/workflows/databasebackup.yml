@@ -51,4 +51,5 @@ jobs:
         steps:
         - name: restore
           run: |
+            find "$BACKUPS" -type f -name "*.sql" -exec stat -c '%y %n' {} + | sort -r
             FILEIN=$(find "$BACKUPS" -type f -name "*.sql" -printf '%T@ %p\n' | sort -nr | head -n 1 | cut -d' ' -f2-) sh ./SQL/fullConfidenceRestore.sh
