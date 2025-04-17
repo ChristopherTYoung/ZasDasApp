@@ -68,6 +68,7 @@ jobs:
           uses: Ilshidur/action-discord@master
           with:
               args: '@everyone Pull request environment ${{github.event.action}}: ${{github.ref}}-zasanddas'
+
     example_comment_pr:
        runs-on: ubuntu-latest
        if: github.event.action == 'opened'

@@ -13,7 +13,4 @@ public partial class CalzonAddin
 
     public int? Quantity { set; get; }
 
-    public virtual PAddin Addin { set; get; } = null!;
-
-    public virtual CalzoneDTO Calzone { set; get; } = null!;
 }

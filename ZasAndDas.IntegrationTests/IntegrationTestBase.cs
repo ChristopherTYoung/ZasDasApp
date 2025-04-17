@@ -21,6 +21,8 @@ namespace ZasAndDas.IntegrationTests
             _outputHelper = outputHelper;
             _dbContainer = new PostgreSqlBuilder()
             .WithImage("postgres")
+            .WithCleanUp(true)
+            .WithName(Guid.NewGuid().ToString())
             .WithPassword("Strong_password_123!")
             .Build();
 
@@ -31,7 +33,7 @@ namespace ZasAndDas.IntegrationTests
                     services.RemoveAll<DbContextOptions>();
                     services.RemoveAll<PostgresContext>();
                     services.RemoveAll(typeof(DbContextOptions<PostgresContext>));
-                    services.AddDbContext<PostgresContext>(options => options.UseNpgsql(_dbContainer.GetConnectionString()));//Expect this line to give you an error for now...
+                    services.AddDbContext<PostgresContext>(options => options.UseNpgsql(_dbContainer.GetConnectionString()));
                 });
                 builder.ConfigureLogging(logging =>
                 {
@@ -73,6 +75,9 @@ namespace ZasAndDas.IntegrationTests
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 sauce_name VARCHAR(50) not null
             );
+
+            insert into zasanddas.sauce (sauce_name)
+            values ('Marinara');
 
             CREATE TABLE zasanddas.pizza_size (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -123,11 +128,17 @@ namespace ZasAndDas.IntegrationTests
                 base_price decimal NOT NULL
             );
 
+            INSERT INTO zasanddas.drink_base (drink_name, base_price)
+            values ('Kyles M', 4.50);
+
             CREATE TABLE zasanddas.d_addin (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 addin_name VARCHAR(50) not null,
                 base_price decimal NOT NULL
             );
+
+            INSERT INTO zasanddas.d_addin (addin_name, base_price)
+            values ('Raspberry', 1.50);
 
             CREATE TABLE zasanddas.drink (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
