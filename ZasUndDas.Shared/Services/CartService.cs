@@ -18,6 +18,7 @@ namespace ZasUndDas.Shared.Services
         public int GetItemCount => cart.Count;
         public event EventHandler? CartUpdated;
         public decimal TipAmount { get; set; }
+        public decimal EstimatedTaxRate { get; private set; } = 0.1135m;
         string? nonce;
         public bool IsNonce { get => nonce != null; }
         public void AddNonce(string nonce)

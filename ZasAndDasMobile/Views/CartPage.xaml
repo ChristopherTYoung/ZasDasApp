@@ -155,16 +155,44 @@
                                Keyboard="Numeric"
                                Placeholder="Enter Custom Tip"
                                Text="{Binding TipAmount, Mode=TwoWay}"
-                               IsVisible="{Binding OtherTipSelected}"/>
+                               IsVisible="{Binding OtherTipSelected}"
+                               MaxLength="6"/>
                     </Grid>
-                    <VerticalStackLayout Grid.Column="1"
-                                         Grid.Row="1">
-                        <Label Text="Subtotal"/>
-                        <Label Text="Estimated Taxes"/>
-                        <Label Text="Tip"/>
-                        <Label Text="{Binding TipAmount}"/>
-                        <Label Text="Estimated Total"/>
-                    </VerticalStackLayout>
+                    <Grid Grid.Column="1"
+                          Grid.Row="1"
+                          RowDefinitions="auto,auto,auto,auto,auto"
+                          RowSpacing="3"
+                          ColumnDefinitions="*,auto">
+                        <Label Text="Subtotal"
+                               Grid.Row="0"
+                               Grid.Column="0"/>
+                        <Label Text="{Binding SubTotal, StringFormat='{0:c}'}"
+                               Grid.Row="0"
+                               Grid.Column="1"
+                               Padding="0,0,10,0"/>
+                        <Label Text="Estimated Taxes"
+                               Grid.Row="1"
+                               Grid.Column="0"/>
+                        <Label Text="{Binding EstimatedTaxes, StringFormat='{0:c}'}"
+                               Grid.Row="1"
+                               Grid.Column="1"/>
+                        <Label Text="Tip"
+                               Grid.Row="2"
+                               Grid.Column="0"/>
+                        <Label Text="{Binding TipAmount, StringFormat='{0:c}'}"
+                               Grid.Row="2"
+                               Grid.Column="1"/>
+                        <BoxView Grid.Row="3" Grid.ColumnSpan="2" 
+                                 HeightRequest="1" Color="DarkRed" 
+                                 HorizontalOptions="FillAndExpand" />
+                        <Label Text="Estimated Total"
+                               Grid.Row="4"
+                               Grid.Column="0"/>
+                        <Label Text="{Binding Total, StringFormat='{0:c}'}"
+                               Grid.Row="4"
+                               Grid.Column="1"
+                               Padding="0,0,5,0"/>
+                    </Grid>
                 </Grid>
             </Grid>
             <Button Text="{Binding Total, StringFormat='{0:c} - Continue to Payment'}" Command="{Binding OrderAndPayCommand}"
