@@ -21,6 +21,7 @@ namespace ZasAndDasWeb.Services
                     item.DrinkId = await AddDrinkToDatabase(itemDTO);
                     break;
                 case ItemType.Calzone:
+                    item.CalzoneId = await AddCalzoneToDatabase(itemDTO);
                     break;
                 case ItemType.CheeseBread:
                     break;
@@ -33,6 +34,17 @@ namespace ZasAndDasWeb.Services
                     break;
             }
             return item;
+        }
+
+        private async Task<int> AddCalzoneToDatabase(OrderItemDTO itemDTO)
+        {
+            await context.Calzones.AddAsync(itemDTO.Calzone!.ToCalzone());
+            await context.SaveChangesAsync();
+
+            var calzone = context.Calzones.OrderBy(c => c.Id).Last();
+            itemDTO.Calzone.Id = calzone.Id;
+            await itemDTO.Calzone.SaveToppingsToDatabase(context);
+            return calzone.Id;
         }
 
         private async Task<int> AddDrinkToDatabase(OrderItemDTO itemDTO)

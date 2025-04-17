@@ -31,6 +31,10 @@ public class Calzone
 }
 public class CalzoneDTO : ICheckoutItem
 {
+    public CalzoneDTO()
+    {
+        Addins = new List<PAddinDTO>();
+    }
     public int Id { set; get; }
     public int? SauceId { set; get; }
     public bool? CookedAtHome { set; get; }
@@ -53,4 +57,12 @@ public class CalzoneDTO : ICheckoutItem
             Price = this.Price
         };
     }
+    public async Task SaveToppingsToDatabase(PostgresContext context)
+    {
+        foreach (var addin in Addins)
+            await context.CalzonAddins.AddAsync(new CalzonAddin { AddinId = addin.Id, CalzoneId = this.Id });
+
+        await context.SaveChangesAsync();
+    }
+
 }

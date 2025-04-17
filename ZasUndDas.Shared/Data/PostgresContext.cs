@@ -18,7 +18,7 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<CalzonAddin> CalzonAddins { set; get; }
 
-    public virtual DbSet<CalzoneDTO> Calzones { set; get; }
+    public virtual DbSet<Calzone> Calzones { set; get; }
 
     public virtual DbSet<Category> Categories { set; get; }
 
@@ -83,7 +83,7 @@ public partial class PostgresContext : DbContext
                 .HasColumnName("quantity");
         });
 
-        modelBuilder.Entity<CalzoneDTO>(entity =>
+        modelBuilder.Entity<Calzone>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("calzone_pkey");
 

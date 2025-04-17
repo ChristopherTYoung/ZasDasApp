@@ -74,6 +74,9 @@ namespace ZasAndDas.IntegrationTests
                 sauce_name VARCHAR(50) not null
             );
 
+            insert into zasanddas.sauce (sauce_name)
+            values ('Marinara')
+
             CREATE TABLE zasanddas.pizza_size (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 size_name VARCHAR(10) not null, 
