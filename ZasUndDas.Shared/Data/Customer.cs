@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ZasUndDas.Shared.Data;
 
-public partial class Customer
+public partial class CustomerDTO
 {
     public int Id { set; get; }
 
@@ -13,6 +13,5 @@ public partial class Customer
 
     public string? Phone { set; get; }
     public string ApiKey { set; get; } = null!;
-
-    public virtual ICollection<PizzaOrder> PizzaOrders { set; get; } = new List<PizzaOrder>();
+    public string HashedPass { set; get; } = null!;
 }

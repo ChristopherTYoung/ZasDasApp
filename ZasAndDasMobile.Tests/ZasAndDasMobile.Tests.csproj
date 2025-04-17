@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ZasAndDasWeb\ZasAndDasWeb.csproj" />
     <ProjectReference Include="..\ZasUndDas.Shared\ZasUndDas.Shared.csproj" />
   </ItemGroup>
 

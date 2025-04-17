@@ -2,13 +2,16 @@
 using Microsoft.EntityFrameworkCore;
 using NSubstitute;
 using Shouldly;
+using System;
 using System.Globalization;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Xml.Linq;
 using Xunit.Abstractions;
 using ZasUndDas.Shared;
 using ZasUndDas.Shared.Data;
+using ZasUndDas.Shared.Services;
 
 namespace ZasAndDas.IntegrationTests
 {
@@ -125,6 +128,16 @@ namespace ZasAndDas.IntegrationTests
             dbPizza.Base.Id.ShouldBe(1);
             dbPizza.Base.Name.ShouldBe("Test");
             dbPizza.Base.Price.ShouldBe(15.99M);
+        }
+        [Fact]
+        public async Task CanAuthorize()
+        {
+            var client = _app.CreateClient();
+            var createRequest = new CreateRequest() { Email = "tetatete@gmail.com", Name = "test", PassCode = "Golden Wind" };
+            var APIKEY = await client.PostAsJsonAsync("/api/auth/create", createRequest);
+            APIKEY.ShouldNotBeNull();
+            var authRequest = new AuthRequest() { Email = "tetatete@gmail.com", PassCode = "Golden Wind" };
+            (await APIKEY!.Content.ReadAsStringAsync()).ShouldBe((await (await client.PostAsJsonAsync("/api/auth/create", createRequest)).Content.ReadAsStringAsync()));
         }
     }
 }

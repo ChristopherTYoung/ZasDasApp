@@ -23,7 +23,7 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<CheeseBread> CheeseBreads { set; get; }
 
-    public virtual DbSet<Customer> Customers { set; get; }
+    public virtual DbSet<CustomerDTO> Customers { set; get; }
 
     public virtual DbSet<DAddin> DAddins { set; get; }
 
@@ -130,7 +130,7 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.SizeId).HasColumnName("size_id");
         });
 
-        modelBuilder.Entity<Customer>(entity =>
+        modelBuilder.Entity<CustomerDTO>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("customer_pkey");
 
@@ -151,6 +151,9 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.ApiKey)
                 .HasMaxLength(50)
                 .HasColumnName("api_key");
+            entity.Property(e => e.HashedPass)
+                .HasMaxLength(50)
+                .HasColumnName("hashed_pass");
         });
 
         modelBuilder.Entity<DAddin>(entity =>

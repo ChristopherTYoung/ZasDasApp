@@ -9,6 +9,7 @@ using ZasUndDas.Shared.Data;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 using ZasAndDasWeb.Services;
+
 public class Program
 {
     private static void Main(string[] args)
@@ -24,6 +25,7 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddScoped<OrderService>();
+        builder.Services.AddScoped<IAPIKeyValidationService, APIKeyValidationService>();
 
         var collectorURL = builder.Configuration["COLLECTOR_URL"] ?? null;
 

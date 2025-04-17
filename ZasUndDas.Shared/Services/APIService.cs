@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Square.Bookings.CustomAttributeDefinitions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
@@ -20,6 +21,14 @@ public class APIService : IAPIService
         {
             return Client.BaseAddress;
         }
+    }
+    public async Task Authorize(AuthRequest request)
+    {
+        Client.DefaultRequestHeaders.Add("APIKEY", await (await Client.PostAsJsonAsync("/api/auth/authenticate", request)).Content.ReadAsStringAsync());
+    }
+    public async Task CreateAccount(CreateRequest request)
+    {
+        Client.DefaultRequestHeaders.Add("APIKEY", await (await Client.PostAsJsonAsync("/api/auth/create", request)).Content.ReadAsStringAsync());
     }
     public async Task<List<PizzaBaseDTO>> GetPizzas()
     {
@@ -54,6 +63,8 @@ public class APIService : IAPIService
 
 public interface IAPIService
 {
+    public Task Authorize(AuthRequest request);
+    public Task CreateAccount(CreateRequest request);
     public Task<List<DrinkBaseDTO>> GetDrinks();
     public Task<List<PizzaBaseDTO>> GetPizzas();
     public Task<List<PAddinDTO>> GetPizzaToppings();
