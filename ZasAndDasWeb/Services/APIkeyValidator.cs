@@ -28,7 +28,7 @@ public class APIKeyValidationService : IAPIKeyValidationService
         bool unique = true;
         var customer = new CustomerDTO() { ApiKey = APIkey, CustomerName = request.Name, Email = request.Email, HashedPass = request.PassCode.GetHashCode().ToString() };
         var attempts = 0;
-        while (!unique && attempts <= 3)
+        while (!unique || attempts > 3)
         {
             try
             {
@@ -44,8 +44,8 @@ public class APIKeyValidationService : IAPIKeyValidationService
                     APIkey = new Guid().ToString();
                     customer.ApiKey = APIkey;
                     attempts++;
-                    if (attempts <= 3)
-                        APIkey = "failed to create account";
+                    if (attempts > 3)
+                        return "failed to create account";
                     unique = false;
                 }
             }
@@ -53,8 +53,9 @@ public class APIKeyValidationService : IAPIKeyValidationService
         return APIkey;
     }
 
-    public bool IsValidAPIKey(string? key)
+    public CustomerDTO GetCustomer(string? key)
     {
-        return _context.Customers.Select(u => u.ApiKey).Contains(key);
+        return _context.Customers.First(u => u.ApiKey == key);
     }
+
 }

@@ -6,7 +6,7 @@ namespace ZasAndDasWeb.Services
 {
     public interface IAPIKeyValidationService
     {
-        bool IsValidAPIKey(string? key);
+        public CustomerDTO GetCustomer(string? key);
         string CreateAccount(CreateRequest request);
         string Authenticate(AuthRequest request);
     }
