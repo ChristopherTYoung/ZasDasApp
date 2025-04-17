@@ -382,7 +382,7 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Id)
                 .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
-            entity.Property(e => e.BasePriceId).HasColumnName("base_price_id");
+            entity.Property(e => e.BasePrice).HasColumnName("base_price");
         });
 
         modelBuilder.Entity<SaladAddin>(entity =>
