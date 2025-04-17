@@ -21,6 +21,8 @@ namespace ZasAndDas.IntegrationTests
             _outputHelper = outputHelper;
             _dbContainer = new PostgreSqlBuilder()
             .WithImage("postgres")
+            .WithCleanUp(true)
+            .WithName(Guid.NewGuid().ToString())
             .WithPassword("Strong_password_123!")
             .Build();
 
@@ -31,7 +33,7 @@ namespace ZasAndDas.IntegrationTests
                     services.RemoveAll<DbContextOptions>();
                     services.RemoveAll<PostgresContext>();
                     services.RemoveAll(typeof(DbContextOptions<PostgresContext>));
-                    services.AddDbContext<PostgresContext>(options => options.UseNpgsql(_dbContainer.GetConnectionString()));//Expect this line to give you an error for now...
+                    services.AddDbContext<PostgresContext>(options => options.UseNpgsql(_dbContainer.GetConnectionString()));
                 });
                 builder.ConfigureLogging(logging =>
                 {
@@ -75,7 +77,7 @@ namespace ZasAndDas.IntegrationTests
             );
 
             insert into zasanddas.sauce (sauce_name)
-            values ('Marinara')
+            values ('Marinara');
 
             CREATE TABLE zasanddas.pizza_size (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
