@@ -69,7 +69,7 @@ namespace ZasAndDasMobile.ViewModels
             this.item = item;
             _cartService = cartService;
             _menuItemService = menuItemService;
-            PizzaSizes = _menuItemService.GetPizzaSizes().Result;
+            PizzaSizes = SetPizzaSizes(_menuItemService.GetPizzaSizes().Result);
             PizzaSauces = _menuItemService.GetSauces().Result;
             PizzaAddins = _menuItemService.GetPAddonDTOs().Result;
             SelectedCookStyle = CookStyle[0];
@@ -80,6 +80,12 @@ namespace ZasAndDasMobile.ViewModels
         public void SetPopup(Popup popup)
         {
             _popup = popup;
+        }
+
+        private List<PizzaSize> SetPizzaSizes(List<PizzaSize> pizzaSizes)
+        {
+            if (Name != "CYO") pizzaSizes.RemoveAll(size => size.Id == 0);
+            return pizzaSizes;
         }
         partial void OnSelectedPizzaSizeChanged(PizzaSize? value)
         {

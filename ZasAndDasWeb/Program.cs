@@ -16,7 +16,6 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
         builder.Services.AddRazorComponents();
 
         builder.Services.AddMetrics();
@@ -25,7 +24,7 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddScoped<OrderService>();
-        builder.Services.AddSingleton<IAPIKeyValidationService, APIKeyValidationService>();
+        builder.Services.AddScoped<IAPIKeyValidationService, APIKeyValidationService>();
 
         var collectorURL = builder.Configuration["COLLECTOR_URL"] ?? null;
 
@@ -97,3 +96,4 @@ public class Program
         app.Run();
     }
 }
+

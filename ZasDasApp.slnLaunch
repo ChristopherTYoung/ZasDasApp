@@ -10,7 +10,7 @@
       {
         "Path": "ZasAndDasMobile\\ZasAndDasMobile.csproj",
         "Action": "Start",
-        "DebugTarget": "Pixel 5 - API 34 (Android 14.0 - API 34)"
+        "DebugTarget": "Pixel 7 - API 35 (Android 15.0 - API 35)"
       }
     ]
   },
