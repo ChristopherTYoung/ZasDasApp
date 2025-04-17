@@ -25,7 +25,7 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddScoped<OrderService>();
-        builder.Services.AddSingleton<IAPIKeyValidationService, APIKeyValidationService>();
+        builder.Services.AddScoped<IAPIKeyValidationService, APIKeyValidationService>();
 
         var collectorURL = builder.Configuration["COLLECTOR_URL"] ?? null;
 
