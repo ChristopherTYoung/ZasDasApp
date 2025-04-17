@@ -72,7 +72,7 @@ namespace ZasAndDasMobile.Tests
         public void CalculatePrice_WithEmptyCart()
         {
             var cart = new CartService();
-            cart.CalculateTotal().ShouldBe(0);
+            cart.CalculateSubTotal().ShouldBe(0);
         }
 
         [Fact]
@@ -82,7 +82,7 @@ namespace ZasAndDasMobile.Tests
             var pizza = new PizzaDTO(new PizzaBaseDTO() { Price = 4.99m });
             pizza.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 0.00m };
             cart.AddToCart(pizza);
-            cart.CalculateTotal().ShouldBe(4.99m);
+            cart.CalculateSubTotal().ShouldBe(4.99m);
         }
 
         [Theory]
@@ -98,7 +98,7 @@ namespace ZasAndDasMobile.Tests
             pizza2.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 0.00m };
             cart.AddToCart(pizza1);
             cart.AddToCart(pizza2);
-            cart.CalculateTotal().ShouldBe(result);
+            cart.CalculateSubTotal().ShouldBe(result);
         }
 
         [Fact]

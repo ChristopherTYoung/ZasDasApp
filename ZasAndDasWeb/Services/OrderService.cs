@@ -15,16 +15,13 @@ namespace ZasAndDasWeb.Services
             switch (itemDTO.Item)
             {
                 case ItemType.Pizza:
-                    await context.Pizzas.AddAsync(itemDTO.Pizza!.ToPizza());
-                    await context.SaveChangesAsync();
-                    var pizza = context.Pizzas.OrderBy(p => p.Id).Last();
-                    item.PizzaId = pizza.Id;
-                    itemDTO.Pizza.Id = pizza.Id;
-                    await itemDTO.Pizza.SaveToppingsToDatabase(context);
+                    item.PizzaId = await AddPizzaToDatabase(itemDTO);
                     break;
                 case ItemType.Drink:
+                    item.DrinkId = await AddDrinkToDatabase(itemDTO);
                     break;
                 case ItemType.Calzone:
+                    item.CalzoneId = await AddCalzoneToDatabase(itemDTO);
                     break;
                 case ItemType.CheeseBread:
                     break;
@@ -37,6 +34,41 @@ namespace ZasAndDasWeb.Services
                     break;
             }
             return item;
+        }
+
+        private async Task<int> AddCalzoneToDatabase(OrderItemDTO itemDTO)
+        {
+            await context.Calzones.AddAsync(itemDTO.Calzone!.ToCalzone());
+            await context.SaveChangesAsync();
+
+            var calzone = context.Calzones.OrderBy(c => c.Id).Last();
+            itemDTO.Calzone.Id = calzone.Id;
+            await itemDTO.Calzone.SaveToppingsToDatabase(context);
+            return calzone.Id;
+        }
+
+        private async Task<int> AddDrinkToDatabase(OrderItemDTO itemDTO)
+        {
+            await context.Drinks.AddAsync(itemDTO.Drink!.ToDrink());
+            await context.SaveChangesAsync();
+
+            var drink = context.Drinks.OrderBy(p => p.Id).Last();
+            itemDTO.Drink.Id = drink.Id;
+            await itemDTO.Drink.SaveAddinsToDatabase(context);
+
+            return drink.Id;
+        }
+
+        private async Task<int> AddPizzaToDatabase(OrderItemDTO itemDTO)
+        {
+            await context.Pizzas.AddAsync(itemDTO.Pizza!.ToPizza());
+            await context.SaveChangesAsync();
+
+            var pizza = context.Pizzas.OrderBy(p => p.Id).Last();
+            itemDTO.Pizza.Id = pizza.Id;
+            await itemDTO.Pizza.SaveToppingsToDatabase(context);
+
+            return pizza.Id;
         }
 
         public async Task AddOrderItemToDatabase(OrderItemDTO orderItem)
