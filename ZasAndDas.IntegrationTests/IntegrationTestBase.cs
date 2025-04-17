@@ -123,11 +123,17 @@ namespace ZasAndDas.IntegrationTests
                 base_price decimal NOT NULL
             );
 
+            INSERT INTO zasanddas.drink_base (drink_name, base_price)
+            values ('Kyles M', 4.50);
+
             CREATE TABLE zasanddas.d_addin (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 addin_name VARCHAR(50) not null,
                 base_price decimal NOT NULL
             );
+
+            INSERT INTO zasanddas.d_addin (addin_name, base_price)
+            values ('Raspberry', 1.50);
 
             CREATE TABLE zasanddas.drink (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,

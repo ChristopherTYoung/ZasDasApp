@@ -1,14 +1,33 @@
-﻿using Square.Inventory;
+﻿using Microsoft.EntityFrameworkCore;
+using Square.Inventory;
 using System;
 using System.Collections.Generic;
 
 namespace ZasUndDas.Shared.Data;
+public class Drink
+{
+    public int Id { set; get; }
+    public int BaseId { set; get; }
 
+    public async Task<DrinkDTO> ToDrinkDTO(PostgresContext context)
+    {
+        var drink = new DrinkDTO(context.DrinkBases.First(b => b.Id == BaseId));
+
+        var addinIds = await context.DrinkAddins
+                                .Where(a => a.DrinkId == Id)
+                                .Select(a => a.AddinId)
+                                .ToListAsync();
+        drink.Addins = await context.DAddins
+                                .Where(a => addinIds.Contains(a.Id))
+                                .ToListAsync();
+        return drink;
+    }
+}
 public partial class DrinkDTO : ICheckoutItem
 {
     public DrinkDTO()
     {
-        DrinkAddin = new List<DrinkAddin>();
+        Addins = new List<DAddin>();
     }
 
     public DrinkDTO(DrinkBaseDTO _base)
@@ -16,7 +35,7 @@ public partial class DrinkDTO : ICheckoutItem
         Base = _base;
         BaseId = Base.Id;
         Name = Base.Name;
-        DrinkAddin = new List<DrinkAddin>();
+        Addins = new List<DAddin>();
     }
     public int Id { set; get; }
 
@@ -31,17 +50,21 @@ public partial class DrinkDTO : ICheckoutItem
         get;
     }
 
-    DrinkBaseDTO Base { set; get; } = null!;
+    public DrinkBaseDTO Base { set; get; } = null!;
 
-    List<DrinkAddin> DrinkAddin { set; get; } = null!;
-
+    public List<DAddin> Addins { set; get; } = null!;
+    public void AddDrinkAddin(DAddin addin)
+    {
+        Addins.Add(addin);
+        Price = CalculatePrice();
+    }
     public decimal CalculatePrice()
     {
 
         decimal baseprice = Base.Price;
-        foreach (var adin in DrinkAddin)
+        foreach (var adin in Addins)
         {
-            baseprice += adin.Addin.Price;
+            baseprice += adin.Price;
         }
         return baseprice;
 
@@ -53,8 +76,25 @@ public partial class DrinkDTO : ICheckoutItem
     }
     public DrinkDTO Clean()
     {
-        DrinkAddin = new List<DrinkAddin>();
+        Addins = new List<DAddin>();
         Base = null;
         return this;
+    }
+
+    public async Task SaveAddinsToDatabase(PostgresContext context)
+    {
+        foreach (var ad in Addins)
+            await context.DrinkAddins.AddAsync(new() { DrinkId = Id, AddinId = ad.Id });
+
+        await context.SaveChangesAsync();
+    }
+
+    public Drink ToDrink()
+    {
+        return new Drink()
+        {
+            BaseId = this.BaseId
+        };
+
     }
 }

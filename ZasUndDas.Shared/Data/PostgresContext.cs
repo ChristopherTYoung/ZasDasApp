@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml;
 using Microsoft.EntityFrameworkCore;
 
 namespace ZasUndDas.Shared.Data;
@@ -27,7 +28,7 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<DAddin> DAddins { set; get; }
 
-    public virtual DbSet<DrinkDTO> Drinks { set; get; }
+    public virtual DbSet<Drink> Drinks { set; get; }
 
     public virtual DbSet<DrinkAddin> DrinkAddins { set; get; }
 
@@ -169,7 +170,7 @@ public partial class PostgresContext : DbContext
                 .HasColumnName("base_price");
         });
 
-        modelBuilder.Entity<DrinkDTO>(entity =>
+        modelBuilder.Entity<Drink>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("drink_pkey");
 
@@ -178,8 +179,7 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Id)
                 .UseIdentityAlwaysColumn()
                 .HasColumnName("id");
-            // fix later lol
-            //entity.Property(e => e.BaseId).HasColumnName("base_id");
+            entity.Property(e => e.BaseId).HasColumnName("base_id");
 
         });
 
@@ -263,6 +263,7 @@ public partial class PostgresContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("addin_name");
             entity.Property(e => e.Price).HasColumnName("base_price");
+            entity.Ignore(e => e.IsChecked);
 
         });
 

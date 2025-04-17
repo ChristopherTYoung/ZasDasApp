@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 
 namespace ZasUndDas.Shared.Data;
@@ -15,11 +16,19 @@ public partial class Pizza
 
     public async Task<PizzaDTO> ToPizzaDTO(PostgresContext context)
     {
-        return new PizzaDTO(context.PizzaBases.First(p => p.Id == this.Id))
+        var pizza = new PizzaDTO(context.PizzaBases.First(p => p.Id == this.Id))
         {
             SizeId = this.SizeId,
             CookedAtHome = this.CookedAtHome
         };
+        var addinIds = await context.PizzaAddins
+                                .Where(a => a.PizzaId == Id)
+                                .Select(a => a.AddinId)
+                                .ToListAsync();
+        pizza.Addins = await context.PAddins
+                                .Where(a => addinIds.Contains(a.Id))
+                                .ToListAsync();
+        return pizza;
     }
 }
 public class PizzaDTO : ICheckoutItem
@@ -88,6 +97,8 @@ public class PizzaDTO : ICheckoutItem
     {
         foreach (var addin in Addins)
             await context.PizzaAddins.AddAsync(new PizzaAddin { AddinId = addin.Id, PizzaId = this.Id });
+
+        await context.SaveChangesAsync();
     }
 
     public Pizza ToPizza()

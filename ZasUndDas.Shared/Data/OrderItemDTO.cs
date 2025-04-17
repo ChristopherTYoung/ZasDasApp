@@ -31,13 +31,17 @@ public partial class OrderItem
     {
         var pizza = await context.Pizzas.FindAsync(PizzaId);
         var stock = await context.StockItems.FindAsync(StockItemId);
+        var drink = await context.Drinks.FindAsync(DrinkId);
         var orderItem = new OrderItemDTO
         {
             Id = this.Id,
             OrderId = this.OrderId,
-            StockItem = stock,
-            Pizza = await pizza.ToPizzaDTO(context)
+            StockItem = stock
         };
+
+        if (pizza != null) orderItem.Pizza = await pizza.ToPizzaDTO(context);
+        else if (drink != null) orderItem.Drink = await drink.ToDrinkDTO(context);
+
         return orderItem;
     }
 }
@@ -48,6 +52,8 @@ public class OrderItemDTO
     //public DrinkDTO {set; get;}
     public StockItemDTO? StockItem { set; get; }
     public PizzaDTO? Pizza { set; get; }
+    public DrinkDTO? Drink { set; get; }
+    public CalzoneDTO Calzone { set; get; }
     public ItemType? Item { set; get; }
     public int Quantity { set; get; }
     public OrderItemDTO()
@@ -65,6 +71,14 @@ public class OrderItemDTO
             case nameof(PizzaDTO):
                 Pizza = (PizzaDTO)item;
                 Item = ItemType.Pizza;
+                break;
+            case nameof(DrinkDTO):
+                Drink = (DrinkDTO)item;
+                Item = ItemType.Drink;
+                break;
+            case nameof(CalzoneDTO):
+                Calzone = (CalzoneDTO)item;
+                Item = ItemType.Calzone;
                 break;
             default:
                 break;
