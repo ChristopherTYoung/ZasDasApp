@@ -2,8 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ZasAndDasMobile.CartPage"
+             xmlns:converters="clr-namespace:ZasAndDasMobile.Converters"
              Shell.NavBarIsVisible="False"
              Title="CartPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TipToBackgroundColorConverter x:Key="TipBGColorConverter"/>
+            <converters:TipToTextColorConverter x:Key="TipTextColorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     
     <Grid RowDefinitions="auto,auto,*,auto">
         <Grid Grid.Row="0"
@@ -11,7 +18,7 @@
           ColumnSpacing="0"
           BackgroundColor="Black"
           Padding="10,0,10,0">
-    
+
             <ImageButton Source="back_arrow_icon.png"
                          MaximumHeightRequest="32"
                          MaximumWidthRequest="32"
@@ -24,7 +31,7 @@
                    Grid.ColumnSpan="2"
                    HorizontalOptions="Center"/>
         </Grid>
-        
+
         <Grid Grid.Row="1"
           RowDefinitions="auto,auto"
           BackgroundColor="#303331">
@@ -36,29 +43,135 @@
                TextColor="White"
                Grid.Row="1"/>
         </Grid>
-        <VerticalStackLayout Grid.Row="2"
-                             Padding="0,10,0,0">
+
+        <Grid Grid.Row="2"
+              Padding="0,10,0,0"
+              RowDefinitions="auto,*,auto,auto">
             <Label Text="Your Cart"
                    FontSize="Title"
                    FontAttributes="Bold"
                    Padding="10,0,0,0"/>
-            <ScrollView>
+            <ScrollView Grid.Row="1"
+                        Padding="0,15,0,0">
                 <CollectionView ItemsSource="{Binding CartItems}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <HorizontalStackLayout>
-                                <Label Text="{Binding Name}"/>
-                                <Label Text="Price:"/>
-                                <Label Text="{Binding Price}" 
-                                       FontAttributes="Bold"/>
-                                <Label Text="Qty:"/>
-                                <Label Text="{Binding Quantity}"/>
-                            </HorizontalStackLayout>
+                            <Grid ColumnDefinitions="auto,*,auto,auto"
+                                  RowDefinitions="*,auto"
+                                  Padding="5,10,25,0">
+                                <Image Source="pizza.png"
+                                       MinimumHeightRequest="64"
+                                       MaximumHeightRequest="64"
+                                       MinimumWidthRequest="64"
+                                       MaximumWidthRequest="64"/>
+                                <VerticalStackLayout Grid.Column="1">
+                                    <Label Text="{Binding Name}"
+                                           FontAttributes="Bold"
+                                           FontSize="Body"/>
+                                    <Label Text="{Binding Price, StringFormat='{0:c}'}" />
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="2"
+                                                     VerticalOptions="Center"
+                                                     Padding="0,0,10,0">
+                                    <Label Text="{Binding Quantity}"/>
+                                </VerticalStackLayout>
+                                <BoxView Grid.Row="1" Grid.ColumnSpan="3" 
+                                         HeightRequest="1" Color="DarkRed" 
+                                         HorizontalOptions="FillAndExpand" Margin="10,10" />
+                            </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </ScrollView>
-            <Button Text="Pay here" Command="{Binding OrderAndPayCommand}"/>
-        </VerticalStackLayout>
+
+            <Grid Grid.Row="2"
+                  RowDefinitions="auto,*"
+                  RowSpacing="10"
+                  Padding="10,0,0,10">
+                <Label Text="Summary"
+                       FontSize="Large"
+                       FontAttributes="Bold"/>
+                <Grid Grid.Row="1"
+                      RowDefinitions="auto, *"
+                      ColumnDefinitions="*,*">
+
+                    <Label Text="Add a Tip!"
+                           FontSize="Body"
+                           FontAttributes="Bold"
+                           Padding="10"/>
+                    <Grid Grid.Row="1"
+                          RowDefinitions="*,*,auto"
+                          RowSpacing="5"
+                          ColumnDefinitions="*,*">
+                        <Button Grid.Row="0"
+                                Grid.Column="0"
+                                Text="10%"
+                                MinimumHeightRequest="50"
+                                MaximumHeightRequest="50"
+                                MinimumWidthRequest="90"
+                                MaximumWidthRequest="90"
+                                BackgroundColor="{Binding SelectedTip, Converter={StaticResource TipBGColorConverter}, ConverterParameter=.10}"
+                                TextColor="{Binding SelectedTip, Converter={StaticResource TipTextColorConverter}, ConverterParameter=.10}"
+                                Command="{Binding SetTipAmountCommand}"
+                                CommandParameter=".10"/>
+
+                        <Button Grid.Row="0"
+                                Grid.Column="1"
+                                Text="15%"
+                                MinimumHeightRequest="50"
+                                MaximumHeightRequest="50"
+                                MinimumWidthRequest="90"
+                                MaximumWidthRequest="90"
+                                Background="{Binding SelectedTip, Converter={StaticResource TipBGColorConverter}, ConverterParameter=.15}"
+                                TextColor="{Binding SelectedTip, Converter={StaticResource TipTextColorConverter}, ConverterParameter=.15}"
+                                Command="{Binding SetTipAmountCommand}"
+                                CommandParameter=".15"/>
+
+                        <Button Grid.Row="1"
+                                Grid.Column="0"
+                                Text="20%"
+                                MinimumHeightRequest="50"
+                                MaximumHeightRequest="50"
+                                MinimumWidthRequest="90"
+                                MaximumWidthRequest="90"
+                                Background="{Binding SelectedTip, Converter={StaticResource TipBGColorConverter}, ConverterParameter=.20}"
+                                TextColor="{Binding SelectedTip, Converter={StaticResource TipTextColorConverter}, ConverterParameter=.20}"
+                                Command="{Binding SetTipAmountCommand}"
+                                CommandParameter=".20"/>
+
+                        <Button Grid.Row="1"
+                                Grid.Column="1"
+                                Text="Other"
+                                MinimumHeightRequest="50"
+                                MaximumHeightRequest="50"
+                                MinimumWidthRequest="90"
+                                MaximumWidthRequest="90"
+                                Background="{Binding SelectedTip, Converter={StaticResource TipBGColorConverter}, ConverterParameter=Other}"
+                                TextColor="{Binding SelectedTip, Converter={StaticResource TipTextColorConverter}, ConverterParameter=Other}"
+                                Command="{Binding SetTipAmountCommand}"
+                                CommandParameter="Other"/>
+                        <Entry Grid.Row="2"
+                               Grid.ColumnSpan="2"
+                               Keyboard="Numeric"
+                               Placeholder="Enter Custom Tip"
+                               Text="{Binding TipAmount, Mode=TwoWay}"
+                               IsVisible="{Binding OtherTipSelected}"/>
+                    </Grid>
+                    <VerticalStackLayout Grid.Column="1"
+                                         Grid.Row="1">
+                        <Label Text="Subtotal"/>
+                        <Label Text="Estimated Taxes"/>
+                        <Label Text="Tip"/>
+                        <Label Text="{Binding TipAmount}"/>
+                        <Label Text="Estimated Total"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Grid>
+            <Button Text="{Binding Total, StringFormat='{0:c} - Continue to Payment'}" Command="{Binding OrderAndPayCommand}"
+                    Grid.Row="3"
+                    Margin="10,0,10,50"
+                    BackgroundColor="Black"
+                    TextColor="White"/>
+        </Grid>
     </Grid>
 </ContentPage>

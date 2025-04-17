@@ -17,6 +17,7 @@ namespace ZasUndDas.Shared.Services
         public ObservableCollection<ICheckoutItem> GetCartItems => cart;
         public int GetItemCount => cart.Count;
         public event EventHandler? CartUpdated;
+        public decimal TipAmount { get; set; }
         string? nonce;
         public bool IsNonce { get => nonce != null; }
         public void AddNonce(string nonce)
@@ -75,6 +76,10 @@ namespace ZasUndDas.Shared.Services
             if (api != null && api.BaseAddress != null)
                 return api.BaseAddress.OriginalString + "/pay";
             throw new Exception();
+        }
+        public void SetTipAmount(decimal tip)
+        {
+            TipAmount = tip;
         }
     }
 }
