@@ -20,20 +20,19 @@ namespace ZasAndDasMobile.ViewModels
         [ObservableProperty]
         public partial decimal TipAmount { get; set; }
         [ObservableProperty]
-        public partial string CustomTipAmount { get; set; } = string.Empty;
-
-        [ObservableProperty]
         public partial bool OtherTipSelected { get; set; } = false;
 
         [ObservableProperty]
+        public partial string SelectedTip { get; set; } = ".15";
+        [ObservableProperty]
         public partial decimal Total { get; set; }
+
 
         [RelayCommand]
         public async Task ReturnToHome()
         {
             await Shell.Current.GoToAsync("///MainPage");
         }
-
 
         [RelayCommand]
         public async Task OrderAndPay()
@@ -44,6 +43,7 @@ namespace ZasAndDasMobile.ViewModels
         [RelayCommand]
         public void SetTipAmount(string tip)
         {
+            SelectedTip = tip;
             if (decimal.TryParse(tip, out decimal result))
             {
                 OtherTipSelected = false;
@@ -66,10 +66,7 @@ namespace ZasAndDasMobile.ViewModels
             CartItems = _cartService.GetCartItems;
             _cartService.CartUpdated += OnCartUpdated!;
             Total = _cartService.CalculateTotal();
-
-            _cartService.SetTipAmount(Total * .15m);
-            TipAmount = _cartService.TipAmount;
-            CustomTipAmount = TipAmount.ToString("C");
+            UpdateTip(Total * .15m);
 
         }
         public void OnLoad()
@@ -83,10 +80,6 @@ namespace ZasAndDasMobile.ViewModels
             OnPropertyChanged(nameof(Total));
             OnPropertyChanged(nameof(CartItems));
         }
-        partial void OnCustomTipAmountChanged(string oldValue, string newValue)
-        {
-            if (decimal.TryParse(newValue, out decimal result)) UpdateTip(result);
-        }
         partial void OnTipAmountChanged(decimal oldValue, decimal newValue)
         {
             UpdateTip(newValue);
@@ -96,7 +89,6 @@ namespace ZasAndDasMobile.ViewModels
             if (newValue < 0) _cartService.SetTipAmount(0);
             else _cartService.SetTipAmount(Math.Round((decimal)newValue, 2));
             TipAmount = _cartService.TipAmount;
-            CustomTipAmount = TipAmount.ToString("C");
         }
         internal void setNavigation(INavigation navigation)
         {

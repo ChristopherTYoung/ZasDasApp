@@ -2,9 +2,16 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ZasAndDasMobile.CartPage"
+             xmlns:converters="clr-namespace:ZasAndDasMobile.Converters"
              Shell.NavBarIsVisible="False"
              Title="CartPage">
-
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TipToBackgroundColorConverter x:Key="TipBGColorConverter"/>
+            <converters:TipToTextColorConverter x:Key="TipTextColorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <Grid RowDefinitions="auto,auto,*,auto">
         <Grid Grid.Row="0"
           ColumnDefinitions="auto,*"
@@ -103,8 +110,8 @@
                                 MaximumHeightRequest="50"
                                 MinimumWidthRequest="90"
                                 MaximumWidthRequest="90"
-                                BackgroundColor="DarkRed"
-                                TextColor="Gold"
+                                BackgroundColor="{Binding SelectedTip, Converter={StaticResource TipBGColorConverter}, ConverterParameter=.10}"
+                                TextColor="{Binding SelectedTip, Converter={StaticResource TipTextColorConverter}, ConverterParameter=.10}"
                                 Command="{Binding SetTipAmountCommand}"
                                 CommandParameter=".10"/>
 
@@ -115,8 +122,8 @@
                                 MaximumHeightRequest="50"
                                 MinimumWidthRequest="90"
                                 MaximumWidthRequest="90"
-                                Background="LightGray"
-                                TextColor="Black"
+                                Background="{Binding SelectedTip, Converter={StaticResource TipBGColorConverter}, ConverterParameter=.15}"
+                                TextColor="{Binding SelectedTip, Converter={StaticResource TipTextColorConverter}, ConverterParameter=.15}"
                                 Command="{Binding SetTipAmountCommand}"
                                 CommandParameter=".15"/>
 
@@ -127,8 +134,8 @@
                                 MaximumHeightRequest="50"
                                 MinimumWidthRequest="90"
                                 MaximumWidthRequest="90"
-                                Background="LightGray"
-                                TextColor="Black"
+                                Background="{Binding SelectedTip, Converter={StaticResource TipBGColorConverter}, ConverterParameter=.20}"
+                                TextColor="{Binding SelectedTip, Converter={StaticResource TipTextColorConverter}, ConverterParameter=.20}"
                                 Command="{Binding SetTipAmountCommand}"
                                 CommandParameter=".20"/>
 
@@ -139,15 +146,15 @@
                                 MaximumHeightRequest="50"
                                 MinimumWidthRequest="90"
                                 MaximumWidthRequest="90"
-                                Background="LightGray"
-                                TextColor="Black"
+                                Background="{Binding SelectedTip, Converter={StaticResource TipBGColorConverter}, ConverterParameter=Other}"
+                                TextColor="{Binding SelectedTip, Converter={StaticResource TipTextColorConverter}, ConverterParameter=Other}"
                                 Command="{Binding SetTipAmountCommand}"
                                 CommandParameter="Other"/>
                         <Entry Grid.Row="2"
                                Grid.ColumnSpan="2"
                                Keyboard="Numeric"
                                Placeholder="Enter Custom Tip"
-                               Text="{Binding CustomTipAmount, StringFormat='{0:c}', Mode=TwoWay}"
+                               Text="{Binding TipAmount, Mode=TwoWay}"
                                IsVisible="{Binding OtherTipSelected}"/>
                     </Grid>
                     <VerticalStackLayout Grid.Column="1"
