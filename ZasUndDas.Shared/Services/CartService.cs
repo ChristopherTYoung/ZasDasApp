@@ -19,6 +19,10 @@ namespace ZasUndDas.Shared.Services
         public event EventHandler? CartUpdated;
         public decimal TipAmount { get; set; }
         public decimal EstimatedTaxRate { get; private set; } = 0.1135m;
+        public decimal EstimatedTaxes { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal EstimatedTotal { get; set; }
+
         string? nonce;
         public bool IsNonce { get => nonce != null; }
         public void AddNonce(string nonce)
@@ -60,9 +64,22 @@ namespace ZasUndDas.Shared.Services
             return item;
         }
 
-        public decimal CalculateTotal()
+        public decimal CalculateSubTotal()
         {
-            return Math.Round(cart.Select(p => p.Price).Sum(), 2);
+            SubTotal = Math.Round(cart.Select(p => p.Price).Sum(), 2);
+            return SubTotal;
+        }
+
+        public decimal CalculateEstimatedTaxes()
+        {
+            EstimatedTaxes = Math.Round(SubTotal * EstimatedTaxRate, 2);
+            return EstimatedTaxes;
+        }
+
+        public decimal CalculateEstimatedTotal()
+        {
+            EstimatedTotal = SubTotal + EstimatedTaxes + TipAmount;
+            return EstimatedTotal;
         }
         private void OnCartUpdated()
         {

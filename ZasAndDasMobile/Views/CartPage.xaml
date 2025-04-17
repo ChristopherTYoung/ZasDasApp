@@ -165,20 +165,23 @@
                           ColumnDefinitions="*,auto">
                         <Label Text="Subtotal"
                                Grid.Row="0"
-                               Grid.Column="0"/>
+                               Grid.Column="0"
+                               FontAttributes="Bold"/>
                         <Label Text="{Binding SubTotal, StringFormat='{0:c}'}"
                                Grid.Row="0"
                                Grid.Column="1"
                                Padding="0,0,10,0"/>
                         <Label Text="Estimated Taxes"
                                Grid.Row="1"
-                               Grid.Column="0"/>
+                               Grid.Column="0"
+                               FontAttributes="Bold"/>
                         <Label Text="{Binding EstimatedTaxes, StringFormat='{0:c}'}"
                                Grid.Row="1"
                                Grid.Column="1"/>
                         <Label Text="Tip"
                                Grid.Row="2"
-                               Grid.Column="0"/>
+                               Grid.Column="0"
+                               FontAttributes="Bold"/>
                         <Label Text="{Binding TipAmount, StringFormat='{0:c}'}"
                                Grid.Row="2"
                                Grid.Column="1"/>
@@ -187,7 +190,8 @@
                                  HorizontalOptions="FillAndExpand" />
                         <Label Text="Estimated Total"
                                Grid.Row="4"
-                               Grid.Column="0"/>
+                               Grid.Column="0"
+                               FontAttributes="Bold"/>
                         <Label Text="{Binding Total, StringFormat='{0:c}'}"
                                Grid.Row="4"
                                Grid.Column="1"

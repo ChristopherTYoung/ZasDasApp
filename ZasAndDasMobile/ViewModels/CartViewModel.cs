@@ -21,7 +21,7 @@ namespace ZasAndDasMobile.ViewModels
         [ObservableProperty]
         public partial decimal TipAmount { get; set; }
         [ObservableProperty]
-        public partial bool OtherTipSelected { get; set; } = false;
+        public partial bool CustomTipSelected { get; set; } = false;
 
         [ObservableProperty]
         public partial string SelectedTip { get; set; } = ".15";
@@ -54,12 +54,12 @@ namespace ZasAndDasMobile.ViewModels
             SelectedTip = tip;
             if (decimal.TryParse(tip, out decimal result))
             {
-                OtherTipSelected = false;
+                CustomTipSelected = false;
                 UpdateTip(result * SubTotal);
             }
             else
             {
-                OtherTipSelected = true;
+                CustomTipSelected = true;
             }
             OnPropertyChanged(nameof(TipAmount));
         }
@@ -74,9 +74,9 @@ namespace ZasAndDasMobile.ViewModels
             CartItems = _cartService.GetCartItems;
             _cartService.CartUpdated += OnCartUpdated!;
 
-            SubTotal = _cartService.CalculateTotal();
+            SubTotal = _cartService.CalculateSubTotal();
+            EstimatedTaxes = _cartService.CalculateEstimatedTaxes();
             estimatedTaxRate = _cartService.EstimatedTaxRate;
-            GetEstimatedTaxes();
             UpdateTip(SubTotal * .15m);
             GetTotal();
 
@@ -88,8 +88,8 @@ namespace ZasAndDasMobile.ViewModels
 
         private void OnCartUpdated(object sender, EventArgs e)
         {
-            SubTotal = _cartService.CalculateTotal();
-            GetEstimatedTaxes();
+            SubTotal = _cartService.CalculateSubTotal();
+            EstimatedTaxes = _cartService.CalculateEstimatedTaxes();
             GetTotal();
             OnPropertyChanged(nameof(SubTotal));
             OnPropertyChanged(nameof(EstimatedTaxes));
@@ -108,14 +108,10 @@ namespace ZasAndDasMobile.ViewModels
             else _cartService.SetTipAmount(Math.Round((decimal)newValue, 2));
             TipAmount = _cartService.TipAmount;
         }
-        private void GetEstimatedTaxes()
-        {
-            EstimatedTaxes = Math.Round(SubTotal * estimatedTaxRate, 2);
-        }
 
         private void GetTotal()
         {
-            Total = Math.Round(SubTotal + EstimatedTaxes + TipAmount, 2);
+            Total = _cartService.CalculateEstimatedTotal();
         }
         internal void setNavigation(INavigation navigation)
         {
