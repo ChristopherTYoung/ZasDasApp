@@ -23,13 +23,13 @@ public class StockItemDTO : IStoreItem, ICheckoutItem
     }
     public int Id { set; get; }
 
-    public string Name { set; get; } = null!;
+    public string Name { get; set; } = null!;
 
     public string? Description { set; get; }
 
     public int ItemCategoryId { set; get; }
     public decimal Price { set; get; }
-
+    public string? ImagePath { set; get; }
     public int Quantity { set; get; }
 
 

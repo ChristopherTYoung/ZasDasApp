@@ -59,7 +59,7 @@
                             <Grid ColumnDefinitions="auto,*,auto,auto"
                                   RowDefinitions="*,auto"
                                   Padding="5,10,25,0">
-                                <Image Source="pizza.png"
+                                <Image Source="{Binding ImagePath}"
                                        MinimumHeightRequest="64"
                                        MaximumHeightRequest="64"
                                        MinimumWidthRequest="64"
@@ -155,7 +155,7 @@
                                Keyboard="Numeric"
                                Placeholder="Enter Custom Tip"
                                Text="{Binding TipAmount, Mode=TwoWay}"
-                               IsVisible="{Binding OtherTipSelected}"
+                               IsVisible="{Binding CustomTipSelected}"
                                MaxLength="6"/>
                     </Grid>
                     <Grid Grid.Column="1"

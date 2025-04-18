@@ -68,6 +68,12 @@ namespace ZasAndDasWeb.Controllers
             return await context.PAddins.ToListAsync();
         }
 
+        [HttpGet("getdrinkaddins")]
+        public async Task<List<DAddinDTO>> GetDrinkAddins()
+        {
+            return await context.DAddins.ToListAsync();
+        }
+
         [HttpGet("getpizzasizes")]
         public async Task<List<PizzaSize>> GetSizes()
         {

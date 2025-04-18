@@ -22,7 +22,7 @@ public class APIKeyValidationService : IAPIKeyValidationService
         return "Unable to validate Account";
     }
 
-    public string CreateAccount(CreateRequest request)
+    public async Task<string> CreateAccount(CreateRequest request)
     {
         var APIkey = Guid.NewGuid().ToString();
         bool unique = true;
@@ -34,7 +34,7 @@ public class APIKeyValidationService : IAPIKeyValidationService
             {
                 unique = true;
                 _context.Customers.Add(customer);
-                _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return APIkey;
             }
             catch (DbUpdateException ex)
@@ -54,9 +54,9 @@ public class APIKeyValidationService : IAPIKeyValidationService
         return "unknown error";
     }
 
-    public CustomerDTO GetCustomer(string? key)
+    public async Task<CustomerDTO> GetCustomer(string? key)
     {
-        return _context.Customers.First(u => u.ApiKey == key);
+        return await _context.Customers.FirstAsync(u => u.ApiKey == key);
     }
 
 }
