@@ -16,6 +16,19 @@ jobs:
           .
           docker run --rm zas_test_container
 
+    integrationtest:
+        runs-on: self-hosted
+        steps:
+        - uses: actions/checkout@v4
+        - name: docker build tests
+          run: |
+            docker build \
+            -f ./integrationtest.Dockerfile \
+            -t zas_integration_test \
+            .
+            docker run --rm zas_integration_test
+
+
     pushtodocker: 
        if: ${{ github.ref == 'refs/heads/main' }}
        runs-on: self-hosted
