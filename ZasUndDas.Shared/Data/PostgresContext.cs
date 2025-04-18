@@ -129,6 +129,7 @@ public partial class PostgresContext : DbContext
                 .HasDefaultValue(false)
                 .HasColumnName("cooked_at_home");
             entity.Property(e => e.SizeId).HasColumnName("size_id");
+            entity.Property(e => e.Price).HasColumnName("price");
         });
 
         modelBuilder.Entity<CustomerDTO>(entity =>

@@ -180,7 +180,8 @@ namespace ZasAndDas.IntegrationTests
             CREATE TABLE zasanddas.cheese_bread (
                 id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                 size_id INT REFERENCES zasanddas.pizza_size(id) not null,
-                cooked_at_home BOOLEAN default(False)
+                cooked_at_home BOOLEAN default(False),
+                price decimal not null
             );
 
             create table zasanddas.customer (

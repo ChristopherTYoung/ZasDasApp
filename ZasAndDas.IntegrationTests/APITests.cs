@@ -225,5 +225,30 @@ namespace ZasAndDas.IntegrationTests
             dbSalad.Addins.Count().ShouldBe(1);
             dbSalad.Price.ShouldBe(5.99M);
         }
+
+        [Fact]
+        public async Task CanOrderCheeseBread()
+        {
+            var client = _app.CreateClient();
+            var cheeseBread = new CheeseBreadDTO { Price = 5.99M, Size = new PizzaSize { Id = 1, SizeName = "medium", Price = 0.00M }, CookedAtHome = false };
+            var order = new OrderDTO
+            {
+                GrossAmount = 5.99M,
+                NetAmount = 6.00M,
+                SalesTax = 0.01M,
+                Items = [new(cheeseBread)],
+                DateOrdered = DateTime.ParseExact("03-31-2025 12:30:00 PM", "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)
+            };
+
+            var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+
+            var orders = await client.GetFromJsonAsync<List<OrderDTO>>("/api/order/allorders");
+            var orderDTO = orders.First();
+            var dbCheeseBread = orderDTO.Items.First().CheeseBread;
+            dbCheeseBread.Price.ShouldBe(5.99M);
+            dbCheeseBread.Size.Id.ShouldBe(1);
+            dbCheeseBread.CookedAtHome.ShouldBe(false);
+        }
     }
 }

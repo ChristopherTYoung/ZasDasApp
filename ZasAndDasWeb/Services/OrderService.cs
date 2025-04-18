@@ -24,6 +24,7 @@ namespace ZasAndDasWeb.Services
                     item.CalzoneId = await AddCalzoneToDatabase(itemDTO);
                     break;
                 case ItemType.CheeseBread:
+                    item.CheeseBreadId = await AddCheeseBreadToDatabase(itemDTO);
                     break;
                 case ItemType.Salad:
                     item.SaladId = await AddSaladToDatabase(itemDTO);
@@ -35,6 +36,15 @@ namespace ZasAndDasWeb.Services
                     break;
             }
             return item;
+        }
+
+        private async Task<int?> AddCheeseBreadToDatabase(OrderItemDTO itemDTO)
+        {
+            await context.CheeseBreads.AddAsync(itemDTO.CheeseBread!.ToCheeseBread());
+            await context.SaveChangesAsync();
+
+            var salad = context.CheeseBreads.OrderBy(c => c.Id).Last();
+            return salad.Id;
         }
 
         private async Task<int?> AddSaladToDatabase(OrderItemDTO itemDTO)
