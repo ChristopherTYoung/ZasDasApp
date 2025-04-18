@@ -23,7 +23,7 @@ public class StockItemDTO : IStoreItem, ICheckoutItem
     }
     public int Id { set; get; }
 
-    public string Name { set; get; } = null!;
+    public string Name { get; set; } = null!;
 
     public string? Description { set; get; }
 

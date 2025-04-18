@@ -39,6 +39,7 @@ public class SaladDTO : ICheckoutItem
     public decimal Price { get; set; }
 
     public int Quantity { get; set; }
+    public string? ImagePath { get; set; }
     public string? Name { get; set; }
 
     public void AddSaladAddin(PAddinDTO addin)

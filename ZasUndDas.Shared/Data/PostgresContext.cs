@@ -129,6 +129,7 @@ public partial class PostgresContext : DbContext
                 .HasDefaultValue(false)
                 .HasColumnName("cooked_at_home");
             entity.Property(e => e.SizeId).HasColumnName("size_id");
+            entity.Property(e => e.Price).HasColumnName("price");
         });
 
         modelBuilder.Entity<CustomerDTO>(entity =>
@@ -285,7 +286,6 @@ public partial class PostgresContext : DbContext
                 .HasDefaultValue(false)
                 .HasColumnName("cooked_at_home");
             entity.Property(e => e.SizeId).HasColumnName("size_id");
-
         });
 
         modelBuilder.Entity<PizzaAddin>(entity =>
@@ -437,6 +437,7 @@ public partial class PostgresContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("item_name");
             entity.Ignore(e => e.Quantity);
+            entity.Ignore(e => e.ImagePath);
 
         });
         modelBuilder.HasSequence("jobid_seq", "cron");
