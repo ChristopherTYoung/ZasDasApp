@@ -24,17 +24,18 @@ public class APIKeyValidationService : IAPIKeyValidationService
 
     public string CreateAccount(CreateRequest request)
     {
-        var APIkey = new Guid().ToString();
+        var APIkey = Guid.NewGuid().ToString();
         bool unique = true;
         var customer = new CustomerDTO() { ApiKey = APIkey, CustomerName = request.Name, Email = request.Email, HashedPass = request.PassCode.GetHashCode().ToString() };
         var attempts = 0;
-        while (!unique || attempts > 3)
+        while (unique || attempts < 3)
         {
             try
             {
                 unique = true;
-                _context.Customers.Add(new CustomerDTO() { });
+                _context.Customers.Add(customer);
                 _context.SaveChangesAsync();
+                return APIkey;
             }
             catch (DbUpdateException ex)
             {
@@ -50,7 +51,7 @@ public class APIKeyValidationService : IAPIKeyValidationService
                 }
             }
         }
-        return APIkey;
+        return "unknown error";
     }
 
     public CustomerDTO GetCustomer(string? key)
