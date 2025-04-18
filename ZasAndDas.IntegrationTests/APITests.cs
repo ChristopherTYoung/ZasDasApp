@@ -88,9 +88,6 @@ namespace ZasAndDas.IntegrationTests
                 DateOrdered = DateTime.Parse("03-31-2025 12:30:00 PM")
             };
 
-            var json = JsonSerializer.Serialize(order, new JsonSerializerOptions { WriteIndented = true });
-            Console.WriteLine(json);
-
             var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
@@ -114,9 +111,6 @@ namespace ZasAndDas.IntegrationTests
                 Items = [new(pizza)],
                 DateOrdered = DateTime.ParseExact("03-31-2025 12:30:00 PM", "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)
             };
-
-            var json = JsonSerializer.Serialize(order, new JsonSerializerOptions { WriteIndented = true });
-            Console.WriteLine(json);
 
             var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -182,9 +176,6 @@ namespace ZasAndDas.IntegrationTests
                 DateOrdered = DateTime.ParseExact("03-31-2025 12:30:00 PM", "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)
             };
 
-            var json = JsonSerializer.Serialize(order, new JsonSerializerOptions { WriteIndented = true });
-            Console.WriteLine(json);
-
             var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
@@ -212,8 +203,6 @@ namespace ZasAndDas.IntegrationTests
                 DateOrdered = DateTime.ParseExact("03-31-2025 12:30:00 PM", "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)
             };
 
-            var json = JsonSerializer.Serialize(order, new JsonSerializerOptions { WriteIndented = true });
-            Console.WriteLine(json);
 
             var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -229,28 +218,25 @@ namespace ZasAndDas.IntegrationTests
         public async Task CanSendSaladOrder()
         {
             var client = _app.CreateClient();
-            var calzone = new CalzoneDTO { CookedAtHome = false, Price = 5.99M, SauceId = 1, Sauce = new() { Id = 1, SauceName = "Marinara" } };
-            calzone.AddTopping(new() { Id = 1, AddinName = "Pepperoni", Price = 1.50M });
+            var salad = new SaladDTO { Price = 5.99M };
+            salad.AddSaladAddin(new() { Id = 1, AddinName = "Pepperoni", Price = 1.50M });
             var order = new OrderDTO
             {
                 GrossAmount = 7.49M,
                 NetAmount = 7.50M,
                 SalesTax = 0.01M,
-                Items = [new(calzone)],
+                Items = [new(salad)],
                 DateOrdered = DateTime.ParseExact("03-31-2025 12:30:00 PM", "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)
             };
-
-            var json = JsonSerializer.Serialize(order, new JsonSerializerOptions { WriteIndented = true });
-            Console.WriteLine(json);
 
             var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
             var orders = await client.GetFromJsonAsync<List<OrderDTO>>("/api/order/allorders");
             var orderDTO = orders.First();
-            var dbCalzone = orderDTO.Items.First().Calzone;
-            dbCalzone.Addins.Count().ShouldBe(1);
-            dbCalzone.Price.ShouldBe(5.99M);
+            var dbSalad = orderDTO.Items.First().Salad;
+            dbSalad.Addins.Count().ShouldBe(1);
+            dbSalad.Price.ShouldBe(5.99M);
         }
     }
 }
