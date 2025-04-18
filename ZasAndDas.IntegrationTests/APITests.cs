@@ -46,6 +46,7 @@ namespace ZasAndDas.IntegrationTests
             stockItems!.FirstOrDefault(s => s.Name == "Diet Coke").ShouldNotBeNull();
         }
 
+
         [Fact]
         public async Task CannotSendEmptyOrder()
         {
@@ -118,13 +119,13 @@ namespace ZasAndDas.IntegrationTests
             var APIKEY = await client.PostAsJsonAsync("/api/auth/create", createRequest);
             APIKEY.ShouldNotBeNull();
             var authRequest = new AuthRequest() { Email = "tetatete@gmail.com", PassCode = "Golden Wind" };
-            (await APIKEY!.Content.ReadAsStringAsync()).ShouldBe((await (await client.PostAsJsonAsync("/api/auth/create", createRequest)).Content.ReadAsStringAsync()));
+            (await APIKEY!.Content.ReadAsStringAsync()).ShouldBe((await (await client.PostAsJsonAsync("/api/auth/authenticate", authRequest)).Content.ReadAsStringAsync()));
         }
         [Fact]
         public async Task OrderWithAPIkeyAddsCustomer()
         {
             var client = _app.CreateClient();
-            var createRequest = new CreateRequest() { Email = "tetatete@gmail.com", Name = "test", PassCode = "Golden Wind" };
+            var createRequest = new CreateRequest() { Email = "tetatetde@gmail.com", Name = "tedst", PassCode = "Goldedn Wind" };
             var APIKEY = await (await client.PostAsJsonAsync("/api/auth/create", createRequest)).Content.ReadAsStringAsync();
             APIKEY.ShouldNotBeNull();
             client.DefaultRequestHeaders.Add(APIService.apiKey, APIKEY);

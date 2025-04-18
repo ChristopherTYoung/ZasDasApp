@@ -18,9 +18,9 @@ namespace ZasAndDasWeb.Controllers
             return validator.Authenticate(request);
         }
         [HttpPost("create")]
-        public string Create(CreateRequest request)
+        public async Task<string> Create(CreateRequest request)
         {
-            return validator.CreateAccount(request);
+            return await validator.CreateAccount(request);
         }
     }
 }
