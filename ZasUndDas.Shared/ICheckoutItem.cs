@@ -13,6 +13,6 @@ namespace ZasUndDas.Shared
         public decimal Price { get; }
         public int Quantity { get; set; }
         public string? ImagePath { get; set; }
-        public string? Name { get; set; }
+        public string Name { get; set; }
     }
 }
