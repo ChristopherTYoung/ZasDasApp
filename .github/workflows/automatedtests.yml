@@ -16,10 +16,24 @@ jobs:
           .
           docker run --rm zas_test_container
 
+    integrationtest:
+        needs: test
+        runs-on: self-hosted
+        steps:
+        - uses: actions/checkout@v4
+        - name: docker build tests
+          run: |
+            docker build \
+            -f ./integrationtest.Dockerfile \
+            -t zas_integration_test \
+            .
+            docker run -v /var/run/docker.sock:/var/run/docker.sock --rm zas_integration_test
+
+
     pushtodocker: 
        if: ${{ github.ref == 'refs/heads/main' }}
        runs-on: self-hosted
-       needs: test
+       needs: [test, integrationtest]
        steps: 
        - name: Login to Docker Hub
          uses: docker/login-action@v3
@@ -39,7 +53,7 @@ jobs:
 
     pushtokubernetes:
         runs-on: self-hosted
-        needs: [test, pushtodocker]
+        needs: [test, integrationtest, pushtodocker]
         steps:
         - name: deploy to kubernetes
           run: |

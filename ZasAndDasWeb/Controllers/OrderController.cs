@@ -9,11 +9,16 @@ namespace ZasAndDasWeb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController(PostgresContext context, OrderService orderService) : ControllerBase
+    public class OrderController(PostgresContext context, OrderService orderService, IAPIKeyValidationService validator) : ControllerBase
     {
         [HttpPost("sendorder")]
-        public async Task<IResult> SendOrder(OrderDTO order)
+        public async Task<IResult> SendOrder(OrderDTO order, [FromHeader] string? APIKEY = null)
         {
+            validator.ToString();
+            if (APIKEY != null)
+            {
+                order.CustomerId = validator.GetCustomer(APIKEY).Id;
+            }
             if (order.Items.Count() < 1)
                 return Results.BadRequest();
 
@@ -25,7 +30,8 @@ namespace ZasAndDasWeb.Controllers
         {
             var orders = await context.PizzaOrders.ToListAsync();
             var orderDTOs = await Task.WhenAll(orders.Select(i => i.ToOrderDTO(context)));
-            return orderDTOs.ToList();
+            var list = orderDTOs.ToList();
+            return list;
         }
     }
 }

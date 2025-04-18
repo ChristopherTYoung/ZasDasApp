@@ -70,6 +70,16 @@ public class MockAPIService : IAPIService
         await Task.CompletedTask;
     }
 
+    public Task Authorize(AuthRequest request)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task CreateAccount(CreateRequest request)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<List<DAddinDTO>> GetDrinkAddins()
     {
         return await Task.FromResult(new List<DAddinDTO>

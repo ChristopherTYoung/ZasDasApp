@@ -188,12 +188,15 @@ namespace ZasAndDas.IntegrationTests
             	customer_name varchar(50) not null,
             	email varchar(50) not null,
             	phone varchar(50),
-            	api_key varchar(50) NOT NULL
+            	api_key varchar(50) NOT NULL,
+                hashed_pass varchar(50) NOT NULL
             );
+
             create table zasanddas.promotion (
             	id int primary key generated always as identity,
             	promotion_name varchar(50) not null
             );
+
             create table zasanddas.pizza_order (
             	id int primary key generated always as identity,
             	customer_id int references zasanddas.customer(id),
@@ -203,6 +206,7 @@ namespace ZasAndDas.IntegrationTests
             	net_amount decimal,
             	sales_tax decimal
             );
+
             create table zasanddas.order_promotion (
             	id int primary key generated always as identity,
             	promotion_id int references zasanddas.promotion(id) not null,
