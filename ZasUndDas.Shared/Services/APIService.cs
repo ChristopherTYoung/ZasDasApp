@@ -10,6 +10,7 @@ using ZasUndDas.Shared.Data;
 namespace ZasUndDas.Shared.Services;
 public class APIService : IAPIService
 {
+    public static string apiKey = "APIKEY";
     public APIService(HttpClient client)
     {
         Client = client;
@@ -24,11 +25,11 @@ public class APIService : IAPIService
     }
     public async Task Authorize(AuthRequest request)
     {
-        Client.DefaultRequestHeaders.Add("APIKEY", await (await Client.PostAsJsonAsync("/api/auth/authenticate", request)).Content.ReadAsStringAsync());
+        Client.DefaultRequestHeaders.Add(apiKey, await (await Client.PostAsJsonAsync("/api/auth/authenticate", request)).Content.ReadAsStringAsync());
     }
     public async Task CreateAccount(CreateRequest request)
     {
-        Client.DefaultRequestHeaders.Add("APIKEY", await (await Client.PostAsJsonAsync("/api/auth/create", request)).Content.ReadAsStringAsync());
+        Client.DefaultRequestHeaders.Add(apiKey, await (await Client.PostAsJsonAsync("/api/auth/create", request)).Content.ReadAsStringAsync());
     }
     public async Task<List<PizzaBaseDTO>> GetPizzas()
     {

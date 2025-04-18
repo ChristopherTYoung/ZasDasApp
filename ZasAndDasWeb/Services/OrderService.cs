@@ -87,6 +87,7 @@ namespace ZasAndDasWeb.Services
                 DiscountAmount = orderDTO.DiscountAmount,
                 SalesTax = orderDTO.SalesTax,
                 DateOrdered = orderDTO.DateOrdered,
+                CustomerId = orderDTO.CustomerId
             };
             await context.PizzaOrders.AddAsync(order);
             await context.SaveChangesAsync();

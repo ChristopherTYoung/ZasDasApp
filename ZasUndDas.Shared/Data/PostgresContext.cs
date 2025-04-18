@@ -435,6 +435,7 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("item_name");
+            entity.Ignore(e => e.Quantity);
 
         });
         modelBuilder.HasSequence("jobid_seq", "cron");

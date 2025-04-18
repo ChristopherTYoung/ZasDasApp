@@ -139,6 +139,33 @@ namespace ZasAndDas.IntegrationTests
             var authRequest = new AuthRequest() { Email = "tetatete@gmail.com", PassCode = "Golden Wind" };
             (await APIKEY!.Content.ReadAsStringAsync()).ShouldBe((await (await client.PostAsJsonAsync("/api/auth/create", createRequest)).Content.ReadAsStringAsync()));
         }
+        [Fact]
+        public async Task OrderWithAPIkeyAddsCustomer()
+        {
+            var client = _app.CreateClient();
+            var createRequest = new CreateRequest() { Email = "tetatete@gmail.com", Name = "test", PassCode = "Golden Wind" };
+            var APIKEY = await (await client.PostAsJsonAsync("/api/auth/create", createRequest)).Content.ReadAsStringAsync();
+            APIKEY.ShouldNotBeNull();
+            client.DefaultRequestHeaders.Add(APIService.apiKey, APIKEY);
+            var order = new OrderDTO
+            {
+                GrossAmount = 3.75M,
+                NetAmount = 3.85M,
+                SalesTax = 0.10M,
+                Items = new List<OrderItemDTO>() { new OrderItemDTO(new StockItemDTO { Id = 1, Name = "Coke", Price = 3.75m, ItemCategoryId = 1 }) },
+                DateOrdered = DateTime.Parse("03-31-2025 12:30:00 PM")
+            };
+
+            var json = JsonSerializer.Serialize(order, new JsonSerializerOptions { WriteIndented = true });
+            Console.WriteLine(json);
+
+            var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
+
+            var orders = await client.GetFromJsonAsync<List<OrderDTO>>("/api/order/allorders");
+            var id = orders!.FirstOrDefault()?.CustomerId;
+            id.ShouldNotBeNull();
+
+        }
 
         [Fact]
         public async Task CanSendDrinkOrder()
