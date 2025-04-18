@@ -29,14 +29,18 @@ namespace ZasAndDasWeb.Services
             }
         };
 
-        public CustomerDTO? GetCustomer(string? key)
+        public async Task<CustomerDTO> GetCustomer(string? key)
         {
+            //simulate getting data
+            await Task.Delay(30);
             if (string.IsNullOrWhiteSpace(key)) return null;
-            return customers.FirstOrDefault(c => c.ApiKey == key);
+            return customers.First(c => c.ApiKey == key);
         }
 
-        public string CreateAccount(CreateRequest request)
+        public async Task<string> CreateAccount(CreateRequest request)
         {
+            //simulate saving data
+            await Task.Delay(30);
             return request.Email + "test";
         }
 
