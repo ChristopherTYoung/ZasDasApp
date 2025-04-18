@@ -14,7 +14,7 @@ using ZasUndDas.Shared.Services;
 
 namespace ZasAndDasMobile.ViewModels
 {
-    public partial class ItemViewModel : ObservableObject
+    public partial class PizzaPopupViewModel : ObservableObject
     {
         Popup? _popup;
         IStoreItem item;
@@ -23,6 +23,7 @@ namespace ZasAndDasMobile.ViewModels
         public string Name { get => item.Name; }
         public string? Description { get => item.Description; }
         public decimal Price { get => item.Price; }
+        public string? ImagePath { get => item.ImagePath; }
 
         [ObservableProperty]
         public partial ObservableCollection<string> CookStyle { get; set; } = new ObservableCollection<string>() { "In Store", "Take and Bake" };
@@ -64,7 +65,7 @@ namespace ZasAndDasMobile.ViewModels
             _popup?.Close();
         }
 
-        public ItemViewModel(IStoreItem item, CartService cartService, MenuItemService menuItemService)
+        public PizzaPopupViewModel(IStoreItem item, CartService cartService, MenuItemService menuItemService)
         {
             this.item = item;
             _cartService = cartService;

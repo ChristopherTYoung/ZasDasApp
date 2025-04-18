@@ -37,6 +37,11 @@ namespace ZasUndDas.Shared.Services
         {
             return await api.GetPizzaToppings();
         }
+
+        public async Task<List<DAddinDTO>> GetDAddinDTOs()
+        {
+            return await api.GetDrinkAddins();
+        }
         public static MenuItemService TestPizzas()
         {
             return (new MenuItemService(new MockAPIService()));

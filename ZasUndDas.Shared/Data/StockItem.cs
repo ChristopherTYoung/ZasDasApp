@@ -29,7 +29,7 @@ public class StockItemDTO : IStoreItem, ICheckoutItem
 
     public int ItemCategoryId { set; get; }
     public decimal Price { set; get; }
-
+    public string? ImagePath { set; get; }
     public int Quantity { set; get; }
 
 

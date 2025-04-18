@@ -19,6 +19,9 @@ namespace ZasAndDasMobile.ViewModels
         string defaultShown = "pizza";
 
         [ObservableProperty]
+        public partial string LabelText { get; set; } = "Specialty Pizzas";
+
+        [ObservableProperty]
         public partial bool PizzasAreVisible { set; get; } = true;
 
         [ObservableProperty]
@@ -26,6 +29,8 @@ namespace ZasAndDasMobile.ViewModels
 
         [ObservableProperty]
         public partial ObservableCollection<PizzaBaseDTO> PizzaList { set; get; } = new ObservableCollection<PizzaBaseDTO>();
+        [ObservableProperty]
+        public partial ObservableCollection<DrinkBaseDTO> DrinkList { get; set; } = new ObservableCollection<DrinkBaseDTO>();
 
         [ObservableProperty]
         public partial int CartItemCount { get; set; }
@@ -40,9 +45,20 @@ namespace ZasAndDasMobile.ViewModels
         }
         public async Task Initialize()
         {
+            await PizzaSetup();
+            await DrinkSetup();
+        }
+        private async Task PizzaSetup()
+        {
             PizzaList = new ObservableCollection<PizzaBaseDTO>();
             foreach (PizzaBaseDTO pizza in await _service.GetAllPizzas())
                 PizzaList.Add(pizza);
+        }
+        private async Task DrinkSetup()
+        {
+            DrinkList = new ObservableCollection<DrinkBaseDTO>();
+            foreach (DrinkBaseDTO drink in await _service.GetAllDrinks())
+                DrinkList.Add(drink);
         }
 
         [RelayCommand]
@@ -50,6 +66,15 @@ namespace ZasAndDasMobile.ViewModels
         {
             PizzasAreVisible = itemCategory == "pizza";
             DrinksAreVisible = itemCategory == "drink";
+            UpdateTitleText(itemCategory);
+        }
+
+        [RelayCommand]
+        public void UpdateTitleText(string itemCategory)
+        {
+            if (itemCategory == "pizza") LabelText = "Specialty Pizzas";
+            else if (itemCategory == "drink") LabelText = "Mixed Drinks";
+            else LabelText = "Unknown";
         }
 
         [RelayCommand]
@@ -63,7 +88,12 @@ namespace ZasAndDasMobile.ViewModels
         {
             if (item.GetType() == typeof(PizzaBaseDTO))
             {
-                var popup = new ItemPopup(new ItemViewModel(item, _cartService, _service));
+                var popup = new PizzaPopup(new PizzaPopupViewModel(item, _cartService, _service));
+                Shell.Current.ShowPopup(popup);
+            }
+            else if (item.GetType() == typeof(DrinkBaseDTO))
+            {
+                var popup = new DrinkPopup(new DrinkPopupViewModel(item, _cartService, _service));
                 Shell.Current.ShowPopup(popup);
             }
         }

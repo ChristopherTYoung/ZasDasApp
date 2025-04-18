@@ -5,9 +5,9 @@ using ZasUndDas.Shared.Data;
 
 namespace ZasAndDasMobile.Popups;
 
-public partial class ItemPopup : Popup
+public partial class PizzaPopup : Popup
 {
-    public ItemPopup(ItemViewModel vm)
+    public PizzaPopup(PizzaPopupViewModel vm)
     {
         InitializeComponent();
         vm.SetPopup(this);

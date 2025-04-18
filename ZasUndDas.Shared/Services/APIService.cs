@@ -45,6 +45,11 @@ public class APIService : IAPIService
         return await Client.GetFromJsonAsync<List<PAddinDTO>>("/api/inventory/getpizzatoppings") ?? new List<PAddinDTO>();
     }
 
+    public async Task<List<DAddinDTO>> GetDrinkAddins()
+    {
+        return await Client.GetFromJsonAsync<List<DAddinDTO>>("/api/inventory/getdrinkaddins") ?? new List<DAddinDTO>();
+    }
+
     public async Task<List<PizzaSize>> GetPizzaSizes()
     {
         return await Client.GetFromJsonAsync<List<PizzaSize>>("/api/inventory/getpizzasizes") ?? new List<PizzaSize>();
@@ -69,6 +74,7 @@ public interface IAPIService
     public Task<List<DrinkBaseDTO>> GetDrinks();
     public Task<List<PizzaBaseDTO>> GetPizzas();
     public Task<List<PAddinDTO>> GetPizzaToppings();
+    public Task<List<DAddinDTO>> GetDrinkAddins();
     public Task<List<PizzaSize>> GetPizzaSizes();
     public Task<List<Sauce>> GetSauces();
     public Task Order(OrderDTO order);
