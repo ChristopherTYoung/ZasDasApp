@@ -42,8 +42,8 @@ namespace ZasAndDas.IntegrationTests
             var response = await client.PostAsJsonAsync("/api/inventory/addstockitem", stockItem);
             response.IsSuccessStatusCode.ShouldBeTrue();
 
-            var stockItems = await client.GetFromJsonAsync<IEnumerable<StockItem>>("/api/inventory/getallstockitems");
-            stockItems!.FirstOrDefault(s => s.ItemName == "Diet Coke").ShouldNotBeNull();
+            var stockItems = await client.GetFromJsonAsync<IEnumerable<StockItemDTO>>("/api/inventory/getallstockitems");
+            stockItems!.FirstOrDefault(s => s.Name == "Diet Coke").ShouldNotBeNull();
         }
 
         // breaks stuff shh...
