@@ -43,7 +43,6 @@ public class PizzaDTO : ICheckoutItem
         BaseId = pizzaBase.Id;
         Name = Base.Name;
         Addins = new List<PAddinDTO>();
-        ImagePath = Base.ImagePath;
         Price = CalculatePrice();
         Size = ItemSize.medium;
         SizeId = 1;
@@ -53,7 +52,7 @@ public class PizzaDTO : ICheckoutItem
     public int BaseId { set; get; }
     public bool CookedAtHome { get; set; }
     public string? Name { get; set; } = null;
-    public string? ImagePath { get; set; }
+    public string? GetImagePath() => Base.ImagePath;
     public PizzaBaseDTO Base { get; set; }
     public ItemSize Size { set; get; } //size indeed matters
     public PizzaSize? PizzaSize { get; set; }

@@ -46,6 +46,8 @@ public class SaladDTO : ICheckoutItem
         Addins.Add(addin);
     }
 
+    public string? GetImagePath() => "default";
+
     public async Task SaveToppingsToDatabase(PostgresContext context)
     {
         foreach (var addin in Addins)

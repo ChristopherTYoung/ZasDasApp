@@ -39,7 +39,7 @@ public class CalzoneDTO : ICheckoutItem
     public int? SauceId { set; get; }
     public bool? CookedAtHome { set; get; }
     public decimal Price { set; get; }
-    public string? ImagePath { set; get; }
+    public string? GetImagePath() => "default";
     public Sauce? Sauce { set; get; }
     public List<PAddinDTO> Addins { set; get; }
     public int Quantity { get; set; }

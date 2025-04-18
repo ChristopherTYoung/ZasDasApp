@@ -32,7 +32,6 @@ public partial class DrinkDTO : ICheckoutItem
         Base = _base;
         BaseId = Base.Id;
         Name = Base.Name;
-        ImagePath = Base.ImagePath;
         Price = Base.Price;
         Addins = new List<DAddinDTO>();
     }
@@ -40,7 +39,7 @@ public partial class DrinkDTO : ICheckoutItem
 
     public int BaseId { set; get; }
     public int Quantity { get; set; } = 1;
-    public string? ImagePath { get; set; }
+    public string? GetImagePath() => Base.ImagePath;
     public string? Name { set; get; } = null;
 
     public decimal Price
