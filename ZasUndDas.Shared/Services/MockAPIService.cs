@@ -11,9 +11,9 @@ public class MockAPIService : IAPIService
         // Simulating a predefined list of drinks
         return await Task.FromResult(new List<DrinkBaseDTO>
         {
-            new DrinkBaseDTO { Id = 1, Name = "Coke", Price = 1.99m },
-            new DrinkBaseDTO { Id = 2, Name = "Pepsi", Price = 1.89m },
-            new DrinkBaseDTO { Id = 3, Name = "Sprite", Price = 1.79m }
+            new DrinkBaseDTO { Id = 1, Name = "Kyle's Monster", Price = 1.99m },
+            new DrinkBaseDTO { Id = 2, Name = "Badger Bite", Price = 1.89m },
+            new DrinkBaseDTO { Id = 3, Name = "Sea Breeze", Price = 1.79m }
         });
     }
 
@@ -68,5 +68,15 @@ public class MockAPIService : IAPIService
     {
         // Simulating a successful order processing
         await Task.CompletedTask;
+    }
+
+    public async Task<List<DAddinDTO>> GetDrinkAddins()
+    {
+        return await Task.FromResult(new List<DAddinDTO>
+        {
+            new DAddinDTO { Id = 0, AddinName = "Cherry", Price = 1.50m },
+            new DAddinDTO { Id = 1, AddinName = "Lime", Price = 1.50m },
+            new DAddinDTO { Id = 2, AddinName = "Grape", Price = 1.50m },
+        });
     }
 }

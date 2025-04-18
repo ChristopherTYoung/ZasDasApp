@@ -14,6 +14,9 @@
     <MauiXaml Update="Popups\PaymentPopup.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Popups\DrinkPopup.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Views\PaymentPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>

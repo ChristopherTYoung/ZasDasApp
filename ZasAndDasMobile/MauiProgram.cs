@@ -68,8 +68,8 @@ namespace ZasAndDasMobile
             builder.Services.AddSingleton<CartPage>();
             builder.Services.AddSingleton<MainPageViewModel>();
             builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddTransient<ItemPopup>();
-            builder.Services.AddTransient<ItemViewModel>();
+            builder.Services.AddTransient<DrinkPopup>();
+            builder.Services.AddTransient<PizzaPopupViewModel>();
             builder.Services.AddScoped<PaymentPage>();
             return builder.Build();
         }

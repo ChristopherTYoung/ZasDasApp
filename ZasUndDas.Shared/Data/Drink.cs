@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Square.Inventory;
-using System;
-using System.Collections.Generic;
 
 namespace ZasUndDas.Shared.Data;
 public class Drink
@@ -27,7 +24,7 @@ public partial class DrinkDTO : ICheckoutItem
 {
     public DrinkDTO()
     {
-        Addins = new List<DAddin>();
+        Addins = new List<DAddinDTO>();
     }
 
     public DrinkDTO(DrinkBaseDTO _base)
@@ -35,13 +32,15 @@ public partial class DrinkDTO : ICheckoutItem
         Base = _base;
         BaseId = Base.Id;
         Name = Base.Name;
-        Addins = new List<DAddin>();
+        ImagePath = Base.ImagePath;
+        Price = Base.Price;
+        Addins = new List<DAddinDTO>();
     }
     public int Id { set; get; }
 
     public int BaseId { set; get; }
     public int Quantity { get; set; } = 1;
-
+    public string? ImagePath { get; set; }
     public string? Name { set; get; } = null;
 
     public decimal Price
@@ -52,8 +51,8 @@ public partial class DrinkDTO : ICheckoutItem
 
     public DrinkBaseDTO Base { set; get; } = null!;
 
-    public List<DAddin> Addins { set; get; } = null!;
-    public void AddDrinkAddin(DAddin addin)
+    public List<DAddinDTO> Addins { set; get; } = null!;
+    public void AddDrinkAddin(DAddinDTO addin)
     {
         Addins.Add(addin);
         Price = CalculatePrice();
@@ -76,7 +75,7 @@ public partial class DrinkDTO : ICheckoutItem
     }
     public DrinkDTO Clean()
     {
-        Addins = new List<DAddin>();
+        Addins = new List<DAddinDTO>();
         Base = null;
         return this;
     }

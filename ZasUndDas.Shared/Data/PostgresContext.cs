@@ -26,7 +26,7 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<Customer> Customers { set; get; }
 
-    public virtual DbSet<DAddin> DAddins { set; get; }
+    public virtual DbSet<DAddinDTO> DAddins { set; get; }
 
     public virtual DbSet<Drink> Drinks { set; get; }
 
@@ -154,7 +154,7 @@ public partial class PostgresContext : DbContext
                 .HasColumnName("api_key");
         });
 
-        modelBuilder.Entity<DAddin>(entity =>
+        modelBuilder.Entity<DAddinDTO>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("d_addin_pkey");
 
@@ -168,6 +168,7 @@ public partial class PostgresContext : DbContext
                 .HasColumnName("addin_name");
             entity.Property(d => d.Price)
                 .HasColumnName("base_price");
+            entity.Ignore(e => e.IsChecked);
         });
 
         modelBuilder.Entity<Drink>(entity =>

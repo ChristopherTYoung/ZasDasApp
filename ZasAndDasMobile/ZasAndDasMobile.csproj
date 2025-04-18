@@ -55,6 +55,7 @@
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Remove="Resources\Images\logo_icon.png" />
+		<MauiImage Remove="Resources\Images\tdoodle_drink.png" />
 		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->
@@ -82,6 +83,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Popups\DrinkPopup.xaml.cs">
+	    <DependentUpon>DrinkPopup.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Popups\PizzaPopup.xaml.cs">
+	    <DependentUpon>PizzaPopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Popups\PaymentPopup.xaml.cs">
 	    <DependentUpon>PaymentPopup.xaml</DependentUpon>
 	  </Compile>
@@ -91,7 +98,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Popups\ItemPopup.xaml">
+	  <MauiXaml Update="Popups\DrinkPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\PizzaPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\PaymentPopup.xaml">
