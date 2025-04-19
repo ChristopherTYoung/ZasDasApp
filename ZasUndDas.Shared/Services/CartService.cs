@@ -12,9 +12,9 @@ namespace ZasUndDas.Shared.Services
 {
     public class CartService(IAPIService? api = null)
     {
-        ObservableCollection<ICheckoutItem> cart = new ObservableCollection<ICheckoutItem>();
+        ObservableCollection<CheckoutItemVM> cart = new ObservableCollection<CheckoutItemVM>();
 
-        public ObservableCollection<ICheckoutItem> GetCartItems => cart;
+        public ObservableCollection<CheckoutItemVM> GetCartItems => cart;
         public int GetItemCount => cart.Count;
         public event EventHandler? CartUpdated;
         public decimal TipAmount { get; set; }
@@ -34,7 +34,7 @@ namespace ZasUndDas.Shared.Services
             var price = item.Price;
             if (price < 0)
                 throw new InvalidOperationException();
-            cart.Add(item);
+            cart.Add(new(item));
             OnCartUpdated();
         }
         public async Task SendOrder()
@@ -45,7 +45,7 @@ namespace ZasUndDas.Shared.Services
                 decimal total = 0;
                 foreach (var item in cart)
                 {
-                    order.Items.Add(new(item));
+                    order.Items.Add(new(item.item));
                     total += (decimal)item.Price;
                 }
                 order.DateOrdered = DateTime.Now;
@@ -59,9 +59,9 @@ namespace ZasUndDas.Shared.Services
         }
         public ICheckoutItem RemoveItem(int id)
         {
-            var item = cart.First(i => i.Id == id);
+            var item = cart.First(i => i.item.Id == id);
             cart.Remove(item);
-            return item;
+            return item.item;
         }
 
         public decimal CalculateSubTotal()

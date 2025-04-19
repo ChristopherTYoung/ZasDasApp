@@ -33,17 +33,17 @@ namespace ZasAndDasMobile.Tests
         public void EmptyCart()
         {
             var cart = new CartService();
-            cart.GetCartItems.ShouldBe(new List<ICheckoutItem>());
+            cart.GetCartItems.ShouldBe(new List<CheckoutItemVM>());
 
         }
         [Fact]
         public void AddToCart()
         {
             var cart = new CartService();
-            var pizza = new PizzaDTO(new PizzaBaseDTO() { Price = 10.99m });
-            pizza.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 3.00m };
-            cart.AddToCart(pizza);
-            cart.GetCartItems.ShouldContain(pizza);
+            var pizza = new CheckoutItemVM(new PizzaDTO(new PizzaBaseDTO() { Price = 10.99m }));
+            ((PizzaDTO)pizza.item).PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 3.00m };
+            cart.AddToCart(pizza.item);
+            cart.GetCartItems.FirstOrDefault(p => p.item == pizza.item).ShouldNotBeNull();
         }
         // ? 
         [Fact]
@@ -53,7 +53,7 @@ namespace ZasAndDasMobile.Tests
             var pizza = new PizzaDTO(new PizzaBaseDTO());
             pizza.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 3.00m };
             cart.AddToCart(pizza);
-            cart.GetCartItems.ShouldNotBe(new() { new PizzaDTO(new PizzaBaseDTO() { Name = "jeff" }) });
+            cart.GetCartItems.ShouldNotBe(new() { new(new PizzaDTO(new PizzaBaseDTO() { Name = "jeff" })) });
         }
 
         [Fact]
