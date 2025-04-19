@@ -23,7 +23,6 @@ public partial class CheeseBread
             Price = Price
         };
     }
-
 }
 
 public class CheeseBreadDTO : ICheckoutItem
@@ -37,6 +36,11 @@ public class CheeseBreadDTO : ICheckoutItem
     public int Quantity { get; set; }
     public string? Name { get; set; }
     public string? ImagePath { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+    public string? GetImagePath()
+    {
+        throw new NotImplementedException();
+    }
 
     public CheeseBread ToCheeseBread()
     {

@@ -125,7 +125,7 @@ namespace ZasAndDas.IntegrationTests
         public async Task OrderWithAPIkeyAddsCustomer()
         {
             var client = _app.CreateClient();
-            var createRequest = new CreateRequest() { Email = "tetatetde@gmail.com", Name = "tedst", PassCode = "Goldedn Wind" };
+            var createRequest = new CreateRequest() { Email = "tetatete@gmail.com", Name = "tedst", PassCode = "Goldedn Wind" };
             var APIKEY = await (await client.PostAsJsonAsync("/api/auth/create", createRequest)).Content.ReadAsStringAsync();
             APIKEY.ShouldNotBeNull();
             client.DefaultRequestHeaders.Add(APIService.apiKey, APIKEY);
