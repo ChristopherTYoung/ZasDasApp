@@ -51,7 +51,7 @@ namespace ZasUndDas.Shared.Services
                 order.DateOrdered = DateTime.Now;
                 order.GrossAmount = total;
                 order.SalesTax = total * .0775m;
-                order.NetAmount = order.GrossAmount + order.NetAmount;
+                order.NetAmount = order.GrossAmount + order.SalesTax;
                 if (api != null)
                     await api.Order(order);
 
