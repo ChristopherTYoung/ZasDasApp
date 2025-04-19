@@ -217,6 +217,7 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(10)
                 .HasColumnName("drink_name");
+            entity.Ignore(e => e.ImagePath);
         });
 
         modelBuilder.Entity<OrderItem>(entity =>

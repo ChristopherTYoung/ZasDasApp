@@ -14,10 +14,9 @@ namespace ZasAndDasMobile.ViewModels
     {
         private readonly CartService _cartService;
         private INavigation? nav;
-        private decimal estimatedTaxRate;
 
         [ObservableProperty]
-        public partial ObservableCollection<ICheckoutItem>? CartItems { get; set; }
+        public partial ObservableCollection<CheckoutItemVM>? CartItems { get; set; }
         [ObservableProperty]
         public partial decimal TipAmount { get; set; }
         [ObservableProperty]
@@ -71,19 +70,15 @@ namespace ZasAndDasMobile.ViewModels
         public CartViewModel(CartService cartService)
         {
             _cartService = cartService;
-            CartItems = _cartService.GetCartItems;
+            var items = _cartService.GetCartItems;
+            CartItems = items;
             _cartService.CartUpdated += OnCartUpdated!;
 
             SubTotal = _cartService.CalculateSubTotal();
             EstimatedTaxes = _cartService.CalculateEstimatedTaxes();
-            estimatedTaxRate = _cartService.EstimatedTaxRate;
             UpdateTip(SubTotal * .15m);
             GetTotal();
 
-        }
-        public void OnLoad()
-        {
-            //CheckoutItems = new(_cartService.GetCartItems());
         }
 
         private void OnCartUpdated(object sender, EventArgs e)
