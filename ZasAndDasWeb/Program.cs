@@ -9,12 +9,20 @@ using ZasUndDas.Shared.Data;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 using ZasAndDasWeb.Services;
+using Azure.Storage.Blobs;
 
 public class Program
 {
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        var blobConnectionString = builder.Configuration["BLOB_CONN"];
+        if (blobConnectionString != null)
+        {
+            BlobServiceClient blobService = new BlobServiceClient(blobConnectionString);
+            builder.Services.AddSingleton(_ => blobService.GetBlobContainerClient(builder.Configuration["CONTAINER_NAME"]));
+            builder.Services.AddSingleton<BlobService>();
+        }
 
         builder.Services.AddRazorComponents();
 

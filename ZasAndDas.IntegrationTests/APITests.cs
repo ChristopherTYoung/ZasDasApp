@@ -1,14 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Azure;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using Azure.Storage.Blobs.Specialized;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using NSubstitute;
 using Shouldly;
 using System;
 using System.Globalization;
+using System.IO;
 using System.Net;
 using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 using System.Xml.Linq;
 using Xunit.Abstractions;
+using Xunit.Sdk;
+using ZasAndDasWeb.Controllers;
+using ZasAndDasWeb.Services;
 using ZasUndDas.Shared;
 using ZasUndDas.Shared.Data;
 using ZasUndDas.Shared.Services;
@@ -250,6 +261,38 @@ namespace ZasAndDas.IntegrationTests
             dbCheeseBread.Price.ShouldBe(5.99M);
             dbCheeseBread.Size.Id.ShouldBe(1);
             dbCheeseBread.CookedAtHome.ShouldBe(false);
+        }
+
+        [Fact]
+        public async Task CanUploadAndDownloadImages()
+        {
+            var testStream = new MemoryStream(Encoding.UTF8.GetBytes("fake image"));
+            var file = new FormFile(testStream, 0, testStream.Length, "file", "test.jpg");
+
+            // return object for the response for DownloadAsync
+            var downloadResult = BlobsModelFactory.BlobDownloadInfo(
+                content: testStream,
+                contentType: "image/jpg"
+            );
+
+            // fakeResponse that DownloadAsync returns
+            var fakeResponse = Substitute.For<Response<BlobDownloadInfo>>();
+            fakeResponse.Value.Returns(downloadResult);
+
+            var blobClient = Substitute.For<BlobClient>();
+            blobClient.DownloadAsync().Returns(Task.FromResult(fakeResponse));
+
+            var containerClient = Substitute.For<BlobContainerClient>();
+            containerClient.GetBlobClient("test.jpg").Returns(blobClient);
+
+            var blobService = new BlobService(containerClient);
+            var blobController = new BlobController(blobService);
+
+            var response = await blobController.UploadImageAsync(file);
+            response.ShouldBe(Results.Ok());
+
+            var image = await blobController.GetImageAsync("test.jpg");
+            image.ContentType.ShouldBe("image/jpg");
         }
     }
 }
