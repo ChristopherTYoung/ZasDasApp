@@ -17,7 +17,8 @@ namespace ZasAndDasWeb.Controllers
             validator.ToString();
             if (APIKEY != null)
             {
-                order.CustomerId = validator.GetCustomer(APIKEY).Id;
+                var customer = await validator.GetCustomer(APIKEY);
+                order.CustomerId = customer.Id;
             }
             if (order.Items.Count() < 1)
                 return Results.BadRequest();
