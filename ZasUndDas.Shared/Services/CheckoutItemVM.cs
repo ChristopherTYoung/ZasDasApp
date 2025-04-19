@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZasUndDas.Shared;
-
-namespace ZasAndDasMobile.ViewModels
+namespace ZasUndDas.Shared.Services
 {
     public class CheckoutItemVM
     {
@@ -14,7 +12,7 @@ namespace ZasAndDasMobile.ViewModels
         {
             this.item = item;
         }
-        ICheckoutItem item;
+        public ICheckoutItem item;
         public decimal Price => item.Price;
         public string? ImagePath => item.GetImagePath();
         public string? Name => item.Name;

@@ -62,6 +62,8 @@ namespace ZasAndDasMobile
                 builder.Services.AddSingleton<IAPIService, APIService>();
 
             }
+            builder.Services.AddScoped<LoginViewModel>();
+            builder.Services.AddScoped<LoginPage>();
             builder.Services.AddSingleton<MenuItemService>();
             builder.Services.AddSingleton<CartService>();
             builder.Services.AddSingleton<CartViewModel>();
