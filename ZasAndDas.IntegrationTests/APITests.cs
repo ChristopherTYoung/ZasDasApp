@@ -267,12 +267,12 @@ namespace ZasAndDas.IntegrationTests
         public async Task CanUploadAndDownloadImages()
         {
             var testStream = new MemoryStream(Encoding.UTF8.GetBytes("fake image"));
-            var file = new FormFile(testStream, 0, testStream.Length, "file", "test.jpg");
+            var file = new FormFile(testStream, 0, testStream.Length, "file", "test.png");
 
             // return object for the response for DownloadAsync
             var downloadResult = BlobsModelFactory.BlobDownloadInfo(
                 content: testStream,
-                contentType: "image/jpg"
+                contentType: "image/png"
             );
 
             // fakeResponse that DownloadAsync returns
@@ -283,7 +283,7 @@ namespace ZasAndDas.IntegrationTests
             blobClient.DownloadAsync().Returns(Task.FromResult(fakeResponse));
 
             var containerClient = Substitute.For<BlobContainerClient>();
-            containerClient.GetBlobClient("test.jpg").Returns(blobClient);
+            containerClient.GetBlobClient("test.png").Returns(blobClient);
 
             var blobService = new BlobService(containerClient);
             var blobController = new BlobController(blobService);
@@ -291,8 +291,8 @@ namespace ZasAndDas.IntegrationTests
             var response = await blobController.UploadImageAsync(file);
             response.ShouldBe(Results.Ok());
 
-            var image = await blobController.GetImageAsync("test.jpg");
-            image.ContentType.ShouldBe("image/jpg");
+            var image = await blobController.GetImageAsync("test.png");
+            image.ContentType.ShouldBe("image/png");
         }
     }
 }
