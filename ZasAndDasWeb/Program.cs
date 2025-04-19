@@ -20,7 +20,7 @@ public class Program
         if (blobConnectionString != null)
         {
             BlobServiceClient blobService = new BlobServiceClient(blobConnectionString);
-            builder.Services.AddSingleton(_ => blobService.GetBlobContainerClient(builder.Configuration["CONTAINER_NAME"]));
+            builder.Services.AddSingleton(_ => blobService.GetBlobContainerClient("menuitemimages"));
             builder.Services.AddSingleton<BlobService>();
         }
 

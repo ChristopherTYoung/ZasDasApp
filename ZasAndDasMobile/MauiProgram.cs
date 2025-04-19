@@ -52,7 +52,7 @@ namespace ZasAndDasMobile
             // I just set this here because android app can't read the env variables and I spent like an hour trying to get it to work
             // The Window Design works but only for the Windows App and not for the Phone app
             // Enjoy my rant. I have no clue why env variables are so difficult on mobile. Or I'm just dumb -Logan
-            var IsModel = true;
+            var IsModel = false;
             //var IsModel = (Environment.GetEnvironmentVariable("ISNT_MODEL") ?? "True") == "True";
             if (!IsModel)
             {
