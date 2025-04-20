@@ -102,6 +102,7 @@ public class Program
         app.MapRazorComponents<App>();
 
         app.Run();
+
     }
 }
 
