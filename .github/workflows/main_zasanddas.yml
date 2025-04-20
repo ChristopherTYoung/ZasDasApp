@@ -32,18 +32,9 @@ jobs:
           uses: actions/setup-dotnet@v4
           with:
             dotnet-version: '9.x'
-        - name: change directory
-          run: cd ./ZasAndDasWeb
-
-        - name: Build with dotnet
-          run: |
-            cd ./ZasAndDasWeb
-            dotnet build --configuration Release
-
         - name: dotnet publish
           run: |
-            cd ./ZasAndDasWeb
-            dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+            cd ./ZasAndDasWeb && dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
         - name: Upload artifact for deployment job
           uses: actions/upload-artifact@v4
@@ -57,13 +48,7 @@ jobs:
         environment:
             name: 'Production'
             url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-        permissions:
-            id-token: write #This is required for requesting the JWT
-            contents: read #This is required for actions/checkout
         steps:
-        - name: change directory
-          run: cd ./ZasAndDasWeb
-
         - name: Download artifact from build job
           uses: actions/download-artifact@v4
           with:
@@ -82,5 +67,5 @@ jobs:
           with:
             app-name: 'zasanddas'
             slot-name: 'Production'
-            package: ${{env.DOTNET_ROOT}}/myapp
+            package: .
           
