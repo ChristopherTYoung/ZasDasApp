@@ -23,7 +23,6 @@ public partial class CheeseBread
             Price = Price
         };
     }
-
 }
 
 public class CheeseBreadDTO : ICheckoutItem

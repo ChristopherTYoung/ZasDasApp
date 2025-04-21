@@ -92,6 +92,9 @@
 	  <Compile Update="Popups\PaymentPopup.xaml.cs">
 	    <DependentUpon>PaymentPopup.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\LoginPage.xaml.cs">
+	    <DependentUpon>LoginPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\PaymentPage.xaml.cs">
 	    <DependentUpon>PaymentPage.xaml</DependentUpon>
 	  </Compile>
@@ -108,6 +111,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CartPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\PaymentPage.xaml">

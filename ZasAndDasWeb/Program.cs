@@ -9,18 +9,26 @@ using ZasUndDas.Shared.Data;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 using ZasAndDasWeb.Services;
+using Azure.Storage.Blobs;
 
 public class Program
 {
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        var blobConnectionString = builder.Configuration["BLOB_CONN"];
+        if (blobConnectionString != null)
+        {
+            BlobServiceClient blobService = new BlobServiceClient(blobConnectionString);
+            builder.Services.AddSingleton(_ => blobService.GetBlobContainerClient("menuitemimages"));
+            builder.Services.AddSingleton<BlobService>();
+        }
 
         builder.Services.AddRazorComponents();
 
         builder.Services.AddMetrics();
         builder.Services.AddControllers();
-        builder.Services.AddDbContext<PostgresContext>(o => o.UseNpgsql(builder.Configuration["DB_CONN"]));
+        builder.Services.AddDbContext<PostgresContext>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("DB_CONN")));
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddScoped<OrderService>();
@@ -94,6 +102,8 @@ public class Program
         app.MapRazorComponents<App>();
 
         app.Run();
+
+
     }
 }
 
