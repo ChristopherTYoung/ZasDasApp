@@ -10,6 +10,8 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 using ZasAndDasWeb.Services;
 using Azure.Storage.Blobs;
+using Square;
+using System.Buffers.Text;
 
 public class Program
 {
@@ -26,6 +28,17 @@ public class Program
 
         builder.Services.AddRazorComponents();
 
+        builder.Services.AddSingleton(sp =>
+        {
+            return new SquareClient(
+                token: builder.Configuration["square_token"],
+                clientOptions: new ClientOptions
+                {
+                    BaseUrl = SquareEnvironment.Sandbox
+                }
+            );
+        });
+        builder.Services.AddSingleton<PaymentService>();
         builder.Services.AddMetrics();
         builder.Services.AddControllers();
         builder.Services.AddDbContext<PostgresContext>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("DB_CONN")));
