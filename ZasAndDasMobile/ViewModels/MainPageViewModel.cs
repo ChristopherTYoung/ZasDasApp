@@ -26,6 +26,8 @@ namespace ZasAndDasMobile.ViewModels
 
         [ObservableProperty]
         public partial bool DrinksAreVisible { set; get; } = false;
+        [ObservableProperty]
+        public partial bool SidesAreVisible { get; set; } = false;
 
         [ObservableProperty]
         public partial ObservableCollection<PizzaBaseDTO> PizzaList { set; get; } = new ObservableCollection<PizzaBaseDTO>();
@@ -66,6 +68,7 @@ namespace ZasAndDasMobile.ViewModels
         {
             PizzasAreVisible = itemCategory == "pizza";
             DrinksAreVisible = itemCategory == "drink";
+            SidesAreVisible = itemCategory == "side";
             UpdateTitleText(itemCategory);
         }
 
@@ -74,6 +77,7 @@ namespace ZasAndDasMobile.ViewModels
         {
             if (itemCategory == "pizza") LabelText = "Specialty Pizzas";
             else if (itemCategory == "drink") LabelText = "Mixed Drinks";
+            else if (itemCategory == "side") LabelText = "Sides";
             else LabelText = "Unknown";
         }
 
