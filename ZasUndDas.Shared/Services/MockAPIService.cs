@@ -5,6 +5,7 @@ using ZasUndDas.Shared.Services;
 
 public class MockAPIService : IAPIService
 {
+    public bool LoggedIn { get; private set; }
     public Uri? BaseAddress => new("https://zasanddas-fraxcmfwaxd3hjbn.westus3-01.azurewebsites.net/");
     public async Task<List<DrinkBaseDTO>> GetDrinks()
     {
@@ -72,12 +73,18 @@ public class MockAPIService : IAPIService
 
     public Task Authorize(AuthRequest request)
     {
-        throw new NotImplementedException();
+        if (request.Email == string.Empty || request.PassCode == string.Empty)
+            throw new Exception("Cannot Be empty");
+        LoggedIn = true;
+        return Task.CompletedTask;
     }
 
     public Task CreateAccount(CreateRequest request)
     {
-        throw new NotImplementedException();
+        if (request.Email == string.Empty || request.PassCode == string.Empty || request.Name == string.Empty)
+            throw new Exception("Cannot Be empty");
+        LoggedIn = true;
+        return Task.CompletedTask;
     }
 
     public async Task<List<DAddinDTO>> GetDrinkAddins()

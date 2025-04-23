@@ -133,6 +133,16 @@ namespace ZasAndDas.IntegrationTests
             (await APIKEY!.Content.ReadAsStringAsync()).ShouldBe((await (await client.PostAsJsonAsync("/api/auth/authenticate", authRequest)).Content.ReadAsStringAsync()));
         }
         [Fact]
+        public async Task AuthCanFail()
+        {
+            var client = _app.CreateClient();
+            var createRequest = new CreateRequest() { Email = "tetatete@gmail.com", Name = "test", PassCode = "Golden Wind" };
+            var APIKEY = await client.PostAsJsonAsync("/api/auth/create", createRequest);
+            APIKEY.ShouldNotBeNull();
+            var authRequest = new AuthRequest() { Email = "tetatetase@gmailasdf.com", PassCode = "Goldenasdffff Wind" };
+            (await (await client.PostAsJsonAsync("/api/auth/authenticate", authRequest)).Content.ReadAsStringAsync()).ShouldBe("Unable to validate Account");
+        }
+        [Fact]
         public async Task OrderWithAPIkeyAddsCustomer()
         {
             var client = _app.CreateClient();

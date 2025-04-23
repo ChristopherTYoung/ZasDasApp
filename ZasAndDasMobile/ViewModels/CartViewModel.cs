@@ -70,6 +70,7 @@ namespace ZasAndDasMobile.ViewModels
         public CartViewModel(CartService cartService)
         {
             _cartService = cartService;
+
             var items = _cartService.GetCartItems;
             CartItems = items;
             _cartService.CartUpdated += OnCartUpdated!;

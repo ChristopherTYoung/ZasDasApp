@@ -3,9 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ZasAndDasMobile.LoginPage">
     <VerticalStackLayout>
-        <Label Text = "{Binding InvalidMessage}" IsVisible="{Binding IsValid}"/>
-        <Label Text = "Username:"/>
-        <Entry Text = "{Binding User}"/>
-        <Entry Text = "{Binding Password}"/>
+        <VerticalStackLayout
+            IsVisible="{Binding LoggedOut}">
+        <Label Text = "{Binding InvalidMessage}" IsVisible="{Binding IsValid}" TextColor="Red"/>
+        <Label Text = "Login Info Here:"/>
+        <Entry Text = "{Binding User}" Placeholder="Email"/>
+        <Entry Text = "{Binding Password}" IsPassword="True" Placeholder="Password"/>
+        <Button Text ="Login" Command="{Binding LoginCommand}"/>
+            
+        </VerticalStackLayout>
+        <VerticalStackLayout IsVisible="{Binding LoggedIn}">
+            <Label Text = "Welcome!"/>
+            <Label Text = "{Binding User}"/>
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
