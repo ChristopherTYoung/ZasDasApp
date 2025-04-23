@@ -41,7 +41,7 @@ public class CalzoneDTO : ICheckoutItem
         Base = CalzoneBase;
         Name = Base.Name;
         Price = Base.Price;
-
+        Addins = new List<PAddinDTO>();
     }
     public int Id { set; get; }
     public CalzoneBase Base { set; get; }
