@@ -324,6 +324,7 @@ public partial class PostgresContext : DbContext
                 .HasColumnName("pizza_name");
             entity.Property(e => e.ImagePath)
                 .HasColumnName("image_path")
+                .HasDefaultValue("https://zasanddasstorage.blob.core.windows.net/menuitemimages/pizza.png")
                 .HasMaxLength(256);
 
         });
