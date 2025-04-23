@@ -12,7 +12,7 @@ namespace ZasAndDasWeb.Controllers
         public async Task<FileStreamResult> GetImageAsync(string filename)
         {
             var stream = await blobService.GetImage(filename);
-            return new FileStreamResult(stream, "image/jpg");
+            return new FileStreamResult(stream, "image/png");
         }
 
         [HttpPost("images/upload")]

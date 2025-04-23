@@ -23,10 +23,10 @@ public class MockAPIService : IAPIService
         // Simulating a predefined list of pizzas
         return await Task.FromResult(new List<PizzaBaseDTO>
         {
-            new PizzaBaseDTO { Id = 1, Name = "Margherita", Price = 8.99m },
-            new PizzaBaseDTO { Id = 2, Name = "Pepperoni", Price = 9.99m },
-            new PizzaBaseDTO { Id = 3, Name = "Vegetarian", Price = 9.49m },
-            new PizzaBaseDTO { Id = 4, Name = "CYO", Price = 8.99m }
+            new PizzaBaseDTO { Id = 1, Name = "Margherita", Price = 8.99m, ImagePath = "https://zasanddasstorage.blob.core.windows.net/menuitemimages/pizza.png" },
+            new PizzaBaseDTO { Id = 2, Name = "Pepperoni", Price = 9.99m, ImagePath = "https://zasanddasstorage.blob.core.windows.net/menuitemimages/pizza.png" },
+            new PizzaBaseDTO { Id = 3, Name = "Vegetarian", Price = 9.49m, ImagePath = "https://zasanddasstorage.blob.core.windows.net/menuitemimages/pizza.png" },
+            new PizzaBaseDTO { Id = 4, Name = "CYO", Price = 8.99m,  }
 
         });
     }
