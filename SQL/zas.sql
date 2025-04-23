@@ -38,7 +38,7 @@ CREATE TABLE zasanddas.pizza_base (
     pizza_name VARCHAR(50) not null,
     description VARCHAR(256),
     base_price decimal NOT null,
-    image_path varchar(256)
+    image_path varchar(256) default('https://zasanddasstorage.blob.core.windows.net/menuitemimages/pizza.png')
 );
 
 INSERT INTO zasanddas.pizza_base (pizza_name, base_price) values ('Test', 4);
