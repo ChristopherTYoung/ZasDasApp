@@ -4,6 +4,7 @@
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup>
+
     <ActiveDebugProfile>Pixel 7 - API 35 (Android 15.0 - API 35)</ActiveDebugProfile>
     <ActiveDebugFramework>net9.0-android</ActiveDebugFramework>
     <IsFirstTimeProjectOpen>False</IsFirstTimeProjectOpen>
@@ -15,6 +16,9 @@
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Popups\DrinkPopup.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Views\CreateAccountPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="Views\LoginPage.xaml">

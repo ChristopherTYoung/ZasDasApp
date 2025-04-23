@@ -8,6 +8,10 @@
     Title="ZasAndDasMobile">
 
     <ShellContent
+        Title="Create"
+        ContentTemplate="{DataTemplate local:CreateAccountPage}"
+        Route="Create"/>
+    <ShellContent
         Title="Login"
         ContentTemplate="{DataTemplate local:LoginPage}"
         Route="Login"/>

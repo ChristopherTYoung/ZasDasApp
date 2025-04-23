@@ -10,7 +10,9 @@ using ZasUndDas.Shared.Data;
 namespace ZasUndDas.Shared.Services;
 public class APIService : IAPIService
 {
-    public static string apiKey = "APIKEY";
+    public bool LoggedIn => key != null;
+    public static string? apiKey = "APIKEY";
+    public string? key;
     public APIService(HttpClient client)
     {
         Client = client;
@@ -25,11 +27,20 @@ public class APIService : IAPIService
     }
     public async Task Authorize(AuthRequest request)
     {
-        Client.DefaultRequestHeaders.Add(apiKey, await (await Client.PostAsJsonAsync("/api/auth/authenticate", request)).Content.ReadAsStringAsync());
+        var response = await Client.PostAsJsonAsync("/api/auth/authenticate", request);
+        var TempKey = await response.Content.ReadAsStringAsync();
+        if (TempKey.Contains(" "))
+            throw new Exception(TempKey);
+        key = TempKey;
+        Client.DefaultRequestHeaders.Add(apiKey, TempKey);
     }
     public async Task CreateAccount(CreateRequest request)
     {
-        Client.DefaultRequestHeaders.Add(apiKey, await (await Client.PostAsJsonAsync("/api/auth/create", request)).Content.ReadAsStringAsync());
+        var response = await Client.PostAsJsonAsync("/api/auth/create", request);
+        var TempKey = await response.Content.ReadAsStringAsync();
+        if (TempKey.Contains(" "))
+            throw new Exception(TempKey);
+        Client.DefaultRequestHeaders.Add(apiKey, TempKey);
     }
     public async Task<List<PizzaBaseDTO>> GetPizzas()
     {
@@ -69,6 +80,7 @@ public class APIService : IAPIService
 
 public interface IAPIService
 {
+    public bool LoggedIn { get; }
     public Task Authorize(AuthRequest request);
     public Task CreateAccount(CreateRequest request);
     public Task<List<DrinkBaseDTO>> GetDrinks();
