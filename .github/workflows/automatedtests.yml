@@ -45,7 +45,8 @@ jobs:
          run: |
             ls .
             pwd
-            docker build  -f ./web.Dockerfile \
+            docker build \
+            -f ./web.Dockerfile \
             -t nhowell02/zasanddas:${{github.run_id}} \
             .
 
