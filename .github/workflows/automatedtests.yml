@@ -45,7 +45,7 @@ jobs:
          run: |
             ls
             pwd
-            docker build  -f ./Dockerfile \
+            docker build  -f ./web.Dockerfile \
             -t nhowell02/zasanddas:${{github.run_id}} \
             .
 
@@ -54,7 +54,7 @@ jobs:
 
     pushtokubernetes:
         runs-on: self-hosted
-        needs: [test, integrationtest, pushtodocker]
+        needs: [pushtodocker]
         steps:
         - name: deploy to kubernetes
           run: |
