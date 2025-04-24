@@ -61,7 +61,7 @@ namespace ZasUndDas.Shared.Services
         }
         public ICheckoutItem RemoveItem(int id)
         {
-            var item = cart.First(i => i.Id == id);
+            var item = cart.FirstOrDefault(i => i.Id == id) ?? throw new InvalidOperationException();
             cart.Remove(item);
             return item.item;
         }

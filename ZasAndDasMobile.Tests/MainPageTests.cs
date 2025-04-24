@@ -189,5 +189,12 @@ namespace ZasAndDasMobile.Tests
             cart.GetItemCount.ShouldBe(1);
             cart.GetCartItems.ShouldContain(i => i.Id == 2);
         }
+
+        [Fact]
+        public void CannotRemoveNonexistentItem()
+        {
+            var cart = new CartService();
+            Should.Throw<InvalidOperationException>(() => cart.RemoveItem(1));
+        }
     }
 }
