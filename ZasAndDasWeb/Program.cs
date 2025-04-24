@@ -56,26 +56,22 @@ public class Program
                 .CreateDefault()
                 .AddService("TelemetryAspireDashboardQuickstart");
 
-            var serviceName = "zasanddas";
             builder.Services.AddOpenTelemetry()
                 .ConfigureResource(resource =>
-                    resource.AddService(serviceName: serviceName)
+                    resource.AddService(serviceName: MetricService.MeterName)
                 )
                 .WithMetrics(metrics => metrics
-                    .AddMeter(serviceName)
-                    .AddMeter("ZasAndDasMetrics")
+                    .AddMeter(MetricService.MeterName)
                     .AddAspNetCoreInstrumentation()
                     .AddOtlpExporter(options =>
                     {
                         options.Endpoint = new Uri(collectorURL);
-                        //options.Protocol = OtlpExportProtocol.Grpc;
                     }))
                 .WithTracing(tracing => tracing
                     .AddAspNetCoreInstrumentation()
                     .AddOtlpExporter(options =>
                     {
                         options.Endpoint = new Uri(collectorURL);
-                        //options.Protocol = OtlpExportProtocol.Grpc;
                     }));
             builder.Services.AddSingleton<MetricService>();
             builder.Logging.AddOpenTelemetry(options =>
