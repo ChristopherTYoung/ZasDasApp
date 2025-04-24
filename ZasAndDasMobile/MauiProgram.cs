@@ -49,11 +49,9 @@ namespace ZasAndDasMobile
 
             //builder.Services.AddSingleton<HttpClient>(_ => new HttpClient() { BaseAddress = new Uri("https://rzw2zfkp-7197.usw3.devtunnels.ms/") });
             builder.Services.AddSingleton<HttpClient>(_ => new HttpClient() { BaseAddress = new Uri("https://zasanddas-fraxcmfwaxd3hjbn.westus3-01.azurewebsites.net/") });
-            // I just set this here because android app can't read the env variables and I spent like an hour trying to get it to work
-            // The Window Design works but only for the Windows App and not for the Phone app
-            // Enjoy my rant. I have no clue why env variables are so difficult on mobile. Or I'm just dumb -Logan
-            var IsModel = false;
-            //var IsModel = (Environment.GetEnvironmentVariable("ISNT_MODEL") ?? "True") == "True";
+
+            // set this to false for the mock service
+            var IsModel = true;
             if (!IsModel)
             {
                 builder.Services.AddSingleton<IAPIService, MockAPIService>();

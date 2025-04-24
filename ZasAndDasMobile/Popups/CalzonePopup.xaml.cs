@@ -7,9 +7,9 @@ using ZasUndDas.Shared.Data;
 
 namespace ZasAndDasMobile.Popups;
 
-public partial class PizzaPopup : Popup
+public partial class CalzonePopup : Popup
 {
-    public PizzaPopup(PizzaPopupViewModel vm)
+    public CalzonePopup(CalzonePopupViewModel vm)
     {
         InitializeComponent();
         vm.SetPopup(this);
@@ -21,6 +21,7 @@ public partial class PizzaPopup : Popup
     {
         // temporarily disable Editor so it doesn't grab focus
         CommentEditor.IsEnabled = false;
+
         await Task.Delay(100);
 
         await ItemScrollView.ScrollToAsync(0, 0, animated: false);

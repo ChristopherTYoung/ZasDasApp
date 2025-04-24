@@ -43,37 +43,64 @@
               Grid.Row="1"
               ColumnDefinitions="*,*,*"
               ColumnSpacing="10">
-            <ImageButton Source="pizza_icon.png"
-                         BackgroundColor="{Binding PizzasAreVisible, Converter={StaticResource ItemBGColorConverter}}"
-                         Command="{Binding UpdateTabsCommand}" 
-                         CommandParameter="pizza"
-                         MaximumHeightRequest="40"
-                         MaximumWidthRequest="40"
-                         MinimumHeightRequest="40"
-                         MinimumWidthRequest="40"
-                         HorizontalOptions="Center"
-                         Grid.Column="0"/>
+            <VerticalStackLayout Grid.Column="0"
+                             BackgroundColor="{Binding PizzasAreVisible, Converter={StaticResource ItemBGColorConverter}}">
+                <ImageButton Source="pizza_icon.png"
+                             Command="{Binding UpdateTabsCommand}"  
+                             CommandParameter="pizza"
+                             MaximumHeightRequest="40"
+                             MaximumWidthRequest="40"
+                             MinimumHeightRequest="40"
+                             MinimumWidthRequest="40"
+                             HorizontalOptions="Center"/>
+                <Label Text="Pizzas"
+                       HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding UpdateTabsCommand}"
+                            CommandParameter="pizza"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </VerticalStackLayout>
 
-            <ImageButton Source="drink_icon.png"
-                         BackgroundColor="{Binding DrinksAreVisible, Converter={StaticResource ItemBGColorConverter}}"
-                         Command="{Binding UpdateTabsCommand}"
-                         CommandParameter="drink"
-                         MaximumHeightRequest="40"
-                         MaximumWidthRequest="40"
-                         MinimumHeightRequest="40"
-                         MinimumWidthRequest="40"
-                         HorizontalOptions="Center"
-                         Grid.Column="1"/>
-            <ImageButton Source="calzone.png"
-                         BackgroundColor="{Binding SidesAreVisible, Converter={StaticResource ItemBGColorConverter}}"
+            <VerticalStackLayout Grid.Column="1"
+                                 BackgroundColor="{Binding DrinksAreVisible, Converter={StaticResource ItemBGColorConverter}}">
+                <ImageButton Source="drink_icon.png"
+                             Command="{Binding UpdateTabsCommand}"
+                             CommandParameter="drink"
+                             MaximumHeightRequest="40"
+                             MaximumWidthRequest="40"
+                             MinimumHeightRequest="40"
+                             MinimumWidthRequest="40"
+                             HorizontalOptions="Center"/>
+                <Label Text="Drinks"
+                       HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding UpdateTabsCommand}"
+                            CommandParameter="drink"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Column="2"
+                                 BackgroundColor="{Binding SidesAreVisible, Converter={StaticResource ItemBGColorConverter}}">
+                <ImageButton Source="salad.png"
                          Command="{Binding UpdateTabsCommand}"
                          CommandParameter="side"
                          MaximumHeightRequest="40"
                          MaximumWidthRequest="40"
                          MinimumHeightRequest="40"
                          MinimumWidthRequest="40"
-                         HorizontalOptions="Center"
-                         Grid.Column="2"/>
+                         HorizontalOptions="Center"/>
+                <Label Text="Sides"
+                       HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding UpdateTabsCommand}"
+                            CommandParameter="side"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </VerticalStackLayout>
 
         </Grid>
 
@@ -99,7 +126,11 @@
                                         Stroke="DarkRed"
                                         StrokeShape="RoundRectangle 20,20,20,20">
                                     <VerticalStackLayout>
-                                        <Image Source="{Binding ImagePath}" WidthRequest="120"/>
+                                        <Image Source="{Binding ImagePath}" 
+                                               MinimumHeightRequest="120"
+                                               MinimumWidthRequest="120"
+                                               MaximumHeightRequest="120"
+                                               MaximumWidthRequest="120"/>
                                         <BoxView HeightRequest="1" Color="Gold" HorizontalOptions="FillAndExpand" Margin="0,10"/>
                                         <VerticalStackLayout>
                                             <Label Text="{Binding Name}" 
@@ -139,11 +170,55 @@
 
                                         <Image Source="{Binding ImagePath}"
                                                MinimumHeightRequest="120"
-                                               MinimumWidthRequest="120"/>
+                                               MinimumWidthRequest="120"
+                                               MaximumHeightRequest="120"
+                                               MaximumWidthRequest="120"/>
                                         <BoxView HeightRequest="1" Color="Gold" HorizontalOptions="FillAndExpand" Margin="0,10"/>
                                         <VerticalStackLayout>
                                             <Label Text="{Binding Name}" 
                                                     FontAttributes="Bold"/>
+                                            <HorizontalStackLayout>
+                                                <Label Text="Price: " />
+                                                <Label Text="{Binding Price}"  Padding="5,0"/>
+                                            </HorizontalStackLayout>
+                                            <Label Text="{Binding Description}" />
+                                        </VerticalStackLayout>
+                                    </VerticalStackLayout>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainPageViewModel}}, Path=ShowItemPopupCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                    </Border.GestureRecognizers>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+                <VerticalStackLayout IsVisible="{Binding SidesAreVisible}"
+                                     Margin="10,5,10,0">
+                    <CollectionView ItemsSource="{Binding SideList}" 
+                                    HorizontalOptions="Center">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="2"
+                                             VerticalItemSpacing="10"
+                                             HorizontalItemSpacing="10"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Padding="20,20"
+                                        Stroke="DarkRed"
+                                        StrokeShape="RoundRectangle 20,20,20,20">
+                                    <VerticalStackLayout>
+
+                                        <Image Source="{Binding ImagePath}"
+                                               MinimumHeightRequest="120"
+                                               MinimumWidthRequest="120"
+                                               MaximumHeightRequest="120"
+                                               MaximumWidthRequest="120"/>
+                                        <BoxView HeightRequest="1" Color="Gold" HorizontalOptions="FillAndExpand" Margin="0,10"/>
+                                        <VerticalStackLayout>
+                                            <Label Text="{Binding Name}" 
+                                                   FontAttributes="Bold"/>
                                             <HorizontalStackLayout>
                                                 <Label Text="Price: " />
                                                 <Label Text="{Binding Price}"  Padding="5,0"/>

@@ -68,7 +68,8 @@ namespace ZasAndDas.IntegrationTests
                 NetAmount = 0,
                 SalesTax = 0,
                 Items = new List<OrderItemDTO>(),
-                DateOrdered = DateTime.Parse("03-31-2025 12:30:00 PM")
+                DateOrdered = DateTime.Parse("03-31-2025 12:30:00 PM"),
+                Nonce = "cnon:card-nonce-ok"
             };
             var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
             response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
@@ -84,7 +85,8 @@ namespace ZasAndDas.IntegrationTests
                 NetAmount = 3.85M,
                 SalesTax = 0.10M,
                 Items = new List<OrderItemDTO>() { new OrderItemDTO(new StockItemDTO { Id = 1, Name = "Coke", Price = 3.75m, ItemCategoryId = 1 }) },
-                DateOrdered = DateTime.Parse("03-31-2025 12:30:00 PM")
+                DateOrdered = DateTime.Parse("03-31-2025 12:30:00 PM"),
+                Nonce = "cnon:card-nonce-ok"
             };
 
             var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
@@ -108,7 +110,8 @@ namespace ZasAndDas.IntegrationTests
                 NetAmount = 3.85M,
                 SalesTax = 0.10M,
                 Items = [new(pizza)],
-                DateOrdered = DateTime.ParseExact("03-31-2025 12:30:00 PM", "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)
+                DateOrdered = DateTime.ParseExact("03-31-2025 12:30:00 PM", "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture),
+                Nonce = "cnon:card-nonce-ok"
             };
 
             var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
@@ -122,6 +125,7 @@ namespace ZasAndDas.IntegrationTests
             dbPizza.Base.Name.ShouldBe("Test");
             dbPizza.Base.Price.ShouldBe(15.99M);
         }
+
         [Fact]
         public async Task CanAuthorize()
         {
@@ -132,6 +136,7 @@ namespace ZasAndDas.IntegrationTests
             var authRequest = new AuthRequest() { Email = "tetatete@gmail.com", PassCode = "Golden Wind" };
             (await APIKEY!.Content.ReadAsStringAsync()).ShouldBe((await (await client.PostAsJsonAsync("/api/auth/authenticate", authRequest)).Content.ReadAsStringAsync()));
         }
+
         [Fact]
         public async Task AuthCanFail()
         {
@@ -142,6 +147,7 @@ namespace ZasAndDas.IntegrationTests
             var authRequest = new AuthRequest() { Email = "tetatetase@gmailasdf.com", PassCode = "Goldenasdffff Wind" };
             (await (await client.PostAsJsonAsync("/api/auth/authenticate", authRequest)).Content.ReadAsStringAsync()).ShouldBe("Unable to validate Account");
         }
+
         [Fact]
         public async Task OrderWithAPIkeyAddsCustomer()
         {
@@ -156,7 +162,8 @@ namespace ZasAndDas.IntegrationTests
                 NetAmount = 3.85M,
                 SalesTax = 0.10M,
                 Items = new List<OrderItemDTO>() { new OrderItemDTO(new StockItemDTO { Id = 1, Name = "Coke", Price = 3.75m, ItemCategoryId = 1 }) },
-                DateOrdered = DateTime.Parse("03-31-2025 12:30:00 PM")
+                DateOrdered = DateTime.Parse("03-31-2025 12:30:00 PM"),
+                Nonce = "cnon:card-nonce-ok"
             };
 
             var json = JsonSerializer.Serialize(order, new JsonSerializerOptions { WriteIndented = true });
@@ -182,7 +189,8 @@ namespace ZasAndDas.IntegrationTests
                 NetAmount = 6.25M,
                 SalesTax = 0.25M,
                 Items = [new(drink)],
-                DateOrdered = DateTime.ParseExact("03-31-2025 12:30:00 PM", "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)
+                DateOrdered = DateTime.ParseExact("03-31-2025 12:30:00 PM", "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture),
+                Nonce = "cnon:card-nonce-ok"
             };
 
             var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
@@ -209,7 +217,8 @@ namespace ZasAndDas.IntegrationTests
                 NetAmount = 7.50M,
                 SalesTax = 0.01M,
                 Items = [new(calzone)],
-                DateOrdered = DateTime.ParseExact("03-31-2025 12:30:00 PM", "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)
+                DateOrdered = DateTime.ParseExact("03-31-2025 12:30:00 PM", "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture),
+                Nonce = "cnon:card-nonce-ok"
             };
 
 
@@ -235,7 +244,8 @@ namespace ZasAndDas.IntegrationTests
                 NetAmount = 7.50M,
                 SalesTax = 0.01M,
                 Items = [new(salad)],
-                DateOrdered = DateTime.ParseExact("03-31-2025 12:30:00 PM", "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)
+                DateOrdered = DateTime.ParseExact("03-31-2025 12:30:00 PM", "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture),
+                Nonce = "cnon:card-nonce-ok"
             };
 
             var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
@@ -259,7 +269,8 @@ namespace ZasAndDas.IntegrationTests
                 NetAmount = 6.00M,
                 SalesTax = 0.01M,
                 Items = [new(cheeseBread)],
-                DateOrdered = DateTime.ParseExact("03-31-2025 12:30:00 PM", "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)
+                DateOrdered = DateTime.ParseExact("03-31-2025 12:30:00 PM", "MM-dd-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture),
+                Nonce = "cnon:card-nonce-ok"
             };
 
             var response = await client.PostAsJsonAsync("/api/order/sendorder", order);
@@ -271,38 +282,6 @@ namespace ZasAndDas.IntegrationTests
             dbCheeseBread.Price.ShouldBe(5.99M);
             dbCheeseBread.Size.Id.ShouldBe(1);
             dbCheeseBread.CookedAtHome.ShouldBe(false);
-        }
-
-        [Fact]
-        public async Task CanUploadAndDownloadImages()
-        {
-            var testStream = new MemoryStream(Encoding.UTF8.GetBytes("fake image"));
-            var file = new FormFile(testStream, 0, testStream.Length, "file", "test.png");
-
-            // return object for the response for DownloadAsync
-            var downloadResult = BlobsModelFactory.BlobDownloadInfo(
-                content: testStream,
-                contentType: "image/png"
-            );
-
-            // fakeResponse that DownloadAsync returns
-            var fakeResponse = Substitute.For<Response<BlobDownloadInfo>>();
-            fakeResponse.Value.Returns(downloadResult);
-
-            var blobClient = Substitute.For<BlobClient>();
-            blobClient.DownloadAsync().Returns(Task.FromResult(fakeResponse));
-
-            var containerClient = Substitute.For<BlobContainerClient>();
-            containerClient.GetBlobClient("test.png").Returns(blobClient);
-
-            var blobService = new BlobService(containerClient);
-            var blobController = new BlobController(blobService);
-
-            var response = await blobController.UploadImageAsync(file);
-            response.ShouldBe(Results.Ok());
-
-            var image = await blobController.GetImageAsync("test.png");
-            image.ContentType.ShouldBe("image/png");
         }
     }
 }

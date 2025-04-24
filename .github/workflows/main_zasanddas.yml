@@ -10,6 +10,18 @@ on:
   workflow_dispatch:
 
 jobs:
+    test:
+      runs-on: self-hosted
+      steps:
+      - uses: actions/checkout@v4
+      - name: example
+        run: |
+          docker build \
+          -f ./test.Dockerfile \
+          -t zas_test_container \
+          .
+          docker run --rm zas_test_container
+
     integrationtest:
         runs-on: self-hosted
         steps:
@@ -25,7 +37,7 @@ jobs:
         runs-on: ubuntu-latest
         permissions:
             contents: read #This is required for actions/checkout
-        needs: integrationtest
+        needs: [integrationtest, test]
         steps:
         - uses: actions/checkout@v4
         - name: Set up .NET Core

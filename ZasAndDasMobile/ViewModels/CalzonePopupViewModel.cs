@@ -16,7 +16,7 @@ using ZasUndDas.Shared.Services;
 
 namespace ZasAndDasMobile.ViewModels
 {
-    public partial class PizzaPopupViewModel : ObservableObject, IRecipient<UpdatePopupMessage>
+    public partial class CalzonePopupViewModel : ObservableObject, IRecipient<UpdatePopupMessage>
     {
         Popup? _popup;
         IStoreItem item;
@@ -31,20 +31,13 @@ namespace ZasAndDasMobile.ViewModels
         public partial ObservableCollection<string> CookStyle { get; set; } = new ObservableCollection<string>() { "In Store", "Take and Bake" };
         [ObservableProperty]
         public partial string SelectedCookStyle { get; set; }
-
         [ObservableProperty]
-        public partial List<PizzaSize> PizzaSizes { get; set; }
+        public partial List<PAddinDTO> CalzoneAddins { get; set; } = new();
         [ObservableProperty]
-        public partial PizzaSize? SelectedPizzaSize { get; set; }
-
-        [ObservableProperty]
-        public partial List<Sauce> PizzaSauces { get; set; }
+        public partial List<Sauce> PizzaSauces { get; set; } = new();
         [ObservableProperty]
         public partial Sauce? SelectedPizzaSauce { get; set; }
-        [ObservableProperty]
-        public partial List<PAddinDTO> PizzaAddins { get; set; }
 
-        public bool CanAddToCart => SelectedPizzaSize != null;
 
         [RelayCommand]
         public void ClosePopup()
@@ -55,52 +48,34 @@ namespace ZasAndDasMobile.ViewModels
         [RelayCommand]
         public void AddItemToCart()
         {
-            var pizza = new PizzaDTO((PizzaBaseDTO)item);
-            foreach (var addin in PizzaAddins.Where(addin => addin.IsChecked))
+            var calzone = new CalzoneDTO((CalzoneBase)item);
+            foreach (var addin in CalzoneAddins.Where(addin => addin.IsChecked))
             {
-                pizza.AddTopping(addin);
+                calzone.AddTopping(addin);
             }
-            pizza.ChangeSize(SelectedPizzaSize!);
-            pizza.ChangeSauce(SelectedPizzaSauce!);
-            pizza.CookedAtHome = SelectedCookStyle == "Take and Bake";
-            _cartService.AddToCart(pizza);
+            _cartService.AddToCart(calzone);
             _popup?.Close();
         }
 
-        public PizzaPopupViewModel(IStoreItem item, CartService cartService, MenuItemService menuItemService)
+        public CalzonePopupViewModel(IStoreItem item, CartService cartService, MenuItemService menuItemService)
         {
             WeakReferenceMessenger.Default.Register(this);
             this.item = item;
             _cartService = cartService;
             _menuItemService = menuItemService;
             SelectedCookStyle = CookStyle[0];
-            PizzaSizes = new List<PizzaSize>();
-            PizzaSauces = new List<Sauce>();
-            PizzaAddins = new List<PAddinDTO>();
-            OnPropertyChanged(nameof(CanAddToCart));
         }
 
-        public async Task Sync()
+        private async Task Sync()
         {
-            PizzaSizes = SetPizzaSizes(await _menuItemService.GetPizzaSizes());
+            CalzoneAddins = await _menuItemService.GetPAddonDTOs();
             PizzaSauces = await _menuItemService.GetSauces();
-            PizzaAddins = await _menuItemService.GetPAddonDTOs();
             SelectedPizzaSauce = PizzaSauces.FirstOrDefault(s => s.Id == 1);
         }
 
         public void SetPopup(Popup popup)
         {
             _popup = popup;
-        }
-
-        private List<PizzaSize> SetPizzaSizes(List<PizzaSize> pizzaSizes)
-        {
-            if (Name != "CYO") pizzaSizes.RemoveAll(size => size.Id == 1);
-            return pizzaSizes;
-        }
-        partial void OnSelectedPizzaSizeChanged(PizzaSize? value)
-        {
-            OnPropertyChanged(nameof(CanAddToCart));
         }
 
         public async void Receive(UpdatePopupMessage message)

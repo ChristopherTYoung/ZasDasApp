@@ -8,10 +8,12 @@ namespace ZasUndDas.Shared.Services
 {
     public class CheckoutItemVM
     {
-        public CheckoutItemVM(ICheckoutItem item)
+        public CheckoutItemVM(ICheckoutItem item, int id)
         {
             this.item = item;
+            Id = id;
         }
+        public int Id;
         public ICheckoutItem item;
         public decimal Price => item.Price;
         public string? ImagePath => item.GetImagePath();

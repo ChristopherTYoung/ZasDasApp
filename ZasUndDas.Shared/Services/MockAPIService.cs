@@ -46,9 +46,9 @@ public class MockAPIService : IAPIService
     {
         return await Task.FromResult(new List<PizzaSize>
         {
-            new PizzaSize { Id = 0, SizeName = "8\" Pizza" },
-            new PizzaSize { Id = 1, SizeName ="12\" Pizza" },
-            new PizzaSize { Id = 2, SizeName ="16\" Pizza" }
+            new PizzaSize { Id = 1, SizeName = "8\" Pizza" },
+            new PizzaSize { Id = 2, SizeName ="12\" Pizza" },
+            new PizzaSize { Id = 3, SizeName ="16\" Pizza" }
         });
     }
 
@@ -57,10 +57,10 @@ public class MockAPIService : IAPIService
     {
         return await Task.FromResult(new List<Sauce>
         {
-            new Sauce { Id = 0, SauceName = "Default" },
-            new Sauce { Id = 1, SauceName = "Ranch" },
-            new Sauce { Id = 2, SauceName ="Marinaria" },
-            new Sauce { Id = 3, SauceName ="BBQ" }
+            new Sauce { Id = 1, SauceName = "Default" },
+            new Sauce { Id = 2, SauceName = "Ranch" },
+            new Sauce { Id = 3, SauceName ="Marinaria" },
+            new Sauce { Id = 4, SauceName ="BBQ" }
         });
     }
 
@@ -91,9 +91,9 @@ public class MockAPIService : IAPIService
     {
         return await Task.FromResult(new List<DAddinDTO>
         {
-            new DAddinDTO { Id = 0, AddinName = "Cherry", Price = 1.50m },
-            new DAddinDTO { Id = 1, AddinName = "Lime", Price = 1.50m },
-            new DAddinDTO { Id = 2, AddinName = "Grape", Price = 1.50m },
+            new DAddinDTO { Id = 1, AddinName = "Cherry", Price = 1.50m },
+            new DAddinDTO { Id = 2, AddinName = "Lime", Price = 1.50m },
+            new DAddinDTO { Id = 3, AddinName = "Grape", Price = 1.50m },
         });
     }
 }

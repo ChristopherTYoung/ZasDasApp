@@ -35,11 +35,20 @@ public class CalzoneDTO : ICheckoutItem
     {
         Addins = new List<PAddinDTO>();
     }
+
+    public CalzoneDTO(CalzoneBase CalzoneBase)
+    {
+        Base = CalzoneBase;
+        Name = Base.Name;
+        Price = Base.Price;
+        Addins = new List<PAddinDTO>();
+    }
     public int Id { set; get; }
+    public CalzoneBase? Base { set; get; }
     public int? SauceId { set; get; }
     public bool? CookedAtHome { set; get; }
     public decimal Price { set; get; }
-    public string? GetImagePath() => "default";
+    public string? GetImagePath() => Base.ImagePath;
     public Sauce? Sauce { set; get; }
     public List<PAddinDTO> Addins { set; get; }
     public int Quantity { get; set; }

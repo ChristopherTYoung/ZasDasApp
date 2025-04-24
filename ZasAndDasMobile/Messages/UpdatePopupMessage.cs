@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZasUndDas.Shared.Services
+namespace ZasAndDasMobile.Messages
 {
-    //public class EmailVerifierService(IAPIService service)
-    //{
-    //}
+    public class UpdatePopupMessage
+    {
+    }
 }
