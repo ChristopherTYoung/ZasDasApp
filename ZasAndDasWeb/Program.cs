@@ -12,6 +12,7 @@ using ZasAndDasWeb.Services;
 using Azure.Storage.Blobs;
 using Square;
 using System.Buffers.Text;
+using System.Diagnostics.Metrics;
 
 public class Program
 {
@@ -55,7 +56,7 @@ public class Program
                 .CreateDefault()
                 .AddService("TelemetryAspireDashboardQuickstart");
 
-            var serviceName = "chris-web";
+            var serviceName = "zasanddas";
             builder.Services.AddOpenTelemetry()
                 .ConfigureResource(resource =>
                     resource.AddService(serviceName: serviceName)
@@ -76,7 +77,7 @@ public class Program
                         options.Endpoint = new Uri(collectorURL);
                         //options.Protocol = OtlpExportProtocol.Grpc;
                     }));
-
+            builder.Services.AddSingleton<MetricService>();
             builder.Logging.AddOpenTelemetry(options =>
             {
                 options.SetResourceBuilder(resourceBuilder);
@@ -115,8 +116,6 @@ public class Program
         app.MapRazorComponents<App>();
 
         app.Run();
-
-
     }
 }
 
