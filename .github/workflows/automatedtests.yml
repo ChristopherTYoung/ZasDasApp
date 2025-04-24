@@ -42,8 +42,8 @@ jobs:
 
        - name: Create container and push
          run: |
-            pwd
             ls
+            pwd
             docker build  -f ./Dockerfile \
             -t nhowell02/zasanddas:${{github.run_id}} \
             .
