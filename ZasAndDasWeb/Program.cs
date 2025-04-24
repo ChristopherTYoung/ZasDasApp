@@ -41,7 +41,7 @@ public class Program
         builder.Services.AddSingleton<PaymentService>();
         builder.Services.AddMetrics();
         builder.Services.AddControllers();
-        builder.Services.AddDbContext<PostgresContext>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("DB_CONN")));
+        builder.Services.AddDbContext<PostgresContext>(o => o.UseNpgsql(builder.Configuration["DB_CONN"]));
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddScoped<OrderService>();
