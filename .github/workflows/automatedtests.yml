@@ -10,6 +10,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: example
         run: |
+          ls .
           docker build \
           -f ./test.Dockerfile \
           -t zas_test_container \
