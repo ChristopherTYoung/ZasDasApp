@@ -59,6 +59,7 @@ jobs:
         runs-on: self-hosted
         needs: [pushtodocker]
         steps:
+        - uses: actions/checkout@v4
         - name: deploy to kubernetes
           run: |
             export BUILD_NUMBER=${{github.run_id}}
