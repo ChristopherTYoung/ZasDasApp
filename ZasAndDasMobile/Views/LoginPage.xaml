@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ZasAndDasMobile.LoginPage">
+             x:Class="ZasAndDasMobile.LoginPage"
+             Shell.NavBarIsVisible="False">
     <VerticalStackLayout>
         <VerticalStackLayout
             IsVisible="{Binding LoggedOut}">
-        <Label Text = "{Binding InvalidMessage}" IsVisible="{Binding IsValid}" TextColor="Red"/>
-        <Label Text = "Login Info Here:"/>
-        <Entry Text = "{Binding User}" Placeholder="Email"/>
-        <Entry Text = "{Binding Password}" IsPassword="True" Placeholder="Password"/>
-        <Button Text ="Login" Command="{Binding LoginCommand}"/>
-            
+            <ImageButton Source="back_arrow_icon.png"
+                         MaximumHeightRequest="32"
+                         MaximumWidthRequest="32"
+                         MinimumHeightRequest="32"
+                         MinimumWidthRequest="32"
+                         CornerRadius="40"
+                         Command="{Binding ReturnToHomeCommand}"/>
+
+            <Label Text = "{Binding InvalidMessage}" IsVisible="{Binding IsValid}" TextColor="Red"/>
+            <Label Text = "Login Info Here:"/>
+            <Entry Text = "{Binding User}" Placeholder="Email"/>
+            <Entry Text = "{Binding Password}" IsPassword="True" Placeholder="Password"/>
+            <Button Text ="Login" Command="{Binding LoginCommand}"/>
+
         </VerticalStackLayout>
         <VerticalStackLayout IsVisible="{Binding LoggedIn}">
             <Label Text = "Welcome!"/>
             <Label Text = "{Binding User}"/>
+            <Button Text="Logout" Command="{Binding LogOutCommand}"/>
         </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

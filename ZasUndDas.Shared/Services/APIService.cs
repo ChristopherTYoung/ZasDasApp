@@ -12,6 +12,7 @@ public class APIService : IAPIService
 {
     public bool LoggedIn => key != null;
     public static string? apiKey = "APIKEY";
+
     public string? key;
     public APIService(HttpClient client)
     {
@@ -24,6 +25,10 @@ public class APIService : IAPIService
         {
             return Client.BaseAddress;
         }
+    }
+    public void LogOut()
+    {
+        apiKey = null;
     }
     public async Task Authorize(AuthRequest request)
     {
@@ -81,6 +86,7 @@ public class APIService : IAPIService
 public interface IAPIService
 {
     public bool LoggedIn { get; }
+    public void LogOut();
     public Task Authorize(AuthRequest request);
     public Task CreateAccount(CreateRequest request);
     public Task<List<DrinkBaseDTO>> GetDrinks();

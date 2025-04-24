@@ -22,6 +22,9 @@ namespace ZasUndDas.Shared.Services
         public decimal EstimatedTaxes { get; set; }
         public decimal SubTotal { get; set; }
         public decimal EstimatedTotal { get; set; }
+        /// <summary>
+        /// This is the tokenized card
+        /// </summary>
 
         string? nonce;
         public bool IsNonce { get => nonce != null; }

@@ -36,9 +36,15 @@ namespace ZasAndDasMobile.ViewModels
 
         [ObservableProperty]
         public partial int CartItemCount { get; set; }
+        CreateAccountViewModel create;
+        LoginViewModel login;
 
-        public MainPageViewModel(MenuItemService service, CartService cartService)
+        public MainPageViewModel(MenuItemService service, CartService cartService, LoginViewModel login, CreateAccountViewModel create)
         {
+            this.create = create;
+            this.login = login;
+            create.Logout = Logout;
+            login.Logout = Logout;
             this._cartService = cartService;
             UpdateTabs(defaultShown);
             _service = service;
@@ -86,7 +92,24 @@ namespace ZasAndDasMobile.ViewModels
         {
             await Shell.Current.GoToAsync("///Cart");
         }
+        [RelayCommand]
+        public async Task Login()
+        {
+            await Shell.Current.GoToAsync("///Login");
+        }
+        [RelayCommand]
+        public async Task CreateAccount()
+        {
+            await Shell.Current.GoToAsync("///Create");
+        }
+        void Logout(bool Loggedout, string user)
+        {
+            create.LoggedIn = !Loggedout;
+            login.LoggedOut = Loggedout;
+            create.Name = user;
+            login.User = user;
 
+        }
         [RelayCommand]
         public void ShowItemPopup(IStoreItem item)
         {

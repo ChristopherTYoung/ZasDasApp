@@ -163,21 +163,14 @@
                 </VerticalStackLayout>
             </VerticalStackLayout>
         </ScrollView>
-        <Grid MinimumHeightRequest="60"
-              Grid.Row="3"
-              BackgroundColor="Black"
-              ColumnDefinitions="*,*,*"
-              ColumnSpacing="10">
+        <HorizontalStackLayout HorizontalOptions="Center">
             
-            <ImageButton BackgroundColor="Transparent"
-                     MaximumHeightRequest="40"
-                     MaximumWidthRequest="40"
-                     MinimumHeightRequest="40"
-                     MinimumWidthRequest="40"
-                     HorizontalOptions="Center"
-                     Grid.Column="1"/>
+            <Button Text="Login"
+                     Command="{Binding LoginCommand}"
+                     />
+            <Button Text="Create Account" Command="{Binding CreateAccountCommand}"/>
 
-        </Grid>
+        </HorizontalStackLayout>
 
     </Grid>
 

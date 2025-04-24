@@ -3,9 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ViewModels="clr-namespace:ZasAndDasMobile.ViewModels"
              x:Class="ZasAndDasMobile.CreateAccountPage"
-             x:DataType="ViewModels:CreateAccountViewModel">
+             x:DataType="ViewModels:CreateAccountViewModel"
+             Shell.NavBarIsVisible="False">
+    <VerticalStackLayout>
 
-    <StackLayout Padding="20">
+        <ImageButton Source="back_arrow_icon.png"
+                         MaximumHeightRequest="32"
+                         MaximumWidthRequest="32"
+                         MinimumHeightRequest="32"
+                         MinimumWidthRequest="32"
+                         CornerRadius="40"
+                         Command="{Binding ReturnToHomeCommand}"/>
+        <StackLayout Padding="20">
         <!-- Entry for Name -->
         <Entry Text="{Binding Name}" Placeholder="Name" />
         <CollectionView ItemsSource="{Binding NameErrors}">
@@ -48,4 +57,11 @@
         <!-- Button to trigger validation -->
         <Button Text="Validate" Command="{Binding ValidateAndSendCommand}" />
     </StackLayout>
+        <VerticalStackLayout IsVisible="{Binding LoggedIn}">
+            <Label Text = "Welcome!"/>
+            <Label Text = "{Binding Name}"/>
+            <Button Text="Logout" Command="{Binding LogOutCommand}"/>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+
 </ContentPage>
