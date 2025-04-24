@@ -33,6 +33,8 @@ namespace ZasAndDasMobile.ViewModels
         public partial ObservableCollection<PizzaBaseDTO> PizzaList { set; get; } = new ObservableCollection<PizzaBaseDTO>();
         [ObservableProperty]
         public partial ObservableCollection<DrinkBaseDTO> DrinkList { get; set; } = new ObservableCollection<DrinkBaseDTO>();
+        [ObservableProperty]
+        public partial ObservableCollection<IStoreItem> SideList { get; set; } = new ObservableCollection<IStoreItem>();
 
         [ObservableProperty]
         public partial int CartItemCount { get; set; }
@@ -49,6 +51,7 @@ namespace ZasAndDasMobile.ViewModels
         {
             await PizzaSetup();
             await DrinkSetup();
+            await SideSetup();
         }
         private async Task PizzaSetup()
         {
@@ -61,6 +64,13 @@ namespace ZasAndDasMobile.ViewModels
             DrinkList = new ObservableCollection<DrinkBaseDTO>();
             foreach (DrinkBaseDTO drink in await _service.GetAllDrinks())
                 DrinkList.Add(drink);
+        }
+
+        private async Task SideSetup()
+        {
+            await Task.Delay(1);
+            SideList.Add(new CalzoneBase());
+            SideList.Add(new SaladBase());
         }
 
         [RelayCommand]
@@ -98,6 +108,11 @@ namespace ZasAndDasMobile.ViewModels
             else if (item.GetType() == typeof(DrinkBaseDTO))
             {
                 var popup = new DrinkPopup(new DrinkPopupViewModel(item, _cartService, _service));
+                Shell.Current.ShowPopup(popup);
+            }
+            else if (item.GetType() == typeof(CalzoneBase))
+            {
+                var popup = new CalzonePopup(new CalzonePopupViewModel(item, _cartService, _service));
                 Shell.Current.ShowPopup(popup);
             }
         }

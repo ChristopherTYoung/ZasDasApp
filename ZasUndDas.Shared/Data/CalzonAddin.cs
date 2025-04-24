@@ -12,5 +12,6 @@ public partial class CalzonAddin
     public int AddinId { set; get; }
 
     public int? Quantity { set; get; }
+    public bool IsChecked { get; set; } = false;
 
 }

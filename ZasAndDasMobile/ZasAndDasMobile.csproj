@@ -83,6 +83,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Popups\CalzonePopup.xaml.cs">
+	    <DependentUpon>CalzonePopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Popups\DrinkPopup.xaml.cs">
 	    <DependentUpon>DrinkPopup.xaml</DependentUpon>
 	  </Compile>
@@ -101,6 +104,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Popups\CalzonePopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Popups\DrinkPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

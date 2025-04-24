@@ -81,6 +81,7 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Quantity)
                 .HasDefaultValue(1)
                 .HasColumnName("quantity");
+            entity.Ignore(e => e.IsChecked);
         });
 
         modelBuilder.Entity<Calzone>(entity =>
