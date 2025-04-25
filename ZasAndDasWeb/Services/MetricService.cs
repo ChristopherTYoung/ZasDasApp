@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.Metrics;
+using System.Threading;
 
 namespace ZasAndDasWeb.Services
 {
@@ -11,7 +12,14 @@ namespace ZasAndDasWeb.Services
         public MetricService(IMeterFactory meterFactory)
         {
             Meter = meterFactory.Create(MeterName);
-            totalMemoryUsed = Meter.CreateObservableGauge<long>("total_memory_used", () => GC.GetTotalMemory(true));
+            totalMemoryUsed = Meter.CreateObservableGauge<long>(
+                "total_memory_used",
+                () =>
+                {
+                    var mem = GC.GetTotalMemory(true);
+                    Console.WriteLine($"Reporting total_memory_used: {mem}");
+                    return new Measurement<long>(mem);
+                });
             internalErrors = Meter.CreateHistogram<DateTime>("internalErrors");
         }
     }
