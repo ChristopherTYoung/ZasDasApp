@@ -2,6 +2,8 @@
 using ZasUndDas.Shared.Data;
 using ZasUndDas.Shared.Services;
 using Shouldly;
+using ZasAndDasMobile.ViewModels;
+using NSubstitute;
 namespace ZasAndDasMobile.Tests
 
 {
@@ -200,17 +202,23 @@ namespace ZasAndDasMobile.Tests
         [Fact]
         public void TotalCalculatedCorrectlyWithTip()
         {
-            var cart = new CartService();
+            var cart = Substitute.For<CartService>();
+            var cartVM = new CartViewModel(cart);
 
             var calzone = new CalzoneDTO { CookedAtHome = true, Price = 6.00m };
             cart.AddToCart(calzone);
 
-            cart.SetTipAmount(0.15m);
+            cartVM.SetTipAmountCommand.Execute("0.20m");
+
+            cart.TipAmount.ShouldBe(6.00m * 0.20m);
 
             var drink = new DrinkDTO(new DrinkBaseDTO() { Name = "Kyle Mon", Price = 6.00m });
             cart.AddToCart(drink);
 
+            cart.TipAmount.ShouldBe(12.00m * 0.20m);
             cart.RemoveItem(1);
+
+            cart.TipAmount.ShouldBe(6.00m * 0.20m);
         }
     }
 }
