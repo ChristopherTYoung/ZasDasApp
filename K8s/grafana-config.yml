@@ -10,7 +10,7 @@ data:
       - name: Loki
         type: loki
         access: proxy
-        url: http://zasanddas-loki-svc:3100
+        url: http://zas-loki-svc:3100
       - name: Prometheus
         type: prometheus
         access: proxy
