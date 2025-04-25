@@ -19,7 +19,7 @@ data:
           module: [tcp_connect]
         static_configs:
           - targets:
-              - zasanddas.duckdns.org:8080
+              - zas-web-svc:8080
         relabel_configs:
           - source_labels: [__address__]
             target_label: __param_target
