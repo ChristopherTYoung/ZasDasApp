@@ -61,7 +61,7 @@ public class Program
                     resource.AddService(serviceName: MetricService.MeterName)
                 )
                 .WithMetrics(metrics => metrics
-                    .AddMeter(MetricService.MeterName)
+                    .AddMeter(MetricService.MeterName )
                     .AddAspNetCoreInstrumentation()
                     .AddOtlpExporter(options =>
                     {
@@ -77,7 +77,6 @@ public class Program
             builder.Logging.AddOpenTelemetry(options =>
             {
                 options.SetResourceBuilder(resourceBuilder);
-                // options.AddOtlpExporter(options => options.Endpoint = new Uri(uriString: builder.Configuration["ASPIRE_DASHBOARD_URL"]));
                 options.AddOtlpExporter(options => options.Endpoint = new Uri(collectorURL));
                 options.IncludeFormattedMessage = true;
                 options.IncludeScopes = true;
