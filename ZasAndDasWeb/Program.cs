@@ -61,7 +61,7 @@ public class Program
                     resource.AddService(serviceName: MetricService.MeterName)
                 )
                 .WithMetrics(metrics => metrics
-                    .AddMeter(MetricService.MeterName )
+                    .AddMeter(MetricService.MeterName)
                     .AddAspNetCoreInstrumentation()
                     .AddOtlpExporter(options =>
                     {

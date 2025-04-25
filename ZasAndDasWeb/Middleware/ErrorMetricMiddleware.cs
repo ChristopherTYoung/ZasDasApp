@@ -1,4 +1,5 @@
-﻿using ZasAndDasWeb.Services;
+﻿using Microsoft.Extensions.Azure;
+using ZasAndDasWeb.Services;
 
 namespace ZasAndDasWeb.Middleware
 {
@@ -16,8 +17,7 @@ namespace ZasAndDasWeb.Middleware
         public async Task InvokeAsync(HttpContext context)
         {
             await _next(context);
-            if (context.Response.StatusCode == 500)
-                _myService.internalErrors.Record(DateTime.Now);
+            _myService.ResponseCodes.Record(context.Response.StatusCode);
         }
 
     }
