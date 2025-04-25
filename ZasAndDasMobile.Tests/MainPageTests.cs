@@ -40,7 +40,7 @@ namespace ZasAndDasMobile.Tests
         public void AddToCart()
         {
             var cart = new CartService();
-            var pizza = new CheckoutItemVM(new PizzaDTO(new PizzaBaseDTO() { Price = 10.99m }));
+            var pizza = new CheckoutItemVM(new PizzaDTO(new PizzaBaseDTO() { Price = 10.99m }), 1);
             ((PizzaDTO)pizza.item).PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 3.00m };
             cart.AddToCart(pizza.item);
             cart.GetCartItems.FirstOrDefault(p => p.item == pizza.item).ShouldNotBeNull();
@@ -53,7 +53,17 @@ namespace ZasAndDasMobile.Tests
             var pizza = new PizzaDTO(new PizzaBaseDTO());
             pizza.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 3.00m };
             cart.AddToCart(pizza);
-            cart.GetCartItems.ShouldNotBe(new() { new(new PizzaDTO(new PizzaBaseDTO() { Name = "jeff" })) });
+            cart.GetCartItems.ShouldNotBe(new() { new(new PizzaDTO(new PizzaBaseDTO() { Name = "jeff" }), 1) });
+        }
+
+        [Fact]
+        public void CanChangePizzaSize()
+        {
+            var cart = new CartService();
+            var pizza = new PizzaDTO(new PizzaBaseDTO()) { Id = 1 };
+            pizza.PizzaSize = new PizzaSize() { Id = 0, SizeName = "12\"", Price = 0.00m };
+            pizza.ChangeSize(new PizzaSize { SizeName = "16\"", Price = 3.00m });
+            pizza.PizzaSize.SizeName.ShouldBe("16\"");
         }
 
         [Fact]
@@ -113,6 +123,94 @@ namespace ZasAndDasMobile.Tests
             Should.Throw<InvalidOperationException>(() => cart.AddToCart(errorPizza));
         }
 
+        /* 
+         Can add comment
+         Can change size of pizza
+         Can add drinks and pizza
+         Can remove drink
+         Can remove side
+         Delete cart items
+        */
 
+        [Fact]
+        public void CanAddDrinkToCart()
+        {
+            var cart = new CartService();
+            var drink = new DrinkDTO(new DrinkBaseDTO() { Name = "Kyle Mon" });
+            cart.AddToCart(drink);
+            cart.GetItemCount.ShouldBe(1);
+        }
+
+        [Fact]
+        public void CanRemoveDrinkFromCart()
+        {
+            var cart = new CartService();
+            var drink = new DrinkDTO(new DrinkBaseDTO() { Name = "Kyle Mon" });
+            cart.AddToCart(drink);
+            cart.GetItemCount.ShouldBe(1);
+            cart.RemoveItem(1);
+            cart.GetItemCount.ShouldBe(0);
+        }
+
+        [Fact]
+        public void CanAddCalzoneToCart()
+        {
+            var cart = new CartService();
+            var calzone = new CalzoneDTO { CookedAtHome = true, Price = 5.99m };
+            cart.AddToCart(calzone);
+            cart.GetItemCount.ShouldBe(1);
+        }
+
+        [Fact]
+        public void CanRemoveCalzoneFromCart()
+        {
+            var cart = new CartService();
+            var calzone = new CalzoneDTO { CookedAtHome = true, Price = 5.99m };
+            cart.AddToCart(calzone);
+            cart.GetItemCount.ShouldBe(1);
+            cart.RemoveItem(1);
+            cart.GetItemCount.ShouldBe(0);
+        }
+
+        [Fact]
+        public void CanAddAndRemoveWithMultipleItems()
+        {
+            var cart = new CartService();
+
+            var calzone = new CalzoneDTO { CookedAtHome = true, Price = 5.99m };
+            cart.AddToCart(calzone);
+            cart.GetItemCount.ShouldBe(1);
+
+            var drink = new DrinkDTO(new DrinkBaseDTO() { Name = "Kyle Mon" });
+            cart.AddToCart(drink);
+            cart.GetItemCount.ShouldBe(2);
+
+            cart.RemoveItem(1);
+            cart.GetItemCount.ShouldBe(1);
+            cart.GetCartItems.ShouldContain(i => i.Id == 2);
+        }
+
+        [Fact]
+        public void CannotRemoveNonexistentItem()
+        {
+            var cart = new CartService();
+            Should.Throw<InvalidOperationException>(() => cart.RemoveItem(1));
+        }
+
+        [Fact]
+        public void TotalCalculatedCorrectlyWithTip()
+        {
+            var cart = new CartService();
+
+            var calzone = new CalzoneDTO { CookedAtHome = true, Price = 6.00m };
+            cart.AddToCart(calzone);
+
+            cart.SetTipAmount(0.15m);
+
+            var drink = new DrinkDTO(new DrinkBaseDTO() { Name = "Kyle Mon", Price = 6.00m });
+            cart.AddToCart(drink);
+
+            cart.RemoveItem(1);
+        }
     }
 }

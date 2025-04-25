@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zas-blackbox-config
+  namespace: ${NAMESPACE}zasanddas
+data:
+  config: |
+    modules:
+        tcp_connect:
+            prober: tcp
+            timeout: 5s  

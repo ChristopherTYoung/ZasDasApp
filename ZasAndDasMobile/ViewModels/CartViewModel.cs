@@ -86,6 +86,7 @@ namespace ZasAndDasMobile.ViewModels
         {
             SubTotal = _cartService.CalculateSubTotal();
             EstimatedTaxes = _cartService.CalculateEstimatedTaxes();
+            SetTipAmount(SelectedTip);
             GetTotal();
             OnPropertyChanged(nameof(SubTotal));
             OnPropertyChanged(nameof(EstimatedTaxes));

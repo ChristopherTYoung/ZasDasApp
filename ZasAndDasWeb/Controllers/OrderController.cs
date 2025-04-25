@@ -10,7 +10,7 @@ namespace ZasAndDasWeb.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class OrderController(PostgresContext context, OrderService orderService,
-        IAPIKeyValidationService validator, PaymentService paymentService) : ControllerBase
+        IAPIKeyValidationService validator) : ControllerBase
     {
         [HttpPost("sendorder")]
         public async Task<IResult> SendOrder(OrderDTO order, [FromHeader] string? APIKEY = null)
@@ -23,7 +23,7 @@ namespace ZasAndDasWeb.Controllers
             }
             if (order.Items.Count() < 1)
                 return Results.BadRequest();
-            await paymentService.SendPayment(order.Nonce, order.NetAmount);
+            //await paymentService.SendPayment(order.Nonce, order.NetAmount);
             await orderService.AddOrderToDatabase(order);
             return Results.Ok();
         }
