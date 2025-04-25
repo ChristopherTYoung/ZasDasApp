@@ -27,7 +27,7 @@ data:
             target_label: instance
           - target_label: __address__
             replacement: zas-blackbox-svc:9115
-      - job_name: 'blackbox_exporter'  # collect blackbox exporter's operational metrics.
+      - job_name: 'blackbox_exporter'
         static_configs:
         - targets: ['zas-blackbox-svc:9115']
 ---
