@@ -108,12 +108,17 @@ namespace ZasAndDasMobile.ViewModels
             await Shell.Current.GoToAsync("///Login");
         }
 
-        void Logout(bool Loggedout, string user)
+        void Logout(bool Loggedout, string? user = null)
         {
+            create.LoggedOut = Loggedout;
             create.LoggedIn = !Loggedout;
             login.LoggedOut = Loggedout;
-            create.Name = user;
-            login.User = user;
+            login.LoggedIn = !Loggedout;
+            if (user != null)
+            {
+                create.Name = user;
+                login.User = user;
+            }
 
         }
         [RelayCommand]

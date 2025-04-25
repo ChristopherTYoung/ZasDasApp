@@ -16,54 +16,54 @@
                          CornerRadius="40"
                          Command="{Binding ReturnToHomeCommand}"
                          />
-        <StackLayout Padding="20">
-        <!-- Entry for Name -->
-        <Entry Text="{Binding Name}" Placeholder="Name" />
-        <CollectionView ItemsSource="{Binding NameErrors}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="x:String">
-                    <Label Text="{Binding .}" TextColor="Red" FontSize="Small" />
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <StackLayout Padding="20" IsVisible="{Binding LoggedOut}">
+            <!-- Entry for Name -->
+            <Entry Text="{Binding Name}" Placeholder="Name" />
+            <CollectionView ItemsSource="{Binding NameErrors}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Label Text="{Binding .}" TextColor="Red" FontSize="Small" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-        <!-- Entry for Email -->
-        <Entry Text="{Binding Email}" Placeholder="Email" />
-        <CollectionView ItemsSource="{Binding EmailErrors}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="x:String">
-                    <Label Text="{Binding .}" TextColor="Red" FontSize="Small" />
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            <!-- Entry for Email -->
+            <Entry Text="{Binding Email}" Placeholder="Email" />
+            <CollectionView ItemsSource="{Binding EmailErrors}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Label Text="{Binding .}" TextColor="Red" FontSize="Small" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-        <!-- Entry for Password -->
-        <Entry Text="{Binding Password}" Placeholder="Password" />
-        <CollectionView ItemsSource="{Binding Password1Errors}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="x:String">
-                    <Label Text="{Binding .}" TextColor="Red" FontSize="Small" />
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            <!-- Entry for Password -->
+            <Entry Text="{Binding Password}" Placeholder="Password" />
+            <CollectionView ItemsSource="{Binding Password1Errors}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Label Text="{Binding .}" TextColor="Red" FontSize="Small" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-        <!-- Entry for Confirm Password -->
-        <Entry Text="{Binding ComparePassword}" Placeholder="Confirm Password" />
-        <CollectionView ItemsSource="{Binding Password2Errors}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="x:String">
-                    <Label Text="{Binding .}" TextColor="Red" FontSize="Small" />
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <!-- Button to trigger validation -->
-        <Button Text="Validate" Command="{Binding ValidateAndSendCommand}" />
-    </StackLayout>
+            <!-- Entry for Confirm Password -->
+            <Entry Text="{Binding ComparePassword}" Placeholder="Confirm Password" />
+            <CollectionView ItemsSource="{Binding Password2Errors}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Label Text="{Binding .}" TextColor="Red" FontSize="Small" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <!-- Button to trigger validation -->
+            <Button Text="Validate" Command="{Binding ValidateAndSendCommand}" />
+        </StackLayout>
+
         <VerticalStackLayout IsVisible="{Binding LoggedIn}">
             <Label Text = "Welcome!"/>
             <Label Text = "{Binding Name}"/>
-            <Button Text="Logout" Command="{Binding LogOutCommand}"/>
+            <Button Text="Logout" Command="{Binding LogOutCommand}" BackgroundColor="Black"/>
         </VerticalStackLayout>
     </VerticalStackLayout>
-
 </ContentPage>
