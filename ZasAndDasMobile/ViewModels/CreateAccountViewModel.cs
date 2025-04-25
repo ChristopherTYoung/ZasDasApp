@@ -16,10 +16,10 @@ public partial class CreateAccountViewModel(IAPIService service) : ObservableVal
 {
     public Action<bool, string>? Logout { get; set; }
     [ObservableProperty]
-    public partial bool LoggedOut { set; get; }
+    public partial bool LoggedOut { set; get; } = true;
     [ObservableProperty]
 
-    public partial bool LoggedIn { set; get; }
+    public partial bool LoggedIn { set; get; } = false;
     [ObservableProperty]
     [MaxLength(50)]
     [Required]
