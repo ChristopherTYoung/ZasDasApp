@@ -24,7 +24,7 @@ spec:
         volumeMounts:
         - mountPath: /config
           subPath: config
-          name: prom-config
+          name: blackbox-config
         image: quay.io/prometheus/blackbox-exporter:latest
         ports:
         - containerPort: 9115
