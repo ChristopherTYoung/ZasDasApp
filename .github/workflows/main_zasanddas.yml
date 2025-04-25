@@ -11,7 +11,7 @@ on:
 
 jobs:
     test:
-      runs-on: self-hosted
+      runs-on: ubuntu-latest
       steps:
       - uses: actions/checkout@v4
       - name: example
@@ -23,7 +23,7 @@ jobs:
           docker run --rm zas_test_container
 
     integrationtest:
-        runs-on: self-hosted
+        runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v4
         - name: docker build tests
