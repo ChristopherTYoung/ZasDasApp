@@ -9,7 +9,7 @@ namespace ZasAndDasWeb.Services
         public MetricService(IMeterFactory meterFactory)
         {
             var meter = meterFactory.Create(MeterName);
-            totalMemoryUsed = meter.CreateObservableGauge<long>("total_memory_used", () => GC.GetTotalMemory(true));
+            totalMemoryUsed = meter.CreateObservableGauge<long>("total_memory_used", () => new Measurement<long>(GC.GetTotalMemory(true)));
         }
     }
 }
