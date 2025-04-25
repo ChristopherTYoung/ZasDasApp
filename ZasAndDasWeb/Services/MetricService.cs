@@ -13,13 +13,13 @@ namespace ZasAndDasWeb.Services
         {
             Meter = meterFactory.Create(MeterName);
             totalMemoryUsed = Meter.CreateObservableGauge<long>(
-                "total_memory_used",
-                () =>
-                {
-                    var mem = GC.GetTotalMemory(true);
-                    Console.WriteLine($"Reporting total_memory_used: {mem}");
-                    return new Measurement<long>(mem);
-                });
+            "total_memory_used",
+            () =>
+            {
+                var mem = GC.GetTotalMemory(true);
+                Console.WriteLine($"Reporting total_memory_used: {mem}");
+                return new Measurement<long>(mem);
+            });
             internalErrors = Meter.CreateHistogram<DateTime>("internalErrors");
         }
     }
