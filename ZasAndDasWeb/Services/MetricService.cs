@@ -13,7 +13,11 @@ namespace ZasAndDasWeb.Services
         {
             Meter = meterFactory.Create(MeterName);
             totalMemoryUsed = Meter.CreateObservableGauge<long>("total_memory_used", () => GC.GetTotalMemory(true));
-            ResponseCodes = Meter.CreateHistogram<int>("response_codes");
+            ResponseCodes = Meter.CreateHistogram<int>(
+                 name: "response_codes",
+        unit: "range",
+        description: "the number of response codes that we have",
+        advice: new InstrumentAdvice<int> { HistogramBucketBoundaries = [0, 100, 200, 300, 400, 500] }););
         }
         public void RecordStatusCode(int statusCode)
         {
