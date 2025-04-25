@@ -15,5 +15,11 @@ namespace ZasAndDasWeb.Services
             totalMemoryUsed = Meter.CreateObservableGauge<long>("total_memory_used", () => GC.GetTotalMemory(true));
             ResponseCodes = Meter.CreateHistogram<int>("response_codes");
         }
+        public void RecordStatusCode(int statusCode)
+        {
+            // e.g., 2xx -> 200, 3xx -> 300
+            int bucket = (statusCode / 100) * 100;
+            ResponseCodes.Record(bucket);
+        }
     }
 }

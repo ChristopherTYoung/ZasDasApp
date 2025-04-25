@@ -18,7 +18,8 @@ namespace ZasAndDasWeb.Middleware
         {
             await _next(context);
             if (_myService != null)
-                _myService.ResponseCodes.Record(context.Response.StatusCode);
+                _myService.RecordStatusCode(context.Response.StatusCode);
+
         }
 
     }
