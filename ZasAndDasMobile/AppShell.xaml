@@ -8,6 +8,10 @@
     Title="ZasAndDasMobile">
 
     <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+    <ShellContent
         Title="Create"
         ContentTemplate="{DataTemplate local:CreateAccountPage}"
         Route="Create"/>
@@ -15,15 +19,12 @@
         Title="Login"
         ContentTemplate="{DataTemplate local:LoginPage}"
         Route="Login"/>
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
 
     <ShellContent
         Title="Pay"
         ContentTemplate="{DataTemplate local:PaymentPage}"
         Route="Payment"/>
+    
     <ShellContent
         Title="CartCheckout"
         ContentTemplate="{DataTemplate local:CartPage}"

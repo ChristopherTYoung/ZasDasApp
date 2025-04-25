@@ -96,4 +96,9 @@ public class MockAPIService : IAPIService
             new DAddinDTO { Id = 3, AddinName = "Grape", Price = 1.50m },
         });
     }
+
+    public void LogOut()
+    {
+        LoggedIn = false;
+    }
 }
