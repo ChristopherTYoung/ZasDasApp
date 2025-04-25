@@ -5,7 +5,7 @@ namespace ZasAndDasWeb.Services
     public class MetricService
     {
         public static string MeterName = "zasanddas_meter";
-        private readonly ObservableGauge<long> totalMemoryUsed;
+        public readonly ObservableGauge<long> totalMemoryUsed;
         public Histogram<DateTime> internalErrors;
         public Meter Meter { get; private set; }
         public MetricService(IMeterFactory meterFactory)
