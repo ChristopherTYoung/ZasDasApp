@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zas-blackbox
+  namespace: ${NAMESPACE}zasanddas
+  labels:
+    app: zas-blackbox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zas-blackbox
+  template:
+    metadata:
+      labels:
+        app: zas-blackbox
+    spec:
+      volumes:
+      - name: blackbox-config
+        configMap:
+          name: zas-blackbox-config
+      containers:
+      - name: zas-blackbox
+        volumeMounts:
+        - mountPath: /config
+          subPath: config
+          name: prom-config
+        image: quay.io/prometheus/blackbox-exporter:latest
+        ports:
+        - containerPort: 9115
+---
