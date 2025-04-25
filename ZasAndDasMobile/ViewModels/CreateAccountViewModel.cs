@@ -12,8 +12,14 @@ using ZasUndDas.Shared.Services;
 
 namespace ZasAndDasMobile.ViewModels;
 
-partial class CreateAccountViewModel(IAPIService service) : ObservableValidator
+public partial class CreateAccountViewModel(IAPIService service) : ObservableValidator
 {
+    public Action<bool, string>? Logout { get; set; }
+    [ObservableProperty]
+    public partial bool LoggedOut { set; get; }
+    [ObservableProperty]
+
+    public partial bool LoggedIn { set; get; }
     [ObservableProperty]
     [MaxLength(50)]
     [Required]
@@ -44,7 +50,15 @@ partial class CreateAccountViewModel(IAPIService service) : ObservableValidator
     public ObservableCollection<string> Password1Errors => new(GetErrors(nameof(Password)).Select<ValidationResult, string>(p => p.ErrorMessage!));
     public ObservableCollection<string> Password2Errors => new(GetErrors(nameof(ComparePassword)).Select<ValidationResult, string>(p => p.ErrorMessage!));
 
-
+    partial void OnLoggedOutChanged(bool value)
+    {
+        LoggedIn = !LoggedOut;
+    }
+    [RelayCommand]
+    public async Task ReturnToHome()
+    {
+        await Shell.Current.GoToAsync("///MainPage");
+    }
 
     [RelayCommand]
     public async Task ValidateAndSend()
@@ -59,6 +73,16 @@ partial class CreateAccountViewModel(IAPIService service) : ObservableValidator
             return;
         }
         await service.CreateAccount(new() { Email = Email, Name = Name, PassCode = Password });
+        if (Logout != null)
+            Logout(false, Name);
+    }
+    [RelayCommand]
+    public void LogOut()
+    {
+        service.LogOut();
+        if (Logout != null)
+            Logout(true, string.Empty);
+        Password = string.Empty;
     }
 }
 public class SpecialCharecterAttribute : ValidationAttribute
@@ -113,4 +137,5 @@ public class CompareToAttribute : ValidationAttribute
 
         return ValidationResult.Success;
     }
+
 }
