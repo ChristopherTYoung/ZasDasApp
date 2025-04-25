@@ -202,13 +202,14 @@ namespace ZasAndDasMobile.Tests
         [Fact]
         public void TotalCalculatedCorrectlyWithTip()
         {
-            var cart = Substitute.For<CartService>();
-            var cartVM = new CartViewModel(cart);
+            var apiService = Substitute.For<IAPIService>();
+            var cart = Substitute.For<CartService>(apiService);
+            var cartVM = Substitute.For<CartViewModel>(cart);
 
             var calzone = new CalzoneDTO { CookedAtHome = true, Price = 6.00m };
             cart.AddToCart(calzone);
 
-            cartVM.SetTipAmountCommand.Execute("0.20m");
+            cartVM.SetTipAmountCommand.Execute("0.20");
 
             cart.TipAmount.ShouldBe(6.00m * 0.20m);
 
