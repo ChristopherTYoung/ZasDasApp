@@ -112,7 +112,8 @@ public class Program
 
         app.MapStaticAssets();
         app.MapRazorComponents<App>();
-        app.UseMiddleware<ErrorMetricMiddleware>();
+        if (collectorURL != null)
+            app.UseMiddleware<ErrorMetricMiddleware>();
 
         app.Run();
     }
