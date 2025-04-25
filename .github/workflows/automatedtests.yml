@@ -35,6 +35,9 @@ jobs:
        runs-on: ubuntu-latest
        needs: [test, integrationtest]
        steps: 
+       - uses: actions/checkout@v4
+       - name: Debug - Find web.Dockerfile
+         run: find . -name "*Dockerfile*"
        - name: Login to Docker Hub
          uses: docker/login-action@v3
          with:
@@ -43,9 +46,10 @@ jobs:
 
        - name: Create container and push
          run: |
-            ls
+            ls .
             pwd
-            docker build  -f ./web.Dockerfile \
+            docker build \
+            -f ./web.Dockerfile \
             -t nhowell02/zasanddas:${{github.run_id}} \
             .
 
@@ -56,6 +60,7 @@ jobs:
         runs-on: self-hosted
         needs: [pushtodocker]
         steps:
+        - uses: actions/checkout@v4
         - name: deploy to kubernetes
           run: |
             export BUILD_NUMBER=${{github.run_id}}

@@ -196,5 +196,21 @@ namespace ZasAndDasMobile.Tests
             var cart = new CartService();
             Should.Throw<InvalidOperationException>(() => cart.RemoveItem(1));
         }
+
+        [Fact]
+        public void TotalCalculatedCorrectlyWithTip()
+        {
+            var cart = new CartService();
+
+            var calzone = new CalzoneDTO { CookedAtHome = true, Price = 6.00m };
+            cart.AddToCart(calzone);
+
+            cart.SetTipAmount(0.15m);
+
+            var drink = new DrinkDTO(new DrinkBaseDTO() { Name = "Kyle Mon", Price = 6.00m });
+            cart.AddToCart(drink);
+
+            cart.RemoveItem(1);
+        }
     }
 }
