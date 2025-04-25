@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: zas-prom-config
+  name: zas-blackbox-config
   namespace: ${NAMESPACE}zasanddas
 data:
   config: |
