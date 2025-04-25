@@ -163,12 +163,13 @@
                 </VerticalStackLayout>
             </VerticalStackLayout>
         </ScrollView>
-        <HorizontalStackLayout HorizontalOptions="Center">
-            
-            <Button Text="Login"
+        <HorizontalStackLayout  Grid.Row="3" HorizontalOptions="Center">
+
+            <ImageButton Source="my_account_icon_png_3.jpg"
+                     HeightRequest="35"
+                     WidthRequest="35"
                      Command="{Binding LoginCommand}"
                      />
-            <Button Text="Create Account" Command="{Binding CreateAccountCommand}"/>
 
         </HorizontalStackLayout>
 

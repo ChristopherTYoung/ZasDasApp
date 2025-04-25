@@ -12,19 +12,21 @@
                          MinimumHeightRequest="32"
                          MinimumWidthRequest="32"
                          CornerRadius="40"
+                         BackgroundColor="Grey"
                          Command="{Binding ReturnToHomeCommand}"/>
 
             <Label Text = "{Binding InvalidMessage}" IsVisible="{Binding IsValid}" TextColor="Red"/>
             <Label Text = "Login Info Here:"/>
             <Entry Text = "{Binding User}" Placeholder="Email"/>
-            <Entry Text = "{Binding Password}" IsPassword="True" Placeholder="Password"/>
-            <Button Text ="Login" Command="{Binding LoginCommand}"/>
+            <Entry Text = "{Binding Password}" IsPassword="True" Placeholder="Password" />
+            <Button Text ="Login" Command="{Binding LoginCommand}" BackgroundColor="Black"/>
 
         </VerticalStackLayout>
         <VerticalStackLayout IsVisible="{Binding LoggedIn}">
             <Label Text = "Welcome!"/>
             <Label Text = "{Binding User}"/>
-            <Button Text="Logout" Command="{Binding LogOutCommand}"/>
+            <Button Text="Logout" Command="{Binding LogOutCommand}" BackgroundColor="Black"/>
         </VerticalStackLayout>
+        <Button Text="Create Account" Command="{Binding CreateAccountCommand}" BackgroundColor="Black"/>
     </VerticalStackLayout>
 </ContentPage>

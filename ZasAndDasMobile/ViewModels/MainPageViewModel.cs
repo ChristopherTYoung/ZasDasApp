@@ -97,11 +97,7 @@ namespace ZasAndDasMobile.ViewModels
         {
             await Shell.Current.GoToAsync("///Login");
         }
-        [RelayCommand]
-        public async Task CreateAccount()
-        {
-            await Shell.Current.GoToAsync("///Create");
-        }
+
         void Logout(bool Loggedout, string user)
         {
             create.LoggedIn = !Loggedout;

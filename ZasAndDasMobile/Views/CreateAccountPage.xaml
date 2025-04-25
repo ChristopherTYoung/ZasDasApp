@@ -12,8 +12,10 @@
                          MaximumWidthRequest="32"
                          MinimumHeightRequest="32"
                          MinimumWidthRequest="32"
+                         BackgroundColor="Grey"
                          CornerRadius="40"
-                         Command="{Binding ReturnToHomeCommand}"/>
+                         Command="{Binding ReturnToHomeCommand}"
+                         />
         <StackLayout Padding="20">
         <!-- Entry for Name -->
         <Entry Text="{Binding Name}" Placeholder="Name" />

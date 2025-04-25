@@ -77,4 +77,9 @@ public partial class LoginViewModel : ObservableObject
             }
         }
     }
+    [RelayCommand]
+    public async Task CreateAccount()
+    {
+        await Shell.Current.GoToAsync("///Create");
+    }
 }
