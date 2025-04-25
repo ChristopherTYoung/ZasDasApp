@@ -90,6 +90,7 @@ namespace ZasUndDas.Shared.Services
         public void ClearCart()
         {
             cart.Clear();
+            OnCartUpdated();
         }
         public string PayUrl()
         {
