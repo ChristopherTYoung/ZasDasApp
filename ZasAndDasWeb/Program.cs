@@ -85,7 +85,8 @@ public class Program
         }
 
         var app = builder.Build();
-        app.Services.GetRequiredService<MetricService>();
+        if (collectorURL != null)
+            app.Services.GetRequiredService<MetricService>();
 
         var swaggerIsVisible = builder.Configuration.GetValue<bool?>("SHOW_SWAGGER") ?? false;
 
