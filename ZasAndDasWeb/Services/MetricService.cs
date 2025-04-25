@@ -17,7 +17,7 @@ namespace ZasAndDasWeb.Services
                  name: "response_codes",
         unit: "range",
         description: "the number of response codes that we have",
-        advice: new InstrumentAdvice<int> { HistogramBucketBoundaries = [0, 100, 200, 300, 400, 500] }););
+        advice: new InstrumentAdvice<int> { HistogramBucketBoundaries = [0, 100, 200, 300, 400, 500] });
         }
         public void RecordStatusCode(int statusCode)
         {
