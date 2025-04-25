@@ -13,6 +13,7 @@ using Azure.Storage.Blobs;
 using Square;
 using System.Buffers.Text;
 using System.Diagnostics.Metrics;
+using ZasAndDasWeb.Middleware;
 
 public class Program
 {
@@ -61,6 +62,7 @@ public class Program
                     resource.AddService(serviceName: MetricService.MeterName)
                 )
                 .WithMetrics(metrics => metrics
+                    .AddMeter(MetricService.MeterName)
                     .AddAspNetCoreInstrumentation()
                     .AddOtlpExporter(options =>
                     {
@@ -110,6 +112,8 @@ public class Program
 
         app.MapStaticAssets();
         app.MapRazorComponents<App>();
+        if (collectorURL != null)
+            app.UseMiddleware<ErrorMetricMiddleware>();
 
         app.Run();
     }
