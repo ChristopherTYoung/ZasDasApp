@@ -7,13 +7,8 @@ using NSubstitute;
 namespace ZasAndDasMobile.Tests
 
 {
-    public class MainPageTests
+    public class CartTests
     {
-        [Fact]
-        public void Pizza()
-        {
-            var Pizzas = new MenuItemService(new MockAPIService());
-        }
         [Fact]
         public async Task PizzaReturn()
         {
