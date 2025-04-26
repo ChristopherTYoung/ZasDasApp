@@ -34,12 +34,14 @@ spec:
         - name: COLLECTOR_URL
           value: http://zas-otel-ser:4317
         readinessProbe:
-          tcpSocket:
+          httpGet:
+            path: /api/Inventory
             port: 8080
-          initialDelaySeconds: 10
-          periodSeconds: 5
+          initialDelaySeconds: 5
+          periodSeconds: 10
         livenessProbe:
-          tcpSocket:
+          httpGet:
+            path: /api/Inventory
             port: 8080
-          initialDelaySeconds: 10
-          periodSeconds: 5
+          initialDelaySeconds: 5
+          periodSeconds: 10
