@@ -20,8 +20,8 @@ jobs:
             if ! test -d "$backup_dir"; then
                 mkdir $backup_dir
             fi
-            kubectl port-forward svc/zas-db-svc 5438:5432 -n zasanddas &
-            while ! nc -z localhost 5438; do
+            kubectl port-forward svc/zas-db-svc 5432:5432 -n zasanddas &
+            while ! nc -z localhost 5432; do
                 sleep 0.5
             done
             pg_dump postgres > $WD/backup-${{github.run_id}}.sql
