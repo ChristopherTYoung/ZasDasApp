@@ -65,7 +65,7 @@ jobs:
           run: |
             export BUILD_NUMBER=${{github.run_id}}
 
-            for FILE in "K8s"/*
+            for FILE in K8s/*
             do
               cat "$FILE" | envsubst | kubectl apply -f -
             done
