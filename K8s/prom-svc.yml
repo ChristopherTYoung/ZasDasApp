@@ -11,4 +11,3 @@ spec:
       name: prom
       port: 9090
       targetPort: 9090
----
