@@ -1,6 +1,7 @@
 name: backup database
 on:
   - push
+  - workflow_dispatch
 
 jobs:
     backup:
