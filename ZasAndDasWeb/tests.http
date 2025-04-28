@@ -1,14 +1,19 @@
 
 
 @ZasAndDasAPI_HostAddress = http://zasanddas.duckdns.org
-GET {{ZasAndDasAPI_HostAddress}}/api/inventory/getallprices
+GET {{ZasAndDasAPI_HostAddress}}/api/inventory/getallstockitems
 Accept: application/json
 ###
-POST {{ZasAndDasAPI_HostAddress}}/api/inventory/addbaseprice
+POST {{ZasAndDasAPI_HostAddress}}/api/inventory/addstockitem
 Content-Type: application/json
 
 {
-  "Price": 5.99
+  "name": "Wireless Mouse",
+  "description": "A high-quality wireless mouse with ergonomic design.",
+  "itemCategoryId": 1,
+  "price": 29.99,
+  "imagePath": "/images/products/wireless-mouse.jpg",
+  "quantity": 150
 }
 
 ###
