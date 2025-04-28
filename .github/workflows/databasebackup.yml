@@ -39,18 +39,3 @@ jobs:
           run: |
             kill -9 $(lsof -ti :5432)
 
-    restore:
-        runs-on: self-hosted
-        needs: [backup]
-        env:
-            PGDATABASE: ${{ secrets.POSTGRES_DB || 'postgres' }}
-            PGUSER: 'postgres'
-            PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD || 'password' }}
-            PGHOST: ${{ secrets.POSTGRES_HOST || '127.0.0.1' }}
-            BACKUPS: /home/chris/backups
-            WD: /home/chris/actions-runner2/_work/ZasDasApp/ZasDasApp
-        steps:
-        - name: restore
-          run: |
-            find "$BACKUPS" -type f -name "*.sql" -exec stat -c '%y %n' {} + | sort -r
-            FILEIN=$(find "$BACKUPS" -type f -name "*.sql" -printf '%T@ %p\n' | sort -nr | head -n 1 | cut -d' ' -f2-) sh ./SQL/fullConfidenceRestore.sh
