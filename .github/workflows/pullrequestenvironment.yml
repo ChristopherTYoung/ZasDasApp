@@ -32,7 +32,6 @@ jobs:
             -t nhowell02/zasanddas:${{github.run_id}} \
             .
 
-
             docker push nhowell02/zasanddas:${{github.run_id}}
     pushtokubernetes:
         runs-on: self-hosted

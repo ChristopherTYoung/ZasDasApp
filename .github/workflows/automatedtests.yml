@@ -81,3 +81,4 @@ jobs:
           uses: Ilshidur/action-discord@master
           with:
               args: '@everyone The project {{EVENT_PAYLOAD.repository.full_name}} pipeline has failed from commit {{GITHUB_SHA}} on run: https://github.com/ChristopherTYoung/ZasDasApp/actions/runs/${{github.run_id}}'
+
