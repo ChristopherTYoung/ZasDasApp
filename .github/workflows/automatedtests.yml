@@ -67,7 +67,7 @@ jobs:
 
             for FILE in "K8s"/*
             do
-              cat "$FILE" | envsubst | kubectl apply -f
+              cat "$FILE" | envsubst | kubectl apply -f -
             done
 
     notifydiscord:
