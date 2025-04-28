@@ -66,6 +66,7 @@ namespace ZasUndDas.Shared.Services
         {
             var item = cart.FirstOrDefault(i => i.Id == id) ?? throw new InvalidOperationException();
             cart.Remove(item);
+            OnCartUpdated();
             return item.item;
         }
 

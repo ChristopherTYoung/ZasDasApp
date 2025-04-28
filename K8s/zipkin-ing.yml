@@ -15,4 +15,3 @@ spec:
             name: zas-zipkin-svc
             port:
               number: 9411
----

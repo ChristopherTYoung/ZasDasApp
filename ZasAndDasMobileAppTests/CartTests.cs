@@ -7,13 +7,8 @@ using NSubstitute;
 namespace ZasAndDasMobile.Tests
 
 {
-    public class MainPageTests
+    public class CartTests
     {
-        [Fact]
-        public void Pizza()
-        {
-            var Pizzas = new MenuItemService(new MockAPIService());
-        }
         [Fact]
         public async Task PizzaReturn()
         {
@@ -200,24 +195,53 @@ namespace ZasAndDasMobile.Tests
         }
 
         [Fact]
-        public void TotalCalculatedCorrectlyWithTip()
+        public void TipCalculatedCorrectly()
         {
-            var cart = Substitute.For<CartService>();
-            var cartVM = new CartViewModel(cart);
+            var apiService = Substitute.For<IAPIService>();
+            var cart = Substitute.For<CartService>(apiService);
+            var cartVM = Substitute.For<CartViewModel>(cart);
 
             var calzone = new CalzoneDTO { CookedAtHome = true, Price = 6.00m };
             cart.AddToCart(calzone);
 
-            cartVM.SetTipAmountCommand.Execute("0.20m");
+            cartVM.SetTipAmountCommand.Execute("0.20");
 
             cart.TipAmount.ShouldBe(6.00m * 0.20m);
+        }
+
+        [Fact]
+        public void TipCalculatedCorrectly_WhenAddingItems()
+        {
+            var apiService = Substitute.For<IAPIService>();
+            var cart = Substitute.For<CartService>(apiService);
+            var cartVM = Substitute.For<CartViewModel>(cart);
+
+            var calzone = new CalzoneDTO { CookedAtHome = true, Price = 6.00m };
+            cart.AddToCart(calzone);
+            cartVM.SetTipAmountCommand.Execute("0.20");
+
+            var drink = new DrinkDTO(new DrinkBaseDTO() { Name = "Kyle Mon", Price = 6.00m });
+
+            cart.AddToCart(drink);
+            cart.TipAmount.ShouldBe(12.00m * 0.20m);
+        }
+
+        [Fact]
+        public void TipCalculatedCorrectly_WhenRemovingItems()
+        {
+            var apiService = Substitute.For<IAPIService>();
+            var cart = Substitute.For<CartService>(apiService);
+            var cartVM = Substitute.For<CartViewModel>(cart);
+
+            var calzone = new CalzoneDTO { CookedAtHome = true, Price = 6.00m };
+            cart.AddToCart(calzone);
+            cartVM.SetTipAmountCommand.Execute("0.20");
 
             var drink = new DrinkDTO(new DrinkBaseDTO() { Name = "Kyle Mon", Price = 6.00m });
             cart.AddToCart(drink);
-
             cart.TipAmount.ShouldBe(12.00m * 0.20m);
-            cart.RemoveItem(1);
 
+            cart.RemoveItem(1);
             cart.TipAmount.ShouldBe(6.00m * 0.20m);
         }
     }
