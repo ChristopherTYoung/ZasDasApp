@@ -258,16 +258,3 @@
 
 </ContentPage>
     
-<!--
-            <Grid Grid.Row="1"
-              RowDefinitions="auto,auto"
-              BackgroundColor="#303331">
-            <Label Text="726 N 50 E, Ephraim UT"
-                   HorizontalOptions="Center"
-                   TextColor="White"/>
-            <Label Text="435-283-1111"
-                   HorizontalOptions="Center"
-                   TextColor="White"
-                   Grid.Row="1"/>
-        </Grid>
-    -->
