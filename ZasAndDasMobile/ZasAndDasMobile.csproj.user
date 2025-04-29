@@ -8,7 +8,7 @@
     <ActiveDebugFramework>net9.0-android</ActiveDebugFramework>
     <IsFirstTimeProjectOpen>False</IsFirstTimeProjectOpen>
     <SelectedPlatformGroup>Emulator</SelectedPlatformGroup>
-    <DefaultDevice>pixel_7_-_api_34</DefaultDevice>
+    <DefaultDevice>pixel_7_-_api_35</DefaultDevice>
   </PropertyGroup>
   <ItemGroup>
     <MauiXaml Update="Popups\CalzonePopup.xaml">
