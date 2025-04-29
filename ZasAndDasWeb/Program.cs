@@ -12,6 +12,8 @@ using ZasAndDasWeb.Services;
 using Azure.Storage.Blobs;
 using Square;
 using System.Buffers.Text;
+using System.Diagnostics.Metrics;
+using ZasAndDasWeb.Middleware;
 
 public class Program
 {
@@ -41,7 +43,7 @@ public class Program
         builder.Services.AddSingleton<PaymentService>();
         builder.Services.AddMetrics();
         builder.Services.AddControllers();
-        builder.Services.AddDbContext<PostgresContext>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("DB_CONN")));
+        builder.Services.AddDbContext<PostgresContext>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("DB_CONN") ?? builder.Configuration["DB_CONN"]));
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddScoped<OrderService>();
@@ -55,32 +57,27 @@ public class Program
                 .CreateDefault()
                 .AddService("TelemetryAspireDashboardQuickstart");
 
-            var serviceName = "chris-web";
             builder.Services.AddOpenTelemetry()
                 .ConfigureResource(resource =>
-                    resource.AddService(serviceName: serviceName)
+                    resource.AddService(serviceName: MetricService.MeterName)
                 )
                 .WithMetrics(metrics => metrics
-                    .AddMeter(serviceName)
-                    .AddMeter("ZasAndDasMetrics")
+                    .AddMeter(MetricService.MeterName)
                     .AddAspNetCoreInstrumentation()
                     .AddOtlpExporter(options =>
                     {
                         options.Endpoint = new Uri(collectorURL);
-                        //options.Protocol = OtlpExportProtocol.Grpc;
                     }))
                 .WithTracing(tracing => tracing
                     .AddAspNetCoreInstrumentation()
                     .AddOtlpExporter(options =>
                     {
                         options.Endpoint = new Uri(collectorURL);
-                        //options.Protocol = OtlpExportProtocol.Grpc;
                     }));
-
+            builder.Services.AddSingleton<MetricService>();
             builder.Logging.AddOpenTelemetry(options =>
             {
                 options.SetResourceBuilder(resourceBuilder);
-                // options.AddOtlpExporter(options => options.Endpoint = new Uri(uriString: builder.Configuration["ASPIRE_DASHBOARD_URL"]));
                 options.AddOtlpExporter(options => options.Endpoint = new Uri(collectorURL));
                 options.IncludeFormattedMessage = true;
                 options.IncludeScopes = true;
@@ -88,6 +85,8 @@ public class Program
         }
 
         var app = builder.Build();
+        if (collectorURL != null)
+            app.Services.GetRequiredService<MetricService>();
 
         var swaggerIsVisible = builder.Configuration.GetValue<bool?>("SHOW_SWAGGER") ?? false;
 
@@ -113,10 +112,10 @@ public class Program
 
         app.MapStaticAssets();
         app.MapRazorComponents<App>();
+        if (collectorURL != null)
+            app.UseMiddleware<ErrorMetricMiddleware>();
 
         app.Run();
-
-
     }
 }
 

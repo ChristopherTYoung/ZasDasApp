@@ -5,11 +5,12 @@ on:
 
 jobs:
     test:
-      runs-on: self-hosted
+      runs-on: ubuntu-latest
       steps:
       - uses: actions/checkout@v4
       - name: example
         run: |
+          ls .
           docker build \
           -f ./test.Dockerfile \
           -t zas_test_container \
@@ -17,8 +18,7 @@ jobs:
           docker run --rm zas_test_container
 
     integrationtest:
-        needs: test
-        runs-on: self-hosted
+        runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v4
         - name: docker build tests
@@ -32,9 +32,12 @@ jobs:
 
     pushtodocker: 
        if: ${{ github.ref == 'refs/heads/main' }}
-       runs-on: self-hosted
+       runs-on: ubuntu-latest
        needs: [test, integrationtest]
        steps: 
+       - uses: actions/checkout@v4
+       - name: Debug - Find web.Dockerfile
+         run: find . -name "*Dockerfile*"
        - name: Login to Docker Hub
          uses: docker/login-action@v3
          with:
@@ -43,8 +46,10 @@ jobs:
 
        - name: Create container and push
          run: |
-            ls
+            ls .
+            pwd
             docker build \
+            -f ./web.Dockerfile \
             -t nhowell02/zasanddas:${{github.run_id}} \
             .
 
@@ -53,13 +58,14 @@ jobs:
 
     pushtokubernetes:
         runs-on: self-hosted
-        needs: [test, integrationtest, pushtodocker]
+        needs: [pushtodocker]
         steps:
+        - uses: actions/checkout@v4
         - name: deploy to kubernetes
           run: |
             export BUILD_NUMBER=${{github.run_id}}
 
-            for FILE in "K8s"/*
+            for FILE in K8s/*
             do
               cat "$FILE" | envsubst | kubectl apply -f -
             done
@@ -75,3 +81,4 @@ jobs:
           uses: Ilshidur/action-discord@master
           with:
               args: '@everyone The project {{EVENT_PAYLOAD.repository.full_name}} pipeline has failed from commit {{GITHUB_SHA}} on run: https://github.com/ChristopherTYoung/ZasDasApp/actions/runs/${{github.run_id}}'
+

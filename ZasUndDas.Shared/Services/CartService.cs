@@ -22,6 +22,9 @@ namespace ZasUndDas.Shared.Services
         public decimal EstimatedTaxes { get; set; }
         public decimal SubTotal { get; set; }
         public decimal EstimatedTotal { get; set; }
+        /// <summary>
+        /// This is the tokenized card
+        /// </summary>
 
         string? nonce;
         public bool IsNonce { get => nonce != null; }
@@ -34,7 +37,9 @@ namespace ZasUndDas.Shared.Services
             var price = item.Price;
             if (price < 0)
                 throw new InvalidOperationException();
-            cart.Add(new(item));
+
+            var last = cart.LastOrDefault()?.Id ?? 0;
+            cart.Add(new(item, last + 1));
             OnCartUpdated();
         }
         public async Task SendOrder()
@@ -59,8 +64,9 @@ namespace ZasUndDas.Shared.Services
         }
         public ICheckoutItem RemoveItem(int id)
         {
-            var item = cart.First(i => i.item.Id == id);
+            var item = cart.FirstOrDefault(i => i.Id == id) ?? throw new InvalidOperationException();
             cart.Remove(item);
+            OnCartUpdated();
             return item.item;
         }
 
@@ -88,6 +94,7 @@ namespace ZasUndDas.Shared.Services
         public void ClearCart()
         {
             cart.Clear();
+            OnCartUpdated();
         }
         public string PayUrl()
         {

@@ -44,7 +44,7 @@ public class CalzoneDTO : ICheckoutItem
         Addins = new List<PAddinDTO>();
     }
     public int Id { set; get; }
-    public CalzoneBase Base { set; get; }
+    public CalzoneBase? Base { set; get; }
     public int? SauceId { set; get; }
     public bool? CookedAtHome { set; get; }
     public decimal Price { set; get; }

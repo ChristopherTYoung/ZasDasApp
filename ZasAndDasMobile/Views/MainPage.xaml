@@ -238,21 +238,15 @@
                 </VerticalStackLayout>
             </VerticalStackLayout>
         </ScrollView>
-        <Grid MinimumHeightRequest="60"
-              Grid.Row="3"
-              BackgroundColor="Black"
-              ColumnDefinitions="*,*,*"
-              ColumnSpacing="10">
-            
-            <ImageButton BackgroundColor="Transparent"
-                     MaximumHeightRequest="40"
-                     MaximumWidthRequest="40"
-                     MinimumHeightRequest="40"
-                     MinimumWidthRequest="40"
-                     HorizontalOptions="Center"
-                     Grid.Column="1"/>
+        <HorizontalStackLayout  Grid.Row="3" HorizontalOptions="Center">
 
-        </Grid>
+            <ImageButton Source="my_account_icon_png_3.jpg"
+                     HeightRequest="35"
+                     WidthRequest="35"
+                     Command="{Binding LoginCommand}"
+                     />
+
+        </HorizontalStackLayout>
 
     </Grid>
 

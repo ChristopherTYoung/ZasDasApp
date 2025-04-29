@@ -14,4 +14,5 @@ public interface IAPIService
     public Task<List<Sauce>> GetSauces();
     public Task Order(OrderDTO order);
     public Uri? BaseAddress { get; }
+    public void LogOut();
 }

@@ -32,7 +32,5 @@ public class StockItemDTO : IStoreItem, ICheckoutItem
     public string? ImagePath { set; get; }
     public string? GetImagePath() => ImagePath;
     public int Quantity { set; get; }
-
-
 }
 
