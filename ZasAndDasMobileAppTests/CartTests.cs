@@ -10,6 +10,11 @@ namespace ZasAndDasMobile.Tests
     public class CartTests
     {
         [Fact]
+        public void CanCreateCart()
+        {
+            CartService cart = new CartService();
+        }
+        [Fact]
         public async Task PizzaReturn()
         {
             var api = new MockAPIService();
