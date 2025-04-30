@@ -17,10 +17,5 @@ namespace ZasAndDas.IntegrationTests
         public MobileTests(WebApplicationFactory<Program> app, ITestOutputHelper outputHelper) : base(app, outputHelper)
         {
         }
-        //[Fact]
-        //public async Task CanUpdateMenuWithPizzaBase()
-        //{
-
-        //}
     }
 }
