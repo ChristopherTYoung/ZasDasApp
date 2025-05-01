@@ -1,4 +1,6 @@
 using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.Messaging;
+using ZasAndDasMobile.Messages;
 using ZasAndDasMobile.ViewModels;
 using ZasUndDas.Shared;
 using ZasUndDas.Shared.Data;
@@ -14,6 +16,7 @@ public partial class DrinkPopup : Popup
         BindingContext = vm;
 
         this.Opened += OnPopupOpened;
+        WeakReferenceMessenger.Default.Send<UpdatePopupMessage>();
     }
     private async void OnPopupOpened(object? sender, EventArgs e)
     {

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,13 +9,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZasAndDasMobile.Messages;
 using ZasUndDas.Shared;
 using ZasUndDas.Shared.Data;
 using ZasUndDas.Shared.Services;
 
 namespace ZasAndDasMobile.ViewModels
 {
-    public partial class DrinkPopupViewModel : ObservableObject
+    public partial class DrinkPopupViewModel : ObservableObject, IRecipient<UpdatePopupMessage>
     {
         Popup? _popup;
         IStoreItem item;
@@ -53,12 +55,23 @@ namespace ZasAndDasMobile.ViewModels
             this.item = item;
             _cartService = cartService;
             _menuItemService = menuItemService;
-            DrinkAddins = _menuItemService.GetDAddinDTOs().Result;
+            DrinkAddins = new();
+            WeakReferenceMessenger.Default.Register(this);
+        }
+
+        public async Task Sync()
+        {
+            DrinkAddins = await _menuItemService.GetDAddinDTOs();
         }
 
         public void SetPopup(Popup popup)
         {
             _popup = popup;
+        }
+
+        public async void Receive(UpdatePopupMessage message)
+        {
+            await Sync();
         }
     }
 }
