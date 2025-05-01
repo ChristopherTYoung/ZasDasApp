@@ -38,7 +38,7 @@
             </CollectionView>
 
             <!-- Entry for Password -->
-            <Entry Text="{Binding Password}" Placeholder="Password" />
+            <Entry Text="{Binding Password}" Placeholder="Password" IsPassword="True"/>
             <CollectionView ItemsSource="{Binding Password1Errors}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="x:String">
@@ -48,7 +48,7 @@
             </CollectionView>
 
             <!-- Entry for Confirm Password -->
-            <Entry Text="{Binding ComparePassword}" Placeholder="Confirm Password" />
+            <Entry Text="{Binding ComparePassword}" Placeholder="Confirm Password" IsPassword="True"/>
             <CollectionView ItemsSource="{Binding Password2Errors}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="x:String">

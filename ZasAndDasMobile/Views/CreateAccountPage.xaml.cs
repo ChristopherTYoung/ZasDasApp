@@ -4,9 +4,9 @@ namespace ZasAndDasMobile;
 
 public partial class CreateAccountPage : ContentPage
 {
-    public CreateAccountPage(IAPIService service)
+    public CreateAccountPage(IAPIService service, CreateAccountViewModel vm)
     {
-        BindingContext = new CreateAccountViewModel(service);
+        BindingContext = vm;
         InitializeComponent();
     }
 }
